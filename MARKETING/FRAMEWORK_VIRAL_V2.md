@@ -118,6 +118,98 @@ Síguenos para más [tema ancla del perfil]."
 - Logo CEINCA pequeño en slide 1 y slide 6
 - "Desliza →" solo en slide 1
 
+### ESTILO B — "BOLD DARK" (Variante de impacto)
+
+Estilo minimalista de alto contraste inspirado en cuentas de contenido viral (@charlesalbarran). Se usa como **variación estratégica**, no como estilo principal — el estilo A (cards + fotos) sigue siendo el default.
+
+**Cuándo usar Bold Dark:**
+
+| Tipo de contenido | Ejemplo |
+|---|---|
+| Noticias/novedades | "Instagram acaba de cambiar ESTO" |
+| Datos/estadísticas | "El 80% de los empresarios comete este error" |
+| Tips numerados | "3 errores que te cuestan dinero" |
+| Destrucción de mitos | "No, esto NO funciona como crees" |
+| Listas de razones | "Por estas 5 razones no vendes" |
+
+**Cuándo NO usar Bold Dark:**
+
+| Situación | Por qué |
+|---|---|
+| Posts con fotos del producto/lugar | Las fotos venden más que texto sobre negro |
+| Posts aspiracionales/emocionales | Necesitan imagen para conectar |
+| Testimonios con foto real | La prueba social necesita rostros |
+
+#### Paleta Bold Dark
+
+| Elemento | Color | Uso |
+|---|---|---|
+| Fondo todas las slides | Negro sólido #000000 o Azul marino #0A1C4E | Base — sin degradados, sin texturas |
+| Texto principal | Blanco #FFFFFF | Cuerpo de texto, frases principales |
+| Palabras clave (highlight) | Verde CEINCA #1B7A3D o Dorado #D4A843 | Resaltar 1-2 palabras por slide — las que importan |
+| Badge superior | Color de acento sobre fondo oscuro | Etiqueta de categoría ("NUEVO", "ERROR COMÚN", "DATO") |
+| Barra inferior | Color de acento, texto blanco | Frase complementaria o refuerzo |
+| CTA/Keyword (slide final) | Verde CEINCA #1B7A3D sobre negro | Cierre CTB |
+
+#### Tipografía Bold Dark
+- **Texto principal:** Sans-serif extra bold (Montserrat Black 900 / Impact), tamaño MÁXIMO — debe leerse desde el preview de la grilla
+- **Palabras highlight:** Mismo font, color de acento
+- **Texto complementario (barra inferior):** Sans-serif regular, tamaño pequeño, uppercase
+
+#### Reglas de diseño Bold Dark
+
+1. **1 sola idea por slide** — máximo 2-3 líneas de texto grande
+2. **Sin fotos, sin cards, sin iconos decorativos** — solo texto puro sobre negro
+3. **Highlight selectivo:** solo 1-2 palabras por slide en color de acento — guían la lectura
+4. **Badge de categoría** en la esquina superior (ej: "NUEVA FUNCIÓN", "ERROR COMÚN", "DATO CLAVE")
+5. **Sin numeración de pasos** — este estilo no usa la estructura PASO 01, 02... Fluye como storytelling
+6. **Slide tutorial (opcional):** fondo negro + mockup de celular/screenshot si se explica una interfaz
+7. **Slide final:** mantiene el CTB triple + keyword disruptiva del framework CEINCA estándar
+8. **Logo del cliente/marca** pequeño en slide 1 y slide 6
+
+#### Estructura Bold Dark (6 slides)
+
+SLIDE 1: HOOK TEXTUAL
+- Badge superior: categoría en color de acento
+- Texto gigante: la frase que detiene el scroll (2-3 líneas max)
+- 1-2 palabras en color de acento
+- Icono o logo pequeño en esquina
+
+SLIDE 2: DESARROLLO / CONTEXTO
+- Texto grande: expande la idea del hook
+- Barra inferior con frase complementaria
+
+SLIDE 3-4: VALOR / DESARROLLO
+- 1 idea por slide
+- Texto bold gigante
+- Si es lista: 1 punto por slide, no amontonar
+- Si es tutorial: mockup de pantalla sobre fondo negro
+
+SLIDE 5: DATO CLAVE / REMATE
+- La frase más potente del carrusel
+- Toda en color de acento o con highlight estratégico
+- Funciona como "mini-cierre" antes del CTB
+
+SLIDE 6: CTB TRIPLE (mismo formato que estilo A)
+- Fondo negro/oscuro
+- CTB triple: Guardar → Compartir → Comentar
+- Keyword disruptiva
+- Logo del cliente/marca
+
+#### Rotación recomendada de estilos
+
+Para mantener variedad visual en el feed y evitar monotonía:
+
+| Semana | Estilo sugerido |
+|---|---|
+| Post 1 | Estilo A (cards + fotos) — contenido educativo/guía |
+| Post 2 | Estilo B (Bold Dark) — noticia, dato, mito |
+| Post 3 | Estilo A — tutorial paso a paso |
+| Post 4 | Estilo B — tips/lista/razones |
+| Reel | N/A — formato video |
+
+**Proporción ideal:** 60% Estilo A / 30% Estilo B / 10% formatos especiales (collage, antes/después, meme).
+
 ---
 
 ## PARTE 3 — KEYWORDS DISRUPTIVAS (TRIGGERS)
