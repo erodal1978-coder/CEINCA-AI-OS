@@ -15,9 +15,10 @@
 * Objetivo: Dominar el nicho mercantil/legal en Instagram LATAM.
 
 ## MÓDULOS DEL SISTEMA
-* `AGENTS/` — Agentes especializados (AUDITOR_MERCANTIL, CONTENT_ENGINE, VIRAL_CONTENT_CREATOR)
+* `AGENTS/` — Agentes especializados (AUDITOR_MERCANTIL, CONTENT_ENGINE, VIRAL_CONTENT_CREATOR, IG_AUDITOR)
 * `KNOWLEDGE/` — Base de conocimiento técnico (SAREN, reconversiones, práctica mercantil)
 * `MARKETING/` — Frameworks de contenido, monetización, estrategia de ads
 * `RULES/` — Anti-alucinación, razonamiento legal
 * `STRATEGY/` — Audiencia, core del negocio
+* `CLIENTS/` — Carpetas por cliente con auditorías, contenido generado y seguimiento
 * `ig-viral-tracker/` — Sistema de rastreo de posts virales en Instagram con IA

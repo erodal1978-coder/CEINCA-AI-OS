@@ -19,11 +19,23 @@
 
 #### CUANDO SE PIDA UN CARRUSEL:
 1. Seleccionar keyword disruptiva del banco (verificar que NO esté usada)
-2. Generar los 6 slides siguiendo EXACTAMENTE el Framework CEINCA v2.0:
-   - Slide 1: Hook visual (indicar badge, título, subtítulo, 3 beneficios)
+2. **Elegir estilo visual** según el tipo de contenido:
+   - **Estilo A (Cards + Fotos):** Para guías paso a paso, tutoriales, contenido que necesita imágenes del producto/lugar, testimonios con foto. Es el estilo DEFAULT.
+   - **Estilo B (Bold Dark):** Para noticias, datos/estadísticas, tips numerados, destrucción de mitos, listas de razones. Fondo negro, tipografía bold gigante, highlight selectivo en color de acento. Ver `FRAMEWORK_VIRAL_V2.md` → "ESTILO B — BOLD DARK".
+3. Generar los 6 slides siguiendo el estilo elegido:
+
+   **Si Estilo A:**
+   - Slide 1: Hook visual (badge, título, subtítulo, 3 beneficios)
    - Slide 2: Contexto (PASO 01 + cards informativas)
    - Slides 3-5: Desarrollo (1 idea por slide, numeración, variación de layout)
    - Slide 6: CTB triple completo con keyword asignada
+
+   **Si Estilo B (Bold Dark):**
+   - Slide 1: Hook textual gigante (badge categoría + frase bold + highlight selectivo)
+   - Slide 2: Desarrollo/contexto (texto grande + barra inferior)
+   - Slides 3-4: Valor (1 idea por slide, texto bold, sin cards ni iconos)
+   - Slide 5: Dato clave/remate (la frase más potente)
+   - Slide 6: CTB triple completo con keyword asignada (mismo formato que Estilo A)
 3. Generar el copy de la descripción usando la plantilla correspondiente
 4. Generar el comentario fijado con las situaciones específicas del público
 5. Generar las instrucciones de automatización Meta (trigger + respuesta + DM)
