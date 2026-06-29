@@ -490,3 +490,33 @@ FORMATO       : 1080×1920px, H.264, 30fps
 Ver archivo completo con ejemplo GEM LOPNNA (6 prompts listos):
 → PRODUCTION/FLOW_REELS.md en CEINCA-AI-OS
 
+
+---
+
+### FLOW AGENT + GOOGLE MAPS STREET VIEW (jun 2026)
+
+El Flow Agent puede anclar escenas en ubicaciones reales de Street View
+cuando se activa Agent mode y se menciona un landmark o dirección en el prompt.
+
+**Disponibilidad:** Global — SOLO ubicaciones de EE.UU. por ahora.
+Venezuela/Latinoamérica: NO disponible todavía.
+
+Casos de uso CEINCA aplicables (US):
+- @Eduardo frente a edificio corporativo real en Miami / Houston / NYC
+  para contenido dirigido a diaspora venezolana
+- Fachada real de courthouse federal para contenido de apostilla/legalización
+- Skyline real de ciudad US como fondo premium de posicionamiento
+
+Activación en Flow:
+```
+1. Activar Agent mode en Flow
+2. Incluir en prompt: nombre de landmark O dirección exacta US
+   Ejemplo: "Brickell Ave, Miami, FL" / "Times Square, New York"
+3. Flow ancla la escena en Street View de esa ubicación real
+```
+
+⚠️ NO usar con direcciones venezolanas — el modelo no tiene esos datos.
+Monitorear rollout a Latinoamérica para activar con ubicaciones CEINCA
+(Registro Mercantil Valencia, SAREN Caracas, etc.)
+
+Ver prompts completos y casos de uso en PRODUCTION/FLOW_REELS.md del repo.
