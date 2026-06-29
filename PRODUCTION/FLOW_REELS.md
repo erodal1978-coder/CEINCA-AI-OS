@@ -401,3 +401,91 @@ POST-PRODUCCIÓN META EDITS
 
 *Módulo creado: junio 2026 | Basado en Google Flow changelog hasta 10/06/2026*
 *Actualizar cuando Flow lance nuevas features: Omni Frames to Video, audio inputs, iOS app Flow*
+
+---
+
+## 🗺️ FLOW AGENT + GOOGLE MAPS STREET VIEW (nueva feature — jun 2026)
+
+### ¿Qué hace?
+El Flow Agent ahora puede generar imágenes y videos anclados en ubicaciones
+reales de Google Maps Street View. Al activar Agent mode y mencionar una
+dirección o landmark en el prompt, Flow usa la geometría, iluminación y
+contexto visual real de ese lugar como base de la escena.
+
+**Disponibilidad actual:** Global — SOLO ubicaciones de EE.UU. por ahora.
+Latinoamérica/Venezuela: NO disponible todavía. Monitorear futuros rollouts.
+
+---
+
+### ANÁLISIS DE IMPACTO PARA CEINCA
+
+#### ❌ NO aplicable ahora (Venezuela no cubierta)
+- Escenas en Caracas, Bejuma, registros venezolanos → sin Street View aún
+- No usar con direcciones venezolanas — el modelo no tiene esos datos
+
+#### ✅ SÍ aplicable — Casos de uso CEINCA con ubicaciones US
+
+| Caso de uso | Cómo usarlo |
+|---|---|
+| **Escena de autoridad internacional** | @Eduardo frente a un edificio corporativo real en Miami, NYC o Houston — mercado venezolano en diaspora |
+| **B-Roll de contexto legal** | Fachada real de un courthouse federal en Miami para contenido sobre apostilla/legalización internacional |
+| **Escena de ciudad moderna** | Skyline real de una ciudad US como fondo cinematográfico para Reels de posicionamiento premium |
+| **Contexto de expansión** | "Tus documentos venezolanos ahora válidos aquí" — escena en dirección real de consulado o registro |
+
+#### 🔮 Cuando llegue a Latinoamérica (preparar prompts ya)
+```
+Ubicaciones CEINCA prioritarias para cuando esté disponible:
+- Registro Mercantil de Valencia, Carabobo
+- SAREN Caracas (sede principal)
+- Palacio de Justicia de Caracas
+- Centro Comercial Las Américas, Bejuma (zona CEINCA)
+- Consulados venezolanos en Colombia/Panamá
+```
+
+---
+
+### CÓMO ACTIVAR ESTA FEATURE EN FLOW
+
+```
+1. Abrir proyecto en Flow
+2. Activar Agent mode (toggle en la barra de prompt)
+3. En el prompt incluir:
+   - Nombre de landmark: "Times Square, New York"
+   - O dirección exacta: "123 Brickell Ave, Miami, FL"
+4. Flow consulta Street View y ancla la escena en ese lugar real
+```
+
+### PROMPT TIPO — Escena con Street View (uso diaspora venezolana)
+
+```
+PROMPT FLOW (Agent mode activado):
+@Eduardo standing confidently in front of 1 SE 3rd Ave, Miami, FL —
+Brickell financial district. Real street-level scene from Google Maps
+Street View as background. He wears a dark professional blazer.
+He looks directly at camera with calm authority.
+
+CAMERA: Medium close-up, 85mm equivalent, @Eduardo sharp, Brickell
+building bokeh background.
+LIGHT: Natural midday Miami sun, warm side fill from right.
+FX: Slight cinematic grade, lifted blacks.
+AUDIO: Light urban ambient, distant traffic (auto Veo 3.1).
+CLOSE: FADE TO BLACK.
+DURATION: 8s
+```
+
+---
+
+### LIMITACIÓN IMPORTANTE A INCLUIR EN PROMPTS
+
+```
+⚠️ Esta feature solo funciona con ubicaciones de EE.UU.
+   Si usas una dirección venezolana o latinoamericana, el Agent
+   ignorará Street View y generará un fondo sintético genérico.
+   No mencionar en el prompt "Venezuela" como ubicación geográfica
+   si el objetivo es activar Street View real.
+```
+
+---
+
+*Feature documentada: junio 2026 — Rollout global solo US locations*
+*Actualizar cuando Google extienda Street View grounding a Latinoamérica*
