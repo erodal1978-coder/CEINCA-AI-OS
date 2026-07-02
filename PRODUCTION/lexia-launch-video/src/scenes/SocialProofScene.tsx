@@ -1,7 +1,7 @@
 import React from 'react';
 import { AbsoluteFill } from 'remotion';
 import { AnimatedText } from '../components/AnimatedText';
-import { AvatarCluster } from '../components/AvatarCluster';
+import { PhotoStack } from '../components/PhotoStack';
 import { GoldDivider, SceneBackground } from '../components/SceneBackground';
 import { GOLD, WHITE } from '../brand';
 
@@ -13,10 +13,10 @@ export const SocialProofScene: React.FC = () => {
           justifyContent: 'center',
           alignItems: 'center',
           padding: '0 70px',
-          gap: 30,
+          gap: 22,
         }}
       >
-        <AvatarCluster delay={0} />
+        <PhotoStack delay={0} />
 
         <AnimatedText delay={20} fontSize={38} fontWeight={700} color="#C9D3E4" lineHeight={1.3}>
           Construido sobre la práctica real de CEINCA
