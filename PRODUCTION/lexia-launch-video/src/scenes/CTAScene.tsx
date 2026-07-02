@@ -20,7 +20,7 @@ export const CTAScene: React.FC = () => {
             (a tasa BCV — precio de lanzamiento)
           </AnimatedText>
           <AnimatedText delay={40} fontSize={26} fontWeight={700} color={WHITE}>
-            Promo extendida limitada: $97
+            Promo extendida: $97 hasta el 15/7
           </AnimatedText>
         </AbsoluteFill>
       </Sequence>
