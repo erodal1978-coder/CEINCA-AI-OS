@@ -4,13 +4,13 @@ import { GOLD } from '../brand';
 
 // Fotos reales de las Jornadas CEINCA (Caracas y Táchira) — public/images/jornadas/.
 const PHOTOS: { src: string; rotate: number; offsetX: number }[] = [
-  { src: 'jornadas/jornada-3.jpg', rotate: -7, offsetX: -150 },
-  { src: 'jornadas/jornada-1.jpg', rotate: 3, offsetX: 0 },
-  { src: 'jornadas/jornada-2.jpg', rotate: 8, offsetX: 150 },
+  { src: 'jornadas/jornada-3.jpg', rotate: -8, offsetX: -195 },
+  { src: 'jornadas/jornada-1.jpg', rotate: 4, offsetX: 0 },
+  { src: 'jornadas/jornada-2.jpg', rotate: 9, offsetX: 195 },
 ];
 
-const CARD_W = 210;
-const CARD_H = 300;
+const CARD_W = 330;
+const CARD_H = 470;
 
 export const PhotoStack: React.FC<{ delay?: number }> = ({ delay = 0 }) => {
   const frame = useCurrentFrame();
@@ -36,11 +36,11 @@ export const PhotoStack: React.FC<{ delay?: number }> = ({ delay = 0 }) => {
               transform: `rotate(${photo.rotate}deg) translateY(${translateY}px)`,
               opacity,
               zIndex: i === 1 ? 2 : 1,
-              padding: 8,
+              padding: 10,
               background: '#F7F5EF',
-              borderRadius: 6,
-              boxShadow: '0 20px 45px rgba(0,0,0,0.5)',
-              border: `1px solid ${GOLD}`,
+              borderRadius: 8,
+              boxShadow: '0 26px 60px rgba(0,0,0,0.55)',
+              border: `1.5px solid ${GOLD}`,
             }}
           >
             <Img
