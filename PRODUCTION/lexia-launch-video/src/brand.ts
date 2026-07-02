@@ -8,13 +8,15 @@ export const MUTED = '#9FB0C9';
 
 export const FPS = 30;
 
-// Estructura NEAPS (MARKETING/NEAPS_AIDA.md) — 35s totales, 1050 frames @30fps
+// Estructura NEAPS (MARKETING/NEAPS_AIDA.md) — 42s totales, 1260 frames @30fps
+// Duraciones ampliadas frente a la v1 (35s) para dar más tiempo de lectura
+// a los bloques con más texto (Entorno, reveal de 120 formatos, CTA final).
 export const TIMING = {
-  hook: { from: 0, duration: 6 * FPS }, // N — Núcleo del dolor
-  entorno: { from: 6 * FPS, duration: 6 * FPS }, // E — Entorno regulatorio
-  producto: { from: 12 * FPS, duration: 9 * FPS }, // A+P — Atención visual / Propuesta de valor
-  prueba: { from: 21 * FPS, duration: 7 * FPS }, // Prueba social + bono
-  cta: { from: 28 * FPS, duration: 7 * FPS }, // S — Solución / Call to Benefit
+  hook: { from: 0, duration: 7 * FPS }, // N — Núcleo del dolor
+  entorno: { from: 7 * FPS, duration: 7 * FPS }, // E — Entorno regulatorio
+  producto: { from: 14 * FPS, duration: 12 * FPS }, // A+P — Atención visual / Propuesta de valor
+  prueba: { from: 26 * FPS, duration: 8 * FPS }, // Prueba social + bono
+  cta: { from: 34 * FPS, duration: 8 * FPS }, // S — Solución / Call to Benefit
 };
 
-export const TOTAL_DURATION = 35 * FPS; // 1050 frames
+export const TOTAL_DURATION = 42 * FPS; // 1260 frames
