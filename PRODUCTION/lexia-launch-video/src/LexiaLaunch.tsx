@@ -7,13 +7,12 @@ import { ProductRevealScene } from './scenes/ProductRevealScene';
 import { SocialProofScene } from './scenes/SocialProofScene';
 import { CTAScene } from './scenes/CTAScene';
 
-// Pista de música local pendiente de integrar (ver README de este proyecto).
-// 1. Copiar el archivo a public/audio/lexia-track.mp3
-// 2. Cambiar HAS_MUSIC a true
-// (El render final de Remotion falla si Audio apunta a un archivo que no
-// existe, así que se controla con esta bandera en vez de detección en
-// tiempo de ejecución.)
-const HAS_MUSIC = false;
+// Pista instrumental original generada por síntesis (sin muestras de
+// terceros, sin riesgo de derechos), sincronizada al arco NEAPS del guion.
+// Para reemplazarla por otra: sobrescribir public/audio/lexia-track.mp3
+// (o cambiar MUSIC_TRACK) — HAS_MUSIC controla si se incluye en el render,
+// ya que Remotion falla si el <Audio> apunta a un archivo inexistente.
+const HAS_MUSIC = true;
 const MUSIC_TRACK = 'audio/lexia-track.mp3';
 
 export const LexiaLaunch: React.FC = () => {

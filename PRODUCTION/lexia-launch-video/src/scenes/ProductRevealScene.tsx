@@ -6,7 +6,7 @@ import { GoldDivider, SceneBackground } from '../components/SceneBackground';
 import { GOLD, WHITE } from '../brand';
 
 // A + P — Atención visual (cortes cada 2-3s) + Propuesta de valor.
-// Beats: título LEXIA -> GEM Mercantil -> GEM LOPNNA -> 60 formatos.
+// Beats: título LEXIA -> GEM Mercantil -> GEM LOPNNA -> 120 formatos (60+60).
 export const ProductRevealScene: React.FC = () => {
   return (
     <SceneBackground goldPulse>
@@ -44,14 +44,17 @@ export const ProductRevealScene: React.FC = () => {
       </Sequence>
 
       <Sequence from={210} durationInFrames={60}>
-        <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', gap: 22, padding: '0 70px' }}>
+        <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', gap: 20, padding: '0 70px' }}>
           <AnimatedText delay={0} fontSize={116} fontWeight={900} color={GOLD}>
-            +60
+            120
           </AnimatedText>
           <AnimatedText delay={12} fontSize={40} fontWeight={800} color={WHITE} lineHeight={1.2}>
             FORMATOS LEGALES EDITABLES
           </AnimatedText>
-          <AnimatedText delay={24} fontSize={28} fontWeight={600} color="#C9D3E4">
+          <AnimatedText delay={20} fontSize={26} fontWeight={700} color="#C9D3E4">
+            60 Mercantil + 60 LOPNNA
+          </AnimatedText>
+          <AnimatedText delay={30} fontSize={26} fontWeight={600} color="#C9D3E4">
             Organizados por carpetas, enviados directo a tu correo
           </AnimatedText>
         </AbsoluteFill>
