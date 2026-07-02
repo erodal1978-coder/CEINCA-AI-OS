@@ -1,0 +1,22 @@
+{
+  "name": "lexia-launch-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Video de lanzamiento (Remotion) del paquete LEXIA™ — CEINCA AI OS",
+  "scripts": {
+    "start": "remotion studio",
+    "build": "remotion render LexiaLaunch out/lexia-launch.mp4",
+    "still": "remotion still LexiaLaunch out/lexia-launch.png",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.286",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.286"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.1",
+    "typescript": "5.5.4"
+  }
+}
