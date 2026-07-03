@@ -7,11 +7,14 @@ import { ProductRevealScene } from './scenes/ProductRevealScene';
 import { SocialProofScene } from './scenes/SocialProofScene';
 import { CTAScene } from './scenes/CTAScene';
 
-// Pista instrumental original generada por síntesis (sin muestras de
-// terceros, sin riesgo de derechos), sincronizada al arco NEAPS del guion.
-// Para reemplazarla por otra: sobrescribir public/audio/lexia-track.mp3
-// (o cambiar MUSIC_TRACK) — HAS_MUSIC controla si se incluye en el render,
-// ya que Remotion falla si el <Audio> apunta a un archivo inexistente.
+// "Rise Of The Corporation" (StudioKolomna, Pixabay Content License —
+// uso comercial libre, sin atribución obligatoria: pixabay.com/service/license-summary).
+// Editada a 42s (breakdown + sección fuerte del original) para sincronizar
+// con el arco NEAPS del guion — ver README para el detalle del edit.
+// Alternativa 100% sintetizada (cero riesgo de derechos) en
+// public/audio/lexia-track-synth.mp3, por si se prefiere volver a ella.
+// HAS_MUSIC controla si se incluye en el render — Remotion falla si el
+// <Audio> apunta a un archivo inexistente.
 const HAS_MUSIC = true;
 const MUSIC_TRACK = 'audio/lexia-track.mp3';
 
