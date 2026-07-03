@@ -5,7 +5,8 @@ import { GoldDivider, SceneBackground } from '../components/SceneBackground';
 import { GOLD, WHITE } from '../brand';
 
 // E — Entorno regulatorio: posicionamiento correcto de LEXIA.
-// No es "documentos en segundos" genérico — es precisión real.
+// No es "documentos en segundos" genérico — es autoridad de +20 años
+// de práctica real, no un mínimo de "que no te lo rechacen".
 export const EntornoScene: React.FC = () => {
   return (
     <SceneBackground>
@@ -26,11 +27,11 @@ export const EntornoScene: React.FC = () => {
         <GoldDivider />
 
         <AnimatedText delay={45} fontSize={58} fontWeight={900} color={GOLD} lineHeight={1.15}>
-          LO QUE IMPORTA ES QUE LOS
+          LEXIA NACE DE MÁS DE
           <br />
-          TRIBUNALES Y REGISTROS
+          20 AÑOS DE PRÁCTICA
           <br />
-          LO ACEPTEN.
+          LEGAL REAL.
         </AnimatedText>
       </AbsoluteFill>
     </SceneBackground>

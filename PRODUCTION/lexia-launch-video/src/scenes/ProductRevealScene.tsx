@@ -29,7 +29,7 @@ export const ProductRevealScene: React.FC = () => {
         <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
           <GemCard
             title={'GEM Mercantil\nCEINCA™'}
-            subtitle="Agente entrenado en la práctica mercantil venezolana real"
+            subtitle="+20 años de práctica mercantil venezolana real"
           />
         </AbsoluteFill>
       </Sequence>
@@ -38,7 +38,7 @@ export const ProductRevealScene: React.FC = () => {
         <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center' }}>
           <GemCard
             title={'GEM LOPNNA\nCEINCA™'}
-            subtitle="Especializado en documentos y procesos de niñez y adolescencia"
+            subtitle="+20 años de experiencia en niñez y adolescencia"
           />
         </AbsoluteFill>
       </Sequence>
