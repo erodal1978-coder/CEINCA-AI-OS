@@ -34,30 +34,39 @@ mantener estas dos restricciones.
 
 ## 🎵 Música
 
-`public/audio/lexia-track.mp3` es una pista instrumental **100% original**,
-sintetizada por código (`gen_track.py`, no incluido en el repo — generado
-en la sesión que armó este proyecto) para evitar cualquier riesgo de
-derechos de autor. Sigue el arco NEAPS del guion: tensión dispersa en el
-Hook/Entorno (0–12s), entra el groove (kick + arpegio en La dórico) desde
-el reveal de producto (12s), riser antes del "drop" en la palabra MAJARETE
-(~31.5s) y cierre con fade-out. Está activada (`HAS_MUSIC = true` en
-`src/LexiaLaunch.tsx`, volumen 0.55). Si se quiere reemplazar por una pista
-propia, basta con sobrescribir el mp3 (mismo nombre) o cambiar
-`MUSIC_TRACK`.
+`public/audio/lexia-track.mp3` (**pista activa**, `HAS_MUSIC = true` en
+`src/LexiaLaunch.tsx`) es una pista instrumental **100% original**,
+sintetizada por código (`gen_track.py`, no incluido en el repo) para evitar
+cualquier riesgo de derechos de autor. Sigue el arco NEAPS del guion:
+tensión dispersa en el Hook/Entorno (0–14s), entra el groove (kick + arpegio
+en La dórico) desde el reveal de producto (14s), riser antes del "drop" en
+la palabra MAJARETE (~37.8s) y cierre con fade-out. Volumen 0.55.
+
+`public/audio/lexia-track-alt.mp3` — **candidata, NO activa, pendiente de
+confirmar derechos de uso comercial con Eduardo.** Es un edit de 42s hecho a
+partir de una pista de 2:04 que envió el usuario: toma el breakdown del
+archivo original (segundos 62–76) para el tramo tenso, y su sección más
+fuerte (segundos 81–109) para el resto, con crossfade corto en el corte
+(≈14s). Para probarla, cambiar `MUSIC_TRACK` a `'audio/lexia-track-alt.mp3'`
+temporalmente — **no dejar como pista activa hasta confirmar que es de uso
+libre o licenciada para este video.**
 
 ## 📸 Fotos de las Jornadas (prueba social)
 
-`src/components/PhotoStack.tsx` muestra un collage de 3 fotos reales,
-traídas de Google Drive (`Jornadas fotos/`), en `SocialProofScene`:
+`src/components/PhotoStack.tsx` muestra un collage de 3 fotos reales en
+`SocialProofScene`:
 
-- `public/images/jornadas/jornada-1.jpg` — Eduardo dictando la jornada, Caracas (FONPYME)
-- `public/images/jornadas/jornada-2.jpg` — asistentes tomando notas, jornada Caracas (FONPYME)
-- `public/images/jornadas/jornada-3.jpg` — auditorio, jornada Táchira (ULA)
+- `public/images/jornadas/jornada-1.jpg` — pantalla "II Jornada de Derecho Mercantil", Táchira (ULA)
+- `public/images/jornadas/jornada-2.jpg` — salón lleno, Jornada Barinas (Colegio de Abogados)
+- `public/images/jornadas/jornada-3.jpg` — momento candid explicando con gesto de manos, jornada Caracas (FONPYME)
 
-Se descartaron fotos de diplomas/banners (poco visuales) y una foto de
-integración social (piscina, Barinas) por no ser representativa del
-contenido profesional. Para cambiar alguna, sobrescribe el archivo
-correspondiente (mismo nombre) — están redimensionadas a 900px de ancho.
+Curadas por Eduardo desde su Google Drive (10 candidatas revisadas, ver
+historial del proyecto) priorizando que la audiencia sea protagonista, no el
+ponente. Se descartaron fotos de diplomas/banners (poco visuales), selfies,
+y una foto de integración social (piscina, Barinas) por no ser
+representativa del contenido profesional. Para cambiar alguna, sobrescribe
+el archivo correspondiente (mismo nombre) — están redimensionadas a 900px
+de ancho.
 
 ## ⚠️ Assets pendientes
 
