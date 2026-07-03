@@ -39,10 +39,10 @@ export const SocialProofScene: React.FC = () => {
           <AnimatedText delay={55} fontSize={30} fontWeight={800} color={GOLD}>
             BONO DE LANZAMIENTO
           </AnimatedText>
-          <AnimatedText delay={65} fontSize={30} fontWeight={700} color={WHITE} lineHeight={1.3}>
+          <AnimatedText delay={65} fontSize={28} fontWeight={700} color={WHITE} lineHeight={1.3}>
             Los primeros 15 compradores reciben
             <br />
-            asesoría 1:1 de 45 min por Meet
+            auditoría de tu Instagram o TikTok
           </AnimatedText>
         </div>
       </AbsoluteFill>
