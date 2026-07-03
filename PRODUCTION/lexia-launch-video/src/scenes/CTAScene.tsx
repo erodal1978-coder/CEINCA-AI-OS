@@ -13,14 +13,14 @@ export const CTAScene: React.FC = () => {
           <AnimatedText delay={0} fontSize={40} fontWeight={700} color="#8AA0C2">
             <span style={{ textDecoration: 'line-through' }}>$397</span>
           </AnimatedText>
-          <AnimatedText delay={12} fontSize={132} fontWeight={900} color={GOLD}>
-            $147
+          <AnimatedText delay={12} fontSize={148} fontWeight={900} color={GOLD}>
+            $97
           </AnimatedText>
-          <AnimatedText delay={30} fontSize={30} fontWeight={600} color="#C9D3E4">
-            (a tasa BCV — precio de lanzamiento)
+          <AnimatedText delay={30} fontSize={30} fontWeight={700} color={WHITE}>
+            Promo válida hasta el 20 de julio
           </AnimatedText>
-          <AnimatedText delay={46} fontSize={26} fontWeight={700} color={WHITE}>
-            Promo extendida: $97 hasta el 15/7
+          <AnimatedText delay={46} fontSize={26} fontWeight={600} color="#C9D3E4">
+            (a tasa BCV) — después vuelve a $197
           </AnimatedText>
         </AbsoluteFill>
       </Sequence>
