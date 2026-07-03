@@ -34,22 +34,20 @@ mantener estas dos restricciones.
 
 ## 🎵 Música
 
-`public/audio/lexia-track.mp3` (**pista activa**, `HAS_MUSIC = true` en
-`src/LexiaLaunch.tsx`) es una pista instrumental **100% original**,
-sintetizada por código (`gen_track.py`, no incluido en el repo) para evitar
-cualquier riesgo de derechos de autor. Sigue el arco NEAPS del guion:
-tensión dispersa en el Hook/Entorno (0–14s), entra el groove (kick + arpegio
-en La dórico) desde el reveal de producto (14s), riser antes del "drop" en
-la palabra MAJARETE (~37.8s) y cierre con fade-out. Volumen 0.55.
+`public/audio/lexia-track.mp3` (**pista activa**) es **"Rise Of The
+Corporation" de StudioKolomna**, descargada de Pixabay
+([Content License](https://pixabay.com/service/license-summary/) — uso
+comercial libre, sin atribución obligatoria). Editada a 42s: se toma el
+breakdown del original (segundos 62–76 del archivo fuente, 2:04) para el
+tramo tenso del Hook/Entorno, y su sección más fuerte (segundos 81–109)
+para el resto, con un crossfade corto en el corte (≈14s, justo donde
+arranca el reveal del producto). Volumen 0.55.
 
-`public/audio/lexia-track-alt.mp3` — **candidata, NO activa, pendiente de
-confirmar derechos de uso comercial con Eduardo.** Es un edit de 42s hecho a
-partir de una pista de 2:04 que envió el usuario: toma el breakdown del
-archivo original (segundos 62–76) para el tramo tenso, y su sección más
-fuerte (segundos 81–109) para el resto, con crossfade corto en el corte
-(≈14s). Para probarla, cambiar `MUSIC_TRACK` a `'audio/lexia-track-alt.mp3'`
-temporalmente — **no dejar como pista activa hasta confirmar que es de uso
-libre o licenciada para este video.**
+`public/audio/lexia-track-synth.mp3` — pista alternativa 100% sintetizada
+por código (`gen_track.py`, no incluido en el repo), cero riesgo de
+derechos por diseño. Se guarda como respaldo por si se prefiere volver a
+ella; para activarla, cambiar `MUSIC_TRACK` en `src/LexiaLaunch.tsx` a
+`'audio/lexia-track-synth.mp3'`.
 
 ## 📸 Fotos de las Jornadas (prueba social)
 
