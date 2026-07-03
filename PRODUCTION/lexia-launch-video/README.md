@@ -16,7 +16,7 @@ bloques con más texto — ver nota de ritmo más abajo.
 | E — Entorno regulatorio | `EntornoScene` | 7–14s | Posicionamiento: no "documentos en segundos", sino precisión que tribunales y registros aceptan |
 | A + P — Atención visual / Propuesta de valor | `ProductRevealScene` | 14–26s | Reveal LEXIA™ → GEM Mercantil CEINCA™ → GEM LOPNNA CEINCA™ → "120 formatos editables (60 Mercantil + 60 LOPNNA)" |
 | Prueba social + bono | `SocialProofScene` | 26–34s | Respaldo CEINCA + bono de asesoría 1:1 para los primeros 15 compradores |
-| S — Solución / CTA | `CTAScene` | 34–42s | Precio ancla $397 tachado → $147 (promo $97 hasta el 15/7) + palabra clave **MAJARETE** + landing |
+| S — Solución / CTA | `CTAScene` | 34–42s | Precio ancla $397 tachado → **$97** (promo hasta el 20/7, después vuelve a $197) + palabra clave **MAJARETE** + landing |
 
 **Nota de ritmo:** `AnimatedText` solo anima la entrada (no hay fade-out), así
 que una vez que un texto aparece queda fijo en pantalla hasta que termina su
