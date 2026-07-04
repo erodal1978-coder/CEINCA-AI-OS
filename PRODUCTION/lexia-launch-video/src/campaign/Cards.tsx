@@ -236,3 +236,223 @@ export const Card7Cta: React.FC = () => (
     </StaticText>
   </Frame>
 );
+
+// ═══════════════════════════════════════════════════════════════════════
+// ÁNGULO 2 — POST: riesgo concreto / miedo al rechazo formal.
+// Distinto del video (autoridad/+20 años) y del PostCard (resumen oferta).
+// ═══════════════════════════════════════════════════════════════════════
+export const PostRisk: React.FC = () => (
+  <Frame gap={24}>
+    <div
+      style={{
+        display: 'inline-block',
+        background: 'rgba(200,60,60,.14)',
+        border: '1px solid rgba(230,90,90,.45)',
+        color: '#E67E7E',
+        fontFamily: '"Arial Black", "Helvetica Neue", Arial, sans-serif',
+        fontWeight: 800,
+        fontSize: 19,
+        letterSpacing: 1,
+        padding: '8px 20px',
+        borderRadius: 20,
+        textTransform: 'uppercase',
+      }}
+    >
+      Antes de presentarlo, pregúntate esto
+    </div>
+    <StaticText fontSize={52} fontWeight={900} color={WHITE} lineHeight={1.18}>
+      ¿ESE FORMATO
+      <br />
+      RESISTE UNA REVISIÓN
+      <br />
+      <span style={{ color: GOLD }}>EN SAREN O TRIBUNAL?</span>
+    </StaticText>
+    <StaticText fontSize={26} fontWeight={600} color="#C9D3E4" lineHeight={1.4}>
+      Un acta mal estructurada o una notificación LOPNNA
+      <br />
+      con el formato equivocado no se corrige en un día:
+      <br />
+      se corrige en semanas.
+    </StaticText>
+
+    <GoldDivider />
+
+    <StaticText fontSize={28} fontWeight={800} color={WHITE} lineHeight={1.4}>
+      LEXIA™ usa 120 formatos validados
+      <br />
+      con +20 años de práctica real —
+      <br />
+      <span style={{ color: GOLD }}>no plantillas genéricas de internet.</span>
+    </StaticText>
+
+    <div
+      style={{
+        marginTop: 4,
+        background: '#25D366',
+        color: WHITE,
+        fontFamily: '"Arial Black", "Helvetica Neue", Arial, sans-serif',
+        fontWeight: 800,
+        fontSize: 28,
+        padding: '18px 44px',
+        borderRadius: 16,
+      }}
+    >
+      Comenta MAJARETE
+    </div>
+  </Frame>
+);
+
+// ═══════════════════════════════════════════════════════════════════════
+// ÁNGULO 3 — CARRUSEL: ahorro de tiempo / demo del flujo en 3 pasos.
+// Distinto del video (autoridad) y del Post (riesgo). Usa el ejemplo real
+// de la sección "Cómo funciona" de la landing, con formato de chat.
+// ═══════════════════════════════════════════════════════════════════════
+const ChatBubble: React.FC<{ from: 'user' | 'gem'; children: React.ReactNode }> = ({ from, children }) => (
+  <div
+    style={{
+      alignSelf: from === 'user' ? 'flex-end' : 'flex-start',
+      maxWidth: '86%',
+      background: from === 'user' ? GOLD : 'rgba(255,255,255,.08)',
+      border: from === 'user' ? 'none' : '1px solid rgba(212,175,55,.35)',
+      color: from === 'user' ? '#1C1C1E' : WHITE,
+      borderRadius: 22,
+      borderBottomRightRadius: from === 'user' ? 4 : 22,
+      borderBottomLeftRadius: from === 'gem' ? 4 : 22,
+      padding: '18px 24px',
+    }}
+  >
+    <StaticText fontSize={24} fontWeight={700} color={from === 'user' ? '#1C1C1E' : WHITE} align="left" lineHeight={1.35}>
+      {children}
+    </StaticText>
+  </div>
+);
+
+export const FlowHook: React.FC = () => (
+  <Frame gap={26}>
+    <StaticText fontSize={30} fontWeight={700} color="#C9D3E4">
+      ¿Y SI EN VEZ DE BUSCAR EL FORMATO...
+    </StaticText>
+    <StaticText fontSize={64} fontWeight={900} color={GOLD} lineHeight={1.15}>
+      SOLO LO
+      <br />
+      CONVERSARAS?
+    </StaticText>
+    <GoldDivider />
+    <StaticText fontSize={28} fontWeight={600} color={WHITE} lineHeight={1.4}>
+      Así funciona LEXIA™ en 3 pasos.
+      <br />
+      Desliza.
+    </StaticText>
+  </Frame>
+);
+
+export const FlowStep1: React.FC = () => (
+  <Frame gap={22}>
+    <StaticText fontSize={30} fontWeight={800} color={GOLD}>
+      PASO 1 — DESCRIBE TU CASO
+    </StaticText>
+    <StaticText fontSize={24} fontWeight={600} color="#C9D3E4" lineHeight={1.35}>
+      Como se lo explicarías a un colega.
+    </StaticText>
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 16, marginTop: 8 }}>
+      <ChatBubble from="user">
+        "Necesito una asamblea de aumento de capital
+        <br />
+        para una C.A. de Carabobo, son 2 socios."
+      </ChatBubble>
+    </div>
+  </Frame>
+);
+
+export const FlowStep2: React.FC = () => (
+  <Frame gap={22}>
+    <StaticText fontSize={30} fontWeight={800} color={GOLD}>
+      PASO 2 — EL GEM PREGUNTA
+    </StaticText>
+    <StaticText fontSize={24} fontWeight={600} color="#C9D3E4" lineHeight={1.35}>
+      Lo que falta, antes de redactar.
+    </StaticText>
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 16, marginTop: 8 }}>
+      <ChatBubble from="user">
+        "Necesito una asamblea de aumento de capital..."
+      </ChatBubble>
+      <ChatBubble from="gem">
+        "¿Cuál es el capital actual y el nuevo monto?
+        <br />
+        ¿Los socios mantienen la misma proporción?"
+      </ChatBubble>
+    </div>
+  </Frame>
+);
+
+export const FlowStep3: React.FC = () => (
+  <Frame gap={22} goldPulse>
+    <StaticText fontSize={30} fontWeight={800} color={GOLD}>
+      PASO 3 — RECIBES EL DOCUMENTO
+    </StaticText>
+    <StaticText fontSize={24} fontWeight={600} color="#C9D3E4" lineHeight={1.35}>
+      Completo, listo para presentar.
+    </StaticText>
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 16, marginTop: 8 }}>
+      <ChatBubble from="gem">
+        "Aquí tienes el acta de asamblea de aumento
+        <br />
+        de capital, con el formato SAREN vigente."
+      </ChatBubble>
+    </div>
+    <GoldDivider />
+    <StaticText fontSize={26} fontWeight={800} color={WHITE}>
+      Sin plantillas genéricas. Sin adivinar el formato.
+    </StaticText>
+  </Frame>
+);
+
+export const FlowSpeed: React.FC = () => (
+  <Frame gap={20}>
+    <StaticText fontSize={30} fontWeight={700} color="#C9D3E4">
+      LO QUE ANTES TOMABA HORAS...
+    </StaticText>
+    <StaticText fontSize={70} fontWeight={900} color={GOLD} lineHeight={1.1}>
+      AHORA TOMA
+      <br />
+      MINUTOS.
+    </StaticText>
+    <div style={{ width: '100%', marginTop: 6 }}>
+      <StatsRow
+        stats={[
+          { n: '2', l: 'Agentes IA' },
+          { n: '120+', l: 'Formatos' },
+          { n: '14', l: 'Carpetas' },
+        ]}
+      />
+    </div>
+  </Frame>
+);
+
+export const FlowCta: React.FC = () => (
+  <Frame gap={20} goldPulse>
+    <StaticText fontSize={34} fontWeight={700} color="#8AA0C2">
+      <span style={{ textDecoration: 'line-through' }}>$397</span>
+    </StaticText>
+    <StaticText fontSize={110} fontWeight={900} color={GOLD}>
+      $97
+    </StaticText>
+    <StaticText fontSize={24} fontWeight={600} color="#C9D3E4">
+      Promo hasta el 20 de julio (después $197)
+    </StaticText>
+    <div
+      style={{
+        marginTop: 6,
+        background: '#25D366',
+        color: WHITE,
+        fontFamily: '"Arial Black", "Helvetica Neue", Arial, sans-serif',
+        fontWeight: 800,
+        fontSize: 28,
+        padding: '18px 44px',
+        borderRadius: 16,
+      }}
+    >
+      Comenta MAJARETE
+    </div>
+  </Frame>
+);
