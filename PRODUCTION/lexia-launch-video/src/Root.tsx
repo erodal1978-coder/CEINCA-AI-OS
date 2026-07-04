@@ -11,6 +11,13 @@ import {
   Card5Social,
   Card6Price,
   Card7Cta,
+  PostRisk,
+  FlowHook,
+  FlowStep1,
+  FlowStep2,
+  FlowStep3,
+  FlowSpeed,
+  FlowCta,
 } from './campaign/Cards';
 
 const campaignCards: { id: string; component: React.FC }[] = [
@@ -22,6 +29,13 @@ const campaignCards: { id: string; component: React.FC }[] = [
   { id: 'LexiaCarousel5Social', component: Card5Social },
   { id: 'LexiaCarousel6Price', component: Card6Price },
   { id: 'LexiaCarousel7Cta', component: Card7Cta },
+  { id: 'LexiaPostRisk', component: PostRisk },
+  { id: 'LexiaFlow1Hook', component: FlowHook },
+  { id: 'LexiaFlow2Step1', component: FlowStep1 },
+  { id: 'LexiaFlow3Step2', component: FlowStep2 },
+  { id: 'LexiaFlow4Step3', component: FlowStep3 },
+  { id: 'LexiaFlow5Speed', component: FlowSpeed },
+  { id: 'LexiaFlow6Cta', component: FlowCta },
 ];
 
 export const RemotionRoot: React.FC = () => {
