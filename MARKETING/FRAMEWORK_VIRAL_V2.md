@@ -216,6 +216,8 @@ Para mantener variedad visual en el feed y evitar monotonía:
 
 ## PARTE 3 — KEYWORDS DISRUPTIVAS (TRIGGERS)
 
+> 📖 **Banco completo de palabras disruptivas:** el registro maestro (107 venezolanismos verificados por categoría + historial de uso + términos excluidos por carga política) vive en [`MARKETING/CTB_PALABRAS_DISRUPTIVAS.md`](./CTB_PALABRAS_DISRUPTIVAS.md). El banco corto de esta sección es solo referencia rápida — consulta ese archivo antes de asignar una keyword nueva.
+
 ### Por qué palabras raras y no genéricas
 
 | Keyword genérica (NO) | Keyword disruptiva (SÍ) | Por qué funciona |
