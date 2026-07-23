@@ -8,6 +8,7 @@ El ecosistema está estructurado en módulos independientes de alta ingeniería 
 *   **📂 MARKETING/**: Sistemas de conversión viral basados en el Framework NEAPS + AIDA y la Escalera de Monetización oficial.
 *   **📂 KNOWLEDGE/**: Base de datos de campo sobre la realidad operativa de las taquillas del SAREN, criterios de rechazo regional y adecuación de figuras societarias.
 *   **📂 AGENTS/**: Prompts maestros para la activación de empleados virtuales (Auditor Mercantil IA y Content Engine).
+*   **📂 PRODUCTION/**: Sistema de producción cinematográfica de Reels con avatar IA en Google Flow + edición en Meta Edits. Incluye workflow completo con Gemini Omni Flash, Frames to Video, Flow Agent, character consistency y prompts listos por escena. Incluye también el módulo OpenMontage: pipeline automatizado dentro de Claude Code (guion + voz + metraje + edición + render) para contenido educativo de bajo costo, con blindaje normativo obligatorio antes de publicar temas legales.
 ## 🎯 Declaración de Principios (CEINCA)
 > "El profesional moderno venezolano no necesita trabajar más horas. Necesita mejores sistemas. No entregamos información cruda; entregamos Información + Interpretación de Negocios + Plan de Acción."
 **Estética Corporativa Oficial:** Azul Profundo (`#0B1D3A`) & Dorado Premium. Estilo cinematográfico y minimalista. Prohibida la iconografía jurídica tradicional obsoleta.
