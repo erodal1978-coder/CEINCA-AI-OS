@@ -25,6 +25,12 @@
       "skillPath": "skills/emil-design-eng/SKILL.md",
       "computedHash": "8bdf9e4e6de7a4969147bf4828a4ad2c5aacd9fba4b690b250a85e0467ca387d"
     },
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-best-practices/SKILL.md",
+      "computedHash": "e548a5e641b77eb0a067a54005551715eb2ca19d28945e09366c3a4e3c889f29"
+    },
     "review-animations": {
       "source": "emilkowalski/skill",
       "sourceType": "github",
