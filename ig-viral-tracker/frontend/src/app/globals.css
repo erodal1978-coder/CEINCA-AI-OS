@@ -83,41 +83,49 @@ body {
   }
   .dark {
 
-    --background: oklch(0.145 0 0);
+    /* CEINCA Navy #0B1D3A */
+    --background: oklch(0.234 0.061 259.522);
 
     --foreground: oklch(0.985 0 0);
 
-    --card: oklch(0.205 0 0);
+    /* Lighter navy surface #132A52, 13.2:1 contrast with foreground */
+    --card: oklch(0.291 0.079 260.631);
 
     --card-foreground: oklch(0.985 0 0);
 
-    --popover: oklch(0.205 0 0);
+    --popover: oklch(0.291 0.079 260.631);
 
     --popover-foreground: oklch(0.985 0 0);
 
-    --primary: oklch(0.922 0 0);
+    /* CEINCA Gold #C8A951 */
+    --primary: oklch(0.745 0.113 90.040);
 
-    --primary-foreground: oklch(0.205 0 0);
+    /* Navy text on gold, 7.39:1 contrast (AAA) */
+    --primary-foreground: oklch(0.234 0.061 259.522);
 
-    --secondary: oklch(0.269 0 0);
+    /* Mid navy #1A335E for secondary/muted/accent surfaces */
+    --secondary: oklch(0.326 0.083 260.501);
 
     --secondary-foreground: oklch(0.985 0 0);
 
-    --muted: oklch(0.269 0 0);
+    --muted: oklch(0.326 0.083 260.501);
 
-    --muted-foreground: oklch(0.708 0 0);
+    /* Soft blue-gray #A8B3C7, 7.94:1 contrast on background */
+    --muted-foreground: oklch(0.765 0.031 262.506);
 
-    --accent: oklch(0.269 0 0);
+    --accent: oklch(0.326 0.083 260.501);
 
     --accent-foreground: oklch(0.985 0 0);
 
     --destructive: oklch(0.704 0.191 22.216);
 
-    --border: oklch(1 0 0 / 10%);
+    /* Navy border #24406E, visible separation on flat navy background */
+    --border: oklch(0.374 0.086 259.828);
 
-    --input: oklch(1 0 0 / 15%);
+    --input: oklch(0.374 0.086 259.828);
 
-    --ring: oklch(0.556 0 0);
+    /* Gold focus ring, on-brand */
+    --ring: oklch(0.745 0.113 90.040);
 
     --chart-1: oklch(0.87 0 0);
 
