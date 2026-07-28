@@ -121,6 +121,8 @@ Sombras:
 ```
 Dimensiones: 1080 × 1440px (3:4)
 Márgenes seguros: 108px top/bottom, 72px sides
+Zona segura de recorte: 45px top/bottom (18px a escala preview 432×576) — nada
+  crítico (texto/logo/CTA) ahí, por si IG recorta el 3:4 a 4:5 en feed/grid
 Slides: 5-10 por carrusel
 Estructura obligatoria:
   Slide 1: Portada — Gancho visual + CTB + elemento dorado
