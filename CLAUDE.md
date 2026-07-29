@@ -22,3 +22,16 @@
 * `STRATEGY/` — Audiencia, core del negocio
 * `CLIENTS/` — Carpetas por cliente con auditorías, contenido generado y seguimiento
 * `ig-viral-tracker/` — Sistema de rastreo de posts virales en Instagram con IA
+
+## Protocolo de cierre de sesión (handoff.md)
+
+Al final de CADA sesión de trabajo en este repo, sin excepción y sin que el usuario lo pida explícitamente,
+actualiza `handoff.md` en la raíz del proyecto siguiendo estas reglas:
+
+- Secciones 1, 2, 3 y 5 (Objetivo, Estado actual, Archivos y cambios, Próximos pasos): se sobrescriben con el estado real al cierre.
+- Sección 3 (Archivos y cambios): lista el rango de commits de esta sesión o el output de `git diff --stat`. Nunca un resumen narrado que pueda desalinearse del código real.
+- Sección 4 (Intentos fallidos): SOLO se agrega. Nunca se reescribe ni se resume una entrada existente.
+  Si la sección supera ~20 líneas, mueve las entradas más antiguas a `handoff-archive.md` (nunca las elimines).
+
+Al inicio de una sesión nueva, si el usuario dice "lee handoff.md y continúa", lee el archivo completo
+antes de proponer cualquier siguiente paso.
