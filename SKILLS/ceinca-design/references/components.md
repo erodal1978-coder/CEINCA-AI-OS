@@ -31,8 +31,12 @@
     }
 
     .carousel-wrapper {
-      width: 360px;  /* Preview móvil — 1080px en producción = ×3 */
-      height: 480px;
+      width: 432px;  /* Preview — ratio 3:4, ×2.5 = 1080×1440 en producción */
+      height: 576px;
+      /* Zona segura de recorte: nada crítico (texto/logo/CTA) en los primeros/
+         últimos 18px arriba y abajo (= 45px a 1080×1440). Margen por si IG
+         recorta el 3:4 a 4:5 en algún contexto de feed/grid. Ver también
+         "Zona segura texto" en Reel/Story (SKILL.md). */
       position: relative;
       overflow: hidden;
       border-radius: 12px;
