@@ -8,13 +8,13 @@
   "slides": [
     {
       "type": "cover",
-      "kicker": "DIPLOMADO AJ",
+      "kicker": "EJEMPLO",
       "headline": {
-        "lines": ["AUTOMATIZÁ TU", "ESTUDIO JURÍDICO", "EN 3 PASOS"],
+        "lines": ["ASÍ SE VE UN", "CARRUSEL PASO A PASO", "CON ESTE SISTEMA"],
         "accentLineIndex": 1
       },
-      "subhead": "El flujo exacto que usamos en CEINCA para montar el primer proyecto con IA en menos de una semana.",
-      "cta": { "text": "Escribe DIPLOMADO por DM", "keyword": "DIPLOMADO" }
+      "subhead": "Fixture de prueba para el export automático — reemplazá este JSON por tu copy real antes de publicar.",
+      "cta": { "text": "Escribe EJEMPLO por DM", "keyword": "EJEMPLO" }
     },
     {
       "type": "step",
@@ -23,15 +23,15 @@
       "background": "navy",
       "kicker": "PASO 1",
       "headline": {
-        "lines": ["CREÁ TU", "Proyecto en Claude"],
+        "lines": ["COMPLETÁ EL", "Archivo JSON"],
         "accentLineIndex": 1
       },
       "bullets": [
-        "Abrí Claude.ai y creá un Proyecto nuevo",
-        "Nombralo con el nombre del cliente o curso",
-        "Subí ahí tus instrucciones fijas"
+        "Copiá input/example-paso-a-paso.json",
+        "Reemplazá título, bullets y highlight",
+        "Guardalo con un nuevo carouselId"
       ],
-      "highlight": "Un Proyecto por cliente. Nunca mezcles el contexto de dos negocios distintos."
+      "highlight": "Cada lámina se arma sola desde el JSON — nunca escribas texto dentro de la imagen."
     },
     {
       "type": "step",
@@ -40,15 +40,15 @@
       "background": "light",
       "kicker": "PASO 2",
       "headline": {
-        "lines": ["DEFINÍ EL", "Criterio de Riesgo"],
+        "lines": ["ELEGÍ EL", "Fondo Correcto"],
         "accentLineIndex": 1
       },
       "bullets": [
-        "Listá los 5 documentos que siempre pedís",
-        "Marcá cuáles son bloqueantes vs. opcionales",
-        "Escribilo como checklist, no como párrafo"
+        "Navy para pasos de acción mecánica",
+        "Cream para pasos de criterio o decisión",
+        "Alterná para romper la monotonía visual"
       ],
-      "highlight": "Si no lo podés escribir como checklist, todavía no lo tenés claro vos."
+      "highlight": "Si dudás, preguntate: ¿esto es una acción o una decisión?"
     },
     {
       "type": "step",
@@ -57,25 +57,25 @@
       "background": "navy",
       "kicker": "PASO 3",
       "headline": {
-        "lines": ["PROBALO CON UN", "Caso Real"],
+        "lines": ["CORRÉ EL", "Script de Export"],
         "accentLineIndex": 1
       },
       "bullets": [
-        "Tomá un expediente ya cerrado",
-        "Corré el flujo completo de punta a punta",
-        "Compará contra lo que hiciste manualmente"
+        "node src/render.js input/tu-archivo.json",
+        "Revisá las 5 láminas en output/",
+        "Subilas al carrusel de Instagram"
       ],
-      "highlight": "Si el resultado no coincide, el problema está en el criterio, no en la IA."
+      "highlight": "Un cambio en el JSON, cinco imágenes actualizadas — sin tocar el diseño."
     },
     {
       "type": "close",
       "kicker": "CIERRE",
       "headline": {
-        "lines": ["YA SABÉS", "CÓMO EMPEZAR"],
+        "lines": ["LISTO PARA TU", "PRIMER CARRUSEL"],
         "accentLineIndex": 1
       },
-      "subhead": "Escribí la palabra clave y te mandamos el temario completo del Diplomado AJ.",
-      "cta": { "text": "Escribe DIPLOMADO por DM", "keyword": "DIPLOMADO" }
+      "subhead": "Reemplazá este JSON por tu copy real y corré el export cuando quieras.",
+      "cta": { "text": "Escribe EJEMPLO por DM", "keyword": "EJEMPLO" }
     }
   ]
 }
