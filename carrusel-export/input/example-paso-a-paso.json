@@ -1,0 +1,81 @@
+{
+  "carouselId": "ejemplo-paso-a-paso",
+  "footer": {
+    "logo": "CEINCA",
+    "sub": "Mercantil + IA",
+    "handle": "@ceinca.mercantil"
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "EJEMPLO",
+      "headline": {
+        "lines": ["ASÍ SE VE UN", "CARRUSEL PASO A PASO", "CON ESTE SISTEMA"],
+        "accentLineIndex": 1
+      },
+      "subhead": "Fixture de prueba para el export automático — reemplazá este JSON por tu copy real antes de publicar.",
+      "cta": { "text": "Escribe EJEMPLO por DM", "keyword": "EJEMPLO" }
+    },
+    {
+      "type": "step",
+      "stepNumber": 1,
+      "stepTotal": 3,
+      "background": "navy",
+      "kicker": "PASO 1",
+      "headline": {
+        "lines": ["COMPLETÁ EL", "Archivo JSON"],
+        "accentLineIndex": 1
+      },
+      "bullets": [
+        "Copiá input/example-paso-a-paso.json",
+        "Reemplazá título, bullets y highlight",
+        "Guardalo con un nuevo carouselId"
+      ],
+      "highlight": "Cada lámina se arma sola desde el JSON — nunca escribas texto dentro de la imagen."
+    },
+    {
+      "type": "step",
+      "stepNumber": 2,
+      "stepTotal": 3,
+      "background": "light",
+      "kicker": "PASO 2",
+      "headline": {
+        "lines": ["ELEGÍ EL", "Fondo Correcto"],
+        "accentLineIndex": 1
+      },
+      "bullets": [
+        "Navy para pasos de acción mecánica",
+        "Cream para pasos de criterio o decisión",
+        "Alterná para romper la monotonía visual"
+      ],
+      "highlight": "Si dudás, preguntate: ¿esto es una acción o una decisión?"
+    },
+    {
+      "type": "step",
+      "stepNumber": 3,
+      "stepTotal": 3,
+      "background": "navy",
+      "kicker": "PASO 3",
+      "headline": {
+        "lines": ["CORRÉ EL", "Script de Export"],
+        "accentLineIndex": 1
+      },
+      "bullets": [
+        "node src/render.js input/tu-archivo.json",
+        "Revisá las 5 láminas en output/",
+        "Subilas al carrusel de Instagram"
+      ],
+      "highlight": "Un cambio en el JSON, cinco imágenes actualizadas — sin tocar el diseño."
+    },
+    {
+      "type": "close",
+      "kicker": "CIERRE",
+      "headline": {
+        "lines": ["LISTO PARA TU", "PRIMER CARRUSEL"],
+        "accentLineIndex": 1
+      },
+      "subhead": "Reemplazá este JSON por tu copy real y corré el export cuando quieras.",
+      "cta": { "text": "Escribe EJEMPLO por DM", "keyword": "EJEMPLO" }
+    }
+  ]
+}
