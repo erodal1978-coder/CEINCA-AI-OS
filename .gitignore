@@ -1,2 +1,4 @@
 ig-viral-tracker/backend/.env
 ig-viral-tracker/backend/.env.save
+__pycache__/
+*.pyc
