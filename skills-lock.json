@@ -13,6 +13,12 @@
       "skillPath": "skills/apple-design/SKILL.md",
       "computedHash": "8b94db67cb9edaad5f1501010804caa610131f1d2dfda0a27664b2e858deade3"
     },
+    "brainstorming": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/brainstorming/SKILL.md",
+      "computedHash": "225b53fce53d627d3a1e94bfea84060ccdbf11a58a2d5cf11eefef89d598020e"
+    },
     "design-taste-frontend": {
       "source": "Leonxlnx/taste-skill",
       "sourceType": "github",
@@ -25,11 +31,23 @@
       "skillPath": "skills/emil-design-eng/SKILL.md",
       "computedHash": "8bdf9e4e6de7a4969147bf4828a4ad2c5aacd9fba4b690b250a85e0467ca387d"
     },
+    "requesting-code-review": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/requesting-code-review/SKILL.md",
+      "computedHash": "2304d2073c62eab163e04de40fe775e3d87c69c0df40cd4dc953fdb8e3205b81"
+    },
     "review-animations": {
       "source": "emilkowalski/skill",
       "sourceType": "github",
       "skillPath": "skills/review-animations/SKILL.md",
       "computedHash": "ca04aaa0a815f05e0910ded8fedbfbdfe0acdec8f52dfbb88277890070d134d4"
+    },
+    "verification-before-completion": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/verification-before-completion/SKILL.md",
+      "computedHash": "b529822bdac4b197b180fe12225cff86b930b65910435103c10622df7f041651"
     }
   }
 }
