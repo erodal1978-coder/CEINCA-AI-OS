@@ -1,0 +1,81 @@
+{
+  "carouselId": "ejemplo-paso-a-paso",
+  "footer": {
+    "logo": "CEINCA",
+    "sub": "Mercantil + IA",
+    "handle": "@ceinca.mercantil"
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "DIPLOMADO AJ",
+      "headline": {
+        "lines": ["AUTOMATIZÁ TU", "ESTUDIO JURÍDICO", "EN 3 PASOS"],
+        "accentLineIndex": 1
+      },
+      "subhead": "El flujo exacto que usamos en CEINCA para montar el primer proyecto con IA en menos de una semana.",
+      "cta": { "text": "Escribe DIPLOMADO por DM", "keyword": "DIPLOMADO" }
+    },
+    {
+      "type": "step",
+      "stepNumber": 1,
+      "stepTotal": 3,
+      "background": "navy",
+      "kicker": "PASO 1",
+      "headline": {
+        "lines": ["CREÁ TU", "Proyecto en Claude"],
+        "accentLineIndex": 1
+      },
+      "bullets": [
+        "Abrí Claude.ai y creá un Proyecto nuevo",
+        "Nombralo con el nombre del cliente o curso",
+        "Subí ahí tus instrucciones fijas"
+      ],
+      "highlight": "Un Proyecto por cliente. Nunca mezcles el contexto de dos negocios distintos."
+    },
+    {
+      "type": "step",
+      "stepNumber": 2,
+      "stepTotal": 3,
+      "background": "light",
+      "kicker": "PASO 2",
+      "headline": {
+        "lines": ["DEFINÍ EL", "Criterio de Riesgo"],
+        "accentLineIndex": 1
+      },
+      "bullets": [
+        "Listá los 5 documentos que siempre pedís",
+        "Marcá cuáles son bloqueantes vs. opcionales",
+        "Escribilo como checklist, no como párrafo"
+      ],
+      "highlight": "Si no lo podés escribir como checklist, todavía no lo tenés claro vos."
+    },
+    {
+      "type": "step",
+      "stepNumber": 3,
+      "stepTotal": 3,
+      "background": "navy",
+      "kicker": "PASO 3",
+      "headline": {
+        "lines": ["PROBALO CON UN", "Caso Real"],
+        "accentLineIndex": 1
+      },
+      "bullets": [
+        "Tomá un expediente ya cerrado",
+        "Corré el flujo completo de punta a punta",
+        "Compará contra lo que hiciste manualmente"
+      ],
+      "highlight": "Si el resultado no coincide, el problema está en el criterio, no en la IA."
+    },
+    {
+      "type": "close",
+      "kicker": "CIERRE",
+      "headline": {
+        "lines": ["YA SABÉS", "CÓMO EMPEZAR"],
+        "accentLineIndex": 1
+      },
+      "subhead": "Escribí la palabra clave y te mandamos el temario completo del Diplomado AJ.",
+      "cta": { "text": "Escribe DIPLOMADO por DM", "keyword": "DIPLOMADO" }
+    }
+  ]
+}
