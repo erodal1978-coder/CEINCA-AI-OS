@@ -32,6 +32,7 @@ genera dentro de la imagen. Lo produce `ceinca-ia` u otra fuente; ver
     {
       "type": "cover", // o "close"
       "kicker": "DIPLOMADO AJ",
+      "urgent": false, // true = badge rojo de alerta noticiosa en vez del label-authority dorado
       "headline": { "lines": ["LÍNEA 1", "LÍNEA ACENTO", "LÍNEA 3"], "accentLineIndex": 1 },
       "subhead": "Texto de apoyo bajo el headline.",
       "cta": { "text": "Escribe PALABRA por DM", "keyword": "PALABRA" } // opcional
@@ -42,6 +43,7 @@ genera dentro de la imagen. Lo produce `ceinca-ia` u otra fuente; ver
       "stepTotal": 3,
       "background": "navy", // o "light" — alternar para romper monotonía
       "kicker": "PASO 1",
+      "list": "bullet", // o "check" — checklist con ✅ (alerta noticiosa) en vez de ▸
       "headline": { "lines": ["LÍNEA NORMAL", "Línea Acento"], "accentLineIndex": 1 },
       "bullets": ["Máximo 3 bullets", "Una acción por bullet", "..."],
       "highlight": "La frase de mayor impacto del paso (máx. 2 líneas)."
@@ -70,6 +72,10 @@ descargar los `.woff2` correspondientes y actualizar `WEIGHTS` en `src/fonts.js`
 - Zona segura de recorte (45px top/bottom a 1080×1440): ya respetada por el
   padding del `.slide` (36px arriba, 28px abajo) + el layout centrado del
   `slide-body`; no hace falta lógica extra en el export.
-- Solo implementa el formato "paso a paso" (`type: cover | step | close`). El
-  formato de alerta/urgencia de 5 láminas (`components.md` sección 1 original)
-  no está cubierto todavía.
+- Implementa el formato "paso a paso" (`type: cover | step | close`) y los
+  componentes de "alerta noticiosa" definidos en
+  `references/carrusel-alerta-noticiosa.md` — badge rojo (`urgent: true` en
+  `cover`/`close`) y checklist con ✅ (`list: "check"` en `step`) — sobre esos
+  mismos tres tipos de lámina. La lámina de cierre triple-CTA de esa
+  referencia (sección 4, `cta-stack`) todavía no tiene un componente propio en
+  `template.js`; para ese caso usar `close` con un solo `cta`.

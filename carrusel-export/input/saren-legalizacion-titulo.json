@@ -1,0 +1,126 @@
+{
+  "carouselId": "saren-legalizacion-titulo",
+  "footer": {
+    "logo": "CEINCA",
+    "sub": "Mercantil + IA",
+    "handle": "@ceinca.mercantil"
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "urgent": true,
+      "kicker": "🚨 ÚLTIMA HORA",
+      "headline": {
+        "lines": ["EL SAREN YA", "PERMITE LEGALIZAR", "TU TÍTULO", "SIN SALIR DE CASA"],
+        "accentLineIndex": 3
+      },
+      "subhead": "El SAREN ya permite solicitar tu título universitario legalizado sin salir de casa. Así se hace, paso a paso."
+    },
+    {
+      "type": "cover",
+      "kicker": "📋 ¿ES PARA TI?",
+      "headline": {
+        "lines": ["NECESITAS", "LEGALIZAR TU", "TÍTULO"],
+        "accentLineIndex": 1
+      },
+      "subhead": "¿Necesitas legalizar tu título de pregrado para trabajar, hacer una equivalencia o presentarlo en el exterior? Ya no tienes que trasladarte al Registro Principal."
+    },
+    {
+      "type": "step",
+      "stepNumber": 1,
+      "stepTotal": 7,
+      "background": "navy",
+      "list": "check",
+      "kicker": "PASO 1",
+      "headline": { "lines": ["ENTRA AL", "Portal SAREN"], "accentLineIndex": 1 },
+      "bullets": ["Entra a tramites.saren.gob.ve con tu usuario y contraseña."]
+    },
+    {
+      "type": "step",
+      "stepNumber": 2,
+      "stepTotal": 7,
+      "background": "light",
+      "list": "check",
+      "kicker": "PASO 2",
+      "headline": { "lines": ["ABRE UNA", "Nueva Solicitud"], "accentLineIndex": 1 },
+      "bullets": ["Ve a \"Nueva Solicitud\" y elige el módulo Registro Principal."]
+    },
+    {
+      "type": "step",
+      "stepNumber": 3,
+      "stepTotal": 7,
+      "background": "navy",
+      "list": "check",
+      "kicker": "PASO 3",
+      "headline": { "lines": ["ELIGE COPIAS", "Certificadas"], "accentLineIndex": 1 },
+      "bullets": ["Dentro de Registro Principal, elige Copias Certificadas."]
+    },
+    {
+      "type": "step",
+      "stepNumber": 4,
+      "stepTotal": 7,
+      "background": "light",
+      "list": "check",
+      "kicker": "PASO 4",
+      "headline": { "lines": ["SELECCIONA LOS", "Datos del Trámite"], "accentLineIndex": 1 },
+      "bullets": [
+        "Estado",
+        "Oficina de Registro",
+        "Sede",
+        "Tipo de Documento (Título Universitario)"
+      ]
+    },
+    {
+      "type": "step",
+      "stepNumber": 5,
+      "stepTotal": 7,
+      "background": "navy",
+      "list": "check",
+      "kicker": "PASO 5",
+      "headline": { "lines": ["COMPLETA Y", "Adjunta Todo"], "accentLineIndex": 1 },
+      "bullets": [
+        "Ingresa Nro. de documento, Tomo, Trimestre, Año, Folio Inicio y Fin.",
+        "Marca \"Sí\" en ¿Desea legalizar su documento?",
+        "Adjunta: documento original/copia certificada, fotocopia de cédula y timbre fiscal."
+      ]
+    },
+    {
+      "type": "step",
+      "stepNumber": 6,
+      "stepTotal": 7,
+      "background": "light",
+      "list": "check",
+      "kicker": "PASO 6",
+      "headline": { "lines": ["IDENTIFICA AL", "Titular"], "accentLineIndex": 1 },
+      "bullets": [
+        "Marca \"Cedulado\"",
+        "Coloca tu cédula",
+        "Dale \"Buscar\" y luego \"Agregar\"."
+      ]
+    },
+    {
+      "type": "step",
+      "stepNumber": 7,
+      "stepTotal": 7,
+      "background": "navy",
+      "list": "check",
+      "kicker": "PASO 7",
+      "headline": { "lines": ["REVISA EL", "Resumen"], "accentLineIndex": 1 },
+      "bullets": [
+        "El sistema confirma tomo, folio, año y \"Legalizado: Sí\".",
+        "Dale Finalizar."
+      ]
+    },
+    {
+      "type": "close",
+      "urgent": true,
+      "kicker": "🔒 GUARDA ESTO",
+      "headline": {
+        "lines": ["¿QUIERES QUE TE", "AYUDEMOS A", "TRAMITARLO?"],
+        "accentLineIndex": 2
+      },
+      "subhead": "¿Quieres que te ayudemos a tramitarlo? Comenta BURDA y te mando por DM el paso a paso completo + el enlace directo.",
+      "cta": { "text": "Comenta BURDA y te mando por DM", "keyword": "BURDA" }
+    }
+  ]
+}

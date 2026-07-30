@@ -87,6 +87,17 @@ const STYLE = `
     font-size: 14px; font-weight: 700; line-height: 1.4; color: var(--white); text-align: center;
   }
 
+  .badge-urgent {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #FFFFFF; background: #D64545; border: 1px solid rgba(255,255,255,0.25);
+    padding: 4px 10px; border-radius: 4px;
+  }
+
+  .check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .check-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.4; }
+  .check-list .check { color: #4ADE80; font-weight: 900; flex-shrink: 0; margin-top: 1px; }
+  .slide.light .check-list li { color: rgba(11,29,58,0.85); }
+
   .gold-line { height: 2px; background: linear-gradient(90deg, var(--gold), transparent); border: none; margin: 8px 0; }
 
   .ctb-button {
@@ -134,6 +145,24 @@ function renderCta(cta) {
   return escaped.replace(escapedKeyword, `<strong>${escapedKeyword}</strong>`);
 }
 
+// urgent: true usa el badge rojo de alerta noticiosa en vez del label-authority dorado.
+function renderKicker(slide) {
+  const cls = slide.urgent ? "badge-urgent" : "label-authority";
+  return `<span class="${cls}">${esc(slide.kicker)}</span>`;
+}
+
+// list: "check" usa el checklist con ✅ de alerta noticiosa en vez del premium-list con ▸.
+function renderList(items, list) {
+  if (list === "check") {
+    return `<ul class="check-list">
+      ${items.map((b) => `<li><span class="check">✅</span> ${esc(b)}</li>`).join("\n")}
+    </ul>`;
+  }
+  return `<ul class="premium-list">
+      ${items.map((b) => `<li><span class="bullet">▸</span> ${esc(b)}</li>`).join("\n")}
+    </ul>`;
+}
+
 function renderFooter(footer) {
   return `
     <div class="slide-footer">
@@ -148,7 +177,7 @@ function renderCoverOrClose(slide, footer) {
   return `
     <div class="slide">
       <div class="slide-top">
-        <span class="label-authority">${esc(slide.kicker)}</span>
+        ${renderKicker(slide)}
       </div>
       <div class="slide-body">
         <h1 class="headline">${renderHeadline(slide.headline, "gold")}</h1>
@@ -170,7 +199,7 @@ function renderStep(slide, footer) {
   return `
     <div class="slide${bgClass}">
       <div class="slide-top">
-        <span class="label-authority">${esc(slide.kicker)}</span>
+        ${renderKicker(slide)}
         <div class="progress-wrap">
           <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
           <span class="progress-count">${slide.stepNumber}/${slide.stepTotal}</span>
@@ -178,11 +207,7 @@ function renderStep(slide, footer) {
       </div>
       <div class="slide-body">
         <h2 class="headline">${renderHeadline(slide.headline, "accent-italic")}</h2>
-        <ul class="premium-list">
-          ${slide.bullets
-            .map((b) => `<li><span class="bullet">▸</span> ${esc(b)}</li>`)
-            .join("\n")}
-        </ul>
+        ${renderList(slide.bullets, slide.list)}
         ${
           slide.highlight
             ? `<div class="highlight-box">${esc(slide.highlight)}</div>`
