@@ -8,7 +8,10 @@
 Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, ceinca-ia, ceinca-systems-social-growth), sistema de carruseles unificado, e IG Viral Tracker como único proyecto en producción.
 
 ## 2. Estado actual
-- **Video UDS "Cierre de Semestre 2026" terminado y renderizado**: `assets/uds-video/UDS_Cierre_Semestre_2026.mp4` (1080x1920, H.264, 9.5 Mbps, 30 fps, AAC 192 kbps, 43.4 s). Pipeline reproducible en `PRODUCTION/uds-video/render.sh`.
+- **Video UDS "Cierre de Semestre 2026", dos versiones renderizadas** en `assets/uds-video/`:
+  - v1 `UDS_Cierre_Semestre_2026.mp4` (43.4 s) — con tarjeta de apertura y texto sobre los bloques 2 y 3.
+  - v2 `UDS_Cierre_Semestre_2026_v2.mp4` (44.4 s) — corte limpio: montaje sin nada superpuesto y todo el texto/logo en la tarjeta final.
+  Ambas 1080x1920, H.264 High, ~9.1-9.5 Mbps, 30 fps, AAC 192 kbps a 48 kHz. Pipelines reproducibles en `PRODUCTION/uds-video/render.sh` y `render_v2.sh`.
 - Sistema de 3 formatos de carrusel (paso a paso / alerta de riesgo / alerta noticiosa) mergeado a main (commits f2255cc..6a252ef).
 - IG Viral Tracker: MVP backend + frontend activos.
 - Skills vendorizados (ui-ux-pro-max, apple-design, animation-vocabulary) en .claude/skills/, trackeados con skills-lock.json.
@@ -47,7 +50,7 @@ Rama `claude/ceinca-semester-video-zls5j5`, `git diff --stat` contra 6023f67:
 - Video UDS: en el entorno remoto no hay ffmpeg ni fuentes Montserrat preinstaladas. `apt-get install ffmpeg` falla si no se corre `apt-get update` antes (404 en los .deb). Montserrat se obtiene convirtiendo los woff2 de `carrusel-export/assets/fonts/` a TTF con fontTools.
 
 ## 5. Próximos pasos
-1. Revisar el video UDS renderizado y confirmar las dos decisiones documentadas en `PRODUCTION/uds-video/README.md` (encuadre contain vs crop, emblema vs logo completo en las tarjetas). Confirmar también si son 39 o 40 las fotos que van.
+1. Elegir entre v1 y v2 del video UDS, y confirmar las decisiones documentadas en `PRODUCTION/uds-video/README.md` (encuadre contain vs crop; emblema vs logo completo en las tarjetas). Confirmar también si son 39 o 40 las fotos que van — hay 40 archivos distintos en `assets/`.
 2. Revisar PR #4 (ui-ux-pro-max): confirmar si necesita rebase contra main.
 3. Auditar el contenido real de la skill ui-ux-pro-max (de terceros) antes de mergear.
 4. Revisar reglas activas en VIRAL_CONTENT_CREATOR.md, IG_AUDITOR.md, FRAMEWORK_VIRAL_V2.md.
