@@ -1,9 +1,19 @@
 # Testimonial Dra. Janet Márquez — Reel/TikTok
 
-Análisis previo al render del testimonio del Bootcamp Mercantil Barinas.
-**Estado: guion de cortes entregado, pendiente de aprobación. Nada renderizado aún.**
+Reel/TikTok del testimonio de la Dra. Janet Márquez (Bootcamp Mercantil Barinas).
+**Estado: renderizado.** Entregable en
+`assets/testimonial-janet-marquez/REEL_Testimonial_Janet_Marquez.mp4`
+(1080×1920, H.264 High, 9.35 Mbps, 30 fps, AAC 48 kHz, 49.28 s).
 
-Fuentes en `assets/testimonial-janet-marquez/`.
+## Uso
+
+```bash
+bash PRODUCTION/testimonial-janet-marquez/render.sh   # o: render.sh <dir_trabajo>
+```
+
+Requiere `ffmpeg` con libass y `python3` con `pillow` y `fonttools`. El script
+se prepara solo: extrae Montserrat de la rama `main`, genera subtítulos y
+overlays, y cachea los segmentos en `<dir_trabajo>/segs`.
 
 ## Archivos
 
@@ -11,7 +21,23 @@ Fuentes en `assets/testimonial-janet-marquez/`.
 |---|---|
 | `align.py` | Fusiona el texto de Whisper large-v3 con los timestamps del CTC español y segmenta por pausas reales |
 | `words.json` | Transcripción palabra por palabra con tiempos (108 palabras) |
-| `edl.json` | Lista de cortes: 10 segmentos + logo, 49.11 s |
+| `edl.json` | Lista de cortes: 10 segmentos + logo |
+| `build_overlays.py` | Subtítulos karaoke (ASS), rótulo de apertura y tercio inferior |
+| `render.sh` | Pipeline completo de render |
+
+## Estructura del corte
+
+| Seg | Salida | Fuente | Contenido |
+|---|---|---|---|
+| HOOK | 0.00–2.84 | 16.96–19.80 | «el mayor de los éxitos, a casa llena» |
+| A–I | 2.84–43.27 | — | testimonio completo, pausas y muletillas recortadas |
+| LOGO | 43.27–49.28 | 0–6 | cierre con su SFX propio |
+
+Los 9 cortes caen en pausas reales medidas con `silencedetect` a −24 dB.
+Punch-in de 6 % sobre la palabra de mayor peso de cada frase, con zoom base
+alternado entre planos para que cada corte lea como jump cut. Tres cortes de
+b-roll a 9.60 s, 25.50 s y 33.60 s; el tercero sincroniza el pendón del
+Colegio de Abogados con la palabra «Barinas».
 
 ## Cómo se obtuvo la transcripción
 
@@ -46,10 +72,29 @@ ffmpeg -i ../../assets/testimonial-janet-marquez/VID_20260805_173719_112_bsl.mp4
 python3 align.py
 ```
 
-## Puntos abiertos
+## Nombre oficial
 
-1. Confirmar «doctor José Agustín Figueredo».
-2. El ducking que «sube en tramos de puro b-roll sin diálogo» no tiene dónde
-   aplicarse: los tres insertos van bajo voz continua y no hay tramo mudo.
-   Requiere decidir si se agrega un beat de b-roll solo (~2 s).
-3. Confirmar que «Entonces Presidenta del IEJ» lleva ese «Entonces» a propósito.
+Instituto de Estudios Jurídicos «Dr. José Agustín Figueredo» del Colegio de
+Abogados del Estado Barinas. Confirmado por el cliente y aplicado tanto al
+subtítulo del segmento A como al tercio inferior.
+
+## Dos cosas que costaron
+
+**`loudnorm` dinámico truncaba la mezcla.** En modo dinámico arrastra ~3 s de
+lookahead; con `amix duration=first` eso cortaba el audio 2.9 s antes de tiempo
+y, en el concat final, se llevaba por delante el audio del logo entero. Ambas
+fuentes se normalizan ahora en dos pasadas (medir → aplicar con `measured_*` y
+`linear=true`), y la longitud se fija además con `apad`+`atrim`.
+
+**El logo perdía 3 dB.** Su audio es mono; la conversión normal a estéreo
+reparte potencia y resta 3 dB por canal. Con `pan=stereo|c0=c0|c1=c0` se
+duplica el canal tal cual. Verificado contra el original: RMS −21.16 dBFS y
+pico −2.12 dBFS, contra −21.2 / −2.1 del archivo fuente.
+
+## Punto abierto
+
+El ducking que «sube en tramos de puro b-roll sin diálogo» no tiene dónde
+aplicarse: los tres insertos van bajo voz continua y, al recortarse las pausas,
+no queda ningún tramo mudo. La música baja −17 dB bajo la voz (dentro del rango
+pedido) y se mantiene ahí. Si se quiere ese respiro, hay que agregar un beat de
+b-roll solo de ~2 s, que llevaría el total a ~51 s.
