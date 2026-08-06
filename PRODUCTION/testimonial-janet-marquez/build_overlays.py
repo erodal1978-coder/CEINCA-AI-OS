@@ -112,19 +112,27 @@ def centered(d, y, text, f, fill, spacing=0.0):
         x += cw + spacing
 
 
-# Rotulo de apertura: banda navy en el tercio superior, texto dorado.
-# Va arriba para no tapar a la Dra. Marquez durante el hook.
+# Rotulo de apertura: banda navy con texto dorado.
+# Va a la altura de los hombros. En el tercio superior cruzaba los ojos de la
+# Dra. Marquez durante los 4s que dura: su barbilla queda en y~760 y la linea
+# de hombros en y~1000 en todo el tramo, asi que la banda arranca ahi y cae
+# sobre el pecho, que es zona limpia.
+BANNER_TOP = 1004
+BANNER_H = 256
+bt, bb = BANNER_TOP, BANNER_TOP + BANNER_H
+
 img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
 d = ImageDraw.Draw(img)
 navy = tuple(int(NAVY[i:i + 2], 16) for i in (0, 2, 4))
 gold = tuple(int(GOLD[i:i + 2], 16) for i in (0, 2, 4))
-d.rectangle([0, 392, W, 648], fill=navy + (235,))
-d.rectangle([0, 392, W, 398], fill=gold + (255,))
-d.rectangle([0, 642, W, 648], fill=gold + (255,))
-centered(d, 436, "BOOTCAMP MERCANTIL", font("MontsBlack", 62), gold + (255,), 2.0)
-centered(d, 512, "BARINAS", font("MontsBlack", 62), gold + (255,), 10.0)
-centered(d, 586, "Agosto 2025", font("MontsSemi", 34), (255, 255, 255, 225), 6.0)
+d.rectangle([0, bt, W, bb], fill=navy + (235,))
+d.rectangle([0, bt, W, bt + 6], fill=gold + (255,))
+d.rectangle([0, bb - 6, W, bb], fill=gold + (255,))
+centered(d, bt + 44, "BOOTCAMP MERCANTIL", font("MontsBlack", 62), gold + (255,), 2.0)
+centered(d, bt + 120, "BARINAS", font("MontsBlack", 62), gold + (255,), 10.0)
+centered(d, bt + 194, "Agosto 2025", font("MontsSemi", 34), (255, 255, 255, 225), 6.0)
 img.save(f"{OUT}/banner_open.png")
+print(f"banner: y {bt}-{bb} (hombros); subtitulos empiezan en ~1390")
 
 # Tercio inferior: nombre y cargo. Barra dorada a la izquierda.
 img = Image.new("RGBA", (W, H), (0, 0, 0, 0))

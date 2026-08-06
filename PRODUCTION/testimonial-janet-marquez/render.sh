@@ -129,7 +129,9 @@ ffmpeg -y -v error -i "$WORK/body.mov" \
   -c:a pcm_s16le "$WORK/body_broll.mov"
 
 # --- Paso 4: overlays --------------------------------------------------------
-# Rotulo 0-3s con fundido de salida a los 3.0-4.0s; tercio inferior 4.2-8.2s
+# Rotulo 0-3s con fundido de salida a los 3.0-4.0s; tercio inferior 4.8-8.8s
+# (el rotulo bajo a la altura de los hombros y ambos comparten franja: se
+#  separan 0.8s para que no lea como parpadeo de una caja a otra)
 # con entrada y salida de 0.4s; subtitulos karaoke quemados con libass.
 echo ">> Paso 4: rotulo, tercio inferior y subtitulos..."
 ffmpeg -y -v error -i "$WORK/body_broll.mov" \
@@ -139,9 +141,9 @@ ffmpeg -y -v error -i "$WORK/body_broll.mov" \
 [1:v]format=rgba,fade=t=in:st=0:d=0.4:alpha=1,fade=t=out:st=3.0:d=1.0:alpha=1,\
 setpts=PTS-STARTPTS[bn];\
 [2:v]format=rgba,fade=t=in:st=0:d=0.4:alpha=1,fade=t=out:st=3.6:d=0.4:alpha=1,\
-setpts=PTS-STARTPTS+4.2/TB[lt];\
+setpts=PTS-STARTPTS+4.8/TB[lt];\
 [0:v][bn]overlay=0:0:enable='between(t,0,4.0)'[v1];\
-[v1][lt]overlay=0:0:enable='between(t,4.2,8.2)'[v2];\
+[v1][lt]overlay=0:0:enable='between(t,4.8,8.8)'[v2];\
 [v2]subtitles=$WORK/subs.ass:fontsdir=$WORK/fonts,format=yuv420p[vout]" \
   -map "[vout]" -map 0:a -c:v libx264 -preset veryfast -crf 15 -r $FPS \
   -c:a pcm_s16le "$WORK/body_final.mov"

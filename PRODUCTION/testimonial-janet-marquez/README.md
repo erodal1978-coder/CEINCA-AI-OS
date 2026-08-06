@@ -33,6 +33,13 @@ overlays, y cachea los segmentos en `<dir_trabajo>/segs`.
 | A–I | 2.84–43.27 | — | testimonio completo, pausas y muletillas recortadas |
 | LOGO | 43.27–49.28 | 0–6 | cierre con su SFX propio |
 
+Overlays: rótulo de apertura 0–4 s a la altura de los hombros (y 1004–1260),
+tercio inferior 4.8–8.8 s (y 1128–1300) y subtítulos desde y≈1390, con 360 px
+libres abajo para la UI de Reels y TikTok. El rótulo empezó en el tercio
+superior y hubo que bajarlo: a esa altura cruzaba los ojos de la Dra. Márquez
+durante los 4 s que dura. Como comparte franja con el tercio inferior, se
+separan 0.8 s para que no lea como parpadeo de una caja a otra.
+
 Los 9 cortes caen en pausas reales medidas con `silencedetect` a −24 dB.
 Punch-in de 6 % sobre la palabra de mayor peso de cada frase, con zoom base
 alternado entre planos para que cada corte lea como jump cut. Tres cortes de
