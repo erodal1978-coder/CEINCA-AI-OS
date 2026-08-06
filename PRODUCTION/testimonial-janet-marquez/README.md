@@ -8,8 +8,20 @@ Reel/TikTok del testimonio de la Dra. Janet Márquez (Bootcamp Mercantil Barinas
 ## Uso
 
 ```bash
-bash PRODUCTION/testimonial-janet-marquez/render.sh   # o: render.sh <dir_trabajo>
+bash PRODUCTION/testimonial-janet-marquez/render.sh                      # con musica
+bash PRODUCTION/testimonial-janet-marquez/render.sh <dir_trabajo> --sin-musica
 ```
+
+Dos entregables en `assets/testimonial-janet-marquez/`:
+
+| Archivo | Audio |
+|---|---|
+| `REEL_Testimonial_Janet_Marquez.mp4` | voz + música con ducking |
+| `REEL_Testimonial_Janet_Marquez_sin_musica.mp4` | solo la voz |
+
+Misma edición, mismos overlays, misma duración; el logo conserva su SFX propio
+en ambas. Verificado restando las dos pistas: la diferencia es únicamente la
+música (−39.1 dBFS aislada) y el residuo en el tramo del logo es −69 dBFS.
 
 Requiere `ffmpeg` con libass y `python3` con `pillow` y `fonttools`. El script
 se prepara solo: extrae Montserrat de la rama `main`, genera subtítulos y

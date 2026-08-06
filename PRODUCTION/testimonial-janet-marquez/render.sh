@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Reel/TikTok - Testimonial Dra. Janet Marquez (Bootcamp Mercantil Barinas)
 #
-#   ./render.sh [dir_trabajo]
+#   ./render.sh [dir_trabajo] [--sin-musica]
 #
 # Requiere ffmpeg con libass, y python3 con pillow y fonttools.
 # El dir de trabajo debe traer fonts/, words.json, edl.json (ver README).
@@ -10,9 +10,16 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$HERE/../.." && pwd)"
 WORK="${1:-$HERE/.work}"
+# Segundo argumento --sin-musica: misma edicion exacta, pero la mezcla lleva
+# solo la voz de ella. El logo conserva su audio propio en las dos variantes.
+MUSICA=1
+[ "${2:-}" = "--sin-musica" ] && MUSICA=0
+
 SRC="$REPO/assets/testimonial-janet-marquez"
 OUT="$SRC"
 SEGS="$WORK/segs"
+NAME="REEL_Testimonial_Janet_Marquez"
+[ "$MUSICA" = "0" ] && NAME="${NAME}_sin_musica"
 mkdir -p "$SEGS"
 
 VID="$SRC/VID_20260805_173719_112_bsl.mp4"
@@ -167,15 +174,15 @@ measure() {   # $1=archivo  $2=prefiltro o vacio  $3=target LUFS
 
 read -r V_I V_TP V_LRA V_TH V_OF < <(measure "$WORK/body_final.mov" "" -14)
 echo "   voz medida:    I=$V_I LUFS TP=$V_TP"
-read -r M_I M_TP M_LRA M_TH M_OF < <(measure "$MUS" "atrim=0:$BODY" -16)
-echo "   musica medida: I=$M_I LUFS TP=$M_TP"
-
 LN_V="loudnorm=I=-14:TP=-1.5:LRA=11:measured_I=$V_I:measured_TP=$V_TP:measured_LRA=$V_LRA:measured_thresh=$V_TH:offset=$V_OF:linear=true"
-LN_M="loudnorm=I=-16:TP=-1.5:LRA=11:measured_I=$M_I:measured_TP=$M_TP:measured_LRA=$M_LRA:measured_thresh=$M_TH:offset=$M_OF:linear=true"
 
-MFADE=$(python3 -c "print(round($BODY-2.0,3))")
-ffmpeg -y -v error -i "$WORK/body_final.mov" -i "$MUS" \
-  -filter_complex "\
+if [ "$MUSICA" = "1" ]; then
+  read -r M_I M_TP M_LRA M_TH M_OF < <(measure "$MUS" "atrim=0:$BODY" -16)
+  echo "   musica medida: I=$M_I LUFS TP=$M_TP"
+  LN_M="loudnorm=I=-16:TP=-1.5:LRA=11:measured_I=$M_I:measured_TP=$M_TP:measured_LRA=$M_LRA:measured_thresh=$M_TH:offset=$M_OF:linear=true"
+  MFADE=$(python3 -c "print(round($BODY-2.0,3))")
+  ffmpeg -y -v error -i "$WORK/body_final.mov" -i "$MUS" \
+    -filter_complex "\
 [0:a]aresample=48000,aformat=sample_fmts=fltp:channel_layouts=stereo,\
 $LN_V,apad,atrim=0:$BODY,asetpts=PTS-STARTPTS,asplit=2[voz][sc];\
 [1:a]atrim=0:$BODY,asetpts=PTS-STARTPTS,aresample=48000,\
@@ -184,7 +191,15 @@ $LN_M,aformat=sample_fmts=fltp:channel_layouts=stereo,volume=0.42[mus];\
 [duck]afade=t=in:st=0:d=1.5,afade=t=out:st=$MFADE:d=2.0,apad,atrim=0:$BODY[musd];\
 [voz][musd]amix=inputs=2:duration=longest:weights=1 1:normalize=0,\
 atrim=0:$BODY,alimiter=limit=0.95[aout]" \
-  -map 0:v -map "[aout]" -c:v copy -c:a pcm_s16le "$WORK/body_mixed.mov"
+    -map 0:v -map "[aout]" -c:v copy -c:a pcm_s16le "$WORK/body_mixed.mov"
+else
+  echo "   sin musica: solo la voz, mismo loudnorm a -14 LUFS"
+  ffmpeg -y -v error -i "$WORK/body_final.mov" \
+    -filter_complex "\
+[0:a]aresample=48000,aformat=sample_fmts=fltp:channel_layouts=stereo,\
+$LN_V,apad,atrim=0:$BODY,asetpts=PTS-STARTPTS,alimiter=limit=0.95[aout]" \
+    -map 0:v -map "[aout]" -c:v copy -c:a pcm_s16le "$WORK/body_mixed.mov"
+fi
 
 AD=$(ffprobe -v error -select_streams a -show_entries stream=duration -of csv=p=0 "$WORK/body_mixed.mov")
 echo "   mezcla: audio ${AD}s / video ${BODY}s"
@@ -208,6 +223,6 @@ ffmpeg -y -v error -f concat -safe 0 -i "$WORK/final.txt" \
   -c:v libx264 -preset slow -profile:v high -level 4.2 \
   -b:v 10500k -minrate 8500k -maxrate 13M -bufsize 20M -pix_fmt yuv420p -r $FPS \
   -c:a aac -b:a 192k -ar 48000 -movflags +faststart \
-  "$OUT/REEL_Testimonial_Janet_Marquez.mp4"
+  "$OUT/$NAME.mp4"
 
-echo ">> listo: $OUT/REEL_Testimonial_Janet_Marquez.mp4"
+echo ">> listo: $OUT/$NAME.mp4"
