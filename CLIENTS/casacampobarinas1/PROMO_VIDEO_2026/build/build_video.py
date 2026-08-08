@@ -131,9 +131,12 @@ SHOTS = [
       (lambda d: title("ESTO NO ES", 620, 132, WHITE, dur=d),
        lambda d: title("UNA FIESTA", 770, 132, WHITE, delay=0.18, dur=d))),
 
+    # Texto al tercio inferior: los bailarines ocupan y 800-1120 y son el sujeto
+    # del plano. De 1150 a 1750 sólo hay deck mojado con reflejos, y la caja
+    # queda holgada dentro de la zona segura de Reels (la UI empieza hacia 1550).
     S("02", "ed", 0.7, 2.0, "out", "normal", ("flash",),
-      (lambda d: title("ES", 600, 132, WHITE, dur=d),
-       lambda d: title("TU PROMOCIÓN", 750, 118, "black", box=CYAN, delay=0.15, dur=d))),
+      (lambda d: title("ES", 1130, 132, WHITE, dur=d),
+       lambda d: title("TU PROMOCIÓN", 1280, 118, "black", box=CYAN, delay=0.15, dur=d))),
 
     # ---------- ACTO 2 · BUILD ·  4.0 – 12.0 ----------
     S("03", "dj", 3.2, 2.0, "in", "normal", ("flash",),
