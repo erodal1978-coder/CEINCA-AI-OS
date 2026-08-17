@@ -19,24 +19,28 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
   ffmpeg + Python a partir de 5 clips de WhatsApp, con música original sintetizada.
   Se entregan dos versiones (MASTER con música para ads, SIN_MUSICA para audio de
   tendencia en orgánico) y los scripts de build son reproducibles.
+- **NUEVO — Playwright E2E en ig-viral-tracker/frontend:** se corrió
+  `npm init playwright@latest` (rama `claude/playwright-setup-qehg88`, ya pusheada,
+  sin PR abierto todavía) sobre el Next.js del frontend — es el único proyecto del repo
+  con una app web real que justifica pruebas E2E (carrusel-export ya usaba `playwright`
+  como dependencia programática para exportar PNG, no como test runner). Quedó:
+  `@playwright/test` en devDependencies, `playwright.config.ts` (TypeScript, chromium +
+  firefox + webkit, `baseURL: http://localhost:3000`, `webServer` apuntando a `npm run dev`),
+  workflow `.github/workflows/playwright.yml`, spec de ejemplo sin tocar, y scripts
+  `test:e2e` / `test:e2e:ui` en package.json.
 
 ## 3. Archivos y cambios (esta sesión)
 <!-- Sobrescribir cada sesión. Usar rango de commits o `git diff --stat`, no resumen narrado. -->
-`git diff --stat` de la sesión:
+`git diff --stat HEAD~1 HEAD` (commit 51e8c48, rama `claude/playwright-setup-qehg88`):
 
 ```
- .../CASA_CAMPO_Promo_2026_MASTER.mp4               | Bin 0 -> 28896318 bytes
- .../CASA_CAMPO_Promo_2026_SIN_MUSICA.mp4           | Bin 0 -> 28856157 bytes
- .../CASA_CAMPO_pista_original_120bpm.mp3           | Bin 0 -> 743085 bytes
- .../PROMO_VIDEO_2026/CASA_CAMPO_portada.jpg        | Bin 0 -> 240274 bytes
- .../casacampobarinas1/PROMO_VIDEO_2026/README.md   | 225 +++++++++++++
- .../PROMO_VIDEO_2026/build/build_endcard.sh        |  38 +++
- .../PROMO_VIDEO_2026/build/build_mix.sh            |  94 ++++++
- .../PROMO_VIDEO_2026/build/build_music.py          | 364 +++++++++++++++++++++
- .../PROMO_VIDEO_2026/build/build_video.py          | 266 +++++++++++++++
- .../PROMO_VIDEO_2026/build/tp_limit.py             | 153 +++++++++
- handoff.md                                         |  30 +-
- 11 files changed, 1169 insertions(+), 1 deletion(-)
+ .../frontend/.github/workflows/playwright.yml      | 27 ++++++++
+ ig-viral-tracker/frontend/.gitignore               |  7 ++
+ ig-viral-tracker/frontend/package-lock.json        | 64 ++++++++++++++++++
+ ig-viral-tracker/frontend/package.json             |  5 +-
+ ig-viral-tracker/frontend/playwright.config.ts     | 79 ++++++++++++++++++++++
+ ig-viral-tracker/frontend/tests/example.spec.ts    | 18 +++++
+ 6 files changed, 199 insertions(+), 1 deletion(-)
 ```
 
 ## 4. Intentos fallidos
@@ -50,6 +54,7 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
 - `crop` sólo evalúa `w`/`h` una vez; para zoom animado hay que usar `zoompan` (y sobreescalar antes para que no tiemble). Sólo `x`/`y` de `crop` se evalúan por frame — eso sí sirve para el camera shake.
 - `alimiter` de ffmpeg trae `level=enabled` por defecto y **renormaliza la salida a 0 dBFS**, anulando el `limit`. Además sólo mide picos de muestra. Resultado: el máster salió a +1.9 dBFS de pico real (saturado). Fix: `level=disabled` y, sobre todo, limitador de pico real propio con sobremuestreo 4× (`tp_limit.py`).
 - Texto negro sobre caja de color con `borderw` negro queda ilegible: el contorno rellena las contraformas de las letras. Fix: sin contorno cuando hay caja.
+- `npx playwright install` (descarga de binarios chromium/firefox/webkit) falla en el entorno remoto CCR: proxy de egreso bloquea `cdn.playwright.dev` con 403 ("no rule or allowlist entry allows host"). A diferencia del bloqueo de `ui.shadcn.com`, aquí no hay archivo de config local para agregar el dominio dentro de esta sesión remota. No reintentar en sesiones remotas — instalar los browsers desde una máquina local (`npx playwright install`) o dejar que lo haga el workflow de GitHub Actions ya creado (`npx playwright install --with-deps`, con red completa en el runner).
 
 ## 5. Próximos pasos
 1. Revisar PR #4 (ui-ux-pro-max): confirmar si necesita rebase contra main.
@@ -61,3 +66,9 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
    primer plano para una segunda versión del promocional.
 6. Evaluar `git-lfs` para el repo: este entregable añadió ~58 MB de binarios y CLIENTS/
    va a seguir acumulando vídeo.
+7. Playwright (rama `claude/playwright-setup-qehg88`, ya pusheada): abrir el PR si se
+   quiere mergear a main. Antes de correr tests localmente, instalar los browsers
+   (`cd ig-viral-tracker/frontend && npx playwright install`) — no vienen descargados
+   porque el entorno remoto donde se instaló no tiene salida a `cdn.playwright.dev`.
+   Reemplazar `tests/example.spec.ts` (boilerplate que apunta a playwright.dev) por
+   specs reales contra las páginas del frontend una vez haya flujos que valga la pena cubrir.
