@@ -1,11 +1,14 @@
-import { AbsoluteFill, Easing, Interactive, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Easing, Interactive, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { Audio } from "@remotion/media";
 import { colors, fontFamily, gradients } from "../theme";
+import { HighlightedText } from "../utils/HighlightedText";
 
 type Props = {
   valueText: string;
+  emphasisPhrase?: string;
 };
 
-export const ValueScene: React.FC<Props> = ({ valueText }) => {
+export const ValueScene: React.FC<Props> = ({ valueText, emphasisPhrase }) => {
   const frame = useCurrentFrame();
 
   const iconIn = interpolate(frame, [0, 16], [0, 1], {
@@ -18,6 +21,11 @@ export const ValueScene: React.FC<Props> = ({ valueText }) => {
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
+  const emphasisProgress = interpolate(frame, [46, 74], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.37, 0, 0.63, 1),
+  });
 
   return (
     <AbsoluteFill
@@ -28,6 +36,8 @@ export const ValueScene: React.FC<Props> = ({ valueText }) => {
         padding: "100px 80px",
       }}
     >
+      <Audio src={staticFile("audio/sfx-ding.wav")} volume={0.85} />
+
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 44 }}>
         <div
           style={{
@@ -61,7 +71,13 @@ export const ValueScene: React.FC<Props> = ({ valueText }) => {
             maxWidth: 820,
           }}
         >
-          {valueText}
+          <HighlightedText
+            text={valueText}
+            phrase={emphasisPhrase}
+            progress={emphasisProgress}
+            color={colors.gold}
+            type="underline"
+          />
         </Interactive.Div>
       </div>
     </AbsoluteFill>

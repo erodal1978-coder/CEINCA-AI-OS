@@ -1,4 +1,5 @@
-import { AbsoluteFill, Easing, Interactive, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Easing, Interactive, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { Audio } from "@remotion/media";
 import { colors, fontFamily, gradients } from "../theme";
 
 type Props = {
@@ -44,6 +45,10 @@ export const CTBScene: React.FC<Props> = ({ ctbText, ctbKeyword, handle }) => {
         padding: "100px 80px",
       }}
     >
+      <Sequence from={30} layout="none">
+        <Audio src={staticFile("audio/sfx-pop.wav")} volume={0.9} />
+      </Sequence>
+
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 40 }}>
         <Interactive.Div
           name="CTB Text"

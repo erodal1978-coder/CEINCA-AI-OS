@@ -1,13 +1,16 @@
-import { AbsoluteFill, Easing, Interactive, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Easing, Interactive, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { Audio } from "@remotion/media";
 import { colors, fontFamily } from "../theme";
+import { HighlightedText } from "../utils/HighlightedText";
 
 type Props = {
   badge: string;
   headline: string;
   subtitle: string;
+  highlightWord?: string;
 };
 
-export const HookScene: React.FC<Props> = ({ badge, headline, subtitle }) => {
+export const HookScene: React.FC<Props> = ({ badge, headline, subtitle, highlightWord }) => {
   const frame = useCurrentFrame();
 
   const badgeIn = interpolate(frame, [0, 18], [0, 1], {
@@ -25,6 +28,11 @@ export const HookScene: React.FC<Props> = ({ badge, headline, subtitle }) => {
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
+  const highlightProgress = interpolate(frame, [46, 74], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.37, 0, 0.63, 1),
+  });
 
   return (
     <AbsoluteFill
@@ -35,6 +43,8 @@ export const HookScene: React.FC<Props> = ({ badge, headline, subtitle }) => {
         padding: "100px 80px",
       }}
     >
+      <Audio src={staticFile("audio/sfx-whoosh.wav")} volume={0.9} />
+
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 32 }}>
         <Interactive.Div
           name="Hook Badge"
@@ -68,7 +78,13 @@ export const HookScene: React.FC<Props> = ({ badge, headline, subtitle }) => {
             maxWidth: 880,
           }}
         >
-          {headline}
+          <HighlightedText
+            text={headline}
+            phrase={highlightWord}
+            progress={highlightProgress}
+            color="rgba(200,169,81,0.55)"
+            type="highlight"
+          />
         </Interactive.Div>
 
         <Interactive.Div
