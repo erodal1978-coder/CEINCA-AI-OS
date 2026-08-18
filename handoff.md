@@ -13,8 +13,10 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
 - Skills vendorizados (ui-ux-pro-max, apple-design, animation-vocabulary) en .claude/skills/, trackeados con skills-lock.json.
 - PR #4 (ui-ux-pro-max) abierto, pendiente de rebase — main avanzó 3 merges desde que se abrió.
 - **NUEVO — instalado "everything-claude-code" (affaan-m) a nivel de proyecto en `.claude/`:**
-  9 subagentes en `.claude/agents/`, 12 slash commands en `.claude/commands/`, 11 skills
-  nuevos en `.claude/skills/` (sin colisión con los ya vendorizados, registrados en
+  9 subagentes en `.claude/agents/`, 11 slash commands en `.claude/commands/` (se eliminó
+  `/code-review` por chocar con el skill nativo homónimo), 10 skills nuevos en
+  `.claude/skills/` (uno de los 11 originales, `security-review`, se renombró a
+  `security-checklist` por chocar con el skill nativo `security-review`; registrados en
   `skills-lock.json`), 8 docs de reglas en `.claude/rules/`, 3 contexts en `.claude/contexts/`,
   y los scripts Node.js + `hooks.json` copiados a `.claude/scripts/` y `.claude/hooks/` como
   referencia. `hooks.json` **NO** se conectó a un `settings.json` — la mayoría de sus hooks
@@ -40,7 +42,12 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
 
 ## 3. Archivos y cambios (esta sesión)
 <!-- Sobrescribir cada sesión. Usar rango de commits o `git diff --stat`, no resumen narrado. -->
-`git diff --stat HEAD~1 HEAD` (commit 56b1a98, rama `claude/repository-installation-wkg83q`):
+Commits `56b1a98..b6fc8a5` (rama `claude/repository-installation-wkg83q`). El segundo
+commit (`b6fc8a5`) elimina `.claude/commands/code-review.md` y renombra
+`.claude/skills/security-review/` -> `.claude/skills/security-checklist/` para resolver
+colisiones de nombre con skills nativos detectadas después del primer commit.
+
+`git diff --stat 56b1a98~1 56b1a98` (instalación inicial):
 
 ```
  .claude/agents/*.md (9 archivos)                    | 3257 líneas
@@ -95,6 +102,11 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
    repo (contenido Python/Markdown). Si se activa, hacerlo con matchers acotados a esa
    carpeta y reescribir las rutas `${CLAUDE_PLUGIN_ROOT}/scripts/hooks/*.js` (que sólo
    resuelven si se instala como plugin real) a `.claude/scripts/hooks/*.js`.
-9. Revisar si `/code-review` y `/plan` (nuevos en `.claude/commands/`) chocan en nombre
-   con los skills nativos `code-review` y `plan` ya disponibles — confirmar cuál gana
-   prioridad y si hace falta renombrar alguno.
+9. ~~Revisar si `/code-review` y `/plan` chocan con skills nativos.~~ Resuelto (commit
+   b6fc8a5): `/plan` no chocaba (no hay skill nativo `plan`, sólo el agente `Plan` del
+   Agent tool, namespace distinto). `code-review` sí chocaba —se eliminó el command
+   vendorizado, queda el skill nativo `code-review` (más completo: ReportFindings,
+   --comment/--fix, niveles de esfuerzo). `security-review` (skill vendorizado) también
+   chocaba con el skill nativo del mismo nombre —se renombró a `security-checklist`
+   (carpeta + frontmatter + `skills-lock.json`); no hacía falta tocar ninguna otra
+   referencia porque nada más lo mencionaba por nombre de skill.
