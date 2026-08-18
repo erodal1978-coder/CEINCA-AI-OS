@@ -43,11 +43,12 @@
       "skillPath": "skills/project-guidelines-example/SKILL.md",
       "computedHash": "d8156f2df70d407dcfa433d279c9160430ef00c1bfb015ae2cf495f7c1392d8a"
     },
-    "security-review": {
+    "security-checklist": {
       "source": "affaan-m/everything-claude-code",
       "sourceType": "github",
       "skillPath": "skills/security-review/SKILL.md",
-      "computedHash": "b4fbed82c5a1741432f0da689fd96e9fa0c40011d9450ca61065dad772758494"
+      "computedHash": "b4fbed82c5a1741432f0da689fd96e9fa0c40011d9450ca61065dad772758494",
+      "note": "renamed from security-review -> security-checklist to avoid shadowing the built-in security-review skill"
     },
     "strategic-compact": {
       "source": "affaan-m/everything-claude-code",
