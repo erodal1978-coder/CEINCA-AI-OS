@@ -12,6 +12,15 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
 - IG Viral Tracker: MVP backend + frontend activos.
 - Skills vendorizados (ui-ux-pro-max, apple-design, animation-vocabulary) en .claude/skills/, trackeados con skills-lock.json.
 - PR #4 (ui-ux-pro-max) abierto, pendiente de rebase — main avanzó 3 merges desde que se abrió.
+- **NUEVO — instalado "everything-claude-code" (affaan-m) a nivel de proyecto en `.claude/`:**
+  9 subagentes en `.claude/agents/`, 12 slash commands en `.claude/commands/`, 11 skills
+  nuevos en `.claude/skills/` (sin colisión con los ya vendorizados, registrados en
+  `skills-lock.json`), 8 docs de reglas en `.claude/rules/`, 3 contexts en `.claude/contexts/`,
+  y los scripts Node.js + `hooks.json` copiados a `.claude/scripts/` y `.claude/hooks/` como
+  referencia. `hooks.json` **NO** se conectó a un `settings.json` — la mayoría de sus hooks
+  (prettier, tsc, bloqueo de `npm run dev`) asumen un proyecto npm/TS que este repo no es, y
+  sus hooks de sesión (SessionStart/SessionEnd/PreCompact) usan `${CLAUDE_PLUGIN_ROOT}`, que
+  sólo resuelve si se instala como plugin real. Queda para activación manual/selectiva.
 - Pendiente: revisar reglas activas en VIRAL_CONTENT_CREATOR.md, IG_AUDITOR.md, FRAMEWORK_VIRAL_V2.md (ya cargadas en CLAUDE.md).
 - **NUEVO — primer entregable de vídeo del repo:** promocional de Casa & Campo Barinas
   (alquiler exclusivo para promociones, caso U.E. Roberto Moreno 2026) en
@@ -31,17 +40,24 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
 
 ## 3. Archivos y cambios (esta sesión)
 <!-- Sobrescribir cada sesión. Usar rango de commits o `git diff --stat`, no resumen narrado. -->
-`git diff --stat HEAD~1 HEAD` (commit 51e8c48, rama `claude/playwright-setup-qehg88`):
+`git diff --stat HEAD~1 HEAD` (commit 56b1a98, rama `claude/repository-installation-wkg83q`):
 
 ```
- .../frontend/.github/workflows/playwright.yml      | 27 ++++++++
- ig-viral-tracker/frontend/.gitignore               |  7 ++
- ig-viral-tracker/frontend/package-lock.json        | 64 ++++++++++++++++++
- ig-viral-tracker/frontend/package.json             |  5 +-
- ig-viral-tracker/frontend/playwright.config.ts     | 79 ++++++++++++++++++++++
- ig-viral-tracker/frontend/tests/example.spec.ts    | 18 +++++
- 6 files changed, 199 insertions(+), 1 deletion(-)
+ .claude/agents/*.md (9 archivos)                    | 3257 líneas
+ .claude/commands/*.md (12 archivos)                 | 1449 líneas
+ .claude/contexts/*.md (3 archivos)                  |   68 líneas
+ .claude/hooks/hooks.json + memory-persistence/ + strategic-compact/ | 343 líneas
+ .claude/rules/*.md (8 archivos)                     |  378 líneas
+ .claude/scripts/hooks/*.js + lib/*.js + setup-package-manager.js (8 archivos) | 1293 líneas
+ .claude/skills/{backend-patterns,clickhouse-io,coding-standards,
+   continuous-learning,eval-harness,frontend-patterns,
+   project-guidelines-example,security-review,strategic-compact,
+   tdd-workflow,verification-loop}/ (11 skills, 14 archivos)  | 3924 líneas
+ skills-lock.json                                    |   66 líneas
+ 63 files changed, 10978 insertions(+)
 ```
+
+(listado completo de rutas: `git show --stat 56b1a98`)
 
 ## 4. Intentos fallidos
 <!-- NO BORRAR NINGUNA ENTRADA DE ESTA SECCIÓN. Solo agregar. -->
@@ -72,3 +88,13 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
    porque el entorno remoto donde se instaló no tiene salida a `cdn.playwright.dev`.
    Reemplazar `tests/example.spec.ts` (boilerplate que apunta a playwright.dev) por
    specs reales contra las páginas del frontend una vez haya flujos que valga la pena cubrir.
+8. everything-claude-code recién instalado en `.claude/`: decidir si conviene activar
+   `.claude/hooks/hooks.json` en un `settings.json` real. Tal cual está, casi todos sus
+   hooks (prettier, `tsc`, bloqueo de `npm run dev`/`git push`) son para un stack npm/TS
+   que este repo no tiene — sólo aplicarían a `ig-viral-tracker/frontend`, no al resto del
+   repo (contenido Python/Markdown). Si se activa, hacerlo con matchers acotados a esa
+   carpeta y reescribir las rutas `${CLAUDE_PLUGIN_ROOT}/scripts/hooks/*.js` (que sólo
+   resuelven si se instala como plugin real) a `.claude/scripts/hooks/*.js`.
+9. Revisar si `/code-review` y `/plan` (nuevos en `.claude/commands/`) chocan en nombre
+   con los skills nativos `code-review` y `plan` ya disponibles — confirmar cuál gana
+   prioridad y si hace falta renombrar alguno.
