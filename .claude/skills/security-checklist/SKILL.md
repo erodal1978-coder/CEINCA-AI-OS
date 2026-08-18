@@ -1,6 +1,6 @@
 ---
-name: security-review
-description: Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and patterns.
+name: security-checklist
+description: Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides a comprehensive security checklist and patterns (secrets management, injection, auth, API endpoints). Complements the built-in security-review skill, which actively reviews the current diff — this one is the reference checklist to consult while writing the code.
 ---
 
 # Security Review Skill
