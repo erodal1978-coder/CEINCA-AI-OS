@@ -12,59 +12,69 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
 - IG Viral Tracker: MVP backend + frontend activos.
 - Skills vendorizados (ui-ux-pro-max, apple-design, animation-vocabulary) en .claude/skills/, trackeados con skills-lock.json.
 - PR #4 (ui-ux-pro-max) abierto, pendiente de rebase — main avanzó 3 merges desde que se abrió.
-- **NUEVO — instalado "everything-claude-code" (affaan-m) a nivel de proyecto en `.claude/`:**
-  9 subagentes en `.claude/agents/`, 11 slash commands en `.claude/commands/` (se eliminó
-  `/code-review` por chocar con el skill nativo homónimo), 10 skills nuevos en
-  `.claude/skills/` (uno de los 11 originales, `security-review`, se renombró a
-  `security-checklist` por chocar con el skill nativo `security-review`; registrados en
-  `skills-lock.json`), 8 docs de reglas en `.claude/rules/`, 3 contexts en `.claude/contexts/`,
-  y los scripts Node.js + `hooks.json` copiados a `.claude/scripts/` y `.claude/hooks/` como
-  referencia. `hooks.json` **NO** se conectó a un `settings.json` — la mayoría de sus hooks
-  (prettier, tsc, bloqueo de `npm run dev`) asumen un proyecto npm/TS que este repo no es, y
-  sus hooks de sesión (SessionStart/SessionEnd/PreCompact) usan `${CLAUDE_PLUGIN_ROOT}`, que
-  sólo resuelve si se instala como plugin real. Queda para activación manual/selectiva.
 - Pendiente: revisar reglas activas en VIRAL_CONTENT_CREATOR.md, IG_AUDITOR.md, FRAMEWORK_VIRAL_V2.md (ya cargadas en CLAUDE.md).
-- **NUEVO — primer entregable de vídeo del repo:** promocional de Casa & Campo Barinas
+- **Tercer vídeo:** Reel de la bienvenida sorpresa a Angelo (regreso de España)
+  en `CLIENTS/casacampobarinas1/VIDEO_ANGELO/`. 18,0 s, 5 planos (uno por clip,
+  ninguno repetido), rejilla de 90 BPM, J-cut/L-cut sobre el mariachi real,
+  música original en Re mayor con hueco deliberado para ese mariachi, y placa
+  de cierre con el logo animado (compuesto cuadro a cuadro en numpy). Keyword:
+  **EVENTO**. Fuentes en `Videos/Assets/` (llegaron a main durante la sesión).
+- **Segundo vídeo:** anuncio de hospedaje en
+  `CLIENTS/casacampobarinas1/VIDEO_HOSPEDAJE/`. 21,5 s, 9 planos sobre metraje de
+  7 vídeos + 3 fotos, estabilizado con vidstab, música original tropical/chill a
+  100 BPM. Incluye a Daniela Deximar León (Reina del Turismo de Barinas),
+  acreditada en pantalla. Keyword de embudo: **HOSPEDAJE** (requiere su propia
+  automatización Meta; el bloque listo para pegar está en su README).
+- **Primer entregable de vídeo del repo:** promocional de Casa & Campo Barinas
   (alquiler exclusivo para promociones, caso U.E. Roberto Moreno 2026) en
   `CLIENTS/casacampobarinas1/PROMO_VIDEO_2026/`. Montaje 9:16 de 30.9 s construido con
   ffmpeg + Python a partir de 5 clips de WhatsApp, con música original sintetizada.
   Se entregan dos versiones (MASTER con música para ads, SIN_MUSICA para audio de
   tendencia en orgánico) y los scripts de build son reproducibles.
-- **NUEVO — Playwright E2E en ig-viral-tracker/frontend:** se corrió
-  `npm init playwright@latest` (rama `claude/playwright-setup-qehg88`, ya pusheada,
-  sin PR abierto todavía) sobre el Next.js del frontend — es el único proyecto del repo
-  con una app web real que justifica pruebas E2E (carrusel-export ya usaba `playwright`
-  como dependencia programática para exportar PNG, no como test runner). Quedó:
-  `@playwright/test` en devDependencies, `playwright.config.ts` (TypeScript, chromium +
-  firefox + webkit, `baseURL: http://localhost:3000`, `webServer` apuntando a `npm run dev`),
-  workflow `.github/workflows/playwright.yml`, spec de ejemplo sin tocar, y scripts
-  `test:e2e` / `test:e2e:ui` en package.json.
 
 ## 3. Archivos y cambios (esta sesión)
 <!-- Sobrescribir cada sesión. Usar rango de commits o `git diff --stat`, no resumen narrado. -->
-Commits `56b1a98..b6fc8a5` (rama `claude/repository-installation-wkg83q`). El segundo
-commit (`b6fc8a5`) elimina `.claude/commands/code-review.md` y renombra
-`.claude/skills/security-review/` -> `.claude/skills/security-checklist/` para resolver
-colisiones de nombre con skills nativos detectadas después del primer commit.
-
-`git diff --stat 56b1a98~1 56b1a98` (instalación inicial):
+Commits de la sesión: `80e1c8d..HEAD`.
 
 ```
- .claude/agents/*.md (9 archivos)                    | 3257 líneas
- .claude/commands/*.md (12 archivos)                 | 1449 líneas
- .claude/contexts/*.md (3 archivos)                  |   68 líneas
- .claude/hooks/hooks.json + memory-persistence/ + strategic-compact/ | 343 líneas
- .claude/rules/*.md (8 archivos)                     |  378 líneas
- .claude/scripts/hooks/*.js + lib/*.js + setup-package-manager.js (8 archivos) | 1293 líneas
- .claude/skills/{backend-patterns,clickhouse-io,coding-standards,
-   continuous-learning,eval-harness,frontend-patterns,
-   project-guidelines-example,security-review,strategic-compact,
-   tdd-workflow,verification-loop}/ (11 skills, 14 archivos)  | 3924 líneas
- skills-lock.json                                    |   66 líneas
- 63 files changed, 10978 insertions(+)
+ .../CASA_CAMPO_Promo_2026_MASTER.mp4               | Bin 0 -> 28880742 bytes
+ .../CASA_CAMPO_Promo_2026_SIN_MUSICA.mp4           | Bin 0 -> 28840581 bytes
+ .../CASA_CAMPO_pista_original_120bpm.mp3           | Bin 0 -> 743085 bytes
+ .../PROMO_VIDEO_2026/CASA_CAMPO_portada.jpg        | Bin 0 -> 240274 bytes
+ .../casacampobarinas1/PROMO_VIDEO_2026/README.md   | 225 +++++++++++++
+ .../PROMO_VIDEO_2026/build/build_endcard.sh        |  38 +++
+ .../PROMO_VIDEO_2026/build/build_mix.sh            |  94 ++++++
+ .../PROMO_VIDEO_2026/build/build_music.py          | 364 +++++++++++++++++++++
+ .../PROMO_VIDEO_2026/build/build_video.py          | 269 +++++++++++++++
+ .../PROMO_VIDEO_2026/build/tp_limit.py             | 153 +++++++++
+ .../CASA_CAMPO_Angelo_Bienvenida_MASTER.mp4        | Bin 0 -> 17540936 bytes
+ .../CASA_CAMPO_Angelo_Bienvenida_SIN_MUSICA.mp4    | Bin 0 -> 17424375 bytes
+ .../VIDEO_ANGELO/CASA_CAMPO_Angelo_portada.jpg     | Bin 0 -> 276821 bytes
+ CLIENTS/casacampobarinas1/VIDEO_ANGELO/README.md   | 182 +++++++++++
+ .../VIDEO_ANGELO/build/build_angelo_cta.py         | 181 ++++++++++
+ .../VIDEO_ANGELO/build/build_angelo_mix.sh         | 114 +++++++
+ .../VIDEO_ANGELO/build/build_angelo_music.py       | 251 ++++++++++++++
+ .../VIDEO_ANGELO/build/build_angelo_video.py       | 186 +++++++++++
+ .../VIDEO_ANGELO/build/tp_limit.py                 | 153 +++++++++
+ .../CASA_CAMPO_Hospedaje_MASTER.mp4                | Bin 0 -> 19375777 bytes
+ .../CASA_CAMPO_Hospedaje_SIN_MUSICA.mp4            | Bin 0 -> 19055973 bytes
+ .../CASA_CAMPO_Hospedaje_portada.jpg               | Bin 0 -> 362197 bytes
+ .../CASA_CAMPO_pista_hospedaje_100bpm.mp3          | Bin 0 -> 517293 bytes
+ .../casacampobarinas1/VIDEO_HOSPEDAJE/README.md    | 238 ++++++++++++++
+ .../VIDEO_HOSPEDAJE/build/build_hab_endcard.sh     |  38 +++
+ .../VIDEO_HOSPEDAJE/build/build_hab_mix.sh         |  69 ++++
+ .../VIDEO_HOSPEDAJE/build/build_hab_music.py       | 296 +++++++++++++++++
+ .../VIDEO_HOSPEDAJE/build/build_hab_video.py       | 302 +++++++++++++++++
+ .../VIDEO_HOSPEDAJE/build/tp_limit.py              | 153 +++++++++
+ .../Assets/Logo IG Nuevo_20260819_130946_0000.png  | Bin 0 -> 136008 bytes
+ Videos/Assets/VID-20260804-WA0100.mp4              | Bin 0 -> 14566476 bytes
+ Videos/Assets/VID-20260804-WA0104.mp4              | Bin 0 -> 15681105 bytes
+ Videos/Assets/VID-20260804-WA0138.mp4              | Bin 0 -> 1912424 bytes
+ Videos/Assets/VID-20260804-WA0139.mp4              | Bin 0 -> 2802918 bytes
+ Videos/Assets/VID-20260811-WA0150.mp4              | Bin 0 -> 1303558 bytes
+ handoff.md                                         |  76 ++++-
+ 36 files changed, 3381 insertions(+), 1 deletion(-)
 ```
-
-(listado completo de rutas: `git show --stat 56b1a98`)
 
 ## 4. Intentos fallidos
 <!-- NO BORRAR NINGUNA ENTRADA DE ESTA SECCIÓN. Solo agregar. -->
@@ -77,7 +87,15 @@ colisiones de nombre con skills nativos detectadas después del primer commit.
 - `crop` sólo evalúa `w`/`h` una vez; para zoom animado hay que usar `zoompan` (y sobreescalar antes para que no tiemble). Sólo `x`/`y` de `crop` se evalúan por frame — eso sí sirve para el camera shake.
 - `alimiter` de ffmpeg trae `level=enabled` por defecto y **renormaliza la salida a 0 dBFS**, anulando el `limit`. Además sólo mide picos de muestra. Resultado: el máster salió a +1.9 dBFS de pico real (saturado). Fix: `level=disabled` y, sobre todo, limitador de pico real propio con sobremuestreo 4× (`tp_limit.py`).
 - Texto negro sobre caja de color con `borderw` negro queda ilegible: el contorno rellena las contraformas de las letras. Fix: sin contorno cuando hay caja.
-- `npx playwright install` (descarga de binarios chromium/firefox/webkit) falla en el entorno remoto CCR: proxy de egreso bloquea `cdn.playwright.dev` con 403 ("no rule or allowlist entry allows host"). A diferencia del bloqueo de `ui.shadcn.com`, aquí no hay archivo de config local para agregar el dominio dentro de esta sesión remota. No reintentar en sesiones remotas — instalar los browsers desde una máquina local (`npx playwright install`) o dejar que lo haga el workflow de GitHub Actions ya creado (`npx playwright install --with-deps`, con red completa en el runner).
+- Al hacer hojas de contacto con `fps=8/dur` y etiquetar con `%{eif:t*(dur/8)}`, la etiqueta NO es el tiempo real del clip: sale escalada. Lo mismo con `-ss X` + `fps=2` y etiqueta `X+t/2`, que comprime los tiempos a la mitad. Consecuencia: se eligieron mal los puntos de entrada de varios planos. Fix: extraer frames sueltos con un `-ss` explícito por frame y etiquetar con ese valor.
+- `onepole_lp` con cutoff vectorial (barrido de filtro) revienta si se hace `float(np.exp(...))`. Fix: ramificar según `a.ndim`.
+- El montaje del vídeo de hospedaje se probó primero con 4 fotos fijas: quedaba plano y con demasiadas tomas seguidas de la lencería de corazones. Se descartó al llegar el metraje en vídeo. También se descartó el plano de "sala de estar": la cámara apunta al techo inclinado y el sujeto queda siempre en el borde inferior, no hay encuadre rescatable ni con anclaje bajo.
+- Se descartó el término "HABITACIÓN" como concepto y keyword (criterio de Alirio): no son cuartos separados sino chalet/cabaña y el cobro es por persona, así que invitaba a preguntar el precio por cuarto. Sustituido por "HOSPEDAJE" en pantalla, copy, keyword y nombre de carpeta. También se cambió "VISTA AL VERDE" por "VISTA A LA PISCINA": al salir al balcón lo primero que se ve son las piscinas.
+- Crédito de talento en blanco sobre bata blanca: la sombra sola no daba contraste. Fix: `borderw=4` negro además de la sombra.
+- `Videos/Assets/` estaba vacío en la copia local (sólo un .txt con la palabra "Readme"): los 5 clips de Angelo y el logo se habían subido a main durante la sesión. Fix: `git fetch origin main` + `git checkout origin/main -- "Videos/Assets/"`. Antes de dar por inexistente un archivo que el usuario dice tener, refrescar main.
+- `vidstabtransform` con `smoothing` alto obliga a `optzoom` a recortar mucho y se pierde el encuadre (un abrazo quedó convertido en un primer plano de tela). Fix: bajar `smoothing` de 26 a 15.
+- ffmpeg NO puede animar `scale` (evalúa `w`/`h` una sola vez), así que un logo con rebote no se puede hacer sólo con filtros. Fix: componer los frames en numpy y mandarlos a ffmpeg por tubería; el texto sí lo pone ffmpeg encima.
+- Se descartó Remotion para la placa de cierre: exigía Node, el paquete y el render de Chromium para 4 s de animación. La composición directa en numpy da un resultado equivalente sin dependencias.
 
 ## 5. Próximos pasos
 1. Revisar PR #4 (ui-ux-pro-max): confirmar si necesita rebase contra main.
@@ -87,26 +105,23 @@ colisiones de nombre con skills nativos detectadas después del primer commit.
 5. Casa & Campo: publicar el Reel y medir. Pedir material nuevo grabado en vertical 1080p
    (por Drive, NO por WhatsApp) — faltan planos de día, de comida llanera y caras en
    primer plano para una segunda versión del promocional.
-6. Evaluar `git-lfs` para el repo: este entregable añadió ~58 MB de binarios y CLIENTS/
-   va a seguir acumulando vídeo.
-7. Playwright (rama `claude/playwright-setup-qehg88`, ya pusheada): abrir el PR si se
-   quiere mergear a main. Antes de correr tests localmente, instalar los browsers
-   (`cd ig-viral-tracker/frontend && npx playwright install`) — no vienen descargados
-   porque el entorno remoto donde se instaló no tiene salida a `cdn.playwright.dev`.
-   Reemplazar `tests/example.spec.ts` (boilerplate que apunta a playwright.dev) por
-   specs reales contra las páginas del frontend una vez haya flujos que valga la pena cubrir.
-8. everything-claude-code recién instalado en `.claude/`: decidir si conviene activar
-   `.claude/hooks/hooks.json` en un `settings.json` real. Tal cual está, casi todos sus
-   hooks (prettier, `tsc`, bloqueo de `npm run dev`/`git push`) son para un stack npm/TS
-   que este repo no tiene — sólo aplicarían a `ig-viral-tracker/frontend`, no al resto del
-   repo (contenido Python/Markdown). Si se activa, hacerlo con matchers acotados a esa
-   carpeta y reescribir las rutas `${CLAUDE_PLUGIN_ROOT}/scripts/hooks/*.js` (que sólo
-   resuelven si se instala como plugin real) a `.claude/scripts/hooks/*.js`.
-9. ~~Revisar si `/code-review` y `/plan` chocan con skills nativos.~~ Resuelto (commit
-   b6fc8a5): `/plan` no chocaba (no hay skill nativo `plan`, sólo el agente `Plan` del
-   Agent tool, namespace distinto). `code-review` sí chocaba —se eliminó el command
-   vendorizado, queda el skill nativo `code-review` (más completo: ReportFindings,
-   --comment/--fix, niveles de esfuerzo). `security-review` (skill vendorizado) también
-   chocaba con el skill nativo del mismo nombre —se renombró a `security-checklist`
-   (carpeta + frontmatter + `skills-lock.json`); no hacía falta tocar ninguna otra
-   referencia porque nada más lo mencionaba por nombre de skill.
+6. Los `.mp4`/`.mp3` renderizados ya NO se versionan: están en `.gitignore` y los
+   másteres se entregan por Drive. En el repo sólo va la receta (scripts + copy),
+   que los regenera exactos desde `Videos/Assets/`. Pendiente decidir si algún día
+   se purga del historial de main lo que entró con el PR #8 (~58 MB), cosa que
+   exige reescribir historial y volver a clonar.
+7. Casa & Campo hospedaje: crear la automatización Meta de HOSPEDAJE antes de
+   publicar. NO reutilizar CHAPUZÓN/HAMACA/COROCORO: sus DM dicen "10am a 7pm",
+   lo que contradice una oferta de hospedaje.
+8. ~~Confirmar WiFi~~ — CONFIRMADO por el cliente, la mención se mantiene.
+9. Pedir fotos/vídeo del BAÑO — es la primera pregunta de quien va a dormir fuera
+   y no hay ni una toma.
+10. ~~Pedir el IG de Daniela~~ — es @daniela_deximar. Ojo: su bio dice "Reina de
+    la Cultura y el Turismo 2025", no "Reina del Turismo de Barinas" como se
+    había puesto. Corregido en pantalla y en el copy.
+11. Corregir la errata del logo: dice "El Placer de Sentirse bién", va sin tilde.
+12. Confirmar el parentesco de las personas del Reel de Angelo si se quiere
+    etiquetarlas en pantalla (ahora los captions no identifican a nadie).
+13. Sigue pendiente material del BAÑO para el vídeo de hospedaje.
+14. Los borrados de `assets/` en esta rama están OK: el cliente confirma que esa
+    carpeta sólo guardaba archivos de trabajo para edición y no hacen falta.
