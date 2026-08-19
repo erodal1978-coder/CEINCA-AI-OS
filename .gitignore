@@ -2,3 +2,13 @@ ig-viral-tracker/backend/.env
 ig-viral-tracker/backend/.env.save
 __pycache__/
 *.pyc
+
+# Vídeo renderizado: no entra al repo.
+# Git guarda cada versión de cada binario para siempre y no se puede borrar
+# después sin reescribir el historial. Los másteres se entregan por Drive y
+# se regeneran con los scripts de build/ a partir de Videos/Assets/.
+CLIENTS/**/*.mp4
+CLIENTS/**/*.mov
+CLIENTS/**/*.mp3
+CLIENTS/**/*.wav
+CLIENTS/**/*_portada.jpg

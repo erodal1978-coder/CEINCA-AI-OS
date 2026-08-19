@@ -15,6 +15,13 @@
 **Ficha técnica:** 1080×1920 (9:16) · 30 fps · 30.9 s · H.264 High · AAC 192 kbps 48 kHz estéreo
 · −15.6 LUFS integrado · pico real −0.4 dBFS (sin saturación).
 
+> **Los másteres no viven en el repo.** Git guarda cada versión de cada binario
+> para siempre y no se puede borrar después sin reescribir el historial, así que
+> los `.mp4` renderizados están en `.gitignore`. Los archivos finales se entregan
+> por Drive/WhatsApp y se regeneran exactos con los scripts de `build/` a partir
+> de las fuentes en `Videos/Assets/`. Lo que sí se versiona es la receta: scripts,
+> tiempos de cada plano y copy.
+
 ---
 
 ## 2. POR QUÉ HAY DOS VERSIONES
