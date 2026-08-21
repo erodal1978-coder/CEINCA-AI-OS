@@ -46,6 +46,26 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
   `skills-lock.json` (ese archivo trackea skills individuales sueltas; WEBKIT es un
   proyecto completo vendorizado, no una skill suelta). Referenciado en el `CLAUDE.md` raíz
   (sección MÓDULOS DEL SISTEMA) y en `README.md`.
+- **NUEVO — resueltas las 4 colisiones de nombre anteriores (commit `8be2229`),** aplicando
+  el mismo criterio que la sesión previa con `security-review`/`security-checklist`: en vez
+  de dejar que ambas copias coexistan vía el namespacing `WEBKIT:`, se decidió cuál versión
+  es mejor y se eliminó la duplicada.
+  - `apple-design` y `animation-vocabulary`: idénticas byte a byte a las copias raíz (`diff`
+    confirmó) → se borraron las copias de `WEBKIT/.claude/skills/`, sin más cambios (no las
+    referencia ninguna ruta hardcodeada).
+  - `ui-ux-pro-max`: la copia raíz es objetivamente mayor (22 stacks vs. 13, 192 paletas de
+    color vs. 160, dominio `gsap`, generación `--design-system`) y su CLI es superset
+    retrocompatible verificado con cada invocación que usan los docs de WEBKIT → se borró
+    la copia local y se repuntaron las rutas hardcodeadas (`package.json`,
+    `docs/questionnaire{,-es}.md`, `docs/skill-reference.md`) a
+    `../.claude/skills/ui-ux-pro-max/...` (un nivel arriba de `WEBKIT/`). Verificado que el
+    script repuntado corre bien desde dentro de `WEBKIT/`.
+  - `emil-design-eng` es la única que se dejó vendorizada localmente a propósito: su copia
+    local parchea el "esperar saludo del usuario" del upstream (necesario para que las
+    fases autónomas 3-5 de WEBKIT no hagan deadlock); la copia raíz debe mantener el
+    comportamiento original para sus otros usos en el repo. Están destinadas a divergir.
+  - Documentado en `WEBKIT/.claude/skills/ATTRIBUTION.md`, incluyendo el fallback para
+    revendorizar si WEBKIT se extrae como proyecto standalone.
 - **NUEVO — Playwright E2E en ig-viral-tracker/frontend:** se corrió
   `npm init playwright@latest` (rama `claude/playwright-setup-qehg88`, ya pusheada,
   sin PR abierto todavía) sobre el Next.js del frontend — es el único proyecto del repo
@@ -58,11 +78,11 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
 
 ## 3. Archivos y cambios (esta sesión)
 <!-- Sobrescribir cada sesión. Usar rango de commits o `git diff --stat`, no resumen narrado. -->
-Commit `3bc9a69` (rama `claude/install-claude-webkit-tj4l90`, pusheada, sin PR abierto
-todavía — el usuario no pidió PR):
+Commits `3bc9a69..8be2229` (rama `claude/install-claude-webkit-tj4l90`, pusheada, sin PR
+abierto todavía — el usuario no pidió PR).
 
+`3bc9a69` — instalación inicial de WEBKIT/:
 ```
-git diff --stat 3bc9a69~1 3bc9a69
  CLAUDE.md                                  |    3 +-
  README.md                                  |    1 +
  WEBKIT/  (218 archivos: CLAUDE.md, docs/, .claude/skills/*21, LICENSE, README(.es).md,
@@ -70,7 +90,20 @@ git diff --stat 3bc9a69~1 3bc9a69
  218 files changed, 31327 insertions(+)
 ```
 
-(listado completo de rutas: `git show --stat 3bc9a69`)
+`a5536a9` — handoff.md de esa instalación (1 archivo, +38/-20).
+
+`8be2229` — resolución de colisiones de nombre entre skills de WEBKIT y skills ya
+vendorizados a nivel raíz (`apple-design`, `animation-vocabulary`, `ui-ux-pro-max`,
+detectados por el namespacing automático `WEBKIT:<skill>` de Claude Code):
+```
+ 60 files changed, 53 insertions(+), 7647 deletions(-)
+ (borra WEBKIT/.claude/skills/{apple-design,animation-vocabulary,ui-ux-pro-max}/ completos;
+  repunta rutas hardcodeadas a ../.claude/skills/ui-ux-pro-max/ en package.json,
+  docs/questionnaire{,-es}.md, docs/skill-reference.md; documenta la decisión en
+  WEBKIT/.claude/skills/ATTRIBUTION.md)
+```
+
+(listado completo de rutas: `git show --stat <hash>` para cada commit)
 
 Sesión previa (referencia, ya en main): commits `56b1a98..b6fc8a5` (rama
 `claude/repository-installation-wkg83q`) instalaron "everything-claude-code" — ver
@@ -90,14 +123,17 @@ Sesión previa (referencia, ya en main): commits `56b1a98..b6fc8a5` (rama
 - `npx playwright install` (descarga de binarios chromium/firefox/webkit) falla en el entorno remoto CCR: proxy de egreso bloquea `cdn.playwright.dev` con 403 ("no rule or allowlist entry allows host"). A diferencia del bloqueo de `ui.shadcn.com`, aquí no hay archivo de config local para agregar el dominio dentro de esta sesión remota. No reintentar en sesiones remotas — instalar los browsers desde una máquina local (`npx playwright install`) o dejar que lo haga el workflow de GitHub Actions ya creado (`npx playwright install --with-deps`, con red completa en el runner).
 
 ## 5. Próximos pasos
-0. WEBKIT/ recién instalado (rama `claude/install-claude-webkit-tj4l90`, ya pusheada, sin
-   PR abierto): decidir si se abre PR a main. Antes de usarlo con un cliente real, probar
-   el flujo end-to-end una vez (`cd WEBKIT && claude`) para confirmar que el scaffold de
-   Next.js/shadcn funciona en este entorno (proxy de egreso ya bloqueó `ui.shadcn.com` en
-   una sesión anterior — puede volver a pasar aquí, mismo fix: red "Custom" + allowlist del
-   dominio). También pendiente: decidir una convención para dónde viven los `site/` que
-   genere (hoy caen dentro de `WEBKIT/site/`, gitignoreado — probablemente se quiera mover
-   cada landing terminada a `CLIENTS/<cliente>/` en vez de dejarla suelta en WEBKIT/).
+0. WEBKIT/ recién instalado y con sus colisiones de skills ya resueltas (rama
+   `claude/install-claude-webkit-tj4l90`, ya pusheada, sin PR abierto): decidir si se abre
+   PR a main. Antes de usarlo con un cliente real, probar el flujo end-to-end una vez
+   (`cd WEBKIT && claude`) para confirmar que el scaffold de Next.js/shadcn funciona en
+   este entorno (proxy de egreso ya bloqueó `ui.shadcn.com` en una sesión anterior — puede
+   volver a pasar aquí, mismo fix: red "Custom" + allowlist del dominio) y que las rutas
+   repuntadas a `../.claude/skills/ui-ux-pro-max/` se resuelven igual dentro de una sesión
+   real de Claude Code (ya verificado a mano con `python3` directo, falta el flujo completo
+   con el agente). También pendiente: decidir una convención para dónde viven los `site/`
+   que genere (hoy caen dentro de `WEBKIT/site/`, gitignoreado — probablemente se quiera
+   mover cada landing terminada a `CLIENTS/<cliente>/` en vez de dejarla suelta en WEBKIT/).
 1. Revisar PR #4 (ui-ux-pro-max): confirmar si necesita rebase contra main.
 2. Auditar el contenido real de la skill ui-ux-pro-max (de terceros) antes de mergear.
 3. Revisar reglas activas en VIRAL_CONTENT_CREATOR.md, IG_AUDITOR.md, FRAMEWORK_VIRAL_V2.md.
