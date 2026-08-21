@@ -5,7 +5,7 @@
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas de cada sección (ver abajo).
 
 ## 1. Objetivo
-Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, ceinca-ia, ceinca-systems-social-growth), sistema de carruseles unificado, e IG Viral Tracker como único proyecto en producción.
+Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, ceinca-ia, ceinca-systems-social-growth), sistema de carruseles unificado, IG Viral Tracker como único proyecto en producción, y ahora WEBKIT/ como capacidad de generar landing pages para clientes de CEINCA.
 
 ## 2. Estado actual
 - Sistema de 3 formatos de carrusel (paso a paso / alerta de riesgo / alerta noticiosa) mergeado a main (commits f2255cc..6a252ef).
@@ -30,6 +30,22 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
   ffmpeg + Python a partir de 5 clips de WhatsApp, con música original sintetizada.
   Se entregan dos versiones (MASTER con música para ads, SIN_MUSICA para audio de
   tendencia en orgánico) y los scripts de build son reproducibles.
+- **NUEVO — instalado `WEBKIT/`, vendorizado desde [Hainrixz/claude-webkit](https://github.com/Hainrixz/claude-webkit) (MIT):**
+  proyecto autocontenido para generar landing pages de clientes (Next.js 16 + Tailwind 4 +
+  shadcn/ui). Trae su propio `CLAUDE.md` (rol "web builder" con flujo guiado de 6 fases:
+  cuestionario → sistema de diseño → scaffold → build → QA/motion/SEO → deploy a Vercel) y
+  21 skills bundleadas en `WEBKIT/.claude/skills/` (13 propias del repo + 8 de
+  emilkowalski/skills para motion/polish, con atribución en
+  `WEBKIT/.claude/skills/ATTRIBUTION.md`). Se instaló como carpeta hermana de nivel raíz
+  (no mergeado dentro de `.claude/` de este repo ni de `SKILLS/`) precisamente para que su
+  `CLAUDE.md` no compita con el de CEINCA-AI-OS — se activa entrando al directorio
+  (`cd WEBKIT && claude`). Confirmado en esta misma sesión que Claude Code detectó y
+  namespaceó automáticamente las 21 skills (`WEBKIT:<skill>` cuando colisionan con un
+  skill nativo/global de mismo nombre, ej. `WEBKIT:apple-design`, `WEBKIT:ui-ux-pro-max`,
+  `WEBKIT:emil-design-eng`, `WEBKIT:animation-vocabulary`). No se registró en
+  `skills-lock.json` (ese archivo trackea skills individuales sueltas; WEBKIT es un
+  proyecto completo vendorizado, no una skill suelta). Referenciado en el `CLAUDE.md` raíz
+  (sección MÓDULOS DEL SISTEMA) y en `README.md`.
 - **NUEVO — Playwright E2E en ig-viral-tracker/frontend:** se corrió
   `npm init playwright@latest` (rama `claude/playwright-setup-qehg88`, ya pusheada,
   sin PR abierto todavía) sobre el Next.js del frontend — es el único proyecto del repo
@@ -42,29 +58,23 @@ Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, 
 
 ## 3. Archivos y cambios (esta sesión)
 <!-- Sobrescribir cada sesión. Usar rango de commits o `git diff --stat`, no resumen narrado. -->
-Commits `56b1a98..b6fc8a5` (rama `claude/repository-installation-wkg83q`). El segundo
-commit (`b6fc8a5`) elimina `.claude/commands/code-review.md` y renombra
-`.claude/skills/security-review/` -> `.claude/skills/security-checklist/` para resolver
-colisiones de nombre con skills nativos detectadas después del primer commit.
-
-`git diff --stat 56b1a98~1 56b1a98` (instalación inicial):
+Commit `3bc9a69` (rama `claude/install-claude-webkit-tj4l90`, pusheada, sin PR abierto
+todavía — el usuario no pidió PR):
 
 ```
- .claude/agents/*.md (9 archivos)                    | 3257 líneas
- .claude/commands/*.md (12 archivos)                 | 1449 líneas
- .claude/contexts/*.md (3 archivos)                  |   68 líneas
- .claude/hooks/hooks.json + memory-persistence/ + strategic-compact/ | 343 líneas
- .claude/rules/*.md (8 archivos)                     |  378 líneas
- .claude/scripts/hooks/*.js + lib/*.js + setup-package-manager.js (8 archivos) | 1293 líneas
- .claude/skills/{backend-patterns,clickhouse-io,coding-standards,
-   continuous-learning,eval-harness,frontend-patterns,
-   project-guidelines-example,security-review,strategic-compact,
-   tdd-workflow,verification-loop}/ (11 skills, 14 archivos)  | 3924 líneas
- skills-lock.json                                    |   66 líneas
- 63 files changed, 10978 insertions(+)
+git diff --stat 3bc9a69~1 3bc9a69
+ CLAUDE.md                                  |    3 +-
+ README.md                                  |    1 +
+ WEBKIT/  (218 archivos: CLAUDE.md, docs/, .claude/skills/*21, LICENSE, README(.es).md,
+           package.json, .gitignore — clon completo de Hainrixz/claude-webkit sin .git)
+ 218 files changed, 31327 insertions(+)
 ```
 
-(listado completo de rutas: `git show --stat 56b1a98`)
+(listado completo de rutas: `git show --stat 3bc9a69`)
+
+Sesión previa (referencia, ya en main): commits `56b1a98..b6fc8a5` (rama
+`claude/repository-installation-wkg83q`) instalaron "everything-claude-code" — ver
+`git show --stat 56b1a98` / `b6fc8a5`.
 
 ## 4. Intentos fallidos
 <!-- NO BORRAR NINGUNA ENTRADA DE ESTA SECCIÓN. Solo agregar. -->
@@ -80,6 +90,14 @@ colisiones de nombre con skills nativos detectadas después del primer commit.
 - `npx playwright install` (descarga de binarios chromium/firefox/webkit) falla en el entorno remoto CCR: proxy de egreso bloquea `cdn.playwright.dev` con 403 ("no rule or allowlist entry allows host"). A diferencia del bloqueo de `ui.shadcn.com`, aquí no hay archivo de config local para agregar el dominio dentro de esta sesión remota. No reintentar en sesiones remotas — instalar los browsers desde una máquina local (`npx playwright install`) o dejar que lo haga el workflow de GitHub Actions ya creado (`npx playwright install --with-deps`, con red completa en el runner).
 
 ## 5. Próximos pasos
+0. WEBKIT/ recién instalado (rama `claude/install-claude-webkit-tj4l90`, ya pusheada, sin
+   PR abierto): decidir si se abre PR a main. Antes de usarlo con un cliente real, probar
+   el flujo end-to-end una vez (`cd WEBKIT && claude`) para confirmar que el scaffold de
+   Next.js/shadcn funciona en este entorno (proxy de egreso ya bloqueó `ui.shadcn.com` en
+   una sesión anterior — puede volver a pasar aquí, mismo fix: red "Custom" + allowlist del
+   dominio). También pendiente: decidir una convención para dónde viven los `site/` que
+   genere (hoy caen dentro de `WEBKIT/site/`, gitignoreado — probablemente se quiera mover
+   cada landing terminada a `CLIENTS/<cliente>/` en vez de dejarla suelta en WEBKIT/).
 1. Revisar PR #4 (ui-ux-pro-max): confirmar si necesita rebase contra main.
 2. Auditar el contenido real de la skill ui-ux-pro-max (de terceros) antes de mergear.
 3. Revisar reglas activas en VIRAL_CONTENT_CREATOR.md, IG_AUDITOR.md, FRAMEWORK_VIRAL_V2.md.
