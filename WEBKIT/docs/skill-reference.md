@@ -19,11 +19,15 @@ Skills are markdown files that Claude Code reads automatically. This project bun
 | `playwright-cli` | `.claude/skills/playwright-cli/` | Browser automation for screenshots and visual QA. Includes 7 reference docs. |
 | `chrome-bridge-automation` | `.claude/skills/chrome-bridge-automation/` | Fallback visual QA — connects to user's Chrome via Midscene extension. Vision-driven screenshots. |
 | `seo-audit` | `.claude/skills/seo-audit/` | Technical SEO analysis, meta tags, heading structure. |
-| `ui-ux-pro-max` | `.claude/skills/ui-ux-pro-max/` | Design intelligence database — 161 color palettes, 57 font pairings, 50+ styles. Python CLI for search. |
+| `ui-ux-pro-max` | `../.claude/skills/ui-ux-pro-max/`* | Design intelligence database — 192 color palettes, 74 typography pairings, 84 styles across 22 stacks. Python CLI for search. |
 | `web-reader` | `.claude/skills/web-reader/` | Extract content from reference URLs the user provides. |
 | `deep-research` | `.claude/skills/deep-research/` | Systematic web research for industry-specific copy and content. |
 
-All 13 skills are bundled — no installation needed.
+12 of the 13 skills are bundled locally — no installation needed. `ui-ux-pro-max`* is shared
+from the parent repo's `.claude/skills/` instead of duplicated here (see the note under
+[ui-ux-pro-max](#ui-ux-pro-max-shared-from-the-parent-repo) below); same for `apple-design`
+and `animation-vocabulary` among the motion skills. Details in
+`.claude/skills/ATTRIBUTION.md`.
 
 ---
 
@@ -80,7 +84,16 @@ The skill checks:
 - Mobile readiness
 - Structured data opportunities (JSON-LD for rich snippets)
 
-### ui-ux-pro-max (bundled)
+### ui-ux-pro-max (shared from the parent repo)
+
+When WEBKIT/ is installed inside a parent repo that already vendors `ui-ux-pro-max` at
+its own `.claude/skills/` (as in CEINCA-AI-OS), this skill is **not duplicated locally** —
+WEBKIT points at that copy instead, since it carries a larger dataset (22 stacks, 192
+color palettes, 74 typography pairings, a `gsap` motion domain, and `--design-system`
+generation) than the version this project originally bundled. Paths below are relative to
+`WEBKIT/` and assume the parent repo's `.claude/skills/ui-ux-pro-max/` one level up. If
+this project is ever extracted and run standalone (no parent repo), re-vendor
+`ui-ux-pro-max` under `WEBKIT/.claude/skills/ui-ux-pro-max/` and drop the `../` prefix.
 
 **Available `--domain` values:**
 
@@ -98,30 +111,30 @@ The skill checks:
 | `react` | React performance guidelines | `"rerender"` |
 | `google-fonts` | Full Google Fonts index (1,900+ families) with axes, subsets, popularity | `"variable display"` |
 
-**Available `--stack` values:** `html-tailwind`, `react`, `nextjs`, `astro`, `vue`, `nuxtjs`, `nuxt-ui`, `svelte`, `swiftui`, `react-native`, `flutter`, `shadcn`, `jetpack-compose`
+**Available `--stack` values:** `html-tailwind`, `react`, `nextjs`, `astro`, `vue`, `nuxtjs`, `nuxt-ui`, `svelte`, `swiftui`, `react-native`, `flutter`, `shadcn`, `jetpack-compose`, `angular`, `laravel`, `javafx`, `wpf`, `winui`, `avalonia`, `uno`, `uwp`, `threejs`
 
 For this project, `--stack nextjs` and `--stack shadcn` are the relevant ones. Verify both resolve before relying on them in Phase 2:
 
 ```bash
-python3 .claude/skills/ui-ux-pro-max/scripts/search.py "accessibility" --stack shadcn
-python3 .claude/skills/ui-ux-pro-max/scripts/search.py "images" --stack nextjs
+python3 ../.claude/skills/ui-ux-pro-max/scripts/search.py "accessibility" --stack shadcn
+python3 ../.claude/skills/ui-ux-pro-max/scripts/search.py "images" --stack nextjs
 ```
 
 ```bash
 # Color palette for a restaurant
-python3 .claude/skills/ui-ux-pro-max/scripts/search.py "restaurant warm" --domain color
+python3 ../.claude/skills/ui-ux-pro-max/scripts/search.py "restaurant warm" --domain color
 
 # Font pairing for elegant vibe
-python3 .claude/skills/ui-ux-pro-max/scripts/search.py "elegant serif" --domain typography
+python3 ../.claude/skills/ui-ux-pro-max/scripts/search.py "elegant serif" --domain typography
 
 # Landing page structure for SaaS
-python3 .claude/skills/ui-ux-pro-max/scripts/search.py "saas" --domain landing
+python3 ../.claude/skills/ui-ux-pro-max/scripts/search.py "saas" --domain landing
 
 # UI style recommendations for luxury brand
-python3 .claude/skills/ui-ux-pro-max/scripts/search.py "luxury brand" --domain style
+python3 ../.claude/skills/ui-ux-pro-max/scripts/search.py "luxury brand" --domain style
 
 # Stack-specific recommendations for Next.js + shadcn
-python3 .claude/skills/ui-ux-pro-max/scripts/search.py "modern clean" --stack shadcn
+python3 ../.claude/skills/ui-ux-pro-max/scripts/search.py "modern clean" --stack shadcn
 ```
 
 ### playwright-cli (bundled)

@@ -27,7 +27,7 @@ Despues de la Ronda 1, resume: "Perfecto — [negocio] ayuda a [audiencia] con [
    - Default: Saltar, elegir basado en la industria.
 
 5. **Tienes preferencia de colores, o quieres que yo elija basado en tu industria?**
-   - Default: Usa `ui-ux-pro-max`. Corre: `python3 .claude/skills/ui-ux-pro-max/scripts/search.py "<industria>" --domain color`
+   - Default: Usa `ui-ux-pro-max`. Corre: `python3 ../.claude/skills/ui-ux-pro-max/scripts/search.py "<industria>" --domain color`
    - Si falla la busqueda: Elige basado en las normas de la industria en `docs/design-guide.md`.
 
 6. **Tema claro u oscuro?**

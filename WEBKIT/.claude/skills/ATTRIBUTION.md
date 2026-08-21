@@ -3,6 +3,28 @@
 Every skill in `.claude/skills/` that came from a third party: where it came from,
 what license it carries, and every byte this repo changed.
 
+**Not physically bundled here:** `apple-design`, `animation-vocabulary`, and
+`ui-ux-pro-max` originally shipped as local copies under this directory. Since WEBKIT
+was installed inside CEINCA-AI-OS, which already vendors all three at the parent repo's
+own `.claude/skills/` (also from `emilkowalski/skills` for the first two; from
+`nextlevelbuilder/ui-ux-pro-max-skill` for the third — same source lineage as this repo's
+own `Other vendored skills` entry below), keeping duplicates would let the two copies
+silently drift apart. Resolution: deleted the local copies here and pointed the
+references that used a hardcoded path (`package.json`'s `verify:stacks`,
+`docs/questionnaire{,-es}.md`, `docs/skill-reference.md`) at `../.claude/skills/<name>/`
+instead. `apple-design` and `animation-vocabulary` were byte-identical to the parent's
+copy (`diff` confirmed), so this is a pure dedup. `ui-ux-pro-max`'s parent-repo copy is
+**not** identical — it is a newer/larger install (22 stacks vs. this repo's patched 13,
+192 color palettes vs. 160, a `gsap` motion domain, `--design-system` generation) that
+happens to already carry equivalent fixes to the ones logged for this repo's own copy
+below, so the parent's copy is strictly the better one to depend on. `emil-design-eng`
+is the one skill in this trio-adjacent group that stays vendored locally on purpose — see
+**M1** below; its modification is required for this project's autonomous build flow and
+must not leak into the parent repo's general-purpose copy, so the two are meant to
+diverge. If this project is ever extracted and run standalone (no parent repo), re-vendor
+`apple-design`, `animation-vocabulary`, and `ui-ux-pro-max` under `.claude/skills/` here
+and drop the `../` prefix from the paths above.
+
 ## Emil Kowalski — animation & design engineering (8 skills)
 
 - **Upstream:** https://github.com/emilkowalski/skills
@@ -17,8 +39,8 @@ what license it carries, and every byte this repo changed.
 | `review-animations` | `skills/review-animations/` | None. `disable-model-invocation: true` preserved. |
 | `improve-animations` | `skills/improve-animations/` | None. |
 | `find-animation-opportunities` | `skills/find-animation-opportunities/` | None. |
-| `animation-vocabulary` | `skills/animation-vocabulary/` | None. |
-| `apple-design` | `skills/apple-design/` | None. |
+| `animation-vocabulary` | `skills/animation-vocabulary/` | None. *Shared from the parent repo, not bundled locally — see note above.* |
+| `apple-design` | `skills/apple-design/` | None. *Shared from the parent repo, not bundled locally — see note above.* |
 | `prototype` | `skills/prototype/` | None. `disable-model-invocation: true` preserved. |
 
 **Not bundled, on purpose:** `animate-expo` (React Native, out of scope), `ask-sonner`
@@ -48,7 +70,7 @@ On **motion**, this repo's authority is `animate` / `emil-design-eng`, not
 
 | Skill | Source | License | Local modifications |
 |---|---|---|---|
-| `ui-ux-pro-max` | Next Level Builder | MIT — `LICENSE` | **Yes.** `scripts/core.py`: restored 12 entries to `STACK_CONFIG` (the vendored copy shipped only `react-native`, which disabled `--stack` for the other 12 values). `data/stacks/`: added 12 CSVs. `data/`: removed `draft.csv` and `design.csv` (unreferenced, 212 KB; `draft.csv`'s own header states the engine does not read it). `SKILL.md`: corrected 12 script paths (`skills/` -> `.claude/skills/`), retargeted from React Native to Next.js + shadcn, removed the non-existent `--domain prompt`, restored the 13-stack table. |
+| `ui-ux-pro-max` | Next Level Builder | MIT — `LICENSE` | *Shared from the parent repo, not bundled locally — see note above.* Historical record, for when this was still vendored here: **Yes.** `scripts/core.py`: restored 12 entries to `STACK_CONFIG` (the vendored copy shipped only `react-native`, which disabled `--stack` for the other 12 values). `data/stacks/`: added 12 CSVs. `data/`: removed `draft.csv` and `design.csv` (unreferenced, 212 KB; `draft.csv`'s own header states the engine does not read it). `SKILL.md`: corrected 12 script paths (`skills/` -> `.claude/skills/`), retargeted from React Native to Next.js + shadcn, removed the non-existent `--domain prompt`, restored the 13-stack table. |
 | `shadcn-ui` | provenance unrecorded | unstated | **Yes.** `npx shadcn-ui@latest` -> `npx shadcn@latest` (23 occurrences; the `shadcn-ui` package is deprecated on npm). |
 | `vercel-deploy` | Vercel | MIT — `LICENSE.txt` | None. |
 | `vercel-react-best-practices` | Vercel | MIT — frontmatter | None. |

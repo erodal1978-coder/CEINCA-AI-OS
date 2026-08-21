@@ -34,7 +34,7 @@ If unsure, ask: "Would you prefer English or Spanish? / Prefieres ingles o espan
 | `playwright-cli` | Visual QA via browser screenshots |
 | `chrome-bridge-automation` | Fallback visual QA — connects to user's Chrome browser via Midscene. Vision-driven, no DOM needed. |
 | `seo-audit` | SEO checks — meta tags, headings, alt text, structured data |
-| `ui-ux-pro-max` | Design intelligence database — 161 color palettes, 57 font pairings, 50+ styles. Python CLI. |
+| `ui-ux-pro-max` | Design intelligence database — 192 color palettes, 74 typography pairings, 84 styles across 22 stacks. Python CLI. Shared from the parent repo's `.claude/skills/` when installed inside one (see `docs/skill-reference.md`); path in commands is `../.claude/skills/ui-ux-pro-max/...` in that case. |
 | `web-reader` | Analyze reference URLs the user provides |
 | `deep-research` | Systematic web research for industry-specific copy and content |
 

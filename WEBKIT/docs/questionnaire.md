@@ -27,7 +27,7 @@ After Round 1, summarize: "Got it — [business] helps [audience] with [service]
    - Default: Skip, choose based on industry.
 
 5. **Any color preferences, or should I pick based on your industry?**
-   - Default: Use `ui-ux-pro-max` to recommend. Run: `python3 .claude/skills/ui-ux-pro-max/scripts/search.py "<industry>" --domain color`
+   - Default: Use `ui-ux-pro-max` to recommend. Run: `python3 ../.claude/skills/ui-ux-pro-max/scripts/search.py "<industry>" --domain color`
    - If search fails: Choose based on industry norms from `docs/design-guide.md`.
 
 6. **Light or dark theme?**
