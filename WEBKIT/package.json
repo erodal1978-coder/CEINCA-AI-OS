@@ -12,7 +12,7 @@
   "scripts": {
     "hero": "node docs/assets/hero/render.mjs",
     "hero:chrome": "node docs/assets/hero/render.mjs --chrome",
-    "verify:stacks": "python3 .claude/skills/ui-ux-pro-max/scripts/search.py \"accessibility\" --stack shadcn"
+    "verify:stacks": "python3 ../.claude/skills/ui-ux-pro-max/scripts/search.py \"accessibility\" --stack shadcn"
   },
   "keywords": [
     "claude-code",
