@@ -22,6 +22,7 @@
 * `STRATEGY/` — Audiencia, core del negocio
 * `CLIENTS/` — Carpetas por cliente con auditorías, contenido generado y seguimiento
 * `ig-viral-tracker/` — Sistema de rastreo de posts virales en Instagram con IA
+* `WEBKIT/` — Claude Web Builder (Hainrixz/claude-webkit, vendorizado): genera landing pages para clientes (Next.js + Tailwind + shadcn/ui). Es un proyecto autocontenido con su propio `CLAUDE.md` y 21 skills en `.claude/skills/` — entra con `cd WEBKIT && claude` para activar el flujo guiado de 6 fases (cuestionario → deploy). No mezcles su rol de "web builder" con el rol CEINCA de este archivo raíz.
 
 ## Protocolo de cierre de sesión (handoff.md)
 
