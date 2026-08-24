@@ -1,4 +1,39 @@
-ig-viral-tracker/backend/.env
-ig-viral-tracker/backend/.env.save
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Python
 __pycache__/
 *.pyc
+.venv/
+venv/
+
+# Node / frontend
+node_modules/
+.next/
+dist/
+build/
+coverage/
+
+# Video, audio and render outputs
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.webm
+*.wav
+*.mp3
+*.aac
+*.m4a
+*.flac
+/renders/
+/exports/
+/output/
+/tmp/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
