@@ -19,6 +19,8 @@ Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agente
 - `carrusel-export/` se conserva como motor de exportación programática de carruseles.
 - `video-export/` se conserva como base del motor de composición de vídeo con Remotion.
 - PR #4 (`ui-ux-pro-max`) ya fue mergeado el 29-07-2026; no está pendiente de rebase.
+- **PR #19 abierto** (`cleanup/audit-claude-agents-skills` → `main`, basado en `main` directo, en paralelo a PR #18): ejecuta la Fase 1 de la auditoría — elimina agentes `e2e-runner`/`tdd-guide` y skills `backend-patterns`/`clickhouse-io`/`security-checklist`/`project-guidelines-example`; adapta `architect`/`security-reviewer`/`refactor-cleaner`/`build-error-resolver` quitando solo su sección "(Example)" contaminada; corrige referencias en cascada en `.claude/rules/`, `.claude/commands/orchestrate.md` y `ui-ux-pro-max`. **Deja rotos** `.claude/commands/tdd.md` y `.claude/commands/e2e.md` (su única función era invocar los agentes eliminados) — pendiente decidir si se borran o se reescriben. No mergeado.
+- **Nota para quien mergee:** PR #18 y PR #19 modifican ambos este `handoff.md` desde el mismo punto de `main` — al mergear el segundo va a haber un conflicto trivial en este archivo, resolver combinando ambas entradas de "Estado actual", no descartar ninguna.
 
 ## 3. Archivos y cambios (esta sesión)
 Commits de limpieza y documentación en `main`:
