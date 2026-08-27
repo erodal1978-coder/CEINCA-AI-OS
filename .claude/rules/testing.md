@@ -19,12 +19,11 @@ MANDATORY workflow:
 
 ## Troubleshooting Test Failures
 
-1. Use **tdd-guide** agent
-2. Check test isolation
-3. Verify mocks are correct
-4. Fix implementation, not tests (unless tests are wrong)
+1. Check test isolation
+2. Verify mocks are correct
+3. Fix implementation, not tests (unless tests are wrong)
 
 ## Agent Support
 
-- **tdd-guide** - Use PROACTIVELY for new features, enforces write-tests-first
-- **e2e-runner** - Playwright E2E testing specialist
+- `tdd-workflow` skill - enforces write-tests-first
+- No dedicated E2E agent currently — `e2e-runner` was removed (2026-08-27, cleanup PR) for being unadaptably tied to an unrelated project. Write E2E tests directly with Playwright, or reintroduce a lean agent if `carrusel-export` needs one.
