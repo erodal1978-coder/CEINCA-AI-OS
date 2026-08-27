@@ -89,7 +89,7 @@ Estructura: 6 escenas de 4-10 segundos cada una.
 Estilo: cinematográfico, hiperrealista, corporativo.
 Avatar: @Eduardo (abogado venezolano, traje oscuro, oficina profesional).
 Keyword CTA: [KEYWORD]
-Paleta: fondo navy #0B1D3A, texto blanco, acento dorado #C8A951.
+Paleta: fondo navy #122A63, texto blanco, acento dorado #C8A951.
 
 Genera las 6 escenas con prompts detallados incluyendo cámara, 
 iluminación, FX y cierre de cada escena.
@@ -143,7 +143,7 @@ Usar esta Tool en cada nuevo Reel sin reconfigurar desde cero.
 
 ### Escenas de impacto / motion graphics:
 ```
-- Texto en pantalla negro — aparece letra por letra (navy #0B1D3A)
+- Texto en pantalla negro — aparece letra por letra (navy #122A63)
 - Número grande ($97, 64 formatos) con pulso/scale animation
 - Línea dorada #C8A951 barriendo de izquierda a derecha
 - Logo CEINCA sobre navy con partículas doradas flotantes
@@ -271,7 +271,7 @@ PROMPT FLOW:
 Zoom continues briefly then CUTS to pure black. Single white text fades 
 in centered — bold Montserrat: "64 documentos. Listos en segundos." 
 Numbers pulse with subtle scale. Thin gold line #C8A951 sweeps left to 
-right beneath text. Background transitions from black to navy #0B1D3A.
+right beneath text. Background transitions from black to navy #122A63.
 
 CAMERA: Static, perfectly centered, vignette edges.
 LIGHT: Self-illuminated white text, warm glow on gold line.
@@ -333,7 +333,7 @@ DURATION: 8s
 ```
 PROMPT FLOW:
 [START FRAME: watermark zoom from Scene 4 → pulls back to navy]
-Scene settles on deep navy background #0B1D3A. Center frame: gold 
+Scene settles on deep navy background #122A63. Center frame: gold 
 horizontal line appears, then "GEM LOPNNA" white bold Montserrat above. 
 Below: "$97" large gold text, struck-through "$400" gray upper-right. 
 Gold particle system drifts upward slowly in background.
@@ -357,7 +357,7 @@ PROMPT FLOW:
 @Eduardo: same attorney, medium close-up shoulders to crown, looks 
 directly into camera. Confident, direct expression. Speaks one clear 
 sentence. Lower-third overlay: "Escribe LOPNNA" white Bold, gold DM 
-icon left. CEINCA logo bottom-center, small, gold on navy #0B1D3A.
+icon left. CEINCA logo bottom-center, small, gold on navy #122A63.
 
 CAMERA: Locked off. No movement. Direct eye contact.
 LIGHT: Slightly brighter than Scene 3 — frontal fill warmer tone.

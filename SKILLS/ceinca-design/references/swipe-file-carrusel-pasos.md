@@ -37,7 +37,7 @@
 - Fondo claro: crema/hueso, no blanco puro
 - Texto: blanco sobre oscuro, negro sobre claro, SIEMPRE con el acento reservado para la palabra clave del título y los bullets destacados
 
-**Adaptación CEINCA:** usar Azul CEINCA #2F4798 / Azul Oscuro #233978 como fondo oscuro, Azul Muy Claro #EAF0FF o blanco como fondo claro, y reservar el naranja de Claude (#D97757) SOLO si el carrusel es específicamente sobre Claude — si es de otro tema, el acento debe ser el propio de CEINCA, no naranja.
+**Adaptación CEINCA:** usar Azul CEINCA #1E3A8A / Azul Oscuro #122A63 como fondo oscuro, Azul Muy Claro #EAF0FF o blanco como fondo claro, y reservar el naranja de Claude (#D97757) SOLO si el carrusel es específicamente sobre Claude — si es de otro tema, el acento debe ser el propio de CEINCA, no naranja.
 
 ## 5. Mecánica de cierre (la parte que más importa)
 
