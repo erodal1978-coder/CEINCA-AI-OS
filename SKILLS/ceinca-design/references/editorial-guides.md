@@ -6,8 +6,8 @@ Este modo aplica SOLO a documentos largos tipo manual/guía/playbook (PDF educat
 
 | Si es... | Usa |
 |---|---|
-| Carrusel IG, post, Reel/Story, landing, banner | Modo Social/Redes (Navy `#0B1D3A` + Dorado `#C8A951` + Montserrat) |
-| Guía PDF, manual, playbook, curso, sistema de trabajo, documento de entrenamiento largo | Este modo (Azul `#2F4798` + Manrope) |
+| Carrusel IG, post, Reel/Story, landing, banner | Modo Social/Redes (Navy `#122A63` + Dorado `#C8A951` + Montserrat) |
+| Guía PDF, manual, playbook, curso, sistema de trabajo, documento de entrenamiento largo | Este modo (Azul `#1E3A8A` + Manrope) |
 
 Ambos modos son la misma marca CEINCA en dos registros distintos — no se reemplazan entre sí. Nunca uses Manrope en un carrusel ni Montserrat en una guía PDF.
 
@@ -23,9 +23,9 @@ Inspiración de referencia (adaptar, nunca copiar): Apple Human Interface, Strip
 
 ```
 PRIMARIO
-  Azul CEINCA        #2F4798   — Títulos, elementos de marca (del logo)
-  Azul Oscuro        #233978   — Encabezados, botones, tablas
-  Azul Claro         #5A73C7   — Destacados, etiquetas, gráficos
+  Azul CEINCA        #1E3A8A   — Títulos, elementos de marca (del logo)
+  Azul Oscuro        #122A63   — Encabezados, botones, tablas
+  Azul Claro         #2D4FA8   — Destacados, etiquetas, gráficos
   Azul Muy Claro     #EAF0FF   — Fondos de módulos/cajas
 
 NEUTROS
@@ -50,7 +50,7 @@ ESTADO (uso funcional únicamente, nunca decorativo)
 
 | Nivel | Tamaño | Peso | Color |
 |---|---|---|---|
-| Título | 48px | Bold | Azul CEINCA `#2F4798` |
+| Título | 48px | Bold | Azul CEINCA `#1E3A8A` |
 | Capítulo | 34px | Semibold | Gris Oscuro |
 | Sección | 26px | Semibold | Gris Oscuro |
 | Subtítulo | 20px | Medium | Gris Oscuro |
@@ -96,10 +96,10 @@ Cada uno con su función y regla de color/padding:
 | **Objective Block** | Qué aprenderá el lector | Azul Muy Claro |
 | **Requirements Block** | Qué necesita antes de empezar | Blanco con borde gris claro |
 | **Framework Block** | Explica la metodología del módulo | Blanco, título en Azul CEINCA |
-| **Expert Insight** | Recomendación estratégica | Caja azul (`#EAF0FF` fondo, borde `#2F4798`) |
+| **Expert Insight** | Recomendación estratégica | Caja azul (`#EAF0FF` fondo, borde `#1E3A8A`) |
 | **AI Insight** | Cómo razona la IA en este paso | Caja gris (`#E8EAF1`) |
 | **Common Mistake** | Errores frecuentes | Caja con acento Advertencia `#F59E0B` |
-| **Pro Tip** | Truco avanzado | Caja Azul Oscuro `#233978`, texto blanco |
+| **Pro Tip** | Truco avanzado | Caja Azul Oscuro `#122A63`, texto blanco |
 | **Prompt Block** | Prompt copiable | Fondo Gris Oscuro `#22252A`, tipografía JetBrains Mono, botón "Copiar Prompt" |
 | **Exercise** | Ejercicio práctico | Blanco con borde punteado |
 | **Checklist** | Checklist accionable | Blanco, marcas en Éxito `#00A86B` |

@@ -54,7 +54,7 @@ Tras rechazo de política de Flow en Escena 1 y revisión posterior de las Escen
 ---
 
 ## Cierre de marca (no es Flow)
-Tarjeta CEINCA (Navy #0B1D3A + Dorado #C8A951 + Montserrat), producida con skill `ceinca-design`, ~2s, después de la Escena 6.
+Tarjeta CEINCA (Navy #122A63 + Dorado #C8A951 + Montserrat), producida con skill `ceinca-design`, ~2s, después de la Escena 6.
 
 ## Total estimado
 46s de contenido + ~2s de cierre de marca = ~48s.
