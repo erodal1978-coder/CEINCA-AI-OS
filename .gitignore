@@ -4,3 +4,23 @@ ig-viral-tracker/backend/.env.save
 # Binarios pesados de assets — no versionar (ver AUDITORIA-ORGANIZACION-CEINCA.html)
 assets/**/*.mp4
 assets/**/*.mp3
+
+# Media pesada — GitHub no es almacenamiento de video/audio, en cualquier carpeta del repo
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.avi
+*.wav
+*.mp3
+*.m4a
+
+# Temporales / entorno / dependencias comunes
+.env
+.env.*
+!.env.example
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+*.log
