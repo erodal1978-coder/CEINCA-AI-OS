@@ -1,2 +1,6 @@
 ig-viral-tracker/backend/.env
 ig-viral-tracker/backend/.env.save
+
+# Binarios pesados de assets — no versionar (ver AUDITORIA-ORGANIZACION-CEINCA.html)
+assets/**/*.mp4
+assets/**/*.mp3
