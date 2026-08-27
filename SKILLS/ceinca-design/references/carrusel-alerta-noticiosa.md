@@ -54,7 +54,7 @@ Se activa únicamente cuando ocurre uno de estos eventos verificables (ligado a 
 
 ```html
 <!-- SLIDE: CIERRE TRIPLE CTA -->
-<div class="slide" style="background: linear-gradient(160deg, #0B1D3A 0%, #1A3560 100%);">
+<div class="slide" style="background: linear-gradient(160deg, #122A63 0%, #2D4FA8 100%);">
   <div class="slide-top">
     <span class="badge-urgent">🔒 GUARDA ESTO</span>
     <span class="slide-num">06 / 06</span>

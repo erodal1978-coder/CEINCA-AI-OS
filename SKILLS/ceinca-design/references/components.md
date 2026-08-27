@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy: #0B1D3A; --navy-mid: #132848; --navy-light: #1A3560;
+      --navy: #122A63; --navy-mid: #1E3A8A; --navy-light: #2D4FA8;
       --gold: #C8A951; --gold-light: #DDB96A; --gold-dark: #A8892E;
       --white: #FFFFFF; --cream: #FAF6ED;
       --font: 'Montserrat', sans-serif;
@@ -353,7 +353,7 @@
   </div>
 
   <!-- SLIDE 5: CIERRE CTB -->
-  <div class="slide" style="background: linear-gradient(160deg, #0B1D3A 0%, #1A3560 100%);">
+  <div class="slide" style="background: linear-gradient(160deg, #122A63 0%, #2D4FA8 100%);">
     <div class="slide-top">
       <span class="label-authority">🔒 ACTÚA HOY</span>
       <span class="slide-num">05 / 05</span>
@@ -430,7 +430,7 @@
 
 ```html
 <div class="service-card" style="
-  background: linear-gradient(135deg, #132848 0%, #1A3560 100%);
+  background: linear-gradient(135deg, #1E3A8A 0%, #2D4FA8 100%);
   border: 1px solid rgba(200,169,81,0.25);
   border-radius: 12px;
   padding: 28px 24px;
@@ -458,7 +458,7 @@
   </div>
   <button style="
     width:100%;background:linear-gradient(135deg,#C8A951,#DDB96A);
-    color:#0B1D3A;border:none;border-radius:8px;padding:14px;
+    color:#122A63;border:none;border-radius:8px;padding:14px;
     font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;
     text-transform:uppercase;letter-spacing:0.06em;cursor:pointer;
   ">
@@ -473,7 +473,7 @@
 
 ```html
 <section style="
-  background: linear-gradient(135deg, #0B1D3A 0%, #1A3560 100%);
+  background: linear-gradient(135deg, #122A63 0%, #2D4FA8 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -524,7 +524,7 @@
     <!-- CTA -->
     <button style="
       background:linear-gradient(135deg,#C8A951,#DDB96A);
-      color:#0B1D3A;border:none;border-radius:8px;
+      color:#122A63;border:none;border-radius:8px;
       padding:18px 40px;font-family:'Montserrat',sans-serif;
       font-size:15px;font-weight:800;text-transform:uppercase;
       letter-spacing:0.06em;cursor:pointer;
@@ -596,17 +596,17 @@ Estas clases se SUMAN al `<style>` del carrusel base (sección 1) — no reempla
 }
 .slide.light .headline { color: var(--navy); }
 .slide.light .subhead,
-.slide.light .body-text { color: rgba(11,29,58,0.65); }
+.slide.light .body-text { color: rgba(18,42,99,0.65); }
 .slide.light .label-authority {
   color: var(--navy-mid);
-  background: rgba(11,29,58,0.06);
-  border-color: rgba(11,29,58,0.15);
+  background: rgba(18,42,99,0.06);
+  border-color: rgba(18,42,99,0.15);
 }
 .slide.light .footer-sub,
-.slide.light .footer-handle { color: rgba(11,29,58,0.45); }
+.slide.light .footer-handle { color: rgba(18,42,99,0.45); }
 .slide.light .footer-logo { color: var(--gold-dark); }
-.slide.light .slide-footer { border-top-color: rgba(11,29,58,0.1); }
-.slide.light .progress-track { background: rgba(11,29,58,0.1); }
+.slide.light .slide-footer { border-top-color: rgba(18,42,99,0.1); }
+.slide.light .progress-track { background: rgba(18,42,99,0.1); }
 
 /* === INDICADOR DE PROGRESO (barra + contador) === */
 .progress-wrap {
