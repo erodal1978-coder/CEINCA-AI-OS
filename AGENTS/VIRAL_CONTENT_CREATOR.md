@@ -116,7 +116,7 @@ CHECKLIST PRE-PUBLICACIÓN
 3. **NUNCA copiar contenido directamente.** Adaptar, inspirar, recrear con voz CEINCA.
 4. **SIEMPRE aplicar el CTB triple** (Guardar → Compartir → Comentar). Sin excepción.
 5. **SIEMPRE verificar datos legales** contra `KNOWLEDGE/` y `RULES/ANTI_HALLUCINATION.md` antes de publicar información sobre trámites, leyes o resoluciones.
-6. **SIEMPRE usar la paleta CEINCA** (#0A1C4E portada, #F5F5F0 contenido, #1B7A3D acentos).
+6. **SIEMPRE usar la paleta CEINCA** (#122A63 portada, #F5F5F0 contenido, #C8A951 acentos).
 7. **Primera línea del copy SIEMPRE en MAYÚSCULAS** con emoji ancla — es lo único visible antes del "...más".
 8. **NUNCA usar keywords genéricas** como trigger de automatización. Solo keywords del banco disruptivo.
 9. **La automatización Meta se configura ANTES de publicar**, no después.
