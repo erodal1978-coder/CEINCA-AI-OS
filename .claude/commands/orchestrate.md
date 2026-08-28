@@ -106,7 +106,6 @@ SUMMARY
 AGENT OUTPUTS
 -------------
 Planner: [summary]
-TDD Guide: [summary]
 Code Reviewer: [summary]
 Security Reviewer: [summary]
 
