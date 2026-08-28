@@ -51,6 +51,17 @@ Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agente
   - `.claude/agents/doc-updater.md`: eliminadas las 97 líneas (130-226) de la sección "Example Project-Specific Codemaps" — contaminación real de un stack ajeno (Next.js 15.1.4/Privy/Supabase/Redis/OpenAI/Solana/Meteora), mismo método quirúrgico de PR #19. Quedan 2 menciones genéricas sin tocar (Supabase/Prisma como ejemplo de ORM, OPENAI_API_KEY/REDIS_URL como placeholder de `.env.example`) — no son contaminación de proyecto ajeno, son ejemplos genéricos equivalentes al placeholder que ya se dejó en `code-reviewer.md`.
   - `brief-creativo-lexia.md`: **confirmado que no existe en el repo** (búsqueda exhaustiva por nombre y variantes). No se inventó reemplazo. Las 3 referencias en `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md` quedaron anotadas inline con ⚠️ más una nota al inicio del documento explicando las 2 opciones (recuperar/recrear el brief, o retirar la referencia) — decisión pendiente del usuario.
   - Verificado: ninguno de los archivos/carpetas explícitamente excluidos (`memory-persistence/`, `scripts/hooks/`, `settings.local.json`, `brainstorming`, `strategic-compact`, `eval-harness`, `tdd-workflow`, `STRATEGY/`, `KNOWLEDGE/`, `PRODUCTION/`, `video-export/`, `carrusel-export/`) aparece en el diff.
+- **PR #20 mergeado a `main`** (commit de merge `d585e77`): las 4 correcciones quirúrgicas de la fila de arriba, ya en `main`.
+- **Investigación de viabilidad "CEINCA AI Video Production System" (28-08-2026, solo lectura + 1 corrección documental menor sobre `main` directo)**: reencuadre explícito del objetivo por el usuario — NO es un "Video Engine" generador de IA, es un sistema de producción asistida que trabaja con Flow/Veo (herramienta **externa**, nunca genera dentro de Claude) + material real/de cliente/banco. Hallazgos con evidencia verificada en vivo en esta máquina (no solo lectura de repo):
+  - **Herramientas confirmadas instaladas**: ffmpeg 6.1.1 (con `silencedetect`/`scdet`/`loudnorm`/`ebur128`/`astats`/`sidechaincompress`/`atempo`/`xfade`/`drawtext`/`libass`/`libvidstab`), ffprobe (metadata probada en vivo sobre un archivo real), **whisper CLI en venv dedicado `~/.local/venvs/whisper`** (transcripción funcional — la generación automática de captions **SÍ es capacidad existente**, no faltante), yt-dlp 2026.06.09, Python 3.12.3 + numpy 2.5.2 + Pillow 10.2.0.
+  - **Confirmado NO instalado** (no se instaló nada, solo se verificó ausencia con `python3 -c "import X"`/`command -v`): pyscenedetect, librosa, pydub, moviepy, opencv/cv2, exiftool, mediainfo, sox.
+  - **`video-export/` clasificado como componente de composición** (no motor principal, no scaffold descartable) — apto para overlays/captions/motion graphics/render determinista una vez se construya de verdad; sigue siendo scaffold vacío hoy.
+  - **Auditoría de documentación falsa (Fase 3 del plan del usuario)**: se buscaron activamente los 4 patrones de error definidos (Flow generando dentro de Claude, `FLOW_VIDEO_DIRECTOR_SYSTEM` tratado como agente, Casa Campo como parte del Video Engine, capacidad inexistente atribuida a una herramienta) — **ninguno encontrado**, evidencia negativa por grep.
+  - **Clasificación definitiva**: `FLOW_VIDEO_DIRECTOR_SYSTEM.md`/`FLOW_REELS.md` = KNOWLEDGE (metodología de prompts, explícitamente NO agentes); `video-export/`/`carrusel-export/`/scripts ffmpeg-Python = TOOL/SCRIPT; Flow/Veo/OpenMontage = EXTERNAL TOOL; los 7 `.claude/agents/` = AGENT (ninguno de dominio audiovisual hoy); `.claude/skills/remotion-best-practices/` = SKILL; `CLIENTS/casacampobarinas1/` = CLIENT + CLIENT ASSET — no se tocó, no se convirtió en componente del sistema central.
+  - Arquitectura conceptual propuesta (no implementada): Preproducción → Asset Plan → Usuario/herramientas externas → Media Ingest (con QC ligero + loop de vuelta si falta un asset) → AI Editor/Orchestrator (Claude) → ffmpeg (bajo nivel) + Remotion (composición) + Python (pegamento/análisis, no motor paralelo) → QC final → Export.
+  - MVP conceptual identificado pero **NO construido**: pipeline mínimo ffprobe+whisper+ffmpeg (metadata + transcripción + corte de silencios) como primer prototipo seguro derivado de capacidades ya confirmadas — pendiente de aprobación explícita antes de escribir cualquier código.
+  - Riesgo activo señalado: whisper transcribe pero no valida terminología legal/mercantil CEINCA (ej. "SAREN", "taquilla") — un caption mal transcrito podría pasar cualquier QC automático (duración/loudness correctos) sin que nada lo detecte.
+  - **Corrección aplicada** (única modificación de archivo de esta sesión): `PRODUCTION/FLOW_REELS.md` recibió un banner de advertencia al inicio (no una reescritura) señalando sus 23 usos de `@Eduardo` y 2 de "hiperrealista" — en conflicto directo con las 2 reglas NO NEGOCIABLES de `FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1 §4.5/§4.6 (descubiertas por un rechazo real de política de Flow, documentado en `SAREN_TOTUMA_SCRIPT_FLOW.md`). La consolidación formal completa sigue pendiente — el usuario pidió explícitamente no hacer "reescritura grande sin necesidad" en esta fase.
 
 ## 3. Archivos y cambios (esta sesión)
 Commits de limpieza y documentación en `main`:
@@ -66,10 +77,13 @@ Sesión PR #18 (rama `claude/unificar-marca-sobre-main`, mergeada a `main` en `f
 Sesión Brain Audit (28-08-2026, sobre `main` directo, solo lectura):
 - Sin commits de auditoría — el commit `1ba89ed` en `main` fue solo para registrar los hallazgos en este `handoff.md`.
 
-Sesión PR quirúrgico Brain Audit (28-08-2026, rama `fix/brain-audit-surgical-p1`, sin mergear):
+Sesión PR quirúrgico Brain Audit (28-08-2026, rama `fix/brain-audit-surgical-p1`, mergeada a `main` en `d585e77`):
 - Modificados: `.claude/rules/hooks.md`, `.claude/agents/doc-updater.md`, `MARKETING/SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md`.
 - Nuevo: `RULES/ESTILO_REDACCION.md`.
 - Ver detalle de cada cambio en sección 2.
+
+Sesión investigación CEINCA AI Video Production System (28-08-2026, sobre `main` directo):
+- Modificado: `PRODUCTION/FLOW_REELS.md` (banner de advertencia, ver sección 2). Único cambio de archivo de la sesión.
 
 ## 4. Intentos fallidos
 <!-- NO BORRAR NINGUNA ENTRADA DE ESTA SECCIÓN. Solo agregar. -->
@@ -87,15 +101,16 @@ Sesión PR quirúrgico Brain Audit (28-08-2026, rama `fix/brain-audit-surgical-p
 - Un subagente (fork) del Brain Audit (28-08-2026) reportó en su resumen final haber editado `handoff.md` para registrar los hallazgos, pero el cambio nunca se persistió — al verificar con `git status`/`git diff` el árbol de trabajo seguía limpio. No asumir que un subagente hizo un cambio de archivo solo porque su reporte lo dice; verificar con `git status`/`git diff` antes de repetírselo al usuario.
 
 ## 5. Próximos pasos
-Orden recomendado por el Brain Audit (28-08-2026), siguiendo ENTENDER → DISEÑAR → APROBAR → EJECUTAR:
-1. **Revisar y mergear (o pedir cambios en) el PR quirúrgico** `fix/brain-audit-surgical-p1` → `main` — las 4 correcciones descritas en sección 2. No mergeado todavía.
-2. Retirar el banco corto de keywords de `FRAMEWORK_VIRAL_V2.md` Parte 3 (dejar solo el link a `CTB_PALABRAS_DISRUPTIVAS.md`) — **no incluido** en el PR quirúrgico anterior (no estaba en la lista de 4 correcciones aprobadas), sigue pendiente de aprobación explícita.
-3. Sesión de **diseño, no ejecución**, para decidir qué hacer con el graveyard de hooks duplicados y sin cablear (`.claude/hooks/memory-persistence/*.sh` vs `.claude/scripts/hooks/*.js` vs ninguno) antes de borrar nada.
-4. Decidir si `.claude/settings.local.json` (donde vive el único hook activo, `impeccable`) se versiona en git o se documenta explícitamente como configuración local intencional.
-5. Retirar las plantillas de copy superadas (`FRAMEWORK_VIRAL_V2.md` Partes 4-5, `VIRAL_PLAYBOOK.md` §5.1-5.4), dejando `MANUAL_COPY_META_TIKTOK.md` como autoridad única con referencia cruzada, no borrado silencioso.
-6. Decidir sobre `brief-creativo-lexia.md` (recuperar/recrear el brief, o retirar las 3 referencias de `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md`) — ya documentado inline en el archivo, decisión pendiente del usuario.
-7. Reubicar `AGENTS/AUDITOR_IA_MARCA_PROFESIONAL/` y `PRODUCTION/SAREN_TOTUMA_SCRIPT_FLOW.md` a `CLIENTS/` o una carpeta de entregables/campañas — no son sistemas reutilizables ni prompts de agente.
-8. Verificar si `.claude/skills/brainstorming/` (vendorizado, 160 KB) solapa funcionalmente con la skill de plataforma `superpowers:brainstorming`.
-9. **Definir arquitectura oficial de producción audiovisual** — evidencia concreta de 5 vías existentes sin consolidar (`video-export/` scaffold, `carrusel-export/` solo imágenes, Flow/Veo, OpenMontage, pipeline ffmpeg/Python ad-hoc en `CLIENTS/casacampobarinas1/`). Decidir cuál(es) sobrevive(n) **antes** de construir el Video Engine, para no crear una sexta vía.
-10. Evaluar la limpieza del historial Git de binarios eliminados si `.git` (~450 MB) sigue siendo innecesariamente alto; hacerlo sólo con backup/plan de recuperación.
-11. Añadir fecha de última verificación a `KNOWLEDGE/SAREN_PRACTICE.md` (riesgo de desactualización frente a nuevas circulares SAREN, ya advertido en `RULES/ANTI_HALLUCINATION.md`).
+1. **Aprobar (o ajustar) la arquitectura conceptual del CEINCA AI Video Production System** propuesta en la sesión del 28-08-2026 (ver sección 2) antes de diseñar en detalle el AI Editor/Orchestrator — nada de esto se ha construido.
+2. **Reconciliación formal de `FLOW_REELS.md` → `FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1**: migrar el contenido único que sí vale (biblioteca de b-rolls, lighting setups, parámetros de Meta Edits) y retirar/marcar obsoleto el resto. El banner de advertencia puesto esta sesión es un parche de riesgo inmediato, no la solución — sigue pendiente.
+3. Decidir si se construye el MVP mínimo identificado (ffprobe + whisper + ffmpeg: metadata + transcripción + corte de silencios) como primer prototipo — **no construido**, requiere aprobación explícita antes de escribir código.
+4. Si se avanza hacia análisis de audio más fino (detección de tempo/beat, escenas vía Python), decidir qué instalar (`librosa`/`pydub`/`pyscenedetect`) — instalar dependencias es línea roja explícita, requiere aprobación.
+5. Retirar el banco corto de keywords de `FRAMEWORK_VIRAL_V2.md` Parte 3 (dejar solo el link a `CTB_PALABRAS_DISRUPTIVAS.md`) — sigue pendiente de aprobación explícita.
+6. Sesión de **diseño, no ejecución**, para decidir qué hacer con el graveyard de hooks duplicados y sin cablear (`.claude/hooks/memory-persistence/*.sh` vs `.claude/scripts/hooks/*.js` vs ninguno) antes de borrar nada.
+7. Decidir si `.claude/settings.local.json` (donde vive el único hook activo, `impeccable`) se versiona en git o se documenta explícitamente como configuración local intencional.
+8. Retirar las plantillas de copy superadas (`FRAMEWORK_VIRAL_V2.md` Partes 4-5, `VIRAL_PLAYBOOK.md` §5.1-5.4), dejando `MANUAL_COPY_META_TIKTOK.md` como autoridad única con referencia cruzada, no borrado silencioso.
+9. Decidir sobre `brief-creativo-lexia.md` (recuperar/recrear el brief, o retirar las 3 referencias de `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md`) — ya documentado inline en el archivo, decisión pendiente del usuario.
+10. Reubicar `AGENTS/AUDITOR_IA_MARCA_PROFESIONAL/` y `PRODUCTION/SAREN_TOTUMA_SCRIPT_FLOW.md` a `CLIENTS/` o una carpeta de entregables/campañas — no son sistemas reutilizables ni prompts de agente.
+11. Verificar si `.claude/skills/brainstorming/` (vendorizado, 160 KB) solapa funcionalmente con la skill de plataforma `superpowers:brainstorming`.
+12. Evaluar la limpieza del historial Git de binarios eliminados si `.git` (~450 MB) sigue siendo innecesariamente alto; hacerlo sólo con backup/plan de recuperación.
+13. Añadir fecha de última verificación a `KNOWLEDGE/SAREN_PRACTICE.md` (riesgo de desactualización frente a nuevas circulares SAREN, ya advertido en `RULES/ANTI_HALLUCINATION.md`).
