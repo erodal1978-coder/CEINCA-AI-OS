@@ -261,8 +261,6 @@ export const MyComponent = () => <div />
 export const someConstant = 42
 ```
 
-## Example Project-Specific Build Issues
-
 ### Next.js 15 + React 19 Compatibility
 ```typescript
 // ❌ ERROR: React 19 type changes
@@ -284,54 +282,6 @@ interface Props {
 const Component = ({ children }: Props) => {
   return <div>{children}</div>
 }
-```
-
-### Supabase Client Types
-```typescript
-// ❌ ERROR: Type 'any' not assignable
-const { data } = await supabase
-  .from('markets')
-  .select('*')
-
-// ✅ FIX: Add type annotation
-interface Market {
-  id: string
-  name: string
-  slug: string
-  // ... other fields
-}
-
-const { data } = await supabase
-  .from('markets')
-  .select('*') as { data: Market[] | null, error: any }
-```
-
-### Redis Stack Types
-```typescript
-// ❌ ERROR: Property 'ft' does not exist on type 'RedisClientType'
-const results = await client.ft.search('idx:markets', query)
-
-// ✅ FIX: Use proper Redis Stack types
-import { createClient } from 'redis'
-
-const client = createClient({
-  url: process.env.REDIS_URL
-})
-
-await client.connect()
-
-// Type is inferred correctly now
-const results = await client.ft.search('idx:markets', query)
-```
-
-### Solana Web3.js Types
-```typescript
-// ❌ ERROR: Argument of type 'string' not assignable to 'PublicKey'
-const publicKey = wallet.address
-
-// ✅ FIX: Use PublicKey constructor
-import { PublicKey } from '@solana/web3.js'
-const publicKey = new PublicKey(wallet.address)
 ```
 
 ## Minimal Diff Strategy
@@ -399,19 +349,19 @@ function processData(data: Array<{ value: number }>) {
 ## Errors Fixed
 
 ### 1. [Error Category - e.g., Type Inference]
-**Location:** `src/components/MarketCard.tsx:45`
+**Location:** `src/components/UserCard.tsx:45`
 **Error Message:**
 ```
-Parameter 'market' implicitly has an 'any' type.
+Parameter 'user' implicitly has an 'any' type.
 ```
 
 **Root Cause:** Missing type annotation for function parameter
 
 **Fix Applied:**
 ```diff
-- function formatMarket(market) {
-+ function formatMarket(market: Market) {
-    return market.name
+- function formatUser(user) {
++ function formatUser(user: User) {
+    return user.name
   }
 ```
 
@@ -463,7 +413,7 @@ Parameter 'market' implicitly has an 'any' type.
 - Code needs refactoring (use refactor-cleaner)
 - Architectural changes needed (use architect)
 - New features required (use planner)
-- Tests failing (use tdd-guide)
+- Tests failing (follow the `tdd-workflow` skill)
 - Security issues found (use security-reviewer)
 
 ## Build Error Priority Levels

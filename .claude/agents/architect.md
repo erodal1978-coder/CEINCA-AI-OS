@@ -108,37 +108,33 @@ For each design decision, document:
 For significant architectural decisions, create ADRs:
 
 ```markdown
-# ADR-001: Use Redis for Semantic Search Vector Storage
+# ADR-001: [Decision title]
 
 ## Context
-Need to store and query 1536-dimensional embeddings for semantic market search.
+[What problem forces this decision]
 
 ## Decision
-Use Redis Stack with vector search capability.
+[The choice made]
 
 ## Consequences
 
 ### Positive
-- Fast vector similarity search (<10ms)
-- Built-in KNN algorithm
-- Simple deployment
-- Good performance up to 100K vectors
+- [Benefit 1]
+- [Benefit 2]
 
 ### Negative
-- In-memory storage (expensive for large datasets)
-- Single point of failure without clustering
-- Limited to cosine similarity
+- [Trade-off 1]
+- [Trade-off 2]
 
 ### Alternatives Considered
-- **PostgreSQL pgvector**: Slower, but persistent storage
-- **Pinecone**: Managed service, higher cost
-- **Weaviate**: More features, more complex setup
+- **[Option A]**: [why not chosen]
+- **[Option B]**: [why not chosen]
 
 ## Status
 Accepted
 
 ## Date
-2025-01-15
+YYYY-MM-DD
 ```
 
 ## System Design Checklist
@@ -182,30 +178,5 @@ Watch for these architectural anti-patterns:
 - **Magic**: Unclear, undocumented behavior
 - **Tight Coupling**: Components too dependent
 - **God Object**: One class/component does everything
-
-## Project-Specific Architecture (Example)
-
-Example architecture for an AI-powered SaaS platform:
-
-### Current Architecture
-- **Frontend**: Next.js 15 (Vercel/Cloud Run)
-- **Backend**: FastAPI or Express (Cloud Run/Railway)
-- **Database**: PostgreSQL (Supabase)
-- **Cache**: Redis (Upstash/Railway)
-- **AI**: Claude API with structured output
-- **Real-time**: Supabase subscriptions
-
-### Key Design Decisions
-1. **Hybrid Deployment**: Vercel (frontend) + Cloud Run (backend) for optimal performance
-2. **AI Integration**: Structured output with Pydantic/Zod for type safety
-3. **Real-time Updates**: Supabase subscriptions for live data
-4. **Immutable Patterns**: Spread operators for predictable state
-5. **Many Small Files**: High cohesion, low coupling
-
-### Scalability Plan
-- **10K users**: Current architecture sufficient
-- **100K users**: Add Redis clustering, CDN for static assets
-- **1M users**: Microservices architecture, separate read/write databases
-- **10M users**: Event-driven architecture, distributed caching, multi-region
 
 **Remember**: Good architecture enables rapid development, easy maintenance, and confident scaling. The best architecture is simple, clear, and follows established patterns.

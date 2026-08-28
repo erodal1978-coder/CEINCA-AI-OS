@@ -19,25 +19,26 @@ Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agente
 - `carrusel-export/` se conserva como motor de exportación programática de carruseles.
 - `video-export/` se conserva como base del motor de composición de vídeo con Remotion.
 - PR #4 (`ui-ux-pro-max`) ya fue mergeado el 29-07-2026; no está pendiente de rebase.
-- **PR #18 abierto** (`claude/unificar-marca-sobre-main` → `main`): unifica la paleta de marca (azul/dorado) a los valores reales del logo (`#1E3A8A`/`#122A63`/`#2D4FA8` navy, `#C8A951` dorado) en `SKILLS/ceinca-design/`, `SKILLS/ceinca-ia/`, `MARKETING/`, `AGENTS/`, `PRODUCTION/`, `README.md` — antes había 4 azules distintos en conflicto. Retira el "Verde CEINCA" `#1B7A3D` legado de `FRAMEWORK_VIRAL_V2.md` a favor del dorado. Agrega `MARKETING/MANUAL_COPY_META_TIKTOK.md` (manual de copy v2.0: 4 textos Meta + 3 textos TikTok, nuevo). Pendiente de revisión/merge del usuario.
-- **Auditoría Fase 1 (`.claude/agents/` y `.claude/skills/`) — completada (lectura íntegra de los 9 agentes + verificación del stack real de `video-export`/`carrusel-export`), sin ejecutar ningún cambio.**
+- **PR #18 mergeado a `main`** (commit de merge `faca1249`): unifica la paleta de marca (azul/dorado) a los valores reales del logo (`#1E3A8A`/`#122A63`/`#2D4FA8` navy, `#C8A951` dorado) en `SKILLS/ceinca-design/`, `SKILLS/ceinca-ia/`, `MARKETING/`, `AGENTS/`, `PRODUCTION/`, `README.md` — antes había 4 azules distintos en conflicto. Retira el "Verde CEINCA" `#1B7A3D` legado de `FRAMEWORK_VIRAL_V2.md` a favor del dorado. Agrega `MARKETING/MANUAL_COPY_META_TIKTOK.md` (manual de copy v2.0: 4 textos Meta + 3 textos TikTok, nuevo).
+- **PR #19 (`cleanup/audit-claude-agents-skills` → `main`) — Fase 1 de la auditoría de `.claude/agents/` y `.claude/skills/` ejecutada, pendiente de merge:**
   - Confirmado por lectura completa de archivo (no grep superficial): `video-export/package.json` = React 19 + Remotion + Tailwind + TypeScript real. `carrusel-export/package.json` = Node + Playwright puro, sin framework. Esto es código real que sí existe hoy en el repo.
-  - **Agentes (9) — clasificación final:**
-    - 🟢 CONSERVAR sin cambios: `planner` (limpio, sin contaminación), `code-reviewer` (aplica a video-export/carrusel-export, contaminación mínima).
-    - 🟡 ADAPTAR (contaminación aislada en UNA sección "(Example)" claramente delimitada, borrado quirúrgico sin reescribir el resto): `architect` (sección "Project-Specific Architecture", líneas ~186-210), `security-reviewer` (sección "Example Project-Specific Security Checks" con Solana/Privy/trading, líneas ~126-180), `refactor-cleaner` (sección "Example Project-Specific Rules" con Solana/Meteora, líneas ~192-213), `build-error-resolver` (sección "Example Project-Specific Build Issues" con Supabase/Redis/Solana, líneas ~264-335), `doc-updater` (genérico, sin sección grande que quitar).
-    - 🔴 ELIMINAR (contaminación de trading/mercados/embeddings difusa en ~80% del archivo, no aislable en una sección — no se adapta limpio): `e2e-runner`, `tdd-guide`. Si `carrusel-export` llega a necesitar E2E o TDD real, escribir un agente nuevo y corto desde cero en vez de rescatar estos.
-  - **Skills (22) — clasificación final:**
-    - 🟢 CONSERVAR (15): `impeccable`, `animation-vocabulary`, `review-animations`, `emil-design-eng`, `design-taste-frontend`, `apple-design`, `no-ai-slop`, `ui-ux-pro-max`, `remotion-best-practices` (aplica directo a `video-export`), `verification-before-completion`, `verification-loop`, `requesting-code-review`, `continuous-learning`, `frontend-patterns` (`video-export` es React real), `coding-standards` (TS/JS real en ambos exports).
-    - 🟡 EVALUAR sin decisión urgente (4): `brainstorming`, `strategic-compact`, `eval-harness` (potencial real para evaluar calidad de contenido/IA de CEINCA a futuro — no descartar), `tdd-workflow` (duplica al agente `tdd-guide`, decidir cuál de los dos si se retoma TDD).
-    - 🔴 ELIMINAR (4, utilidad nula verificada — ningún flujo de CEINCA-AI-OS tiene servidor/API/analytics-DB/auth hoy): `backend-patterns`, `clickhouse-io`, `security-checklist`, `project-guidelines-example` (plantilla vendor explícita basada en "Zenith.chat", cero contenido CEINCA).
-  - **No se borró/modificó nada todavía** — matriz completa presentada al usuario para su aprobación antes de aplicar cualquier cambio estructural.
+  - **Agentes (9):**
+    - 🟢 CONSERVADOS sin cambios: `planner`, `code-reviewer`.
+    - 🟡 ADAPTADOS (se quitó solo su sección "(Example)" contaminada, borrado quirúrgico sin reescribir el resto): `architect`, `security-reviewer`, `refactor-cleaner`, `build-error-resolver` (`doc-updater` no necesitó cambios).
+    - 🔴 ELIMINADOS (contaminación de trading/mercados/embeddings difusa en ~80% del archivo, no aislable en una sección): `e2e-runner`, `tdd-guide`. Si `carrusel-export` llega a necesitar E2E o TDD real, escribir un agente nuevo y corto desde cero en vez de rescatar estos.
+  - **Skills (22):**
+    - 🟢 CONSERVADAS (15): `impeccable`, `animation-vocabulary`, `review-animations`, `emil-design-eng`, `design-taste-frontend`, `apple-design`, `no-ai-slop`, `ui-ux-pro-max`, `remotion-best-practices`, `verification-before-completion`, `verification-loop`, `requesting-code-review`, `continuous-learning`, `frontend-patterns`, `coding-standards`.
+    - 🟡 SIN DECISIÓN, quedan para la próxima auditoría (4): `brainstorming`, `strategic-compact`, `eval-harness`, `tdd-workflow`.
+    - 🔴 ELIMINADAS (4, utilidad nula verificada — ningún flujo de CEINCA-AI-OS tiene servidor/API/analytics-DB/auth hoy): `backend-patterns`, `clickhouse-io`, `security-checklist`, `project-guidelines-example`.
+  - **Decisión sobre `/tdd` y `/e2e` (misma rama):** comandos eliminados sin reemplazo — su única función era invocar los agentes ya eliminados. Corregidas las referencias residuales a `/tdd` en `.claude/commands/plan.md` y a "TDD Guide" en la plantilla de reporte de `.claude/commands/orchestrate.md`. `skills-lock.json` verificado consistente (la entrada `tdd-workflow` sigue apuntando a un skill que existe en disco, se conserva).
+  - Referencias en cascada corregidas también en `.claude/rules/` y `ui-ux-pro-max`.
 
 ## 3. Archivos y cambios (esta sesión)
 Commits de limpieza y documentación en `main`:
 - `d9d75a871b96721c187ca44680a1dac312392187` — merge de PR #16: elimina tracker obsoleto, assets multimedia pesados y endurece `.gitignore`.
 - `d6a6f3d2a6be01de60d5fe89e5d28ba244ed15f9` — actualiza `CLAUDE.md` para reflejar la arquitectura y política de assets vigentes.
 
-Esta sesión (rama `claude/unificar-marca-sobre-main`, PR #18, sin mergear):
+Sesión PR #18 (rama `claude/unificar-marca-sobre-main`, mergeada a `main` en `faca1249`):
 - `a563306` — unifica paleta de marca (azul/dorado) en 17 archivos.
 - `7e4388f` — agrega `MARKETING/MANUAL_COPY_META_TIKTOK.md`.
 - Auditoría de lectura de `.claude/agents/` (9 archivos) y `.claude/skills/` (22 carpetas) — ver clasificación propuesta en sección 2. Sin cambios aplicados.
