@@ -32,6 +32,19 @@ Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agente
     - 🔴 ELIMINADAS (4, utilidad nula verificada — ningún flujo de CEINCA-AI-OS tiene servidor/API/analytics-DB/auth hoy): `backend-patterns`, `clickhouse-io`, `security-checklist`, `project-guidelines-example`.
   - **Decisión sobre `/tdd` y `/e2e` (misma rama):** comandos eliminados sin reemplazo — su única función era invocar los agentes ya eliminados. Corregidas las referencias residuales a `/tdd` en `.claude/commands/plan.md` y a "TDD Guide" en la plantilla de reporte de `.claude/commands/orchestrate.md`. `skills-lock.json` verificado consistente (la entrada `tdd-workflow` sigue apuntando a un skill que existe en disco, se conserva).
   - Referencias en cascada corregidas también en `.claude/rules/` y `ui-ux-pro-max`.
+- **Brain Audit ejecutado (28-08-2026, diagnóstico de solo lectura, sin cambios estructurales)**: auditoría de `CLAUDE.md`, `RULES/`, `KNOWLEDGE/`, `STRATEGY/`, `MARKETING/`, `AGENTS/`, `.claude/`, `PRODUCTION/`. Reporte completo (secciones A-N + matriz) entregado al usuario en la sesión; no vive en este repo, solo el resumen de hallazgos abajo. Hallazgos principales:
+  - Conflicto de datos activo: el banco corto de keywords de `MARKETING/FRAMEWORK_VIRAL_V2.md` Parte 3 contradice al banco maestro `CTB_PALABRAS_DISRUPTIVAS.md` — MAJARETE ya está asignada a LEXIA, chichicuilote/yenyen fueron retiradas por no ser venezolanismos verificados.
+  - `.claude/agents/doc-updater.md` quedó mal clasificado en PR #19: tiene ~96 líneas (130-226, sección "Example Project-Specific Codemaps") de contaminación Solana/Privy/Supabase sin limpiar — mismo patrón ya limpiado quirúrgicamente en `architect`/`security-reviewer`/`refactor-cleaner`/`build-error-resolver`, sobrevivió porque su encabezado no calzaba con el patrón de búsqueda usado entonces.
+  - Graveyard de hooks sin cablear y duplicado: `.claude/hooks/memory-persistence/*.sh` + `.claude/scripts/hooks/*.js` (mismo propósito, dos lenguajes) + `.claude/hooks/strategic-compact/suggest-compact.sh` es byte-idéntico a `.claude/skills/strategic-compact/suggest-compact.sh` — nada de esto está referenciado en `hooks.json`.
+  - El único hook realmente activo (`impeccable`, vía `PostToolUse`) vive solo en `.claude/settings.local.json`, que **no está trackeado en git** — invisible para otra máquina o clon, y no documentado en ningún lado.
+  - `.claude/rules/hooks.md` documenta hooks que no existen desde que PR #17 simplificó `hooks.json`, y no menciona ni el hook real (`impeccable`) ni el graveyard huérfano.
+  - Regla obligatoria de tuteo venezolano / no-voseo (`MARKETING/SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md` §5.5, con causa raíz documentada) está enterrada en un doc de ads de LEXIA — invisible para `CONTENT_ENGINE`/`VIRAL_CONTENT_CREATOR`/`IG_AUDITOR`.
+  - `.claude/rules/` (8 archivos, top-level `RULES/` es un directorio distinto) parece huérfano — nada en el repo lo referencia por ruta.
+  - Triplicación de plantillas de copy entre `FRAMEWORK_VIRAL_V2.md` Partes 4-5, `VIRAL_PLAYBOOK.md` §5.1-5.4 y `MANUAL_COPY_META_TIKTOK.md` (la v2.0, ya autoridad de facto, nunca reemplazó formalmente a las anteriores).
+  - Referencia rota: `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md` cita `brief-creativo-lexia.md` 3 veces; el archivo no existe en el repo.
+  - **5 vías de producción de video sin consolidar**, insumo directo para decidir el Video Engine: `video-export/` (scaffold Remotion sin usar), `carrusel-export/` (solo imágenes), `PRODUCTION/FLOW_REELS.md`+`FLOW_VIDEO_DIRECTOR_SYSTEM.md` (Flow/Veo), `PRODUCTION/OPENMONTAGE_STUDIO.md`, y un pipeline ffmpeg/Python ad-hoc de 918 líneas en `CLIENTS/casacampobarinas1/PROMO_VIDEO_2026/build/`.
+  - `AGENTS/AUDITOR_IA_MARCA_PROFESIONAL/` (1.9 MB de PDF/HTML/JPG) es un entregable de cliente terminado, mal ubicado bajo `AGENTS/`.
+  - Secuencia recomendada por el audit: (a) PR pequeño de bajo riesgo con las 4 correcciones de arriba con menor riesgo (hooks.md, banco de keywords, regla tuteo/voseo, `doc-updater.md`); (b) sesión de diseño (no ejecución) para decidir qué hacer con el graveyard de hooks antes de borrar nada; (c) recién después, la conversación del Video Engine.
 
 ## 3. Archivos y cambios (esta sesión)
 Commits de limpieza y documentación en `main`:
@@ -43,6 +56,9 @@ Sesión PR #18 (rama `claude/unificar-marca-sobre-main`, mergeada a `main` en `f
 - `7e4388f` — agrega `MARKETING/MANUAL_COPY_META_TIKTOK.md`.
 - Auditoría de lectura de `.claude/agents/` (9 archivos) y `.claude/skills/` (22 carpetas) — ver clasificación propuesta en sección 2. Sin cambios aplicados.
 - Actualización de este `handoff.md` para reflejar el estado real tras la sesión.
+
+Sesión Brain Audit (28-08-2026, sobre `main` directo, solo lectura):
+- Sin commits — el único artefacto de esta sesión es esta actualización de `handoff.md`.
 
 ## 4. Intentos fallidos
 <!-- NO BORRAR NINGUNA ENTRADA DE ESTA SECCIÓN. Solo agregar. -->
@@ -57,14 +73,17 @@ Sesión PR #18 (rama `claude/unificar-marca-sobre-main`, mergeada a `main` en `f
 - Texto negro sobre caja de color con `borderw` negro queda ilegible: el contorno rellena las contraformas de las letras. Fix: sin contorno cuando hay caja.
 - `npx playwright install` (descarga de binarios chromium/firefox/webkit) falla en el entorno remoto CCR: proxy de egreso bloquea `cdn.playwright.dev` con 403. No reintentar en sesiones remotas — instalar los browsers desde una máquina local o dejar que lo haga GitHub Actions.
 - Verificar el estado de `main`/otras ramas con `git log origin/main` sin haber corrido `git fetch --all --prune` primero da un falso "esto no existe" — el remoto puede tener commits y ramas (de PRs mergeados, de otras sesiones en paralelo) que el clon local no vio nunca. Antes de afirmar que algo "no está hecho" en el repo, correr `git fetch --all --prune` y comparar contra el ref remoto actual, no contra la caché local de `origin/main`.
+- Un subagente (fork) del Brain Audit (28-08-2026) reportó en su resumen final haber editado `handoff.md` para registrar los hallazgos, pero el cambio nunca se persistió — al verificar con `git status`/`git diff` el árbol de trabajo seguía limpio. No asumir que un subagente hizo un cambio de archivo solo porque su reporte lo dice; verificar con `git status`/`git diff` antes de repetírselo al usuario.
 
 ## 5. Próximos pasos
-1. **Revisar y mergear (o pedir cambios en) PR #18** — unificación de paleta + manual de copy, ya construido sobre `main` limpio.
-2. Confirmar (o corregir) la clasificación 🟢/🟡/🔴 de `.claude/agents/` y `.claude/skills/` de la sección 2, y sólo entonces aplicarla — eliminar los 5 agentes marcados 🔴, limpiar ejemplos ajenos de los 4 marcados 🟡, y decidir sobre las 8 skills candidatas a eliminar.
-3. Revisar si `everything-claude-code` aporta valor real en este repo y conservar sólo los módulos que reduzcan trabajo o tokens.
-4. Auditar `AGENTS/`, `RULES/`, `MARKETING/` y `STRATEGY/` contra `CLAUDE.md` para eliminar reglas duplicadas o contradictorias.
-5. Definir arquitectura oficial de producción audiovisual: Flow/Veo para generación, FFmpeg para operaciones de edición/transformación y Remotion para composición/motion graphics cuando corresponda.
-6. Revisar `carrusel-export/` y `video-export/` para convertirlos en engines claramente documentados y reproducibles.
-7. Revisar `PRODUCTION/` y `CLIENTS/` para separar conocimiento/workflows de assets temporales.
-8. Evaluar la limpieza del historial Git de binarios eliminados si el tamaño real del repositorio sigue siendo innecesariamente alto; hacerlo sólo después de confirmar el estado actual y con backup/plan de recuperación.
-9. Crear una arquitectura objetivo de CEINCA-AI-OS antes de nuevas instalaciones o grandes refactors (propuesta recibida: agrupación conceptual CEREBRO [KNOWLEDGE/STRATEGY/RULES/MARKETING] → AGENTES [AGENTS/.claude] → FÁBRICA [PRODUCTION/carrusel-export/video-export] — evaluar antes de reestructurar carpetas físicamente).
+Orden recomendado por el Brain Audit (28-08-2026), siguiendo ENTENDER → DISEÑAR → APROBAR → EJECUTAR — nada de esto se ha ejecutado todavía, pendiente de aprobación del usuario:
+1. **PR pequeño de bajo riesgo** (continuación directa de PR #19): reescribir `.claude/rules/hooks.md` contra la realidad de `hooks.json`/`settings.local.json`; retirar el banco corto de keywords de `FRAMEWORK_VIRAL_V2.md` Parte 3 (dejar solo el link a `CTB_PALABRAS_DISRUPTIVAS.md`); promover la regla de tuteo/no-voseo de `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md` §5.5 a `RULES/` o a las fuentes obligatorias de los agentes de contenido; limpiar líneas 130-226 de `.claude/agents/doc-updater.md` (mismo método quirúrgico ya usado 4 veces en PR #19).
+2. Sesión de **diseño, no ejecución**, para decidir qué hacer con el graveyard de hooks duplicados y sin cablear (`.claude/hooks/memory-persistence/*.sh` vs `.claude/scripts/hooks/*.js` vs ninguno) antes de borrar nada.
+3. Decidir si `.claude/settings.local.json` (donde vive el único hook activo, `impeccable`) se versiona en git o se documenta explícitamente como configuración local intencional.
+4. Retirar las plantillas de copy superadas (`FRAMEWORK_VIRAL_V2.md` Partes 4-5, `VIRAL_PLAYBOOK.md` §5.1-5.4), dejando `MANUAL_COPY_META_TIKTOK.md` como autoridad única con referencia cruzada, no borrado silencioso.
+5. Arreglar o retirar la referencia rota a `brief-creativo-lexia.md` en `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md`.
+6. Reubicar `AGENTS/AUDITOR_IA_MARCA_PROFESIONAL/` y `PRODUCTION/SAREN_TOTUMA_SCRIPT_FLOW.md` a `CLIENTS/` o una carpeta de entregables/campañas — no son sistemas reutilizables ni prompts de agente.
+7. Verificar si `.claude/skills/brainstorming/` (vendorizado, 160 KB) solapa funcionalmente con la skill de plataforma `superpowers:brainstorming`.
+8. **Definir arquitectura oficial de producción audiovisual** — ahora con evidencia concreta de 5 vías existentes sin consolidar (`video-export/` scaffold, `carrusel-export/` solo imágenes, Flow/Veo, OpenMontage, pipeline ffmpeg/Python ad-hoc en `CLIENTS/casacampobarinas1/`). Decidir cuál(es) sobrevive(n) **antes** de construir el Video Engine, para no crear una sexta vía.
+9. Evaluar la limpieza del historial Git de binarios eliminados si `.git` (~450 MB) sigue siendo innecesariamente alto; hacerlo sólo con backup/plan de recuperación.
+10. Añadir fecha de última verificación a `KNOWLEDGE/SAREN_PRACTICE.md` (riesgo de desactualización frente a nuevas circulares SAREN, ya advertido en `RULES/ANTI_HALLUCINATION.md`).
