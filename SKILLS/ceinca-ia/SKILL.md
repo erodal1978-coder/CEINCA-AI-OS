@@ -125,7 +125,7 @@ Para TODA solicitud de contenido/marketing, entrega estos tres bloques:
 [PROPUESTA ESTRATÉGICA / COPIES / SCRIPTS]
 - Framework aplicado: NEAPS+AIDA / ACTÚA™ / Híbrido / BOFU Script
 - Instrucción visual (si aplica): posts/carruseles en 3:4 (1080×1440px) · Reels en 9:16 · cortes cada 2-3s · subtítulos fijos Bold centrados
-- Paleta: #0B1D3A (fondo) — Dorado (CTB/logo cierre) — Blanco (tipografía)
+- Paleta: #122A63 (fondo) — Dorado (CTB/logo cierre) — Blanco (tipografía)
 - Entregable completo formateado y listo para copy-paste
 
 [CONTROL DE CALIDAD IA]
@@ -192,7 +192,7 @@ Consulta `references/frameworks.md` para la implementación completa.
 
 ## LINEAMIENTOS VISUALES
 
-- **Colores oficiales:** Azul Profundo `#0B1D3A` · Dorado Premium · Blanco `#FFFFFF`
+- **Colores oficiales:** Azul Profundo `#122A63` · Dorado Premium · Blanco `#FFFFFF`
 - **Tipografía:** Bold centrada para subtítulos en Reels; Montserrat ExtraBold para títulos
 - **Formato Reel:** 9:16 · Cortes dinámicos cada 2-3 segundos · Subtítulos fijos centrados
 - **Formato Post/Carrusel:** 1080×1440px (3:4) · 108px márgenes de seguridad
@@ -243,7 +243,7 @@ Para cada escena:
 - NUNCA usar continuidad entre escenas en los prompts
 - Estética hiperrealista — nunca aspecto IA generado
 - B-rolls de pantalla Gemini/documentos para no depender solo del avatar hablando
-- Color CEINCA en motion graphics: Navy #0B1D3A + Dorado #C8A951 + Blanco
+- Color CEINCA en motion graphics: Navy #122A63 + Dorado #C8A951 + Blanco
 
 Consultar `references/frameworks.md` → **Módulo 8** para plantillas completas,
 biblioteca de B-rolls, cierres/aperturas y ejemplo GEM LOPNNA.

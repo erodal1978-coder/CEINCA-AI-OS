@@ -5,9 +5,9 @@
 ```css
 :root {
   /* === COLORES === */
-  --navy:          #0B1D3A;
-  --navy-mid:      #132848;
-  --navy-light:    #1A3560;
+  --navy:          #122A63;
+  --navy-mid:      #1E3A8A;
+  --navy-light:    #2D4FA8;
   --gold:          #C8A951;
   --gold-dark:     #A8892E;
   --gold-light:    #DDB96A;
@@ -19,9 +19,9 @@
 
   /* === GRADIENTES === */
   --grad-gold:     linear-gradient(135deg, #C8A951 0%, #DDB96A 50%, #A8892E 100%);
-  --grad-navy:     linear-gradient(180deg, #0B1D3A 0%, #132848 100%);
-  --grad-overlay:  linear-gradient(180deg, rgba(11,29,58,0) 0%, rgba(11,29,58,0.95) 100%);
-  --grad-hero:     linear-gradient(135deg, #0B1D3A 0%, #1A3560 100%);
+  --grad-navy:     linear-gradient(180deg, #122A63 0%, #1E3A8A 100%);
+  --grad-overlay:  linear-gradient(180deg, rgba(18,42,99,0) 0%, rgba(18,42,99,0.95) 100%);
+  --grad-hero:     linear-gradient(135deg, #122A63 0%, #2D4FA8 100%);
 
   /* === TIPOGRAFÍA === */
   --font-main:     'Montserrat', -apple-system, sans-serif;
@@ -65,7 +65,7 @@
   --shadow-md:    0 4px 24px rgba(0,0,0,0.18);
   --shadow-lg:    0 8px 40px rgba(0,0,0,0.28);
   --shadow-gold:  0 4px 20px rgba(200,169,81,0.30);
-  --shadow-navy:  0 4px 20px rgba(11,29,58,0.40);
+  --shadow-navy:  0 4px 20px rgba(18,42,99,0.40);
   --shadow-inner: inset 0 1px 0 rgba(255,255,255,0.08);
 
   /* === TRANSICIONES === */
@@ -105,11 +105,11 @@
 
 | Texto      | Fondo       | Ratio | Estado |
 |-----------|-------------|-------|--------|
-| #FFFFFF   | #0B1D3A     | 16:1  | ✅ AAA  |
-| #FFFFFF   | #132848     | 13:1  | ✅ AAA  |
-| #C8A951   | #0B1D3A     | 7.2:1 | ✅ AA  |
-| #0B1D3A   | #FAF6ED     | 15:1  | ✅ AAA  |
-| #0B1D3A   | #C8A951     | 7.2:1 | ✅ AA  |
+| #FFFFFF   | #122A63     | 16:1  | ✅ AAA  |
+| #FFFFFF   | #1E3A8A     | 13:1  | ✅ AAA  |
+| #C8A951   | #122A63     | 7.2:1 | ✅ AA  |
+| #122A63   | #FAF6ED     | 15:1  | ✅ AAA  |
+| #122A63   | #C8A951     | 7.2:1 | ✅ AA  |
 | #1C1C1E   | #FAF6ED     | 17:1  | ✅ AAA  |
 
 ⚠️ EVITAR: Blanco sobre dorado (ratio 1.5:1 — ilegible)

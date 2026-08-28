@@ -26,7 +26,7 @@ Framework híbrido: **NEAPS** (estructura narrativa) + **AIDA** (estructura de c
 #### A — ATENCIÓN VISUAL (Instrucción de Producción)
 - Posts y carruseles: formato 3:4 (1080×1440px) — Reels: formato 9:16
 - Subtítulos fijos, tipografía Bold centrada
-- Paleta: fondo #0B1D3A · texto blanco · CTB en dorado
+- Paleta: fondo #122A63 · texto blanco · CTB en dorado
 - Máximo 3-4 palabras por frame de subtítulo
 
 #### P — PROPUESTA DE VALOR (Método CEINCA)
@@ -130,7 +130,7 @@ CIERRE: Logo CEINCA dorado + "@ceinca.mercantil" + "Escribe [KEYWORD]"
 - Formato: 1080×1440px (3:4)
 - Márgenes de seguridad: 108px
 - Logo en slides oscuros: blanco — en slides de cierre: dorado
-- Fondo principal: #0B1D3A
+- Fondo principal: #122A63
 
 ---
 
@@ -355,7 +355,7 @@ Estructura: 6 escenas de 4-10 segundos cada una.
 Estilo: cinematográfico, hiperrealista, corporativo.
 Avatar: @Eduardo (abogado venezolano, traje oscuro, oficina profesional).
 Keyword CTA: [KEYWORD]
-Paleta: fondo navy #0B1D3A, texto blanco, acento dorado #C8A951.
+Paleta: fondo navy #122A63, texto blanco, acento dorado #C8A951.
 ```
 
 El Agent genera variaciones múltiples: "Dame 5 variaciones de Escena 3
@@ -409,7 +409,7 @@ Escenas @Eduardo — Avatar:
 - Close-up facial, expresión de autoridad / énfasis
 
 Escenas de motion graphics:
-- Texto en pantalla navy #0B1D3A — aparece letra por letra
+- Texto en pantalla navy #122A63 — aparece letra por letra
 - Número grande ($97, 64 formatos) con pulso/scale animation
 - Línea dorada #C8A951 barriendo de izquierda a derecha
 - Logo CEINCA sobre navy con partículas doradas flotantes
