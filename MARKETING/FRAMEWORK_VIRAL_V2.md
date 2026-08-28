@@ -95,15 +95,15 @@ Síguenos para más [tema ancla del perfil]."
 
 | Elemento | Color | Uso |
 |---|---|---|
-| Fondo slide 1 | Azul marino oscuro #0A1C4E + degradado | Solo portada y cierre |
+| Fondo slide 1 | Azul marino oscuro #122A63 + degradado | Solo portada y cierre |
 | Fondo slides 2-5 | Gris claro #F5F5F0 con textura | Slides de contenido |
 | Títulos | Negro #1A1A1A | Legibilidad máxima |
-| Palabras clave | Verde CEINCA #1B7A3D | Resaltar acciones/beneficios |
-| Badges de paso | Verde oscuro #1B5E30 fondo + blanco texto | Numeración progresiva |
+| Palabras clave | Dorado CEINCA #C8A951 | Resaltar acciones/beneficios |
+| Badges de paso | Azul secundario #2D4FA8 fondo + blanco texto | Numeración progresiva |
 | Warnings | Amarillo #FFF3CD fondo + texto oscuro | Advertencias |
 | Tips | Verde claro #E8F5E9 fondo | Consejos extra |
 | Datos especiales | Morado claro #F3E5F5 fondo | Información complementaria |
-| CTA/Keyword | Verde CEINCA sobre fondo oscuro | Cierre CTB |
+| CTA/Keyword | Dorado CEINCA sobre fondo oscuro | Cierre CTB |
 
 ### Tipografía
 - **Títulos:** Sans-serif bold (Montserrat/Poppins weight 700+), tamaño grande
@@ -144,12 +144,12 @@ Estilo minimalista de alto contraste inspirado en cuentas de contenido viral (@c
 
 | Elemento | Color | Uso |
 |---|---|---|
-| Fondo todas las slides | Negro sólido #000000 o Azul marino #0A1C4E | Base — sin degradados, sin texturas |
+| Fondo todas las slides | Negro sólido #000000 o Azul marino #122A63 | Base — sin degradados, sin texturas |
 | Texto principal | Blanco #FFFFFF | Cuerpo de texto, frases principales |
-| Palabras clave (highlight) | Verde CEINCA #1B7A3D o Dorado #D4A843 | Resaltar 1-2 palabras por slide — las que importan |
+| Palabras clave (highlight) | Dorado CEINCA #C8A951 | Resaltar 1-2 palabras por slide — las que importan |
 | Badge superior | Color de acento sobre fondo oscuro | Etiqueta de categoría ("NUEVO", "ERROR COMÚN", "DATO") |
 | Barra inferior | Color de acento, texto blanco | Frase complementaria o refuerzo |
-| CTA/Keyword (slide final) | Verde CEINCA #1B7A3D sobre negro | Cierre CTB |
+| CTA/Keyword (slide final) | Dorado CEINCA #C8A951 sobre negro | Cierre CTB |
 
 #### Tipografía Bold Dark
 - **Texto principal:** Sans-serif extra bold (Montserrat Black 900 / Impact), tamaño MÁXIMO — debe leerse desde el preview de la grilla

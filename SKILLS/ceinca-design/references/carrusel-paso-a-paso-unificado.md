@@ -52,17 +52,17 @@ Agregar estas clases al `<style>` del carrusel base (no reemplazan nada, se suma
 }
 .slide.light .headline { color: var(--navy); }
 .slide.light .subhead,
-.slide.light .body-text { color: rgba(11,29,58,0.65); }
+.slide.light .body-text { color: rgba(18,42,99,0.65); }
 .slide.light .label-authority {
   color: var(--navy-mid);
-  background: rgba(11,29,58,0.06);
-  border-color: rgba(11,29,58,0.15);
+  background: rgba(18,42,99,0.06);
+  border-color: rgba(18,42,99,0.15);
 }
 .slide.light .footer-sub,
-.slide.light .footer-handle { color: rgba(11,29,58,0.45); }
+.slide.light .footer-handle { color: rgba(18,42,99,0.45); }
 .slide.light .footer-logo { color: var(--gold-dark); }
-.slide.light .slide-footer { border-top-color: rgba(11,29,58,0.1); }
-.slide.light .progress-track { background: rgba(11,29,58,0.1); }
+.slide.light .slide-footer { border-top-color: rgba(18,42,99,0.1); }
+.slide.light .progress-track { background: rgba(18,42,99,0.1); }
 
 /* === INDICADOR DE PROGRESO (barra + contador) === */
 .progress-wrap {
