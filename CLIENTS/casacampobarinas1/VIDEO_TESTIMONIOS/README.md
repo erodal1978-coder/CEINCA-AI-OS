@@ -52,6 +52,14 @@ energía en banda de voz. Cortar en rejilla habría partido palabras a la mitad.
 es exactamente lo que se pregunta quien está evaluando el gasto, y deja que
 sean ellos quienes contesten. No se les pone nada en boca.
 
+**El texto del gancho va debajo de la barbilla** (`y` 1262 / 1330 / 1472). En la
+primera versión estaba en `y` 760–1000 y cruzaba la cara: en un testimonio la
+cara *es* el argumento, taparla mata el gancho. Al bajarlo se pudieron quitar
+además el desenfoque y el velo oscuro que existían sólo para poder leer texto
+encima del rostro, así que la imagen quedó nítida y más clara. El fondo del
+texto ahora es un degradado (cajas apiladas al 5 % cada 32 px) porque una banda
+recta dejaba un filo visible cruzando el hombro.
+
 **Orden corto → largo:** abre con el testimonio de 1,8 s para que arranque
 rápido y cierra con el de 8,9 s, que es el más extenso y el que mejor se
 entiende.
