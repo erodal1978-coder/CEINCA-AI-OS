@@ -26,7 +26,7 @@
 * `carrusel-export/` — Motor de exportación programática de carruseles.
 * `video-export/` — Base del motor de composición de vídeo con Remotion.
 * `media-mvp/` — Prototipo mínimo de análisis audiovisual (ffprobe + whisper + detección de silencios).
-* `WEBKIT/` — Claude Web Builder (Hainrixz/claude-webkit, vendorizado): genera landing pages para clientes (Next.js + Tailwind + shadcn/ui). Es un proyecto autocontenido con su propio `CLAUDE.md` y skills en `.claude/skills/` — entra con `cd WEBKIT && claude` para activar el flujo guiado de 6 fases (cuestionario → deploy). No mezcles su rol de "web builder" con el rol CEINCA de este archivo raíz.
+* `WEBKIT/` — Claude Web Builder (Hainrixz/claude-webkit, vendorizado): genera landing pages para clientes (Next.js + Tailwind + shadcn/ui). Es un proyecto autocontenido con su propio `CLAUDE.md` y 18 skills en `.claude/skills/` — entra con `cd WEBKIT && claude` para activar el flujo guiado de 6 fases (cuestionario → deploy). No mezcles su rol de "web builder" con el rol CEINCA de este archivo raíz.
 
 ## POLÍTICA DE ASSETS
 * GitHub es para código, conocimiento, configuración, prompts, documentación y fuentes pequeñas necesarias para reproducibilidad.
