@@ -12,4 +12,4 @@ El ecosistema está estructurado en módulos independientes de alta ingeniería 
 *   **📂 WEBKIT/**: Claude Web Builder — genera landing pages profesionales (Next.js + Tailwind + shadcn/ui) para clientes de CEINCA. Proyecto vendorizado desde [Hainrixz/claude-webkit](https://github.com/Hainrixz/claude-webkit) (MIT), autocontenido con su propio `CLAUDE.md` y 21 skills. Se activa entrando al directorio (`cd WEBKIT && claude`).
 ## 🎯 Declaración de Principios (CEINCA)
 > "El profesional moderno venezolano no necesita trabajar más horas. Necesita mejores sistemas. No entregamos información cruda; entregamos Información + Interpretación de Negocios + Plan de Acción."
-**Estética Corporativa Oficial:** Azul Profundo (`#0B1D3A`) & Dorado Premium. Estilo cinematográfico y minimalista. Prohibida la iconografía jurídica tradicional obsoleta.
+**Estética Corporativa Oficial:** Azul Profundo (`#122A63`) & Dorado Premium. Estilo cinematográfico y minimalista. Prohibida la iconografía jurídica tradicional obsoleta.

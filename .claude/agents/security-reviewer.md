@@ -123,62 +123,6 @@ For each category, check:
     - Are alerts configured?
 ```
 
-### 3. Example Project-Specific Security Checks
-
-**CRITICAL - Platform Handles Real Money:**
-
-```
-Financial Security:
-- [ ] All market trades are atomic transactions
-- [ ] Balance checks before any withdrawal/trade
-- [ ] Rate limiting on all financial endpoints
-- [ ] Audit logging for all money movements
-- [ ] Double-entry bookkeeping validation
-- [ ] Transaction signatures verified
-- [ ] No floating-point arithmetic for money
-
-Solana/Blockchain Security:
-- [ ] Wallet signatures properly validated
-- [ ] Transaction instructions verified before sending
-- [ ] Private keys never logged or stored
-- [ ] RPC endpoints rate limited
-- [ ] Slippage protection on all trades
-- [ ] MEV protection considerations
-- [ ] Malicious instruction detection
-
-Authentication Security:
-- [ ] Privy authentication properly implemented
-- [ ] JWT tokens validated on every request
-- [ ] Session management secure
-- [ ] No authentication bypass paths
-- [ ] Wallet signature verification
-- [ ] Rate limiting on auth endpoints
-
-Database Security (Supabase):
-- [ ] Row Level Security (RLS) enabled on all tables
-- [ ] No direct database access from client
-- [ ] Parameterized queries only
-- [ ] No PII in logs
-- [ ] Backup encryption enabled
-- [ ] Database credentials rotated regularly
-
-API Security:
-- [ ] All endpoints require authentication (except public)
-- [ ] Input validation on all parameters
-- [ ] Rate limiting per user/IP
-- [ ] CORS properly configured
-- [ ] No sensitive data in URLs
-- [ ] Proper HTTP methods (GET safe, POST/PUT/DELETE idempotent)
-
-Search Security (Redis + OpenAI):
-- [ ] Redis connection uses TLS
-- [ ] OpenAI API key server-side only
-- [ ] Search queries sanitized
-- [ ] No PII sent to OpenAI
-- [ ] Rate limiting on search endpoints
-- [ ] Redis AUTH enabled
-```
-
 ## Vulnerability Patterns to Detect
 
 ### 1. Hardcoded Secrets (CRITICAL)
@@ -204,10 +148,7 @@ const query = `SELECT * FROM users WHERE id = ${userId}`
 await db.query(query)
 
 // ✅ CORRECT: Parameterized queries
-const { data } = await supabase
-  .from('users')
-  .select('*')
-  .eq('id', userId)
+const result = await db.query('SELECT * FROM users WHERE id = $1', [userId])
 ```
 
 ### 3. Command Injection (CRITICAL)
@@ -542,4 +483,4 @@ After security review:
 
 ---
 
-**Remember**: Security is not optional, especially for platforms handling real money. One vulnerability can cost users real financial losses. Be thorough, be paranoid, be proactive.
+**Remember**: Security is not optional. One vulnerability can cost real damage — data, trust, or money. Be thorough, be paranoid, be proactive.
