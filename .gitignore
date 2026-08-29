@@ -1,14 +1,42 @@
-ig-viral-tracker/backend/.env
-ig-viral-tracker/backend/.env.save
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Python
 __pycache__/
 *.pyc
+.venv/
+venv/
 
-# Vídeo renderizado: no entra al repo.
-# Git guarda cada versión de cada binario para siempre y no se puede borrar
-# después sin reescribir el historial. Los másteres se entregan por Drive y
-# se regeneran con los scripts de build/ a partir de Videos/Assets/.
-CLIENTS/**/*.mp4
-CLIENTS/**/*.mov
-CLIENTS/**/*.mp3
-CLIENTS/**/*.wav
-CLIENTS/**/*_portada.jpg
+# Node / frontend
+node_modules/
+.next/
+dist/
+build/
+coverage/
+
+# Video, audio and render outputs
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.webm
+*.wav
+*.mp3
+*.aac
+*.m4a
+*.flac
+/renders/
+/exports/
+/output/
+/tmp/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Portadas/covers de vídeo — el resto de formatos ya cae en la regla global de arriba
+*_portada.jpg

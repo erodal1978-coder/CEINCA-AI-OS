@@ -1,6 +1,8 @@
 # MÓDULO PRODUCCIÓN CINEMATOGRÁFICA — GOOGLE FLOW + META EDITS
 ## CEINCA AI OS v2.0 | Sistema de Reels con Avatar IA
 
+> ℹ️ **Documento reconciliado con la fuente de verdad vigente: `PRODUCTION/FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1.** Este documento es la referencia **técnica/de stack** (herramientas, biblioteca de b-rolls, lighting setups, parámetros de Meta Edits, ejemplo completo) — v1.1 sigue gobernando la metodología (formato, ritmo, overlays, reglas de prompt). Se corrigieron todas las instancias que usaban el nombre propio del sujeto o "hiperrealista"/"hiperrealismo" dentro de texto de prompt, en cumplimiento de las reglas NO NEGOCIABLES §4.5 y §4.6 de v1.1 (validadas por un rechazo real de política de Flow, documentado en `SAREN_TOTUMA_SCRIPT_FLOW.md`). Consolidado el 28-08-2026 — ver `handoff.md` para el detalle exacto de qué cambió.
+
 ---
 
 ## ⚙️ STACK TÉCNICO OFICIAL
@@ -18,11 +20,17 @@
 ## 📐 REGLAS MAESTRAS DEL SISTEMA
 
 ```
-DURACIÓN POR ESCENA : 4s / 6s / 8s / 10s (límite técnico Flow + Omni)
+DURACIÓN POR ESCENA : 4s / 6s / 8s / 10s (límite técnico Flow + Omni; la tabla de
+                      palabras/duración de v1.1 §5 cubre 6/8/10 — para 4s, extrapolar
+                      la misma tasa o preferir 6s como mínimo recomendado)
 RESOLUCIÓN          : 9:16 (vertical Reel)
-ESTILO              : Hiperrealista — sin aspecto IA generado
-AVATAR              : Eduardo Rodríguez — Soul entrenado en Google Flow
-                      Guardar como Ingredient fijo y referenciar con @Eduardo
+ESTILO              : Calidad cinematográfica profesional — sin aspecto IA generado
+                      (v1.1 §4.6, NO NEGOCIABLE: nunca "hiperrealismo"/"fotorrealista")
+AVATAR              : Sujeto principal (abogado venezolano) — descripción física fija
+                      sin nombre propio, ver v1.1 §4.8. Entrenado como Ingredient en
+                      Google Flow bajo etiqueta interna neutral (no el nombre real);
+                      nunca referenciado por nombre dentro del texto del prompt
+                      (v1.1 §4.5, NO NEGOCIABLE — validado en producción)
 EDICIÓN FINAL       : Meta Edits (herramienta nativa de Meta)
 AUDIO               : Veo 3.1 genera audio nativo por escena (SFX automático)
 ```
@@ -50,7 +58,9 @@ ESCENA 2 → INICIA: descripción exacta del estado visual del cierre anterior
 ```
 
 > ⚠️ PROHIBIDO en prompts: "continuando desde la escena anterior" /
-> "Eduardo sigue señalando" — cada escena es una toma nueva e independiente.
+> "el sujeto sigue señalando" (o cualquier referencia textual a la escena
+> anterior, con o sin nombre propio) — cada escena es una toma nueva e
+> independiente (v1.1 §4 regla 2).
 
 ---
 
@@ -63,20 +73,28 @@ si se referencia correctamente como Ingredient.
 ```
 1. Abrir proyecto en Flow
 2. Subir foto de referencia de Eduardo como Ingredient
-3. Nombrarla: "Eduardo" 
-4. En cada prompt de escena que incluya avatar: añadir @Eduardo
-5. En escenas con voz: añadir @Voice: Eduardo (si tienes voz configurada)
+3. Nombrarla con una etiqueta interna neutral, ej. "Sujeto_CEINCA"
+   (evitar el nombre real incluso como etiqueta interna, por consistencia
+   defensiva con v1.1 §4.5 — no es una prohibición explícita de v1.1 sobre
+   el nombrado de Ingredients, pero elimina cualquier ambigüedad)
+4. En cada prompt de escena que incluya avatar: describir físicamente al
+   sujeto según v1.1 §4.8 (nunca por nombre propio ni por tag @Nombre)
+5. En escenas con voz: usar una etiqueta de voz neutral, ej. @Voice:Sujeto
 ```
 
 ### En el prompt de escena con avatar:
 ```
-[DESCRIPCIÓN DE ESCENA] featuring @Eduardo.
+[DESCRIPCIÓN DE ESCENA] featuring el sujeto (ver descripción física v1.1 §4.8).
 [DETALLES DE CÁMARA, LUZ, FX]
 ```
 
 ---
 
 ## 🤖 FLOW AGENT — USO PARA REELS CEINCA
+
+> Nota de terminología: "Flow Agent" es una función propia de Google Flow (un modo
+> asistido dentro de esa herramienta externa), no un agente de Claude Code. No
+> confundir con `.claude/agents/` ni con ningún AGENT del sistema CEINCA.
 
 Desde mayo 2026, activar Flow Agent como PASO 0 antes de generar escenas.
 
@@ -86,10 +104,11 @@ Soy un abogado mercantilista venezolano. Necesito un Reel de Instagram
 de 45 segundos en formato 9:16 sobre [TEMA].
 
 Estructura: 6 escenas de 4-10 segundos cada una.
-Estilo: cinematográfico, hiperrealista, corporativo.
-Avatar: @Eduardo (abogado venezolano, traje oscuro, oficina profesional).
+Estilo: cinematográfico, calidad profesional, corporativo.
+Sujeto: abogado venezolano, traje oscuro, oficina profesional (descripción
+física fija según v1.1 §4.8, sin nombre propio).
 Keyword CTA: [KEYWORD]
-Paleta: fondo navy #0B1D3A, texto blanco, acento dorado #C8A951.
+Paleta: fondo navy #122A63, texto blanco, acento dorado #C8A951.
 
 Genera las 6 escenas con prompts detallados incluyendo cámara, 
 iluminación, FX y cierre de cada escena.
@@ -105,7 +124,7 @@ El Agent puede generar múltiples variaciones de una escena a la vez:
 Crear una Flow Tool personalizada "Reel CEINCA" que pre-configure:
 - Estilo visual CEINCA (navy + dorado, cinematográfico)
 - Estructura de 6 escenas con duraciones
-- Referencia a @Eduardo como Ingredient fijo
+- Referencia al sujeto principal como Ingredient fijo (etiqueta neutral, sin nombre propio)
 - Reglas de encadenamiento entre escenas
 - Instrucciones de audio Veo 3.1
 
@@ -130,7 +149,7 @@ Usar esta Tool en cada nuevo Reel sin reconfigurar desde cero.
 > 💡 Con Veo 3.1: estas escenas generan audio automático (teclado,
 > notificaciones, ambiente de oficina). No agregar SFX manualmente en edición.
 
-### Escenas de Eduardo — Avatar @Eduardo:
+### Escenas de avatar CEINCA (sujeto principal):
 ```
 - Frente a cámara, oficina profesional bokeh al fondo
 - Perfil 3/4, mirando pantalla (no a cámara)
@@ -143,7 +162,7 @@ Usar esta Tool en cada nuevo Reel sin reconfigurar desde cero.
 
 ### Escenas de impacto / motion graphics:
 ```
-- Texto en pantalla negro — aparece letra por letra (navy #0B1D3A)
+- Texto en pantalla negro — aparece letra por letra (navy #122A63)
 - Número grande ($97, 64 formatos) con pulso/scale animation
 - Línea dorada #C8A951 barriendo de izquierda a derecha
 - Logo CEINCA sobre navy con partículas doradas flotantes
@@ -157,7 +176,7 @@ Usar esta Tool en cada nuevo Reel sin reconfigurar desde cero.
 ```
 [APERTURA] — estado visual exacto desde cierre anterior / start frame
 [ESCENA] — qué vemos, dónde, ambiente
-[SUJETO] — @Eduardo / pantalla / texto / motion graphic
+[SUJETO] — el sujeto (descripción física v1.1 §4.8) / pantalla / texto / motion graphic
 [CÁMARA] — tipo de toma, movimiento, focal equivalente
 [LUZ] — tipo, dirección, temperatura Kelvin
 [FX] — profundidad de campo, grano, color grade, scan lines
@@ -174,10 +193,10 @@ Usar esta Tool en cada nuevo Reel sin reconfigurar desde cero.
 |---|---|---|---|---|
 | 1 | B-Roll pantalla Gemini — Hook | 8s | N — Núcleo del Dolor | Omni Flash |
 | 2 | Motion graphics — datos impacto | 6s | E — Entorno Regulatorio | Omni Flash |
-| 3 | @Eduardo — autoridad a cámara | 10s | A — Atención Visual | Omni Flash |
+| 3 | Avatar — autoridad a cámara | 10s | A — Atención Visual | Omni Flash |
 | 4 | Demo pantalla — documento real | 8s | P — Propuesta de Valor | Omni Flash |
 | 5 | Motion graphics — precio/oferta | 6s | S — Solución | Omni Flash |
-| 6 | @Eduardo — CTB + keyword | 8s | S — CTB cierre | Omni Flash |
+| 6 | Avatar — CTB + keyword | 8s | S — CTB cierre | Omni Flash |
 
 **Duración total tipo:** ~46s | **Rango aceptable:** 30s–60s
 
@@ -187,8 +206,8 @@ Usar esta Tool en cada nuevo Reel sin reconfigurar desde cero.
 
 | Escena | Setup de iluminación |
 |---|---|
-| @Eduardo hablando | Rembrandt: key upper-left 3200K, fill soft right, hair light separador |
-| @Eduardo + pantalla | Screen glow como key light, fill ambiental fría desde derecha |
+| Avatar hablando | Rembrandt: key upper-left 3200K, fill soft right, hair light separador |
+| Avatar + pantalla | Screen glow como key light, fill ambiental fría desde derecha |
 | B-Roll pantalla | Solo monitor glow — scan lines 8% opacity — sin luz adicional |
 | Motion graphics | Self-illuminated, vignette edges, glow dorado en elementos #C8A951 |
 
@@ -252,7 +271,7 @@ enter frame from below typing rapidly. Text appears: "Genera una solicitud
 de custodia monoparental según LOPNNA Venezuela." Send button clicked. 
 Gemini begins generating — text streams onto screen.
 
-@Eduardo not in frame — B-Roll only.
+The subject is not in frame — B-Roll only.
 CAMERA: Extreme close-up, rack focus fingers→screen, micro handheld shake.
 LIGHT: Screen glow as primary light, warm ambient from right.
 FX: Shallow DOF, lens flare from screen edge, film grain 10%.
@@ -271,7 +290,7 @@ PROMPT FLOW:
 Zoom continues briefly then CUTS to pure black. Single white text fades 
 in centered — bold Montserrat: "64 documentos. Listos en segundos." 
 Numbers pulse with subtle scale. Thin gold line #C8A951 sweeps left to 
-right beneath text. Background transitions from black to navy #0B1D3A.
+right beneath text. Background transitions from black to navy #122A63.
 
 CAMERA: Static, perfectly centered, vignette edges.
 LIGHT: Self-illuminated white text, warm glow on gold line.
@@ -284,11 +303,11 @@ DURATION: 6s
 
 ---
 
-### ESCENA 3 — AUTORIDAD @Eduardo (10s) | Avatar a cámara
+### ESCENA 3 — AUTORIDAD AVATAR (10s) | Avatar a cámara
 ```
 PROMPT FLOW:
 [START FRAME: black from Scene 2 end]
-Scene opens from black with rising ambient light. @Eduardo: Venezuelan 
+Scene opens from black with rising ambient light. The subject: Venezuelan 
 male attorney, professional dark blazer, at modern real law office desk. 
 Two monitors behind him slightly out of focus. Speaks directly to camera 
 with authority and calm confidence. Slight right-hand gesture toward 
@@ -316,7 +335,7 @@ Ultra-realistic Google Docs document on screen. Header reads:
 format. Text being generated in real-time — cursor blinks as paragraphs 
 appear automatically. Gemini side panel visible on right edge.
 
-No @Eduardo in frame — screen recording aesthetic only.
+No subject in frame — screen recording aesthetic only.
 CAMERA: Full-frame monitor capture — bezels barely visible. No movement.
 LIGHT: Only monitor glow — realistic.
 FX: Scan lines 8% opacity, micro cursor blink, authentic Google Docs UI.
@@ -333,7 +352,7 @@ DURATION: 8s
 ```
 PROMPT FLOW:
 [START FRAME: watermark zoom from Scene 4 → pulls back to navy]
-Scene settles on deep navy background #0B1D3A. Center frame: gold 
+Scene settles on deep navy background #122A63. Center frame: gold 
 horizontal line appears, then "GEM LOPNNA" white bold Montserrat above. 
 Below: "$97" large gold text, struck-through "$400" gray upper-right. 
 Gold particle system drifts upward slowly in background.
@@ -350,19 +369,19 @@ DURATION: 6s
 
 ---
 
-### ESCENA 6 — CTA CIERRE (8s) | @Eduardo + Lower Third
+### ESCENA 6 — CTA CIERRE (8s) | Avatar + Lower Third
 ```
 PROMPT FLOW:
-[START FRAME: gold flash from Scene 5 fading to reveal @Eduardo]
-@Eduardo: same attorney, medium close-up shoulders to crown, looks 
+[START FRAME: gold flash from Scene 5 fading to reveal the subject]
+The subject: same attorney, medium close-up shoulders to crown, looks 
 directly into camera. Confident, direct expression. Speaks one clear 
 sentence. Lower-third overlay: "Escribe LOPNNA" white Bold, gold DM 
-icon left. CEINCA logo bottom-center, small, gold on navy #0B1D3A.
+icon left. CEINCA logo bottom-center, small, gold on navy #122A63.
 
 CAMERA: Locked off. No movement. Direct eye contact.
 LIGHT: Slightly brighter than Scene 3 — frontal fill warmer tone.
 FX: Lower-third slides in from left ease-out, breathing DOF.
-    @Voice: Eduardo (voice consistency).
+    @Voice: Sujeto (voice consistency).
 AUDIO: Motivational subtle music swell, voice clear -6dB (auto Veo 3.1).
 CLOSE: He nods once — FADE TO BLACK — CEINCA logo holds 1.5s.
 DURATION: 8s
@@ -376,13 +395,13 @@ DURATION: 8s
 PRE-PRODUCCIÓN
 ☐ Tema y keyword CTB definidos
 ☐ Brief dado al Flow Agent (paso 0)
-☐ @Eduardo subido como Ingredient en el proyecto
-☐ Voz configurada como @Voice: Eduardo (si aplica)
+☐ Sujeto principal subido como Ingredient en el proyecto (etiqueta neutral)
+☐ Voz configurada con etiqueta neutral, ej. @Voice:Sujeto (si aplica)
 ☐ Flow Tool "Reel CEINCA" activada (si disponible)
 
 PRODUCCIÓN (por escena)
 ☐ Prompt completo con todos los campos de plantilla
-☐ @Eduardo referenciado en escenas con avatar
+☐ Sujeto descrito físicamente (v1.1 §4.8) en escenas con avatar, sin nombre propio
 ☐ Audio implícito descrito para Veo 3.1
 ☐ End frame capturado para usar como Start Frame siguiente
 ☐ Duración correcta: 4s / 6s / 8s / 10s
@@ -427,7 +446,7 @@ Latinoamérica/Venezuela: NO disponible todavía. Monitorear futuros rollouts.
 
 | Caso de uso | Cómo usarlo |
 |---|---|
-| **Escena de autoridad internacional** | @Eduardo frente a un edificio corporativo real en Miami, NYC o Houston — mercado venezolano en diaspora |
+| **Escena de autoridad internacional** | El avatar frente a un edificio corporativo real en Miami, NYC o Houston — mercado venezolano en diaspora |
 | **B-Roll de contexto legal** | Fachada real de un courthouse federal en Miami para contenido sobre apostilla/legalización internacional |
 | **Escena de ciudad moderna** | Skyline real de una ciudad US como fondo cinematográfico para Reels de posicionamiento premium |
 | **Contexto de expansión** | "Tus documentos venezolanos ahora válidos aquí" — escena en dirección real de consulado o registro |
@@ -459,12 +478,12 @@ Ubicaciones CEINCA prioritarias para cuando esté disponible:
 
 ```
 PROMPT FLOW (Agent mode activado):
-@Eduardo standing confidently in front of 1 SE 3rd Ave, Miami, FL —
+The subject standing confidently in front of 1 SE 3rd Ave, Miami, FL —
 Brickell financial district. Real street-level scene from Google Maps
 Street View as background. He wears a dark professional blazer.
 He looks directly at camera with calm authority.
 
-CAMERA: Medium close-up, 85mm equivalent, @Eduardo sharp, Brickell
+CAMERA: Medium close-up, 85mm equivalent, subject sharp, Brickell
 building bokeh background.
 LIGHT: Natural midday Miami sun, warm side fill from right.
 FX: Slight cinematic grade, lifted blacks.
