@@ -61,7 +61,7 @@
     border:1px solid rgba(255,255,255,.1);
   }
   .hero-text{position:relative; z-index:1; flex:1 1 480px;}
-  .hero-badge{position:relative; z-index:1; flex:0 0 auto; width:min(180px,26vw);}
+  .hero-badge{position:relative; z-index:1; flex:0 0 auto; width:min(220px,30vw);}
   .eyebrow{
     text-transform:uppercase;
     letter-spacing:.16em;
@@ -200,13 +200,14 @@
     flex-direction:column;
   }
   .logo-stage{
-    height:190px;
+    height:230px;
     display:flex;
     align-items:center;
     justify-content:center;
     padding:20px;
   }
   .logo-stage img{max-height:100%; width:auto; max-width:100%;}
+  .logo-stage svg.iso-svg{width:auto; max-height:110px; display:block;}
   .stage-paper{background:var(--paper);}
   .stage-navy{background:linear-gradient(160deg,var(--navy-dark),var(--navy));}
   .stage-photo{
@@ -231,8 +232,8 @@
   .tag-alt{background:#eef1f9; color:var(--navy-soft);}
 
   /* ---- subbrand lockups (construidos en CSS a partir del isotipo oficial) ---- */
-  .lockup-stack{display:flex; flex-direction:column; align-items:center; gap:8px;}
-  .lockup-stack img{width:56px;}
+  .lockup-stack{display:flex; flex-direction:column; align-items:center; gap:10px;}
+  .lockup-stack svg.iso-svg{width:78px; height:auto; display:block;}
   .lockup-word{text-align:center; line-height:1.05;}
   .lockup-word .ceinca{
     display:block; font-weight:800; font-size:1.55rem; letter-spacing:.005em;
@@ -247,18 +248,19 @@
   .lockup-word.on-white .english{opacity:.85;}
   .lockup-word.on-gold .ceinca, .lockup-word.on-gold .english{color:var(--gold);}
 
-  .lockup-horizontal{display:flex; align-items:center; gap:16px;}
-  .lockup-horizontal img{width:52px; flex:0 0 auto;}
+  .lockup-horizontal{display:flex; align-items:center; gap:20px;}
+  .lockup-horizontal svg.iso-svg{width:64px; flex:0 0 auto;}
   .lockup-horizontal .lockup-word{text-align:left;}
 
   .badge-circle{
-    width:150px; height:150px; border-radius:50%;
+    width:190px; height:190px; border-radius:50%;
     background:var(--navy);
     display:flex; align-items:center; justify-content:center;
   }
-  .badge-circle .lockup-stack img{width:38px;}
-  .badge-circle .lockup-word .ceinca{font-size:1.05rem;}
-  .badge-circle .lockup-word .english{font-size:.44rem; letter-spacing:.28em;}
+  .badge-circle .lockup-stack{gap:14px;}
+  .badge-circle .lockup-stack svg.iso-svg{width:66px;}
+  .badge-circle .lockup-word .ceinca{font-size:1.5rem;}
+  .badge-circle .lockup-word .english{font-size:.58rem; letter-spacing:.28em;}
 
   /* ---- construccion ---- */
   .construccion{
@@ -278,6 +280,7 @@
     align-items:center;
     gap:18px;
   }
+  .construccion-visual .lockup-stack svg.iso-svg{width:100px;}
   .construccion dl{margin:0;}
   .construccion dt{font-weight:700; color:var(--navy); margin-top:18px;}
   .construccion dt:first-child{margin-top:0;}
@@ -299,6 +302,7 @@
     padding:34px;
     display:inline-flex;
   }
+  .clearspace-box .lockup-stack svg.iso-svg{width:100px;}
   .spec-list{
     margin-top:20px;
     display:grid;
@@ -328,7 +332,7 @@
     display:flex; align-items:center; justify-content:center; padding:20px;
     position:relative;
   }
-  .dont-stage .lockup-stack img{width:42px;}
+  .dont-stage .lockup-stack svg.iso-svg{width:56px;}
   .dont-stage .lockup-word .ceinca{font-size:1.05rem;}
   .dont-stage .lockup-word .english{font-size:.42rem;}
   .dont-card.ok .dont-stage{background:#f4f6fb;}
@@ -417,7 +421,7 @@
   @media (max-width:640px){
     .construccion{grid-template-columns:1fr;}
     header.hero{flex-direction:column; align-items:flex-start;}
-    .hero-badge{width:120px;}
+    .hero-badge{width:150px;}
     .lockup-horizontal{flex-direction:column; text-align:center;}
     .lockup-horizontal .lockup-word{text-align:center;}
   }
@@ -434,7 +438,15 @@
   <div class="hero-badge">
     <div class="badge-circle">
       <div class="lockup-stack">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAD3klEQVR4nO3dYZKiMBCA0XZr7n9l9s9S67paioR0J3nvAoPhq4BMJBEAAAAAAAAAALC6W/YBRERs27ZlH0OW2+1W4hxkSh2AleO7t3qIv7L+sAD/Wn0sUiJcfdCfWXlMuke48mC/s+rYpF2OeW7FELvfEL8a5Nlvzo/GNft43DMTFrXSjCjCwlYJUYTFrRCiCAcwe4giLOCTLyEzhyjCIlYOUYSFrBqiCItZMUQRdnLk4fNqIYqwqJVCFGFhq4QowuJWCFGEA5g9RBEOYuYQRdhJi0BmDVGEg5kxRBF20nKR6mwhirCT1lHMFKIIBzZLiCLs5KrfjMwQoggnMHqIP9kHQL9Atm3bKv6Kz0zYUcUAKhAh6UTYmdnwfyJMIMR/iTDJ7Y/s46jAt+NkV4VY+ZHMIzMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt="Isotipo CEINCA (oficial, sin alterar)">
+        <svg class="iso-svg iso-blanco" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#FFFFFF" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
         <div class="lockup-word on-white"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
       </div>
     </div>
@@ -515,7 +527,15 @@
     <div class="construccion">
       <div class="construccion-visual">
         <div class="lockup-stack">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAAEB0lEQVR4nO3d4XHbOBCA0c1N6nAhLixFuLAUkkZ8PzKaY3RWJJIgdgG8V4AtgZ8BSiaJCAAAAAAAAAAAWN237BcQEfH2/vGZ/Rqy/Pr5o8QxyJQ6ACvHt7V6iP9k/WIB/mf1sUiJcPVB/8rKY9I9wpUH+5lVxyZtOeZrK4bY/YT40SDPfnK+N67Zx2Or60y44l/5USuNleW4sFVC7BrhSktMKyuEaCYcwOwhOics4JUVYuaxMxMWsXKIIixk1RBFWMyKIYqwoNVCFGFRK4UowsJWCVGExa0QoggHMHuIIhzEzCGKcCCzhijCwcwYoggHNFuIIhzUTCGKcGCzhCjCwc0Qogg7+VssZyMZPcTv2S+A33pE8vb+8VnxFgszIelE2FHFWagCEXYmxP8TYQIh/kmESX79/PFNjL/5dJzsqhArfyVzz0xIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt="Isotipo CEINCA — archivo oficial sin alterar">
+          <svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
           <div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
         </div>
       </div>
@@ -595,9 +615,17 @@
     <div class="logo-grid">
       <div class="logo-card">
         <div class="logo-stage stage-navy">
-          <div class="badge-circle" style="width:130px; height:130px;">
+          <div class="badge-circle">
             <div class="lockup-stack">
-              <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAD3klEQVR4nO3dYZKiMBCA0XZr7n9l9s9S67paioR0J3nvAoPhq4BMJBEAAAAAAAAAALC6W/YBRERs27ZlH0OW2+1W4hxkSh2AleO7t3qIv7L+sAD/Wn0sUiJcfdCfWXlMuke48mC/s+rYpF2OeW7FELvfEL8a5Nlvzo/GNft43DMTFrXSjCjCwlYJUYTFrRCiCAcwe4giLOCTLyEzhyjCIlYOUYSFrBqiCItZMUQRdnLk4fNqIYqwqJVCFGFhq4QowuJWCFGEA5g9RBEOYuYQRdhJi0BmDVGEg5kxRBF20nKR6mwhirCT1lHMFKIIBzZLiCLs5KrfjMwQoggnMHqIP9kHQL9Atm3bKv6Kz0zYUcUAKhAh6UTYmdnwfyJMIMR/iTDJ7Y/s46jAt+NkV4VY+ZHMIzMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt="Isotipo blanco oficial">
+              <svg class="iso-svg iso-blanco" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#FFFFFF" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
               <div class="lockup-word on-white"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
             </div>
           </div>
@@ -615,7 +643,15 @@
       <div class="logo-card">
         <div class="logo-stage stage-paper">
           <div class="lockup-stack">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAAEB0lEQVR4nO3d4XHbOBCA0c1N6nAhLixFuLAUkkZ8PzKaY3RWJJIgdgG8V4AtgZ8BSiaJCAAAAAAAAAAAWN237BcQEfH2/vGZ/Rqy/Pr5o8QxyJQ6ACvHt7V6iP9k/WIB/mf1sUiJcPVB/8rKY9I9wpUH+5lVxyZtOeZrK4bY/YT40SDPfnK+N67Zx2Or60y44l/5USuNleW4sFVC7BrhSktMKyuEaCYcwOwhOics4JUVYuaxMxMWsXKIIixk1RBFWMyKIYqwoNVCFGFRK4UowsJWCVGExa0QoggHMHuIIhzEzCGKcCCzhijCwcwYoggHNFuIIhzUTCGKcGCzhCjCwc0Qogg7+VssZyMZPcTv2S+A33pE8vb+8VnxFgszIelE2FHFWagCEXYmxP8TYQIh/kmESX79/PFNjL/5dJzsqhArfyVzz0xIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt="Isotipo azul oficial">
+            <svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
             <div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
           </div>
         </div>
@@ -628,7 +664,15 @@
       <div class="logo-card">
         <div class="logo-stage stage-paper">
           <div class="lockup-stack">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEB0lEQVR4nO3dQXLbOBBA0c5UDpVreJUzepVr+FaeRUo1jMaKRBJEN4D3DmBL4DdAySQRAQAAAAAAAAAAq/uW/QIiIj7e3z6zX0OWHz9/lTgGmVIHYOX4tlYP8Z+sXyzA/6w+FikRrj7oX1l5TLpHuPJgP7Pq2KQtx3xtxRC7nxA/GuTZT873xjX7eGx1nQlX/Cs/aqWxshwXtkqIXSNcaYlpZYUQzYQDmD1E54QFvLJCzDx2ZsIiVg5RhIWsGqIIi1kxRBEWtFqIIixqpRBFWNgqIYqwuBVCFOEAZg9RhIOYOUQRDmTWEEU4mBlDFOGAZgtRhIOaKUQRDmyWEEU4uBlCFGEnf4vlbCSjh/g9+wXwW49IPt7fPiveYmEmJJ0IO6o4C1Ugws6E+H8iTCDEP4kwyY+fv76J8TefjpNdFWLlr2TumQlJJ0LSiZB0IiSdCEknQtKJkHQiJJ0ISSdC0omQdCIknQhJJ0LSiZB0IiSdCEknQtKJkHQiJJ0ISSdC0omQdCIknQhJJ0LSiZB0IiSdCEknQtKJkHQiJJ0ISSdCmjn6dFgR0szRRx+LkCbOPCNbhKQTIaed3TNPhJzSYqsKEZJOhBzWasMeEXLINsCzu1KJkN1ab1kmQna5Ys88EXJKiw0iRcjLrto5VIS85KsAW22TK0KeujLACBHyRI/Nu0XIQ48CbL1bvQgXsieeHjPgzfdev4hcrwb4LL7Ws2CECKfXcva7IsAIy/HUqi6/98yEk2q1/O79eUeYCRdWIcAIM+GS9iy9VwcYYSZcTrUAI8yEy9j7waNXgBEinN6RT709A4wQ4bSOfuXSO8AIEU7nzPd9GQFGiHAaZ79szgowQoTDa/GfjswAI0Q4pJb/YssOMEKEQ5ktvhsRFnfFhQWVAoyI6P5iel2tO6orr2apOsZdZ8LMy4Uq6zEuVQOMsByn6PnHWDm+GxFeLHP2HyHACBE2VeV0Y5T4bkR4QJXYtkYLb0uED1QM7ZGRA4xYPMKRQrs3enhb6RH2GMyRY7s3U3w3KV9WXz2QM0UXMWd4W1O8udmii5g/vK0h3+iM0UWsFd7WMG96xvBWje5e+UGYJT7BPVZ2YEaPT3SvKzdQI8UntDbKDGLF+ETWR/ogV4hPbLnSBj8jPrHVlHJQVr+SmD91PVAr3j/Bc90O3Ap3jXFMl4M46/2ytDHEZVTCm1vZS6qEt47LDvRIz8cj1yUHfISng1JH8wNf+dnI1JT69H4BEtF4JqyyOQtjaTYTCpCjut3yKT4eaTITZm1Ryhwu/2AiQJ45HeHfZkEB8opLzgnFxx7Nl2MBstepCO+XYgFyhP2OSdcsQrMgRzWJUICk+Hh/+6xwzzALEyCt+GACAAAAAPwLLrGkkTQ3tAAAAAAASUVORK5CYII=" alt="Isotipo dorado oficial">
+            <svg class="iso-svg iso-dorado" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#C8A951" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
             <div class="lockup-word on-gold"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
           </div>
         </div>
@@ -641,7 +685,15 @@
       <div class="logo-card">
         <div class="logo-stage stage-navy">
           <div class="lockup-stack">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAD3klEQVR4nO3dYZKiMBCA0XZr7n9l9s9S67paioR0J3nvAoPhq4BMJBEAAAAAAAAAALC6W/YBRERs27ZlH0OW2+1W4hxkSh2AleO7t3qIv7L+sAD/Wn0sUiJcfdCfWXlMuke48mC/s+rYpF2OeW7FELvfEL8a5Nlvzo/GNft43DMTFrXSjCjCwlYJUYTFrRCiCAcwe4giLOCTLyEzhyjCIlYOUYSFrBqiCItZMUQRdnLk4fNqIYqwqJVCFGFhq4QowuJWCFGEA5g9RBEOYuYQRdhJi0BmDVGEg5kxRBF20nKR6mwhirCT1lHMFKIIBzZLiCLs5KrfjMwQoggnMHqIP9kHQL9Atm3bKv6Kz0zYUcUAKhAh6UTYmdnwfyJMIMR/iTDJ7Y/s46jAt+NkV4VY+ZHMIzMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt="Isotipo blanco oficial">
+            <svg class="iso-svg iso-blanco" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#FFFFFF" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
             <div class="lockup-word on-white"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
           </div>
         </div>
@@ -658,7 +710,15 @@
       <div class="logo-card">
         <div class="logo-stage stage-paper">
           <div class="lockup-horizontal">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAAEB0lEQVR4nO3d4XHbOBCA0c1N6nAhLixFuLAUkkZ8PzKaY3RWJJIgdgG8V4AtgZ8BSiaJCAAAAAAAAAAAWN237BcQEfH2/vGZ/Rqy/Pr5o8QxyJQ6ACvHt7V6iP9k/WIB/mf1sUiJcPVB/8rKY9I9wpUH+5lVxyZtOeZrK4bY/YT40SDPfnK+N67Zx2Or60y44l/5USuNleW4sFVC7BrhSktMKyuEaCYcwOwhOics4JUVYuaxMxMWsXKIIixk1RBFWMyKIYqwoNVCFGFRK4UowsJWCVGExa0QoggHMHuIIhzEzCGKcCCzhijCwcwYoggHNFuIIhzUTCGKcGCzhCjCwc0Qogg7+VssZyMZPcTv2S+A33pE8vb+8VnxFgszIelE2FHFWagCEXYmxP8TYQIh/kmESX79/PFNjL/5dJzsqhArfyVzz0xIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt="Isotipo azul oficial">
+            <svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
             <div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
           </div>
         </div>
@@ -676,15 +736,39 @@
     <h3 class="sub">Isotipo solo (archivos oficiales, sin modificar)</h3>
     <div class="logo-grid">
       <div class="logo-card">
-        <div class="logo-stage stage-paper"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAAEB0lEQVR4nO3d4XHbOBCA0c1N6nAhLixFuLAUkkZ8PzKaY3RWJJIgdgG8V4AtgZ8BSiaJCAAAAAAAAAAAWN237BcQEfH2/vGZ/Rqy/Pr5o8QxyJQ6ACvHt7V6iP9k/WIB/mf1sUiJcPVB/8rKY9I9wpUH+5lVxyZtOeZrK4bY/YT40SDPfnK+N67Zx2Or60y44l/5USuNleW4sFVC7BrhSktMKyuEaCYcwOwhOics4JUVYuaxMxMWsXKIIixk1RBFWMyKIYqwoNVCFGFRK4UowsJWCVGExa0QoggHMHuIIhzEzCGKcCCzhijCwcwYoggHNFuIIhzUTCGKcGCzhCjCwc0Qogg7+VssZyMZPcTv2S+A33pE8vb+8VnxFgszIelE2FHFWagCEXYmxP8TYQIh/kmESX79/PFNjL/5dJzsqhArfyVzz0xIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt="Isotipo azul"></div>
+        <div class="logo-stage stage-paper"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg></div>
         <div class="logo-info"><span class="tag tag-alt">Espacios reducidos</span><h4>Isotipo azul</h4><p>Favicon, ícono de app, marca de agua discreta. Idéntico al de CEINCA — el isotipo no se diferencia por división.</p></div>
       </div>
       <div class="logo-card">
-        <div class="logo-stage stage-paper"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAEB0lEQVR4nO3dQXLbOBBA0c5UDpVreJUzepVr+FaeRUo1jMaKRBJEN4D3DmBL4DdAySQRAQAAAAAAAAAAq/uW/QIiIj7e3z6zX0OWHz9/lTgGmVIHYOX4tlYP8Z+sXyzA/6w+FikRrj7oX1l5TLpHuPJgP7Pq2KQtx3xtxRC7nxA/GuTZT873xjX7eGx1nQlX/Cs/aqWxshwXtkqIXSNcaYlpZYUQzYQDmD1E54QFvLJCzDx2ZsIiVg5RhIWsGqIIi1kxRBEWtFqIIixqpRBFWNgqIYqwuBVCFOEAZg9RhIOYOUQRDmTWEEU4mBlDFOGAZgtRhIOaKUQRDmyWEEU4uBlCFGEnf4vlbCSjh/g9+wXwW49IPt7fPiveYmEmJJ0IO6o4C1Ugws6E+H8iTCDEP4kwyY+fv76J8TefjpNdFWLlr2TumQlJJ0LSiZB0IiSdCEknQtKJkHQiJJ0ISSdC0omQdCIknQhJJ0LSiZB0IiSdCEknQtKJkHQiJJ0ISSdC0omQdCIknQhJJ0LSiZB0IiSdCEknQtKJkHQiJJ0ISSdCmjn6dFgR0szRRx+LkCbOPCNbhKQTIaed3TNPhJzSYqsKEZJOhBzWasMeEXLINsCzu1KJkN1ab1kmQna5Ys88EXJKiw0iRcjLrto5VIS85KsAW22TK0KeujLACBHyRI/Nu0XIQ48CbL1bvQgXsieeHjPgzfdev4hcrwb4LL7Ws2CECKfXcva7IsAIy/HUqi6/98yEk2q1/O79eUeYCRdWIcAIM+GS9iy9VwcYYSZcTrUAI8yEy9j7waNXgBEinN6RT709A4wQ4bSOfuXSO8AIEU7nzPd9GQFGiHAaZ79szgowQoTDa/GfjswAI0Q4pJb/YssOMEKEQ5ktvhsRFnfFhQWVAoyI6P5iel2tO6orr2apOsZdZ8LMy4Uq6zEuVQOMsByn6PnHWDm+GxFeLHP2HyHACBE2VeV0Y5T4bkR4QJXYtkYLb0uED1QM7ZGRA4xYPMKRQrs3enhb6RH2GMyRY7s3U3w3KV9WXz2QM0UXMWd4W1O8udmii5g/vK0h3+iM0UWsFd7WMG96xvBWje5e+UGYJT7BPVZ2YEaPT3SvKzdQI8UntDbKDGLF+ETWR/ogV4hPbLnSBj8jPrHVlHJQVr+SmD91PVAr3j/Bc90O3Ap3jXFMl4M46/2ytDHEZVTCm1vZS6qEt47LDvRIz8cj1yUHfISng1JH8wNf+dnI1JT69H4BEtF4JqyyOQtjaTYTCpCjut3yKT4eaTITZm1Ryhwu/2AiQJ45HeHfZkEB8opLzgnFxx7Nl2MBstepCO+XYgFyhP2OSdcsQrMgRzWJUICk+Hh/+6xwzzALEyCt+GACAAAAAPwLLrGkkTQ3tAAAAAAASUVORK5CYII=" alt="Isotipo dorado"></div>
+        <div class="logo-stage stage-paper"><svg class="iso-svg iso-dorado" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#C8A951" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg></div>
         <div class="logo-info"><span class="tag tag-alt">Espacios reducidos</span><h4>Isotipo dorado</h4><p>Sello sobre certificado, marca de agua sobre pieza dorada — mismo archivo oficial del manual matriz.</p></div>
       </div>
       <div class="logo-card">
-        <div class="logo-stage stage-navy"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAD3klEQVR4nO3dYZKiMBCA0XZr7n9l9s9S67paioR0J3nvAoPhq4BMJBEAAAAAAAAAALC6W/YBRERs27ZlH0OW2+1W4hxkSh2AleO7t3qIv7L+sAD/Wn0sUiJcfdCfWXlMuke48mC/s+rYpF2OeW7FELvfEL8a5Nlvzo/GNft43DMTFrXSjCjCwlYJUYTFrRCiCAcwe4giLOCTLyEzhyjCIlYOUYSFrBqiCItZMUQRdnLk4fNqIYqwqJVCFGFhq4QowuJWCFGEA5g9RBEOYuYQRdhJi0BmDVGEg5kxRBF20nKR6mwhirCT1lHMFKIIBzZLiCLs5KrfjMwQoggnMHqIP9kHQL9Atm3bKv6Kz0zYUcUAKhAh6UTYmdnwfyJMIMR/iTDJ7Y/s46jAt+NkV4VY+ZHMIzMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt="Isotipo blanco"></div>
+        <div class="logo-stage stage-navy"><svg class="iso-svg iso-blanco" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#FFFFFF" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg></div>
         <div class="logo-info"><span class="tag tag-alt">Espacios reducidos</span><h4>Isotipo blanco</h4><p>Marca de agua esquinera sobre video o fondo oscuro — mismo archivo oficial del manual matriz.</p></div>
       </div>
     </div>
@@ -711,7 +795,15 @@
     <div class="clearspace-demo">
       <div class="clearspace-box">
         <div class="lockup-stack">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAAEB0lEQVR4nO3d4XHbOBCA0c1N6nAhLixFuLAUkkZ8PzKaY3RWJJIgdgG8V4AtgZ8BSiaJCAAAAAAAAAAAWN237BcQEfH2/vGZ/Rqy/Pr5o8QxyJQ6ACvHt7V6iP9k/WIB/mf1sUiJcPVB/8rKY9I9wpUH+5lVxyZtOeZrK4bY/YT40SDPfnK+N67Zx2Or60y44l/5USuNleW4sFVC7BrhSktMKyuEaCYcwOwhOics4JUVYuaxMxMWsXKIIixk1RBFWMyKIYqwoNVCFGFRK4UowsJWCVGExa0QoggHMHuIIhzEzCGKcCCzhijCwcwYoggHNFuIIhzUTCGKcGCzhCjCwc0Qogg7+VssZyMZPcTv2S+A33pE8vb+8VnxFgszIelE2FHFWagCEXYmxP8TYQIh/kmESX79/PFNjL/5dJzsqhArfyVzz0xIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt="Isotipo azul oficial">
+          <svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
           <div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
         </div>
       </div>
@@ -738,37 +830,85 @@
     <div class="dont-grid">
       <div class="dont-card ok">
         <div class="dont-stage">
-          <div class="lockup-stack"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAAEB0lEQVR4nO3d4XHbOBCA0c1N6nAhLixFuLAUkkZ8PzKaY3RWJJIgdgG8V4AtgZ8BSiaJCAAAAAAAAAAAWN237BcQEfH2/vGZ/Rqy/Pr5o8QxyJQ6ACvHt7V6iP9k/WIB/mf1sUiJcPVB/8rKY9I9wpUH+5lVxyZtOeZrK4bY/YT40SDPfnK+N67Zx2Or60y44l/5USuNleW4sFVC7BrhSktMKyuEaCYcwOwhOics4JUVYuaxMxMWsXKIIixk1RBFWMyKIYqwoNVCFGFRK4UowsJWCVGExa0QoggHMHuIIhzEzCGKcCCzhijCwcwYoggHNFuIIhzUTCGKcGCzhCjCwc0Qogg7+VssZyMZPcTv2S+A33pE8vb+8VnxFgszIelE2FHFWagCEXYmxP8TYQIh/kmESX79/PFNjL/5dJzsqhArfyVzz0xIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt=""><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
+          <div class="lockup-stack"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
         </div>
         <div class="dont-label"><span class="mark">✓</span><span>Proporción original, sobre fondo de suficiente contraste, "ENGLISH" siempre junto a "CEINCA".</span></div>
       </div>
       <div class="dont-card stretch">
         <div class="dont-stage">
-          <div class="lockup-stack"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAAEB0lEQVR4nO3d4XHbOBCA0c1N6nAhLixFuLAUkkZ8PzKaY3RWJJIgdgG8V4AtgZ8BSiaJCAAAAAAAAAAAWN237BcQEfH2/vGZ/Rqy/Pr5o8QxyJQ6ACvHt7V6iP9k/WIB/mf1sUiJcPVB/8rKY9I9wpUH+5lVxyZtOeZrK4bY/YT40SDPfnK+N67Zx2Or60y44l/5USuNleW4sFVC7BrhSktMKyuEaCYcwOwhOics4JUVYuaxMxMWsXKIIixk1RBFWMyKIYqwoNVCFGFRK4UowsJWCVGExa0QoggHMHuIIhzEzCGKcCCzhijCwcwYoggHNFuIIhzUTCGKcGCzhCjCwc0Qogg7+VssZyMZPcTv2S+A33pE8vb+8VnxFgszIelE2FHFWagCEXYmxP8TYQIh/kmESX79/PFNjL/5dJzsqhArfyVzz0xIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt=""><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
+          <div class="lockup-stack"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
         </div>
         <div class="dont-label"><span class="mark">✕</span><span>No estirar ni comprimir el lockup en un solo eje.</span></div>
       </div>
       <div class="dont-card wrongcolor">
         <div class="dont-stage">
-          <div class="lockup-stack"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAAEB0lEQVR4nO3d4XHbOBCA0c1N6nAhLixFuLAUkkZ8PzKaY3RWJJIgdgG8V4AtgZ8BSiaJCAAAAAAAAAAAWN237BcQEfH2/vGZ/Rqy/Pr5o8QxyJQ6ACvHt7V6iP9k/WIB/mf1sUiJcPVB/8rKY9I9wpUH+5lVxyZtOeZrK4bY/YT40SDPfnK+N67Zx2Or60y44l/5USuNleW4sFVC7BrhSktMKyuEaCYcwOwhOics4JUVYuaxMxMWsXKIIixk1RBFWMyKIYqwoNVCFGFRK4UowsJWCVGExa0QoggHMHuIIhzEzCGKcCCzhijCwcwYoggHNFuIIhzUTCGKcGCzhCjCwc0Qogg7+VssZyMZPcTv2S+A33pE8vb+8VnxFgszIelE2FHFWagCEXYmxP8TYQIh/kmESX79/PFNjL/5dJzsqhArfyVzz0xIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt=""><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
+          <div class="lockup-stack"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
         </div>
         <div class="dont-label"><span class="mark">✕</span><span>No recolorear fuera de azul, dorado o blanco.</span></div>
       </div>
       <div class="dont-card">
         <div class="dont-stage lowcontrast">
-          <div class="lockup-stack"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAAEB0lEQVR4nO3d4XHbOBCA0c1N6nAhLixFuLAUkkZ8PzKaY3RWJJIgdgG8V4AtgZ8BSiaJCAAAAAAAAAAAWN237BcQEfH2/vGZ/Rqy/Pr5o8QxyJQ6ACvHt7V6iP9k/WIB/mf1sUiJcPVB/8rKY9I9wpUH+5lVxyZtOeZrK4bY/YT40SDPfnK+N67Zx2Or60y44l/5USuNleW4sFVC7BrhSktMKyuEaCYcwOwhOics4JUVYuaxMxMWsXKIIixk1RBFWMyKIYqwoNVCFGFRK4UowsJWCVGExa0QoggHMHuIIhzEzCGKcCCzhijCwcwYoggHNFuIIhzUTCGKcGCzhCjCwc0Qogg7+VssZyMZPcTv2S+A33pE8vb+8VnxFgszIelE2FHFWagCEXYmxP8TYQIh/kmESX79/PFNjL/5dJzsqhArfyVzz0xIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt=""><div class="lockup-word on-white"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
+          <div class="lockup-stack"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg><div class="lockup-word on-white"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
         </div>
         <div class="dont-label"><span class="mark">✕</span><span>No usar la versión azul sobre fondo azul o de contraste insuficiente.</span></div>
       </div>
       <div class="dont-card effects">
         <div class="dont-stage">
-          <div class="lockup-stack"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAAEB0lEQVR4nO3d4XHbOBCA0c1N6nAhLixFuLAUkkZ8PzKaY3RWJJIgdgG8V4AtgZ8BSiaJCAAAAAAAAAAAWN237BcQEfH2/vGZ/Rqy/Pr5o8QxyJQ6ACvHt7V6iP9k/WIB/mf1sUiJcPVB/8rKY9I9wpUH+5lVxyZtOeZrK4bY/YT40SDPfnK+N67Zx2Or60y44l/5USuNleW4sFVC7BrhSktMKyuEaCYcwOwhOics4JUVYuaxMxMWsXKIIixk1RBFWMyKIYqwoNVCFGFRK4UowsJWCVGExa0QoggHMHuIIhzEzCGKcCCzhijCwcwYoggHNFuIIhzUTCGKcGCzhCjCwc0Qogg7+VssZyMZPcTv2S+A33pE8vb+8VnxFgszIelE2FHFWagCEXYmxP8TYQIh/kmESX79/PFNjL/5dJzsqhArfyVzz0xIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt=""><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
+          <div class="lockup-stack"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
         </div>
         <div class="dont-label"><span class="mark">✕</span><span>No añadir sombras, brillos ni contornos — el logo va plano.</span></div>
       </div>
       <div class="dont-card orphan">
         <div class="dont-stage">
-          <div class="lockup-stack"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKEAAACnCAYAAAB5CDyrAAAEB0lEQVR4nO3d4XHbOBCA0c1N6nAhLixFuLAUkkZ8PzKaY3RWJJIgdgG8V4AtgZ8BSiaJCAAAAAAAAAAAWN237BcQEfH2/vGZ/Rqy/Pr5o8QxyJQ6ACvHt7V6iP9k/WIB/mf1sUiJcPVB/8rKY9I9wpUH+5lVxyZtOeZrK4bY/YT40SDPfnK+N67Zx2Or60y44l/5USuNleW4sFVC7BrhSktMKyuEaCYcwOwhOics4JUVYuaxMxMWsXKIIixk1RBFWMyKIYqwoNVCFGFRK4UowsJWCVGExa0QoggHMHuIIhzEzCGKcCCzhijCwcwYoggHNFuIIhzUTCGKcGCzhCjCwc0Qogg7+VssZyMZPcTv2S+A33pE8vb+8VnxFgszIelE2FHFWagCEXYmxP8TYQIh/kmESX79/PFNjL/5dJzsqhArfyVzz0xIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6EpBMh6URIOhGSToSkEyHpREg6EZJOhKQTIelESDoRkk6ENHHmHdkiJJ0IOe3snnki5JQWW1WIkHQi5GutNuwRIV+5D/DsrlQi5LDWW5aJkHQi5JDHWbDFBpEi5GNX7RwqQj7yLMBW2+SKkLeuDDBChLzRY/NuEfLSqwBb71YvwoUciafHDLj76fWHyPVpgO/iaz0LRohwei2juSLACBFOreXl96oAI9wTTqvq/d8zZsKFfRrflbNghJlwWVUCjDATLufIpbdHgBEiXMbR+75eAUaIcHrffOnoGWCEe8KpjRBghJlwOmcet2QEGCHCaZx91pcVYIQIh9fiQXNmgBEiHNYM8e1EOJCW/16rEmCECMu74v+6lQKMEGFJVy0oqBbfToRFXL2SpWqAESJM0XPpVOX4diLsIGO93gjx7UTYWPYC0ZHi24nwS9mxPRoxvl2JCKsOYLXQnqk6dkeUiDDLCJG9MkN8u/QIew3myMHtZgrvXkqEVw/mDMHtZg3v3hQfcKbodivEtxv2gwpvHkN96NnCWzW6R+UHYZbwBPda2YEZOT7BHVNusEaKT2xtlBnEivGJrI/0Qc6OT2j5Uk9A7wAFV1PKSekRn+DG0f1Erfb7Cd7rduJaxye6eQy1gkV4c7r8pM70pgCuUXZJlfDWcdmJ/jZA8a3nkhM+yssZqWGZ5f3U1TyASlsTMIam76wWIN9oFsMnAYqPZ7q9vV+AvNIkwswdIhnf5TOhAHnnskc04uNTp2fCZ5diAXJE88uxADnqVISPs6AA+YYNFknXLEKzIN9qEqEASbH9kX0cLEyAtOKLCQAAAADwGzPQlUz2XURaAAAAAElFTkSuQmCC" alt=""><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
+          <div class="lockup-stack"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
         </div>
         <div class="dont-label"><span class="mark">✕</span><span>No aislar "ENGLISH" quitando peso o presencia a "CEINCA" — el descriptor nunca sustituye al nombre matriz.</span></div>
       </div>
