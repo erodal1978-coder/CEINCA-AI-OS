@@ -34,24 +34,36 @@ def run(cmd):
 
 # ------------------------------------------------------------------ gancho
 def build_hook():
-    """2.0 s: la pregunta que el Reel va a responder, sobre una cara real."""
+    """2.0 s: la pregunta que el Reel va a responder, sobre una cara real.
+
+    El bloque de texto va DEBAJO de la barbilla (la cara ocupa y 780–1230 en
+    este encuadre): en un testimonio la cara es el argumento, taparla mata el
+    gancho. Como efecto colateral, la caja lima cubre el torso.
+    """
     vf = (
         "scale=1620:2880:force_original_aspect_ratio=increase:flags=lanczos,"
         "crop=1620:2880,fps=30,"
         "zoompan=z='1.44+0.05*on/60':d=1:x='iw/2-(iw/zoom/2)'"
         ":y='max(0\\,min(ih-ih/zoom\\,ih*0.34-(ih/zoom/2)))':s=1080x1920:fps=30,"
-        "eq=contrast=1.10:saturation=1.02:brightness=-0.12:gamma=1.02,"
-        "gblur=sigma=5,vignette=PI/3.6,noise=alls=3:allf=t+u,"
-        # velo oscuro para que la tipografía respire
-        "drawbox=x=0:y=0:w=1080:h=1920:color=black@0.34:t=fill,"
+        "eq=contrast=1.10:saturation=1.04:brightness=-0.05:gamma=1.02,"
+        # el desenfoque y el velo eran para leer texto SOBRE la cara; ahora el
+        # texto va debajo, así que la cara puede verse nítida y más clara
+        "gblur=sigma=2,vignette=PI/3.6,noise=alls=3:allf=t+u,"
+        "drawbox=x=0:y=0:w=1080:h=1920:color=black@0.20:t=fill,"
+        # el texto sí necesita fondo: degradado hacia el tercio inferior.
+        # Se apilan cajas al 5 % cada 32 px porque una sola banda deja un filo
+        # recto visible cruzando el hombro.
+        + "".join(f"drawbox=x=0:y={y}:w=1080:h={1920-y}:color=black@0.05:t=fill,"
+                  for y in range(1040, 1041 + 32 * 11, 32))
+        +
         f"drawtext=fontfile='{FONT_B}':text='LA PROMOCIÓN 2026 RESPONDE'"
-        ":fontcolor=0x00E5FF:fontsize=44:x=(w-tw)/2:y=760"
+        ":fontcolor=0x00E5FF:fontsize=42:x=(w-tw)/2:y=1262"
         ":alpha='min(1\\,max(0\\,t-0.10)/0.25)':borderw=6:bordercolor=black@0.9,"
         f"drawtext=fontfile='{FONT_A}':text='¿VALE LA PENA':fontcolor=white"
-        ":fontsize=124:x=(w-tw)/2:y='850-30*(1-min(1\\,max(0\\,t-0.20)/0.28))'"
+        ":fontsize=118:x=(w-tw)/2:y='1330-24*(1-min(1\\,max(0\\,t-0.20)/0.28))'"
         ":alpha='min(1\\,max(0\\,t-0.20)/0.28)':borderw=10:bordercolor=black@0.92,"
         f"drawtext=fontfile='{FONT_A}':text='ALQUILARLO?':fontcolor=black"
-        ":fontsize=124:x=(w-tw)/2:y='1000-30*(1-min(1\\,max(0\\,t-0.34)/0.28))'"
+        ":fontsize=118:x=(w-tw)/2:y='1472-24*(1-min(1\\,max(0\\,t-0.34)/0.28))'"
         ":alpha='min(1\\,max(0\\,t-0.34)/0.28)'"
         ":box=1:boxcolor=0xC6FF00@0.96:boxborderw=24,"
         "format=yuv420p")

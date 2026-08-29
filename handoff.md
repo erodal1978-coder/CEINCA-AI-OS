@@ -135,6 +135,11 @@ Sesión hardening media-mvp (28-08-2026, rama `feat/media-mvp`, commit `53aa97e`
 - Nuevo: `media-mvp/test_regressions.py`.
 - **Merge de PR #14** (rama `claude/casa-campo-promo-video-8m6ty1`): 2 nuevos entregables de vídeo para Casa & Campo Barinas — Reel de bienvenida a Angelo (`CLIENTS/casacampobarinas1/VIDEO_ANGELO/`, 18,0s, keyword **EVENTO**) y anuncio de hospedaje (`CLIENTS/casacampobarinas1/VIDEO_HOSPEDAJE/`, 21,5s, keyword **HOSPEDAJE**, acredita a Daniela Deximar León). Mismo patrón de receta reproducible (scripts `build/` + `tp_limit.py`) que `PROMO_VIDEO_2026/`. La rama tenía handoff.md desactualizado (de antes del PR #16) — se resolvió el conflicto conservando el estado actual de `main` y solo añadiendo esta entrada.
 
+Sesión Reel de testimonios Casa & Campo (29-08-2026, rama `claude/casa-campo-promo-video-8m6ty1`):
+- Nuevo: `CLIENTS/casacampobarinas1/VIDEO_TESTIMONIOS/` — README + `build/` (`build_testi_video.py`, `build_testi_placas.py`, `build_testi_music.py`, `build_testi_mix.sh`, `tp_limit.py`). Sólo texto; el máster (23 MB) queda fuera de git por `.gitignore`.
+- Entregable: 30,55 s · 1080×1920 · 30 fps · −14,1 LUFS · pico real −2,5 dBFS. Keyword **PROMOCIÓN** (ya existe, no requiere automatización nueva).
+- Corrección posterior del gancho: el bloque de texto pasó de `y` 760–1000 a `y` 1262–1472 porque cruzaba la cara. Al quedar debajo de la barbilla se pudieron retirar el desenfoque (`gblur` 5→2) y el velo oscuro (0,34→0,20), sustituidos por un degradado de cajas apiladas en el tercio inferior.
+
 ## 4. Intentos fallidos
 <!-- NO BORRAR NINGUNA ENTRADA DE ESTA SECCIÓN. Solo agregar. -->
 <!-- Si supera ~20 líneas, mover las más antiguas a handoff-archive.md (nunca eliminar). -->
@@ -191,4 +196,5 @@ Sesión hardening media-mvp (28-08-2026, rama `feat/media-mvp`, commit `53aa97e`
 23. Confirmar el parentesco de las personas del Reel de Angelo si se quiere etiquetarlas en pantalla (los captions no identifican a nadie).
 - Testimonios Promoción 2026: subtitular en Edits antes de publicar, revisar el
   audio (no se pudo escuchar en la sesión) y conseguir el visto bueno de los que
-  salen en el Reel.
+  salen en el Reel. Regla de encuadre a heredar: en un Reel de testimonio el
+  texto nunca va sobre la cara — la cara es el argumento.
