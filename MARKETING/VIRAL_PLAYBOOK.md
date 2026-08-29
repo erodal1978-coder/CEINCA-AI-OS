@@ -273,10 +273,7 @@ Comenta 👉 [KEYWORD] 👈
 - **Diversidad creativa:** Mezclar UGC + talking head + carrusel + imagen estática
 
 ### 6.2 Fórmula de testing 3:2:2
-- 3 creativos diferentes (video UGC + carrusel + imagen)
-- 2 copys diferentes (dolor vs aspiracional)
-- 2 headlines diferentes
-- = 12 combinaciones con mínimo esfuerzo
+Ver `SKILLS/meta-ads-andromeda-expert/SKILL.md` § "Método 3-2-2" (fuente de verdad — incluye ángulo dolor/aspiracional y formato corto/largo por texto). Aplicado a CEINCA: 3 creativos = video UGC + carrusel + imagen estática → 12 combinaciones con mínimo esfuerzo.
 
 ### 6.3 Campañas omnipresentes (High-ticket)
 - 14 conjuntos de anuncios con 14 anuncios diferentes
@@ -295,14 +292,7 @@ Comenta 👉 [KEYWORD] 👈
 
 ## 7. MÉTRICAS DE ANÁLISIS (Framework 4PI — Charley T)
 
-NO medir solo ROAS. Medir:
-
-| Métrica | Qué indica | Acción si falla |
-|---|---|---|
-| **Gasto (Spend)** | ¿La campaña está gastando? | Si no gasta, el creativo no pasa el filtro de calidad |
-| **CPM** | ¿Cuánto cuesta llegar a 1000 personas? | CPM alto = audiencia saturada o creativo débil |
-| **Frecuencia** | ¿Cuántas veces la misma persona ve tu ad? | Frecuencia >2.5 = fatiga creativa, rotar ads |
-| **Eficiencia (CPA/CPL)** | ¿Cuánto cuesta cada lead/venta? | CPA alto = hook débil o landing page mala |
+NO medir solo ROAS. Ver `SKILLS/meta-ads-andromeda-expert/SKILL.md` § "Matriz 4PI" (fuente de verdad — incluye el matiz TOFU/BOFU de frecuencia y la acción correctiva por métrica) y § "Rentabilidad Real (GPT)" para la ganancia real por transacción más allá del ROAS vanidoso.
 
 ---
 
