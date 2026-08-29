@@ -167,6 +167,9 @@ Sesión Reel de testimonios Casa & Campo (29-08-2026, rama `claude/casa-campo-pr
 - ffmpeg NO puede animar `scale` (evalúa `w`/`h` una sola vez), así que un logo con rebote no se puede hacer sólo con filtros. Fix: componer los frames en numpy y mandarlos a ffmpeg por tubería; el texto sí lo pone ffmpeg encima.
 - Se descartó Remotion para la placa de cierre: exigía Node, el paquete y el render de Chromium para 4 s de animación. La composición directa en numpy da un resultado equivalente sin dependencias.
 - No se puede transcribir audio en este entorno: la política de red devuelve 403 al descargar modelos de Whisper (`huggingface.co` y `openaipublic.azureedge.net`). `faster-whisper` se instala sin problema desde PyPI, pero sin modelo no sirve de nada. Los subtítulos hay que hacerlos en Edits/CapCut. No reintentar esas descargas.
+- `fontsdir` del filtro `subtitles`/`ass` de ffmpeg debe ir en ruta ABSOLUTA, y si libass no encuentra la fuente cae a una por defecto **sin emitir ningún error**: el render "funciona" pero sale con otra tipografía. Se verifica con `ffmpeg -v info ... 2>&1 | grep fontselect`, que imprime la fuente realmente elegida.
+- Al previsualizar un frame con subtítulos quemados, `-ss` ANTES de `-i` reinicia los timestamps y libass cree estar en `t=0`: no dibuja nada y parece que el .ass está roto. Fix: `-ss` después de `-i` (o `-copyts`).
+- Segmentar habla con VAD por energía tiene un doble filo: con umbral bajo (0.11) un testimonio de 8 s sale como un único tramo, y con umbral alto (0.45) se parte bien pero se cae el habla más floja y quedan huecos sin cubrir. Fix aplicado en `build_testi_subs.py`: usar el umbral alto sólo para LOCALIZAR las pausas y cortar en mitad de cada una, emitiendo segmentos contiguos que cubren todo el habla.
 - Se descartó meter música bajo los testimonios pese a que se pidió con ducking al 15-20%: esos clips ya arrastran la música del party detrás de la voz, y una segunda pista encima sumaba un tercer plano sonoro que deshacía los ~20 dB de inteligibilidad recuperados. La música compuesta suena sólo en el gancho y el cierre, y no por ducking: el arreglo directamente no toca ahí.
 
 ## 5. Próximos pasos
@@ -194,7 +197,10 @@ Sesión Reel de testimonios Casa & Campo (29-08-2026, rama `claude/casa-campo-pr
 21. Pedir fotos/vídeo del BAÑO para el vídeo de hospedaje — es la primera pregunta de quien va a dormir fuera y no hay ni una toma.
 22. Corregir la errata del logo: dice "El Placer de Sentirse bién", va sin tilde.
 23. Confirmar el parentesco de las personas del Reel de Angelo si se quiere etiquetarlas en pantalla (los captions no identifican a nadie).
-- Testimonios Promoción 2026: subtitular en Edits antes de publicar, revisar el
-  audio (no se pudo escuchar en la sesión) y conseguir el visto bueno de los que
-  salen en el Reel. Regla de encuadre a heredar: en un Reel de testimonio el
-  texto nunca va sobre la cara — la cara es el argumento.
+- Testimonios Promoción 2026: **escribir el texto en
+  `CLIENTS/casacampobarinas1/VIDEO_TESTIMONIOS/subs/guion.txt`** (15 tramos con
+  los timecodes ya medidos) y correr `build_testi_subs.py ass` +
+  `build_testi_quemar.sh`. Falta también revisar el audio (no se pudo escuchar
+  en la sesión) y conseguir el visto bueno de los que salen en el Reel. Regla de
+  encuadre a heredar: en un Reel de testimonio el texto nunca va sobre la cara
+  — la cara es el argumento.

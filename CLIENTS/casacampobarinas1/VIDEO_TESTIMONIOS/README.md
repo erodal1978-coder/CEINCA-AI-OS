@@ -116,27 +116,62 @@ inteligibilidad. Recomendación: no hacerlo.
 
 ---
 
-## 5. FALTA SUBTITULARLO — Y ES IMPORTANTE
+## 5. SUBTÍTULOS (ASS + ffmpeg)
 
-**El Reel sale sin subtítulos y hay que ponérselos antes de publicar.**
+Hay pipeline propio de subtítulos quemados. **Lo único que falta es el texto.**
 
-No se pudieron generar aquí: la política de red del entorno bloquea la descarga
-de modelos de transcripción (HuggingFace y el CDN de OpenAI devuelven 403), y
-sin modelo no hay Whisper. Tampoco se puede transcribir de oído.
+No hay transcripción automática en este entorno: la política de red bloquea la
+descarga de modelos (HuggingFace, el CDN de OpenAI, ggml y Vosk devuelven `000`
+/ 403). Lo que sí se puede medir es *cuándo* habla cada quien, y eso ya está
+hecho.
 
-Esto no es opcional: la mayoría ve Reels en silencio, y un testimonio sin
-subtítulos pierde casi todo. **En Edits o CapCut, subtítulos automáticos en
-español**: reconocen bien este audio ya rescatado, y son dos minutos.
+### Flujo
 
-Al subtitular conviene:
-- Estilo Reel: palabra grande, resaltada en color, en la zona baja del cuadro.
-- Dejarlos por encima de `y = 1500` para no chocar con los chips de contexto.
-- Revisar los nombres propios ("Casa & Campo", "Roberto Moreno").
+```bash
+python3 build/build_testi_subs.py detectar   # ya ejecutado -> subs/guion.txt
+#   ... escribir el texto de cada tramo en subs/guion.txt ...
+python3 build/build_testi_subs.py ass        # -> testi.ass
+bash    build/build_testi_quemar.sh          # -> ..._SUB.mp4
+```
 
-**Y antes de publicar, revisa el audio tú.** No pude escucharlo: elegí los
-cortes midiendo dónde hay voz y dónde hay silencio, no por lo que dicen. El
-montaje asume que los testimonios son positivos —es lo razonable, los grabó la
-propia casa en su fiesta— pero confírmalo.
+`subs/guion.txt` **ya trae los 15 tramos con sus timecodes reales**, medidos
+sobre el audio de voz rescatado. No hay que tocar los tiempos: solo escribir
+después de la barra lo que dice cada tramo. Un tramo que se deje vacío no
+genera subtítulo (útil para una risa o un "eh").
+
+Los tramos son **contiguos**, no los detectados a secas. Con umbral alto las
+frases se parten bien pero se cae el habla más floja; con umbral bajo sale un
+único bloque de 8 s. La solución fue usar el umbral alto solo para *localizar*
+las pausas y cortar en mitad de cada una: se conservan las respiraciones y
+ninguna palabra se queda sin sitio.
+
+### Estilo
+
+Anton 100 px, contorno negro de 6, blanco con la palabra activa en lima
+`#C6FF00`, línea base en `y = 1400` (por encima de los chips, que están en
+1520 y solo duran 1,8 s por plano). Máximo 3 palabras por tarjeta, con un
+pequeño *pop* de escala al entrar.
+
+El tiempo dentro de cada frase se reparte por **peso silábico**, no por número
+de caracteres: "de" y "grado" no duran lo mismo.
+
+### Detalles que costaron
+
+- `fontsdir` debe ir en **ruta absoluta**. Si libass no encuentra Anton cae a
+  una fuente por defecto **sin dar ningún error**. Se comprueba con
+  `ffmpeg -v info ... 2>&1 | grep fontselect`.
+- Para previsualizar un frame, el `-ss` va **después** del `-i`. Si va antes,
+  ffmpeg reinicia los timestamps, libass cree estar en `t=0` y no dibuja nada.
+- El quemado re-encoda vídeo pero **copia el audio** (`-c:a copy`): el máster
+  ya está en −14 LUFS con el pico real limitado.
+
+### Sigue pendiente
+
+**Revisa el audio tú antes de publicar.** No pude escucharlo: elegí los cortes
+midiendo dónde hay voz y dónde hay silencio, no por lo que dicen. El montaje
+asume que los testimonios son positivos —es lo razonable, los grabó la propia
+casa en su fiesta— pero confírmalo. Y al escribir el guion, cuida los nombres
+propios ("Casa & Campo", "Roberto Moreno").
 
 ---
 
@@ -213,6 +248,8 @@ python3 build/build_testi_video.py    # 4 testimonios, cortes en los silencios
 python3 build/build_testi_placas.py   # gancho + cierre con logo animado
 python3 build/build_testi_music.py    # música de marco (sólo gancho y cierre)
 bash    build/build_testi_mix.sh      # rescate de voz, mezcla y exportación
+python3 build/build_testi_subs.py ass # subtítulos, una vez escrito subs/guion.txt
+bash    build/build_testi_quemar.sh   # quema los subtítulos en el máster
 ```
 
 `build/tp_limit.py` es el limitador de pico real con sobremuestreo 4×.
@@ -221,7 +258,8 @@ bash    build/build_testi_mix.sh      # rescate de voz, mezcla y exportación
 
 ## 8. ANTES DE PUBLICAR
 
-- **Subtitular** (§5). Es lo único que separa este Reel de estar terminado.
+- **Escribir `subs/guion.txt` y quemar los subtítulos** (§5). El pipeline está
+  hecho y los tiempos medidos; falta el texto.
 - **Revisar el audio** y confirmar que lo que dicen es publicable.
 - **Permiso de los que salen.** Son bachilleres recién graduados y salen en
   traje de baño en la cuenta comercial del negocio. Grabaron para la casa en su
