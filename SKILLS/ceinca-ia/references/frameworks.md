@@ -281,8 +281,11 @@ tercera copia sincronizada a mano:
   `PRODUCTION/FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1
 - **Stack técnico / biblioteca de b-rolls / lighting / parámetros Meta Edits /
   ejemplo completo:** `PRODUCTION/FLOW_REELS.md`
+- **Avatar de marca/producto genérico (no el avatar-abogado) vía Ingredients-a-Video:**
+  `PRODUCTION/GUIA_PROMPTS_FLOW_UGC.md` — complementario, no fuente de verdad;
+  sigue las mismas reglas NO NEGOCIABLES de v1.1 §4 sin excepciones.
 
-Leer ambos antes de generar cualquier prompt de escena para Flow — especialmente
-las reglas NO NEGOCIABLES de v1.1 §4 (nunca nombre propio del sujeto, nunca
-"hiperrealismo"/"fotorrealista" en el prompt — ambas validadas por un rechazo
-real de política de Flow en producción).
+Leer los tres antes de generar cualquier prompt de escena para Flow — especialmente
+las reglas NO NEGOCIABLES de v1.1 §4 (nunca nombre propio del sujeto —ni real ni
+ficticio—, nunca "hiperrealismo"/"fotorrealista" en el prompt — ambas validadas
+por un rechazo real de política de Flow en producción).
