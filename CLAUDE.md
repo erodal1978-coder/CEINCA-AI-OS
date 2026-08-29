@@ -25,6 +25,7 @@
 * `PRODUCTION/` — Sistemas y workflows de producción audiovisual y contenido.
 * `carrusel-export/` — Motor de exportación programática de carruseles.
 * `video-export/` — Base del motor de composición de vídeo con Remotion.
+* `media-mvp/` — Prototipo mínimo de análisis audiovisual (ffprobe + whisper + detección de silencios).
 
 ## POLÍTICA DE ASSETS
 * GitHub es para código, conocimiento, configuración, prompts, documentación y fuentes pequeñas necesarias para reproducibilidad.
