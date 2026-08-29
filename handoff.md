@@ -161,6 +161,8 @@ Sesión hardening media-mvp (28-08-2026, rama `feat/media-mvp`, commit `53aa97e`
 - `vidstabtransform` con `smoothing` alto obliga a `optzoom` a recortar mucho y se pierde el encuadre (un abrazo quedó convertido en un primer plano de tela). Fix: bajar `smoothing` de 26 a 15.
 - ffmpeg NO puede animar `scale` (evalúa `w`/`h` una sola vez), así que un logo con rebote no se puede hacer sólo con filtros. Fix: componer los frames en numpy y mandarlos a ffmpeg por tubería; el texto sí lo pone ffmpeg encima.
 - Se descartó Remotion para la placa de cierre: exigía Node, el paquete y el render de Chromium para 4 s de animación. La composición directa en numpy da un resultado equivalente sin dependencias.
+- No se puede transcribir audio en este entorno: la política de red devuelve 403 al descargar modelos de Whisper (`huggingface.co` y `openaipublic.azureedge.net`). `faster-whisper` se instala sin problema desde PyPI, pero sin modelo no sirve de nada. Los subtítulos hay que hacerlos en Edits/CapCut. No reintentar esas descargas.
+- Se descartó meter música bajo los testimonios pese a que se pidió con ducking al 15-20%: esos clips ya arrastran la música del party detrás de la voz, y una segunda pista encima sumaba un tercer plano sonoro que deshacía los ~20 dB de inteligibilidad recuperados. La música compuesta suena sólo en el gancho y el cierre, y no por ducking: el arreglo directamente no toca ahí.
 
 ## 5. Próximos pasos
 1. ~~Reconciliación formal de `FLOW_REELS.md` → v1.1~~ — **hecho**, PR #21 mergeado (`92ac2b9`).
@@ -187,3 +189,6 @@ Sesión hardening media-mvp (28-08-2026, rama `feat/media-mvp`, commit `53aa97e`
 21. Pedir fotos/vídeo del BAÑO para el vídeo de hospedaje — es la primera pregunta de quien va a dormir fuera y no hay ni una toma.
 22. Corregir la errata del logo: dice "El Placer de Sentirse bién", va sin tilde.
 23. Confirmar el parentesco de las personas del Reel de Angelo si se quiere etiquetarlas en pantalla (los captions no identifican a nadie).
+- Testimonios Promoción 2026: subtitular en Edits antes de publicar, revisar el
+  audio (no se pudo escuchar en la sesión) y conseguir el visto bueno de los que
+  salen en el Reel.
