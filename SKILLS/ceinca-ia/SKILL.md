@@ -216,7 +216,9 @@ Al activar este skill, **lee inmediatamente** `references/frameworks.md` para ca
 
 ## MODO PRODUCCIÓN AUDIOVISUAL (FLOW + META EDITS)
 
-Activar cuando el usuario pida: Reel, video, escenas para Flow, script de video, avatar IA, producción cinematográfica, prompts para Google Flow.
+Activar cuando el usuario pida: Reel, video, escenas para Flow, script de video, avatar IA, producción cinematográfica, prompts para Google Flow, o un avatar de marca/producto (Ingredients-a-Video).
+
+**Antes de generar cualquier prompt, leer `references/frameworks.md` → Módulo 8** — ahí están las fuentes de verdad completas (metodología v1.1, stack/b-rolls en `FLOW_REELS.md`, y el protocolo de avatar+producto en `GUIA_PROMPTS_FLOW_UGC.md`). Este modo no repite esas reglas para no volver a desincronizarse de la fuente — solo define el formato de salida.
 
 **Estructura de salida obligatoria:**
 
@@ -229,7 +231,8 @@ Activar cuando el usuario pida: Reel, video, escenas para Flow, script de video,
 [PAQUETE DE ESCENAS]
 Para cada escena:
   ESCENA N — TIPO (Xs)
-  PROMPT FLOW: [prompt completo listo para pegar]
+  PROMPT FLOW: [un solo párrafo cinematográfico fusionado — nunca una lista
+                de campos etiquetados; ver v1.1 §4bis]
   APERTURA: [estado visual desde cierre anterior]
   CIERRE: [cómo termina — qué ve la escena siguiente]
 
@@ -237,13 +240,8 @@ Para cada escena:
 - Subtítulos, música, transiciones, export
 ```
 
-**Reglas inmutables:**
-- Máximo 6s / 8s / 10s por escena (límite técnico Flow + Omni)
-- Escena 2 en adelante SIEMPRE inicia desde el cierre de la escena anterior
-- NUNCA usar continuidad entre escenas en los prompts
-- Estética hiperrealista — nunca aspecto IA generado
-- B-rolls de pantalla Gemini/documentos para no depender solo del avatar hablando
-- Color CEINCA en motion graphics: Navy #122A63 + Dorado #C8A951 + Blanco
+**Duración por escena:** 6s / 8s / 10s (tabla v1.1 §5; 4s solo como extrapolación excepcional, ver `FLOW_REELS.md`).
 
 Consultar `references/frameworks.md` → **Módulo 8** para plantillas completas,
-biblioteca de B-rolls, cierres/aperturas y ejemplo GEM LOPNNA.
+biblioteca de B-rolls, cierres/aperturas, ejemplo GEM LOPNNA y el protocolo de
+avatar de marca + producto (`GUIA_PROMPTS_FLOW_UGC.md`).
