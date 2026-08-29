@@ -6,6 +6,6 @@
 4. **Nivel 4 ($99+)**: Bootcamps inmersivos y consultorías premium corporativas Legal-Tech.
 
 ## Identidad Visual Corporativa:
-* **Colores Oficiales**: Azul Profundo (`#0B1D3A`) y Dorado Premium.
+* **Colores Oficiales**: Azul Profundo (`#122A63`) y Dorado Premium.
 * **Estilo**: Estética cinematográfica, corporativa y minimalista.
 * **Prohibido**: Utilizar iconografía jurídica antigua o trillada (balanzas tradicionales, martillos de madera, imágenes de stock genéricas).

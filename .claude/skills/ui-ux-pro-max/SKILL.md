@@ -197,5 +197,5 @@ Read `references/pro-rules.md` and run through its canonical Pre-Delivery Checkl
 
 ## Recursos Externos
 
-- **[framer-motion](https://www.npmjs.com/package/framer-motion)** — Librería de animación para React, instalada en `ig-viral-tracker/frontend`. Úsala para transiciones, gestos y animaciones de layout en ese proyecto en lugar de CSS animations manuales.
+- **[framer-motion](https://www.npmjs.com/package/framer-motion)** — Librería de animación para React. Úsala para transiciones, gestos y animaciones de layout en proyectos React del repo (ej. `video-export`) en vez de CSS animations manuales.
 - Para componentes React/shadcn, usa el **MCP de shadcn** (`npx shadcn@latest mcp init`, gratuito, sin API key) en vez de servicios externos de terceros.

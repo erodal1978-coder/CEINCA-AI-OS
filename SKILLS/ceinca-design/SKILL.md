@@ -25,9 +25,9 @@ Este skill cubre dos registros visuales de la misma marca. **Nunca combines sus 
 
 | Modo | Cuándo | Paleta / Tipografía | Referencia |
 |---|---|---|---|
-| **Social/Redes** (default) | Carruseles, posts, Reels, landing, banners, artifacts de marketing | Navy `#0B1D3A` + Dorado `#C8A951` + Montserrat | Este archivo + `references/components.md` + `references/tokens.md` |
-| **Guías PDF** (CEINCA Editorial System™) | Manuales, guías, playbooks, cursos, documentos de entrenamiento largos | Azul `#2F4798` + Manrope | `references/editorial-guides.md` |
-| **Landing/Web** | Construir o mejorar una landing page, sitio web, o página de venta para CEINCA o sus clientes | Navy `#0B1D3A` + Dorado `#C8A951` + Montserrat (identidad forzada sobre cualquier referencia externa) | Este archivo, sección "Modo Landing/Web" |
+| **Social/Redes** (default) | Carruseles, posts, Reels, landing, banners, artifacts de marketing | Navy `#122A63` + Dorado `#C8A951` + Montserrat | Este archivo + `references/components.md` + `references/tokens.md` |
+| **Guías PDF** (CEINCA Editorial System™) | Manuales, guías, playbooks, cursos, documentos de entrenamiento largos | Azul `#1E3A8A` + Manrope | `references/editorial-guides.md` |
+| **Landing/Web** | Construir o mejorar una landing page, sitio web, o página de venta para CEINCA o sus clientes | Navy `#122A63` + Dorado `#C8A951` + Montserrat (identidad forzada sobre cualquier referencia externa) | Este archivo, sección "Modo Landing/Web" |
 
 Si la petición es ambigua (ej. "hazme algo para el curso"), pregunta si es una pieza de marketing (carrusel/post para promocionar el curso → Modo Social) o el material del curso en sí (guía/manual → Modo Guías) antes de elegir paleta.
 
@@ -41,13 +41,13 @@ Lee `references/components.md` + `references/tokens.md` para el Modo Social/Rede
 
 ```
 PRIMARIOS
-  Navy Profundo    #0B1D3A   — Fondo principal, autoridad, confianza
+  Navy Profundo    #122A63   — Fondo principal, autoridad, confianza
   Dorado Premium   #C8A951   — Acento, CTB, elementos de valor, logo cierre
   Blanco Puro      #FFFFFF   — Tipografía sobre oscuro, espacio negativo
 
 SECUNDARIOS (usar con moderación)
-  Navy Medio       #132848   — Fondos de sección alternos, cards
-  Navy Claro       #1A3560   — Hover states, bordes sutiles
+  Navy Medio       #1E3A8A   — Fondos de sección alternos, cards
+  Navy Claro       #2D4FA8   — Hover states, bordes sutiles
   Dorado Oscuro    #A8892E   — Sombras doradas, estados pressed
   Dorado Claro     #DDB96A   — Highlights, gradientes dorados
   Crema            #FAF6ED   — Fondos claros premium (NUNCA blanco puro en fondo)
@@ -55,8 +55,8 @@ SECUNDARIOS (usar con moderación)
 
 GRADIENTES SIGNATURE
   Dorado CEINCA    linear-gradient(135deg, #C8A951 0%, #DDB96A 50%, #A8892E 100%)
-  Navy CEINCA      linear-gradient(180deg, #0B1D3A 0%, #132848 100%)
-  Overlay Premium  linear-gradient(180deg, rgba(11,29,58,0) 0%, rgba(11,29,58,0.95) 100%)
+  Navy CEINCA      linear-gradient(180deg, #122A63 0%, #1E3A8A 100%)
+  Overlay Premium  linear-gradient(180deg, rgba(18,42,99,0) 0%, rgba(18,42,99,0.95) 100%)
 ```
 
 ### Tipografía
@@ -163,7 +163,7 @@ Se activa cuando Eduardo pida construir o mejorar una landing page, sitio web, o
 
 Antes de diseñar, instala como referencia visual un sistema de estilo externo — por ejemplo https://opendesign.so, o inspiración de Linear/Vercel/Stripe según el tono del proyecto (más técnico/SaaS vs. más corporativo/legal).
 
-**Regla inquebrantable:** la referencia externa solo aporta *estructura y ritmo visual* (espaciado, jerarquía, layout) — nunca reemplaza la identidad de marca CEINCA. Navy `#0B1D3A`, Dorado `#C8A951` y Montserrat se mantienen siempre, sobre cualquier paleta o tipografía que traiga la referencia externa.
+**Regla inquebrantable:** la referencia externa solo aporta *estructura y ritmo visual* (espaciado, jerarquía, layout) — nunca reemplaza la identidad de marca CEINCA. Navy `#122A63`, Dorado `#C8A951` y Montserrat se mantienen siempre, sobre cualquier paleta o tipografía que traiga la referencia externa.
 
 ### Paso 2 — Animación (Animista por defecto)
 
@@ -299,7 +299,7 @@ Determinar antes de dibujar:
 ### Paso 2 — Plan de tokens (30 segundos mentales)
 
 ```
-Fondo:        [Navy #0B1D3A o Crema #FAF6ED]
+Fondo:        [Navy #122A63 o Crema #FAF6ED]
 Acento:       [Dorado #C8A951]
 Texto:        [Blanco #FFFFFF o Carbón #1C1C1E]
 Elemento sig: [Qué hace esta pieza INOLVIDABLE]
@@ -336,9 +336,9 @@ Cuando produzcas código para artifacts, seguir esta estructura base:
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy:        #0B1D3A;
-      --navy-mid:    #132848;
-      --navy-light:  #1A3560;
+      --navy:        #122A63;
+      --navy-mid:    #1E3A8A;
+      --navy-light:  #2D4FA8;
       --gold:        #C8A951;
       --gold-dark:   #A8892E;
       --gold-light:  #DDB96A;
