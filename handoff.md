@@ -1,113 +1,139 @@
 # handoff.md — CEINCA-AI-OS
 
-> Este archivo es la memoria de continuidad entre sesiones de Claude Code.
+> Memoria de continuidad entre sesiones de Claude Code.
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
-> Al cerrar una sesión: actualiza este archivo siguiendo las reglas de cada sección (ver abajo).
+> Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
 ## 1. Objetivo
-Construir y mantener el ecosistema CEINCA-AI-OS: skills propios (ceinca-design, ceinca-ia, ceinca-systems-social-growth), sistema de carruseles unificado, IG Viral Tracker como único proyecto en producción, y ahora WEBKIT/ como capacidad de generar landing pages para clientes de CEINCA.
+Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agentes, marketing y producción digital de CEINCA. El núcleo actual prioriza conocimiento/estrategia, agentes y skills de Claude Code, producción audiovisual, exportación de carruseles y workflows reproducibles. Los experimentos obsoletos deben retirarse en lugar de mantenerse por inercia.
 
 ## 2. Estado actual
-- Sistema de 3 formatos de carrusel (paso a paso / alerta de riesgo / alerta noticiosa) mergeado a main (commits f2255cc..6a252ef).
-- IG Viral Tracker: MVP backend + frontend activos.
-- Skills vendorizados (ui-ux-pro-max, apple-design, animation-vocabulary) en .claude/skills/, trackeados con skills-lock.json.
-- PR #4 (ui-ux-pro-max) abierto, pendiente de rebase — main avanzó 3 merges desde que se abrió.
-- **NUEVO — instalado "everything-claude-code" (affaan-m) a nivel de proyecto en `.claude/`:**
-  9 subagentes en `.claude/agents/`, 11 slash commands en `.claude/commands/` (se eliminó
-  `/code-review` por chocar con el skill nativo homónimo), 10 skills nuevos en
-  `.claude/skills/` (uno de los 11 originales, `security-review`, se renombró a
-  `security-checklist` por chocar con el skill nativo `security-review`; registrados en
-  `skills-lock.json`), 8 docs de reglas en `.claude/rules/`, 3 contexts en `.claude/contexts/`,
-  y los scripts Node.js + `hooks.json` copiados a `.claude/scripts/` y `.claude/hooks/` como
-  referencia. `hooks.json` **NO** se conectó a un `settings.json` — la mayoría de sus hooks
-  (prettier, tsc, bloqueo de `npm run dev`) asumen un proyecto npm/TS que este repo no es, y
-  sus hooks de sesión (SessionStart/SessionEnd/PreCompact) usan `${CLAUDE_PLUGIN_ROOT}`, que
-  sólo resuelve si se instala como plugin real. Queda para activación manual/selectiva.
-- Pendiente: revisar reglas activas en VIRAL_CONTENT_CREATOR.md, IG_AUDITOR.md, FRAMEWORK_VIRAL_V2.md (ya cargadas en CLAUDE.md).
-- **NUEVO — primer entregable de vídeo del repo:** promocional de Casa & Campo Barinas
-  (alquiler exclusivo para promociones, caso U.E. Roberto Moreno 2026) en
-  `CLIENTS/casacampobarinas1/PROMO_VIDEO_2026/`. Montaje 9:16 de 30.9 s construido con
-  ffmpeg + Python a partir de 5 clips de WhatsApp, con música original sintetizada.
-  Se entregan dos versiones (MASTER con música para ads, SIN_MUSICA para audio de
-  tendencia en orgánico) y los scripts de build son reproducibles.
-- **NUEVO — instalado `WEBKIT/`, vendorizado desde [Hainrixz/claude-webkit](https://github.com/Hainrixz/claude-webkit) (MIT):**
-  proyecto autocontenido para generar landing pages de clientes (Next.js 16 + Tailwind 4 +
-  shadcn/ui). Trae su propio `CLAUDE.md` (rol "web builder" con flujo guiado de 6 fases:
-  cuestionario → sistema de diseño → scaffold → build → QA/motion/SEO → deploy a Vercel) y
-  21 skills bundleadas en `WEBKIT/.claude/skills/` (13 propias del repo + 8 de
-  emilkowalski/skills para motion/polish, con atribución en
-  `WEBKIT/.claude/skills/ATTRIBUTION.md`). Se instaló como carpeta hermana de nivel raíz
-  (no mergeado dentro de `.claude/` de este repo ni de `SKILLS/`) precisamente para que su
-  `CLAUDE.md` no compita con el de CEINCA-AI-OS — se activa entrando al directorio
-  (`cd WEBKIT && claude`). Confirmado en esta misma sesión que Claude Code detectó y
-  namespaceó automáticamente las 21 skills (`WEBKIT:<skill>` cuando colisionan con un
-  skill nativo/global de mismo nombre, ej. `WEBKIT:apple-design`, `WEBKIT:ui-ux-pro-max`,
-  `WEBKIT:emil-design-eng`, `WEBKIT:animation-vocabulary`). No se registró en
-  `skills-lock.json` (ese archivo trackea skills individuales sueltas; WEBKIT es un
-  proyecto completo vendorizado, no una skill suelta). Referenciado en el `CLAUDE.md` raíz
-  (sección MÓDULOS DEL SISTEMA) y en `README.md`.
-- **NUEVO — resueltas las 4 colisiones de nombre anteriores (commit `8be2229`),** aplicando
-  el mismo criterio que la sesión previa con `security-review`/`security-checklist`: en vez
-  de dejar que ambas copias coexistan vía el namespacing `WEBKIT:`, se decidió cuál versión
-  es mejor y se eliminó la duplicada.
-  - `apple-design` y `animation-vocabulary`: idénticas byte a byte a las copias raíz (`diff`
-    confirmó) → se borraron las copias de `WEBKIT/.claude/skills/`, sin más cambios (no las
-    referencia ninguna ruta hardcodeada).
-  - `ui-ux-pro-max`: la copia raíz es objetivamente mayor (22 stacks vs. 13, 192 paletas de
-    color vs. 160, dominio `gsap`, generación `--design-system`) y su CLI es superset
-    retrocompatible verificado con cada invocación que usan los docs de WEBKIT → se borró
-    la copia local y se repuntaron las rutas hardcodeadas (`package.json`,
-    `docs/questionnaire{,-es}.md`, `docs/skill-reference.md`) a
-    `../.claude/skills/ui-ux-pro-max/...` (un nivel arriba de `WEBKIT/`). Verificado que el
-    script repuntado corre bien desde dentro de `WEBKIT/`.
-  - `emil-design-eng` es la única que se dejó vendorizada localmente a propósito: su copia
-    local parchea el "esperar saludo del usuario" del upstream (necesario para que las
-    fases autónomas 3-5 de WEBKIT no hagan deadlock); la copia raíz debe mantener el
-    comportamiento original para sus otros usos en el repo. Están destinadas a divergir.
-  - Documentado en `WEBKIT/.claude/skills/ATTRIBUTION.md`, incluyendo el fallback para
-    revendorizar si WEBKIT se extrae como proyecto standalone.
-- **NUEVO — Playwright E2E en ig-viral-tracker/frontend:** se corrió
-  `npm init playwright@latest` (rama `claude/playwright-setup-qehg88`, ya pusheada,
-  sin PR abierto todavía) sobre el Next.js del frontend — es el único proyecto del repo
-  con una app web real que justifica pruebas E2E (carrusel-export ya usaba `playwright`
-  como dependencia programática para exportar PNG, no como test runner). Quedó:
-  `@playwright/test` en devDependencies, `playwright.config.ts` (TypeScript, chromium +
-  firefox + webkit, `baseURL: http://localhost:3000`, `webServer` apuntando a `npm run dev`),
-  workflow `.github/workflows/playwright.yml`, spec de ejemplo sin tocar, y scripts
-  `test:e2e` / `test:e2e:ui` en package.json.
+- Limpieza de repositorio completada y mergeada a `main` mediante PR #16, commit `d9d75a871b96721c187ca44680a1dac312392187`.
+- Eliminado `ig-viral-tracker/` completo: era un MVP/artefacto de aprendizaje y ya no forma parte del sistema.
+- Eliminados vídeos, audios y assets multimedia pesados que estaban almacenados temporalmente en GitHub.
+- `.gitignore` endurecido para excluir secretos, cachés, builds, renders y formatos de vídeo/audio.
+- `CLAUDE.md` actualizado para reflejar la arquitectura vigente y establecer política explícita de assets.
+- `README.md` describe el sistema como CEINCA AI OS v2.0 y mantiene los módulos de STRATEGY, RULES, MARKETING, KNOWLEDGE, AGENTS y PRODUCTION.
+- `.claude/` contiene agentes, comandos, contexts, reglas, hooks y skills vendorizados. `everything-claude-code` permanece instalado de forma selectiva; sus hooks no están activados globalmente.
+- `skills-lock.json` registra skills externos y sus hashes; existen skills de everything-claude-code, superpowers, diseño/animación, Remotion y UI/UX.
+- `carrusel-export/` se conserva como motor de exportación programática de carruseles.
+- `video-export/` se conserva como base del motor de composición de vídeo con Remotion.
+- PR #4 (`ui-ux-pro-max`) ya fue mergeado el 29-07-2026; no está pendiente de rebase.
+- **PR #18 mergeado a `main`** (commit de merge `faca1249`): unifica la paleta de marca (azul/dorado) a los valores reales del logo (`#1E3A8A`/`#122A63`/`#2D4FA8` navy, `#C8A951` dorado) en `SKILLS/ceinca-design/`, `SKILLS/ceinca-ia/`, `MARKETING/`, `AGENTS/`, `PRODUCTION/`, `README.md` — antes había 4 azules distintos en conflicto. Retira el "Verde CEINCA" `#1B7A3D` legado de `FRAMEWORK_VIRAL_V2.md` a favor del dorado. Agrega `MARKETING/MANUAL_COPY_META_TIKTOK.md` (manual de copy v2.0: 4 textos Meta + 3 textos TikTok, nuevo).
+- **PR #19 (`cleanup/audit-claude-agents-skills` → `main`) — Fase 1 de la auditoría de `.claude/agents/` y `.claude/skills/` ejecutada, pendiente de merge:**
+  - Confirmado por lectura completa de archivo (no grep superficial): `video-export/package.json` = React 19 + Remotion + Tailwind + TypeScript real. `carrusel-export/package.json` = Node + Playwright puro, sin framework. Esto es código real que sí existe hoy en el repo.
+  - **Agentes (9):**
+    - 🟢 CONSERVADOS sin cambios: `planner`, `code-reviewer`.
+    - 🟡 ADAPTADOS (se quitó solo su sección "(Example)" contaminada, borrado quirúrgico sin reescribir el resto): `architect`, `security-reviewer`, `refactor-cleaner`, `build-error-resolver` (`doc-updater` no necesitó cambios).
+    - 🔴 ELIMINADOS (contaminación de trading/mercados/embeddings difusa en ~80% del archivo, no aislable en una sección): `e2e-runner`, `tdd-guide`. Si `carrusel-export` llega a necesitar E2E o TDD real, escribir un agente nuevo y corto desde cero en vez de rescatar estos.
+  - **Skills (22):**
+    - 🟢 CONSERVADAS (15): `impeccable`, `animation-vocabulary`, `review-animations`, `emil-design-eng`, `design-taste-frontend`, `apple-design`, `no-ai-slop`, `ui-ux-pro-max`, `remotion-best-practices`, `verification-before-completion`, `verification-loop`, `requesting-code-review`, `continuous-learning`, `frontend-patterns`, `coding-standards`.
+    - 🟡 SIN DECISIÓN, quedan para la próxima auditoría (4): `brainstorming`, `strategic-compact`, `eval-harness`, `tdd-workflow`.
+    - 🔴 ELIMINADAS (4, utilidad nula verificada — ningún flujo de CEINCA-AI-OS tiene servidor/API/analytics-DB/auth hoy): `backend-patterns`, `clickhouse-io`, `security-checklist`, `project-guidelines-example`.
+  - **Decisión sobre `/tdd` y `/e2e` (misma rama):** comandos eliminados sin reemplazo — su única función era invocar los agentes ya eliminados. Corregidas las referencias residuales a `/tdd` en `.claude/commands/plan.md` y a "TDD Guide" en la plantilla de reporte de `.claude/commands/orchestrate.md`. `skills-lock.json` verificado consistente (la entrada `tdd-workflow` sigue apuntando a un skill que existe en disco, se conserva).
+  - Referencias en cascada corregidas también en `.claude/rules/` y `ui-ux-pro-max`.
+- **Brain Audit ejecutado (28-08-2026, diagnóstico de solo lectura, sin cambios estructurales)**: auditoría de `CLAUDE.md`, `RULES/`, `KNOWLEDGE/`, `STRATEGY/`, `MARKETING/`, `AGENTS/`, `.claude/`, `PRODUCTION/`. Reporte completo (secciones A-N + matriz) entregado al usuario en la sesión; no vive en este repo, solo el resumen de hallazgos abajo. Hallazgos principales:
+  - Conflicto de datos activo: el banco corto de keywords de `MARKETING/FRAMEWORK_VIRAL_V2.md` Parte 3 contradice al banco maestro `CTB_PALABRAS_DISRUPTIVAS.md` — MAJARETE ya está asignada a LEXIA, chichicuilote/yenyen fueron retiradas por no ser venezolanismos verificados.
+  - `.claude/agents/doc-updater.md` quedó mal clasificado en PR #19: tiene ~96 líneas (130-226, sección "Example Project-Specific Codemaps") de contaminación Solana/Privy/Supabase sin limpiar — mismo patrón ya limpiado quirúrgicamente en `architect`/`security-reviewer`/`refactor-cleaner`/`build-error-resolver`, sobrevivió porque su encabezado no calzaba con el patrón de búsqueda usado entonces.
+  - Graveyard de hooks sin cablear y duplicado: `.claude/hooks/memory-persistence/*.sh` + `.claude/scripts/hooks/*.js` (mismo propósito, dos lenguajes) + `.claude/hooks/strategic-compact/suggest-compact.sh` es byte-idéntico a `.claude/skills/strategic-compact/suggest-compact.sh` — nada de esto está referenciado en `hooks.json`.
+  - El único hook realmente activo (`impeccable`, vía `PostToolUse`) vive solo en `.claude/settings.local.json`, que **no está trackeado en git** — invisible para otra máquina o clon, y no documentado en ningún lado.
+  - `.claude/rules/hooks.md` documenta hooks que no existen desde que PR #17 simplificó `hooks.json`, y no menciona ni el hook real (`impeccable`) ni el graveyard huérfano.
+  - Regla obligatoria de tuteo venezolano / no-voseo (`MARKETING/SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md` §5.5, con causa raíz documentada) está enterrada en un doc de ads de LEXIA — invisible para `CONTENT_ENGINE`/`VIRAL_CONTENT_CREATOR`/`IG_AUDITOR`.
+  - `.claude/rules/` (8 archivos, top-level `RULES/` es un directorio distinto) parece huérfano — nada en el repo lo referencia por ruta.
+  - Triplicación de plantillas de copy entre `FRAMEWORK_VIRAL_V2.md` Partes 4-5, `VIRAL_PLAYBOOK.md` §5.1-5.4 y `MANUAL_COPY_META_TIKTOK.md` (la v2.0, ya autoridad de facto, nunca reemplazó formalmente a las anteriores).
+  - Referencia rota: `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md` cita `brief-creativo-lexia.md` 3 veces; el archivo no existe en el repo.
+  - **5 vías de producción de video sin consolidar**, insumo directo para decidir el Video Engine: `video-export/` (scaffold Remotion sin usar), `carrusel-export/` (solo imágenes), `PRODUCTION/FLOW_REELS.md`+`FLOW_VIDEO_DIRECTOR_SYSTEM.md` (Flow/Veo), `PRODUCTION/OPENMONTAGE_STUDIO.md`, y un pipeline ffmpeg/Python ad-hoc de 918 líneas en `CLIENTS/casacampobarinas1/PROMO_VIDEO_2026/build/`.
+  - `AGENTS/AUDITOR_IA_MARCA_PROFESIONAL/` (1.9 MB de PDF/HTML/JPG) es un entregable de cliente terminado, mal ubicado bajo `AGENTS/`.
+  - Secuencia recomendada por el audit: (a) PR pequeño de bajo riesgo con las 4 correcciones de arriba con menor riesgo (hooks.md, banco de keywords, regla tuteo/voseo, `doc-updater.md`); (b) sesión de diseño (no ejecución) para decidir qué hacer con el graveyard de hooks antes de borrar nada; (c) recién después, la conversación del Video Engine.
+- **PR quirúrgico del Brain Audit ejecutado (28-08-2026, rama `fix/brain-audit-surgical-p1` → `main`), sin mergear:** solo las 4 correcciones aprobadas explícitamente por el usuario (no el punchlist completo de la sección L de arriba — esa cleanup del banco de keywords de `FRAMEWORK_VIRAL_V2.md` Parte 3 NO fue aprobada esta vez, sigue pendiente).
+  - `.claude/rules/hooks.md`: reescrito contra la realidad verificada — solo los 2 hooks reales de `.claude/hooks/hooks.json` (tmux, git-push reminder) más el hook local-only `impeccable` de `.claude/settings.local.json` (documentado como no trackeado/no presente en otro clon). Se retiró toda mención a Prettier/TS-check/console.log-warning/PR-logging/Stop-audit, que no existen desde PR #17.
+  - Regla de tuteo venezolano/no-voseo: movida de `MARKETING/SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md` §5.5 a `RULES/ESTILO_REDACCION.md` (nuevo archivo) — significado sin cambios, ahora aplica como regla general de copy CEINCA (ya la cubre la instrucción existente de CLAUDE.md "lee RULES/ antes de reescribir cualquier documento"). La sección 5.5 original quedó como pointer, sin duplicar la tabla/contenido.
+  - `.claude/agents/doc-updater.md`: eliminadas las 97 líneas (130-226) de la sección "Example Project-Specific Codemaps" — contaminación real de un stack ajeno (Next.js 15.1.4/Privy/Supabase/Redis/OpenAI/Solana/Meteora), mismo método quirúrgico de PR #19. Quedan 2 menciones genéricas sin tocar (Supabase/Prisma como ejemplo de ORM, OPENAI_API_KEY/REDIS_URL como placeholder de `.env.example`) — no son contaminación de proyecto ajeno, son ejemplos genéricos equivalentes al placeholder que ya se dejó en `code-reviewer.md`.
+  - `brief-creativo-lexia.md`: **confirmado que no existe en el repo** (búsqueda exhaustiva por nombre y variantes). No se inventó reemplazo. Las 3 referencias en `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md` quedaron anotadas inline con ⚠️ más una nota al inicio del documento explicando las 2 opciones (recuperar/recrear el brief, o retirar la referencia) — decisión pendiente del usuario.
+  - Verificado: ninguno de los archivos/carpetas explícitamente excluidos (`memory-persistence/`, `scripts/hooks/`, `settings.local.json`, `brainstorming`, `strategic-compact`, `eval-harness`, `tdd-workflow`, `STRATEGY/`, `KNOWLEDGE/`, `PRODUCTION/`, `video-export/`, `carrusel-export/`) aparece en el diff.
+- **PR #20 mergeado a `main`** (commit de merge `d585e77`): las 4 correcciones quirúrgicas de la fila de arriba, ya en `main`.
+- **Investigación de viabilidad "CEINCA AI Video Production System" (28-08-2026, solo lectura + 1 corrección documental menor sobre `main` directo)**: reencuadre explícito del objetivo por el usuario — NO es un "Video Engine" generador de IA, es un sistema de producción asistida que trabaja con Flow/Veo (herramienta **externa**, nunca genera dentro de Claude) + material real/de cliente/banco. Hallazgos con evidencia verificada en vivo en esta máquina (no solo lectura de repo):
+  - **Herramientas confirmadas instaladas**: ffmpeg 6.1.1 (con `silencedetect`/`scdet`/`loudnorm`/`ebur128`/`astats`/`sidechaincompress`/`atempo`/`xfade`/`drawtext`/`libass`/`libvidstab`), ffprobe (metadata probada en vivo sobre un archivo real), **whisper CLI en venv dedicado `~/.local/venvs/whisper`** (transcripción funcional — la generación automática de captions **SÍ es capacidad existente**, no faltante), yt-dlp 2026.06.09, Python 3.12.3 + numpy 2.5.2 + Pillow 10.2.0.
+  - **Confirmado NO instalado** (no se instaló nada, solo se verificó ausencia con `python3 -c "import X"`/`command -v`): pyscenedetect, librosa, pydub, moviepy, opencv/cv2, exiftool, mediainfo, sox.
+  - **`video-export/` clasificado como componente de composición** (no motor principal, no scaffold descartable) — apto para overlays/captions/motion graphics/render determinista una vez se construya de verdad; sigue siendo scaffold vacío hoy.
+  - **Auditoría de documentación falsa (Fase 3 del plan del usuario)**: se buscaron activamente los 4 patrones de error definidos (Flow generando dentro de Claude, `FLOW_VIDEO_DIRECTOR_SYSTEM` tratado como agente, Casa Campo como parte del Video Engine, capacidad inexistente atribuida a una herramienta) — **ninguno encontrado**, evidencia negativa por grep.
+  - **Clasificación definitiva**: `FLOW_VIDEO_DIRECTOR_SYSTEM.md`/`FLOW_REELS.md` = KNOWLEDGE (metodología de prompts, explícitamente NO agentes); `video-export/`/`carrusel-export/`/scripts ffmpeg-Python = TOOL/SCRIPT; Flow/Veo/OpenMontage = EXTERNAL TOOL; los 7 `.claude/agents/` = AGENT (ninguno de dominio audiovisual hoy); `.claude/skills/remotion-best-practices/` = SKILL; `CLIENTS/casacampobarinas1/` = CLIENT + CLIENT ASSET — no se tocó, no se convirtió en componente del sistema central.
+  - Arquitectura conceptual propuesta (no implementada): Preproducción → Asset Plan → Usuario/herramientas externas → Media Ingest (con QC ligero + loop de vuelta si falta un asset) → AI Editor/Orchestrator (Claude) → ffmpeg (bajo nivel) + Remotion (composición) + Python (pegamento/análisis, no motor paralelo) → QC final → Export.
+  - MVP conceptual identificado pero **NO construido**: pipeline mínimo ffprobe+whisper+ffmpeg (metadata + transcripción + corte de silencios) como primer prototipo seguro derivado de capacidades ya confirmadas — pendiente de aprobación explícita antes de escribir cualquier código.
+  - Riesgo activo señalado: whisper transcribe pero no valida terminología legal/mercantil CEINCA (ej. "SAREN", "taquilla") — un caption mal transcrito podría pasar cualquier QC automático (duración/loudness correctos) sin que nada lo detecte.
+  - **Corrección aplicada** (única modificación de archivo de esta sesión): `PRODUCTION/FLOW_REELS.md` recibió un banner de advertencia al inicio (no una reescritura) señalando sus 23 usos de `@Eduardo` y 2 de "hiperrealista" — en conflicto directo con las 2 reglas NO NEGOCIABLES de `FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1 §4.5/§4.6 (descubiertas por un rechazo real de política de Flow, documentado en `SAREN_TOTUMA_SCRIPT_FLOW.md`). La consolidación formal completa sigue pendiente — el usuario pidió explícitamente no hacer "reescritura grande sin necesidad" en esta fase.
+- **Consolidación formal de `FLOW_REELS.md` contra `FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1 (28-08-2026, rama `docs/consolidar-flow-reels-v1.1`), sin mergear:**
+  - Corregidas las 30 instancias reales del nombre propio del sujeto encontradas en una lectura completa del archivo (23 `@Eduardo` ya contadas + 7 adicionales sin el `@` — `Eduardo Rodríguez`, `@Voice: Eduardo`, "Nombrarla: 'Eduardo'" — que el banner anterior no había contado) y las 2 de "hiperrealista"/"Hiperrealista". Método: texto de prompt literal → "el sujeto"/"the subject" (según el idioma del bloque); etiquetas de tabla/encabezado → "Avatar"; instrucciones de configuración → etiqueta interna neutral (`Sujeto_CEINCA`, `@Voice:Sujeto`). Una sola excepción deliberada: "Subir foto de referencia de Eduardo como Ingredient" (línea 75) se dejó con el nombre real porque es una instrucción de workflow dirigida al humano, no texto de prompt — mismo patrón que usa el propio v1.1 en su §4bis punto 4 ("Si es Eduardo/avatar...").
+  - **No se tocó `FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1** — cero cambios de metodología, tal como se pidió explícitamente.
+  - Se conservó el 100% del contenido de referencia (stack técnico, método de encadenamiento de escenas, biblioteca de b-rolls, lighting setups, biblioteca de cierres/aperturas, parámetros Meta Edits, estructura NEAPS, checklist, sección de Google Maps Street View) — solo se corrigió la terminología violatoria, no se eliminó ninguna sección.
+  - Se añadió una nota de terminología aclarando que "Flow Agent" es una función propia de Google Flow, no un agente de Claude Code (riesgo de confusión ya señalado en una auditoría previa).
+  - **Hallazgo crítico NO corregido, pendiente de aprobación explícita**: `FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1 línea 127 ("Restricciones técnicas y control de calidad IA") dice textualmente "Mantener: hiperrealismo, calidad cinematográfica, aspecto profesional" — **contradice su propia regla NO NEGOCIABLE §4.6 dentro del mismo documento**, justo en la sección que describe el cierre técnico del prompt (donde §4.6 prohíbe explícitamente la palabra). No se tocó v1.1 por instrucción explícita del usuario de no cambiar su metodología en esta tarea — requiere una decisión separada.
+  - **Hallazgo nuevo, fuera de alcance de esta tarea, NO corregido**: `SKILLS/ceinca-ia/references/frameworks.md` contiene una **tercera copia** casi idéntica de este contenido (12 instancias de `@Eduardo`/`@Voice: Eduardo`, líneas 300-505), nunca detectada en las 3 auditorías previas de esta sesión. `PRODUCTION/OPENMONTAGE_STUDIO.md` tiene 2 menciones sueltas adicionales (líneas 21, 27). Ninguno de los dos se tocó — el usuario pidió específicamente la consolidación de `FLOW_REELS.md` contra v1.1, no una limpieza global de todas las apariciones del nombre en el repo.
+- **PR #21 mergeado a `main`** (commit de merge `92ac2b9`): la consolidación de `FLOW_REELS.md` de arriba, ya en `main`.
+- **Cierre del lote FLOW + primer MVP audiovisual (28-08-2026, plan mode con aprobación explícita del usuario), 4 tareas:**
+  1. PR #21 fusionado (ver arriba).
+  2. **Corregida la contradicción interna de v1.1** (commit `7041af6`, directo a `main`): línea 127 cambiada de "Mantener: hiperrealismo, calidad cinematográfica, aspecto profesional" a "Mantener: calidad cinematográfica profesional, aspecto natural y auténtico, ausencia de artefactos de IA (nunca usar las palabras 'hiperrealismo'/'fotorrealista' — regla NO NEGOCIABLE §4.6)". El usuario confirmó explícitamente que el objetivo detrás de "hiperrealista" siempre fue evitar aspecto de IA/generado — la corrección preserva ese objetivo, solo elimina la palabra que dispara el filtro de política de Flow. Verificado: cero instancias de la palabra usada como instrucción positiva, solo como mención de la regla que la prohíbe.
+  3. **Reemplazada la tercera copia en `frameworks.md`** (mismo commit `7041af6`): su sección 8 (245 líneas) sustituida por un puntero corto a v1.1 (metodología) + `FLOW_REELS.md` (stack/librería), en vez de reconciliarla in-situ — decisión explícita del usuario, justificada porque el propio documento ya se autodeclaraba dependiente de `FLOW_REELS.md` dos veces, y porque esta copia se carga automáticamente en cada activación de la skill `ceinca-ia` (mayor riesgo real que las otras dos copias, de consulta manual). Secciones 1-7 del archivo verificadas byte-idénticas antes/después. 522→288 líneas.
+  4. **Construido `media-mvp/` — primer prototipo audiovisual** (PR #22, rama `feat/media-mvp`, sin mergear): script único `analyze.py` (ffprobe + whisper + ffmpeg silencedetect), diseñado con un Explore agent (convenciones del repo: `carrusel-export/`, `tp_limit.py`/`build_video.py`/`build_mix.sh`) y un Plan agent (contrato exacto de CLI/outputs) durante plan mode. Decisión de testing confirmada explícitamente con el usuario: sin suite formal, auto-verificación al final, mismo patrón que los scripts hermanos ffmpeg/Python del repo (ninguno tiene tests). Validado con 2 corridas reales, no asumidas: un smoke test sintético (8s, tono+silencio) que reveló y corrigió 2 bugs reales en la propia lógica de auto-verificación (SRT vacío por ausencia de habla se reportaba como "FALTA" en vez de "0 segmentos" válido; tolerancia de rango insuficiente para el desfase normal de ~11ms entre duración de contenedor de ffprobe y `silence_end` real de ffmpeg — corregido con tolerancia de 0.5s), y una corrida sobre un clip real local (~25s, habla en español) con transcripción legible/coherente y silencios en posiciones plausibles. `CLAUDE.md` actualizado con la línea de `media-mvp/` bajo MÓDULOS DEL SISTEMA (en la misma rama, sin mergear).
+- **Hardening de `media-mvp/` antes de mergear PR #22 (28-08-2026, mismo commit `53aa97e` en `feat/media-mvp`, sin mergear)** — 4 puntos pedidos explícitamente, con evidencia real de pruebas:
+  1. **Robustez de audio — 5 corridas reales sobre condiciones nuevas:** ruido de fondo sintético (pink noise, 24.9s) → OK, 95%+ fiel (1 palabra degradada: "anuncios"→"anusios"); voz acelerada 1.5x (16.7s) → OK, transcripción completa; clip largo con audio normal (~2min/117.7s, `Clase META ADS Mariangel3.mp4`) → OK, 11 segmentos coherentes, 42 silencios plausibles; **clip largo con audio muy bajo (3min recortado de `Estefania H_2.mp4`, mean_volume -54 a -59dB en todo su rango, vs. -29 a -36dB en los clips que sí funcionan) → FALLÓ**: `silencedetect` marcó ~todo el clip como silencio (180 de 180s), whisper produjo basura ("Petición."/"La"/"A"). Se probó `loudnorm` como fix — **empeoró el resultado** (whisper alucinó texto en ruso/chino sin relación al audio; silencedetect dejó de encontrar nada). Conclusión real, no asumida: el nivel de audio (no la duración ni el ruido moderado) es la condición que realmente rompe el pipeline.
+  2. **Costo y latencia:** 100% local (whisper CLI + ffmpeg), cero costo por minuto, sin límites de rate. Medido en hardware real (Intel i5-3570, 4 núcleos, sin GPU/CUDA confirmado — `torch 2.12.1+cpu`): 8s→6.6s, 24.9s→16.7s, 117.7s→1m40s (~0.7-0.85× la duración del video con audio normal). Para ~4 Reels/semana, procesamiento total del orden de minutos — sin cuello de botella.
+  3. **Tests de regresión:** nuevo `media-mvp/test_regressions.py` (9 tests sin pytest, corren en milisegundos sobre las funciones puras de verificación, sin invocar ffmpeg/whisper reales) — 2 para los bugs originales (SRT vacío, tolerancia ffprobe/ffmpeg) + su control (que el fix no se vuelva permisivo con fallas reales) + 3 para los hallazgos nuevos de este hardening (audio bajo, transcripción vacía sospechosa, salida de whisper faltante). `verify_outputs()` refactorizado en funciones puras (`check_metadata`/`check_captions`/`check_silences`) para hacerlas testeables.
+  4. **Manejo de fallos — 3 casos de falla silenciosa corregidos** (encontrados auditando el código, no hipotéticos): `detect_silences()` ignoraba `returncode` de ffmpeg y habría reportado "0 silencios" ante un fallo real de ffmpeg, indistinguible de un clip genuinamente sin silencios — ahora es error fatal explícito. `run_whisper()` no verificaba que el `.srt` esperado existiera antes de intentar renombrarlo — si whisper "tenía éxito" pero no producía el archivo (ej. supuesto de nombrado incorrecto), el pipeline continuaba en silencio — ahora lanza error explícito. Transcripción vacía ya no se asume automáticamente "normal, sin habla": se agregó `measure_audio_level()` (guardado en `metadata.json` como `audio_mean_volume_db`) y un cruce con segundos de audio no-silencioso — si el nivel es normal pero hay audio real sin transcribir, se marca `⚠️ WARN` explícito en vez de una explicación tranquilizadora falsa.
+  - `README.md` ampliado con secciones "Rendimiento", "Robustez", "Límites conocidos", "Manejo de fallos" y "Tests" documentando todo lo anterior con la evidencia real.
+  - PR #22 actualizado (mismo PR, nuevo commit) — sigue **sin mergear**, a la espera de revisión manual del usuario, tal como se pidió explícitamente.
+- **Revisión técnica final de PR #22 (29-08-2026, plan mode, solo lectura + pruebas en scratchpad aislado)** — veredicto: **APROBAR**, listo para merge. Evidencia: 9/9 tests de regresión pasan (copia aislada); 8 corridas reales contra videos locales no trackeados de `~/Descargas/` cubriendo las 5 categorías pedidas (sin audio, con audio, corto, con silencios reales, habla natural) + 3 casos de error explícitos (archivo inexistente, archivo corrupto, whisper no disponible) — todos con el comportamiento documentado, sin destruir nada, checksums de origen sin cambios. `git fetch --all --prune` + `git merge-tree` contra `origin/main` actual: fusión limpia sin conflictos (el diff aparente de `handoff.md` contra la rama es solo avance de `main` posterior a la creación de la rama — verificado que `feat/media-mvp` no toca `handoff.md`, byte-idéntico al merge-base). Cero multimedia en el diff, `CLIENTS/` intacto, cero dependencias nuevas. Clasificación arquitectónica: TOOL/SCRIPT, CORE reutilizable (no cliente-específico) — consistente con la clasificación ya fijada en el Brain Audit. Hallazgo nuevo (no bloqueante): rendimiento muy sensible a la carga del sistema en esta máquina (i5-3570, sin GPU) — con Chrome abierto (load average ~6.8/4 núcleos), una transcripción que tomó ~34s de CPU llegó a superar los 2 minutos de reloj por contención. **PR #22 sigue sin mergear — el usuario pidió explícitamente esperar su autorización antes de fusionar, no dada todavía.**
+- **Auditoría de `guia-prompts-flow-ugc.md` (29-08-2026, solo lectura)** — documento nuevo localizado en `CEINCA-WORKSPACE/CEINCA/Manuales MARCA CEINCA/` (NO en este repo, y esa carpeta no es un repositorio git — sin historial versionado). Propósito real: protocolo de consistencia avatar virtual + producto real entre escenas de Flow para anuncios de producto — pese al nombre, **no contiene ninguna técnica de UGC auténtico** (cámara handheld, imperfecciones, naturalidad, testimonial); es una guía de consistencia de avatar/producto, no de estética UGC. Clasificación: KNOWLEDGE (no SKILL, no AGENT) — no existe todavía ninguna skill de generación de prompts Flow/Veo en el repo a la que integrarlo.
+  - Comparado contra `FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1 y `FLOW_REELS.md`: aporta 1 técnica nueva y útil (protocolo "Ingredientes a Video" con 2 ingredients — avatar + producto — para anuncios de producto genérico, que hoy no existe documentado), duplica sin mejorar la regla "realista/nunca hiperrealista" (ya cubierta con más evidencia en v1.1 §4.6), y contenía 2 puntos en conflicto/sin verificar, **ambos ya resueltos por decisión explícita del usuario**:
+    1. **Nombre ficticio del avatar dentro del prompt de Flow (Paso 2 del documento) — RECHAZADO.** v1.1 §4.5 (NO NEGOCIABLE, validada en producción por un rechazo real de política de Flow, ver `SAREN_TOTUMA_SCRIPT_FLOW.md`) se mantiene sin excepción: ningún nombre propio (ni ficticio) dentro del texto del prompt de Flow, ni para avatares sintéticos. Decisión del usuario: "mejor mantener el filtro".
+    2. **Freepik Spaces/Nodos y Onean (Alibaba) (Paso 3 del documento) — NO son parte del stack real de CEINCA.** Confirmado explícitamente por el usuario: son herramientas genéricas de stock encontradas en la web, no herramientas contratadas/usadas por CEINCA — no se incorporan al stack técnico oficial (`FLOW_REELS.md` sigue siendo la única fuente del stack: Google Flow, Gemini Omni Flash, Veo 3.1, Nano Banana 2/Pro, Meta Edits).
+  - `guia-prompts-flow-ugc.md` se anotó (no se reescribió) con un banner corto documentando estas 2 decisiones, mismo patrón que el banner ya usado en `FLOW_REELS.md` — el resto del contenido (Pasos 0-2 sin el nombre en prompt) queda vigente como conocimiento complementario, no como fuente de verdad.
+  - **Hallazgo fuera de alcance, no auditado a fondo:** en la misma carpeta de `CEINCA-WORKSPACE` existe `CEINCA_FLOW_VIDEO_DIRECTOR_SYSTEM_v3.0.md` — mismo nombre conceptual que la fuente de verdad v1.1 de este repo, pero versión v3.0, estructura de prompt distinta, sin trackear en ningún git. Riesgo de duplicación de metodología (exactamente el patrón que se pidió evitar) — señalado para una auditoría futura, no tocado.
+- **Construcción de la skill de prompts Flow/Veo (29-08-2026)** — decisión: NO crear una skill nueva y paralela. Se descubrió que `SKILLS/ceinca-ia/SKILL.md` **ya tenía** una sección `## MODO PRODUCCIÓN AUDIOVISUAL (FLOW + META EDITS)` que activaba para exactamente este caso (Reel/video/prompts Flow), pero con contenido desincronizado de la fuente de verdad: **contenía la instrucción viva "Estética hiperrealista — nunca aspecto IA generado"** — la misma contradicción de la palabra prohibida por v1.1 §4.6 que ya se había corregido en `FLOW_REELS.md` y en el propio v1.1, pero que sobrevivió sin detectar en `SKILL.md` (el pointer correcto en `references/frameworks.md` Módulo 8 sí estaba bien desde el commit `7041af6` — la desincronización estaba solo en `SKILL.md`, que repetía reglas en vez de apuntar a la fuente). Crear una skill nueva habría sido la tercera copia que el usuario pidió explícitamente evitar.
+  - **Corregido:** la sección se reescribió como procedimiento operativo delgado (formato de salida, cuándo activar) que **apunta** a `references/frameworks.md` Módulo 8 en vez de repetir reglas — eliminada la contradicción de "hiperrealista", corregida la tabla de duración (6/8/10s, no solo genérico), y aclarado que el `PROMPT FLOW` final debe ser un párrafo cinematográfico fusionado, nunca una lista de campos etiquetados (v1.1 §4bis).
+  - **`guia-prompts-flow-ugc.md` incorporado al repo como `PRODUCTION/GUIA_PROMPTS_FLOW_UGC.md`** — versión canónica, depurada (sin nombre ficticio en prompt, sin Freepik/Onean), con nota explícita de que es complementario y no fuente de verdad. El borrador original en `CEINCA-WORKSPACE` (fuera de git) quedó anotado señalando que la versión de producción vive ahora en el repo.
+  - `references/frameworks.md` Módulo 8 actualizado para listar las 3 fuentes (v1.1, `FLOW_REELS.md`, `GUIA_PROMPTS_FLOW_UGC.md`).
+  - Barrido completo del repo (`grep -i "hiperrealis\|fotorrealista\|ultra.realista"`) tras el fix: cero instancias restantes usadas como instrucción positiva — todas las coincidencias son menciones de la regla que las prohíbe.
+- **Auditoría de `CEINCA_FLOW_VIDEO_DIRECTOR_SYSTEM_v3.0.md` (29-08-2026, solo lectura, decisión aplicada)** — leído completo (218 líneas) y comparado línea por línea contra v1.1. **Veredicto: RECHAZAR la fusión — nada se incorporó a v1.1.** Motivos con evidencia:
+  1. v3.0 es genérico/abstracto (sin especificidad de marca CEINCA: sin NEAPS+AIDA, sin biblioteca de b-rolls, sin paleta, sin evidencia de validación en producción) — v1.1 lo cubre todo mejor y con evidencia real (SAREN/TOTUMA).
+  2. **Conflicto real #1:** la "Plantilla Maestra" de v3.0 (§18) instruye entregar el prompt como una lista de campos literalmente etiquetados (`[FORMATO][CAMERA][LIGHTING]...`) — **contradice directamente** la regla explícita de v1.1 §4bis de que el prompt final debe fusionarse en un solo párrafo cinematográfico, nunca entregarse como lista separada al modelo.
+  3. **Conflicto real #2:** la misma plantilla usa "Ultra realista" como valor de ejemplo en `[FORMATO]` — término peligrosamente adyacente a "hiperrealista"/"fotorrealista", exactamente lo que v1.1 §4.6 prohíbe por el riesgo de filtro de "persona real identificable" validado en producción. v3.0 no tiene ninguna regla equivalente sobre nombre propio del sujeto ni sobre esta prohibición — un uso aislado de v3.0 sería activamente más riesgoso que v1.1.
+  4. Los 3 elementos parcialmente nuevos de v3.0 (tabla de prioridad de transiciones §6, vocabulario de cámara §8, checklist de errores §16) se solapan con contenido ya existente en v1.1 §4bis y en la biblioteca de cierres/aperturas de `FLOW_REELS.md`, sin aportar mejora medible — clasificados 🟡 duplicado, no 🟢 nuevo y útil.
+  - **No se tocó `FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1** — no había nada que mereciera fusionarse. `CEINCA_FLOW_VIDEO_DIRECTOR_SYSTEM_v3.0.md` no se borró ni se movió (vive fuera de git, en la carpeta de staging del usuario) — decisión de qué hacer con ese archivo (archivar/eliminar) queda pendiente del usuario, no ejecutada por no ser una acción reversible sobre un archivo que no está versionado.
 
 ## 3. Archivos y cambios (esta sesión)
-<!-- Sobrescribir cada sesión. Usar rango de commits o `git diff --stat`, no resumen narrado. -->
-Commits `3bc9a69..8be2229` (rama `claude/install-claude-webkit-tj4l90`, pusheada, sin PR
-abierto todavía — el usuario no pidió PR).
+Commits de limpieza y documentación en `main`:
+- `d9d75a871b96721c187ca44680a1dac312392187` — merge de PR #16: elimina tracker obsoleto, assets multimedia pesados y endurece `.gitignore`.
+- `d6a6f3d2a6be01de60d5fe89e5d28ba244ed15f9` — actualiza `CLAUDE.md` para reflejar la arquitectura y política de assets vigentes.
 
-`3bc9a69` — instalación inicial de WEBKIT/:
-```
- CLAUDE.md                                  |    3 +-
- README.md                                  |    1 +
- WEBKIT/  (218 archivos: CLAUDE.md, docs/, .claude/skills/*21, LICENSE, README(.es).md,
-           package.json, .gitignore — clon completo de Hainrixz/claude-webkit sin .git)
- 218 files changed, 31327 insertions(+)
-```
+Sesión PR #18 (rama `claude/unificar-marca-sobre-main`, mergeada a `main` en `faca1249`):
+- `a563306` — unifica paleta de marca (azul/dorado) en 17 archivos.
+- `7e4388f` — agrega `MARKETING/MANUAL_COPY_META_TIKTOK.md`.
+- Auditoría de lectura de `.claude/agents/` (9 archivos) y `.claude/skills/` (22 carpetas) — ver clasificación propuesta en sección 2. Sin cambios aplicados.
+- Actualización de este `handoff.md` para reflejar el estado real tras la sesión.
 
-`a5536a9` — handoff.md de esa instalación (1 archivo, +38/-20).
+Sesión Brain Audit (28-08-2026, sobre `main` directo, solo lectura):
+- Sin commits de auditoría — el commit `1ba89ed` en `main` fue solo para registrar los hallazgos en este `handoff.md`.
 
-`8be2229` — resolución de colisiones de nombre entre skills de WEBKIT y skills ya
-vendorizados a nivel raíz (`apple-design`, `animation-vocabulary`, `ui-ux-pro-max`,
-detectados por el namespacing automático `WEBKIT:<skill>` de Claude Code):
-```
- 60 files changed, 53 insertions(+), 7647 deletions(-)
- (borra WEBKIT/.claude/skills/{apple-design,animation-vocabulary,ui-ux-pro-max}/ completos;
-  repunta rutas hardcodeadas a ../.claude/skills/ui-ux-pro-max/ en package.json,
-  docs/questionnaire{,-es}.md, docs/skill-reference.md; documenta la decisión en
-  WEBKIT/.claude/skills/ATTRIBUTION.md)
-```
+Sesión PR quirúrgico Brain Audit (28-08-2026, rama `fix/brain-audit-surgical-p1`, mergeada a `main` en `d585e77`):
+- Modificados: `.claude/rules/hooks.md`, `.claude/agents/doc-updater.md`, `MARKETING/SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md`.
+- Nuevo: `RULES/ESTILO_REDACCION.md`.
+- Ver detalle de cada cambio en sección 2.
 
-(listado completo de rutas: `git show --stat <hash>` para cada commit)
+Sesión investigación CEINCA AI Video Production System (28-08-2026, sobre `main` directo):
+- Modificado: `PRODUCTION/FLOW_REELS.md` (banner de advertencia, ver sección 2). Único cambio de archivo de la sesión.
 
-Sesión previa (referencia, ya en main): commits `56b1a98..b6fc8a5` (rama
-`claude/repository-installation-wkg83q`) instalaron "everything-claude-code" — ver
-`git show --stat 56b1a98` / `b6fc8a5`.
+Sesión consolidación FLOW_REELS.md (28-08-2026, rama `docs/consolidar-flow-reels-v1.1`, mergeada a `main` en `92ac2b9`):
+- Modificado: `PRODUCTION/FLOW_REELS.md` (30 correcciones de terminología, ver sección 2). Único archivo modificado — `FLOW_VIDEO_DIRECTOR_SYSTEM.md` no se tocó.
+
+Sesión cierre del lote FLOW + MVP (28-08-2026):
+- Commit `7041af6` (directo a `main`): `PRODUCTION/FLOW_VIDEO_DIRECTOR_SYSTEM.md` (1 línea, corrección de contradicción) + `SKILLS/ceinca-ia/references/frameworks.md` (sección 8 reemplazada por puntero).
+- Rama `feat/media-mvp` (PR #22, sin mergear): nuevo `media-mvp/analyze.py` + `media-mvp/README.md` + `media-mvp/.gitignore`, modificado `CLAUDE.md` (1 línea, módulo nuevo).
+
+Sesión hardening media-mvp (28-08-2026, rama `feat/media-mvp`, commit `53aa97e`, PR #22 actualizado sin mergear):
+- Modificados: `media-mvp/analyze.py`, `media-mvp/README.md`.
+- Nuevo: `media-mvp/test_regressions.py`.
+- **Merge de PR #15** (rama `claude/install-claude-webkit-tj4l90`): instala `WEBKIT/`, vendorizado desde [Hainrixz/claude-webkit](https://github.com/Hainrixz/claude-webkit) (MIT) — genera landing pages de clientes (Next.js + Tailwind + shadcn/ui). Proyecto autocontenido con su propio `CLAUDE.md`, se activa con `cd WEBKIT && claude`. Ya resolvió en su propia rama las colisiones de nombre con skills vendorizados a nivel raíz (`apple-design`, `animation-vocabulary`, `ui-ux-pro-max`) antes de este merge. Referenciado en `CLAUDE.md` (MÓDULOS DEL SISTEMA) y `README.md`. La rama tenía handoff.md muy desactualizado (de antes de PR #16, todavía mencionaba `ig-viral-tracker/` como activo) — se resolvió el conflicto conservando el estado actual de `main` y solo añadiendo esta entrada. **Pendiente de validar end-to-end antes de usar con un cliente real** (ver sección 5).
 
 ## 4. Intentos fallidos
 <!-- NO BORRAR NINGUNA ENTRADA DE ESTA SECCIÓN. Solo agregar. -->
@@ -118,49 +144,34 @@ Sesión previa (referencia, ya en main): commits `56b1a98..b6fc8a5` (rama
 - Higgsfield NO sirve para música ni efectos de sonido: su `generate_audio` es sólo texto-a-voz y la propia herramienta indica rechazar peticiones de música/SFX. Fix aplicado: sintetizar la pista con numpy (`build_music.py`). No volver a intentarlo por ahí.
 - `lutyuv` de ffmpeg no expone el número de frame (`N`), así que no sirve para un flash temporizado. Fix: `eq=brightness='...':eval=frame`, que sí evalúa `t` por frame.
 - `crop` sólo evalúa `w`/`h` una vez; para zoom animado hay que usar `zoompan` (y sobreescalar antes para que no tiemble). Sólo `x`/`y` de `crop` se evalúan por frame — eso sí sirve para el camera shake.
-- `alimiter` de ffmpeg trae `level=enabled` por defecto y **renormaliza la salida a 0 dBFS**, anulando el `limit`. Además sólo mide picos de muestra. Resultado: el máster salió a +1.9 dBFS de pico real (saturado). Fix: `level=disabled` y, sobre todo, limitador de pico real propio con sobremuestreo 4× (`tp_limit.py`).
+- `alimiter` de ffmpeg trae `level=enabled` por defecto y renormaliza la salida a 0 dBFS, anulando el `limit`. Resultado: el máster salió a +1.9 dBFS de pico real (saturado). Fix: `level=disabled` y, sobre todo, limitador de pico real propio con sobremuestreo 4× (`tp_limit.py`).
 - Texto negro sobre caja de color con `borderw` negro queda ilegible: el contorno rellena las contraformas de las letras. Fix: sin contorno cuando hay caja.
-- `npx playwright install` (descarga de binarios chromium/firefox/webkit) falla en el entorno remoto CCR: proxy de egreso bloquea `cdn.playwright.dev` con 403 ("no rule or allowlist entry allows host"). A diferencia del bloqueo de `ui.shadcn.com`, aquí no hay archivo de config local para agregar el dominio dentro de esta sesión remota. No reintentar en sesiones remotas — instalar los browsers desde una máquina local (`npx playwright install`) o dejar que lo haga el workflow de GitHub Actions ya creado (`npx playwright install --with-deps`, con red completa en el runner).
+- `npx playwright install` (descarga de binarios chromium/firefox/webkit) falla en el entorno remoto CCR: proxy de egreso bloquea `cdn.playwright.dev` con 403. No reintentar en sesiones remotas — instalar los browsers desde una máquina local o dejar que lo haga GitHub Actions.
+- Verificar el estado de `main`/otras ramas con `git log origin/main` sin haber corrido `git fetch --all --prune` primero da un falso "esto no existe" — el remoto puede tener commits y ramas (de PRs mergeados, de otras sesiones en paralelo) que el clon local no vio nunca. Antes de afirmar que algo "no está hecho" en el repo, correr `git fetch --all --prune` y comparar contra el ref remoto actual, no contra la caché local de `origin/main`.
+- Un subagente (fork) del Brain Audit (28-08-2026) reportó en su resumen final haber editado `handoff.md` para registrar los hallazgos, pero el cambio nunca se persistió — al verificar con `git status`/`git diff` el árbol de trabajo seguía limpio. No asumir que un subagente hizo un cambio de archivo solo porque su reporte lo dice; verificar con `git status`/`git diff` antes de repetírselo al usuario.
+- `silence_end` de ffmpeg (`silencedetect`) puede exceder ligeramente `duration_s` de `ffprobe` (~11ms observado en un clip de 8s) — desfase normal entre duración de contenedor y duración real del stream de audio, no un bug de parseo. Cualquier validación de "el timestamp cae dentro de la duración del video" necesita tolerancia (usado: 0.5s), no un chequeo exacto.
+- `silencedetect` de ffmpeg imprime sus logs (`silence_start`/`silence_end`) a nivel `info`, no `error` — correr con `-v error` los suprime silenciosamente (el comando "funciona" pero no hay nada que parsear). No usar `-v error` cuando se necesita capturar la salida de un filtro de análisis; usar `-hide_banner -nostats` si se quiere output limpio sin perder los logs del filtro.
+- `loudnorm` (normalización de audio) sobre un clip con audio de nivel muy bajo (mean_volume -54 a -59dB) NO recupera transcripción/detección de silencios confiable — la EMPEORA: whisper alucinó texto sin relación al contenido real (palabras en ruso/chino) y silencedetect dejó de encontrar silencios reales. Probado y descartado sobre `media-mvp/`. Cuando el audio bajo es mayormente ruido de piso amplificado (no habla real capturada débilmente), normalizar el nivel solo hace más audible el ruido — no reconstruye información que no está ahí. No reintentar loudnorm como fix automático para este caso; la señal correcta es medir `mean_volume` (ffmpeg `volumedetect`, también log a nivel `info`) y advertir explícitamente en vez de intentar corregir.
 
 ## 5. Próximos pasos
-0. WEBKIT/ recién instalado y con sus colisiones de skills ya resueltas (rama
-   `claude/install-claude-webkit-tj4l90`, ya pusheada, sin PR abierto): decidir si se abre
-   PR a main. Antes de usarlo con un cliente real, probar el flujo end-to-end una vez
-   (`cd WEBKIT && claude`) para confirmar que el scaffold de Next.js/shadcn funciona en
-   este entorno (proxy de egreso ya bloqueó `ui.shadcn.com` en una sesión anterior — puede
-   volver a pasar aquí, mismo fix: red "Custom" + allowlist del dominio) y que las rutas
-   repuntadas a `../.claude/skills/ui-ux-pro-max/` se resuelven igual dentro de una sesión
-   real de Claude Code (ya verificado a mano con `python3` directo, falta el flujo completo
-   con el agente). También pendiente: decidir una convención para dónde viven los `site/`
-   que genere (hoy caen dentro de `WEBKIT/site/`, gitignoreado — probablemente se quiera
-   mover cada landing terminada a `CLIENTS/<cliente>/` en vez de dejarla suelta en WEBKIT/).
-1. Revisar PR #4 (ui-ux-pro-max): confirmar si necesita rebase contra main.
-2. Auditar el contenido real de la skill ui-ux-pro-max (de terceros) antes de mergear.
-3. Revisar reglas activas en VIRAL_CONTENT_CREATOR.md, IG_AUDITOR.md, FRAMEWORK_VIRAL_V2.md.
-4. Decidir si se adapta algo de la guía "Carousel Code" (@emprendeconcata) al sistema ya existente.
-5. Casa & Campo: publicar el Reel y medir. Pedir material nuevo grabado en vertical 1080p
-   (por Drive, NO por WhatsApp) — faltan planos de día, de comida llanera y caras en
-   primer plano para una segunda versión del promocional.
-6. Evaluar `git-lfs` para el repo: este entregable añadió ~58 MB de binarios y CLIENTS/
-   va a seguir acumulando vídeo.
-7. Playwright (rama `claude/playwright-setup-qehg88`, ya pusheada): abrir el PR si se
-   quiere mergear a main. Antes de correr tests localmente, instalar los browsers
-   (`cd ig-viral-tracker/frontend && npx playwright install`) — no vienen descargados
-   porque el entorno remoto donde se instaló no tiene salida a `cdn.playwright.dev`.
-   Reemplazar `tests/example.spec.ts` (boilerplate que apunta a playwright.dev) por
-   specs reales contra las páginas del frontend una vez haya flujos que valga la pena cubrir.
-8. everything-claude-code recién instalado en `.claude/`: decidir si conviene activar
-   `.claude/hooks/hooks.json` en un `settings.json` real. Tal cual está, casi todos sus
-   hooks (prettier, `tsc`, bloqueo de `npm run dev`/`git push`) son para un stack npm/TS
-   que este repo no tiene — sólo aplicarían a `ig-viral-tracker/frontend`, no al resto del
-   repo (contenido Python/Markdown). Si se activa, hacerlo con matchers acotados a esa
-   carpeta y reescribir las rutas `${CLAUDE_PLUGIN_ROOT}/scripts/hooks/*.js` (que sólo
-   resuelven si se instala como plugin real) a `.claude/scripts/hooks/*.js`.
-9. ~~Revisar si `/code-review` y `/plan` chocan con skills nativos.~~ Resuelto (commit
-   b6fc8a5): `/plan` no chocaba (no hay skill nativo `plan`, sólo el agente `Plan` del
-   Agent tool, namespace distinto). `code-review` sí chocaba —se eliminó el command
-   vendorizado, queda el skill nativo `code-review` (más completo: ReportFindings,
-   --comment/--fix, niveles de esfuerzo). `security-review` (skill vendorizado) también
-   chocaba con el skill nativo del mismo nombre —se renombró a `security-checklist`
-   (carpeta + frontmatter + `skills-lock.json`); no hacía falta tocar ninguna otra
-   referencia porque nada más lo mencionaba por nombre de skill.
+1. ~~Reconciliación formal de `FLOW_REELS.md` → v1.1~~ — **hecho**, PR #21 mergeado (`92ac2b9`).
+2. ~~Corregir la contradicción interna de `FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1~~ — **hecho**, commit `7041af6` en `main`.
+3. ~~Decidir qué hacer con la tercera copia duplicada en `frameworks.md`~~ — **hecho**, reemplazada por puntero, commit `7041af6` en `main`. `PRODUCTION/OPENMONTAGE_STUDIO.md` (2 menciones sueltas de `@Eduardo`) sigue sin tocar — no era parte del alcance de esta tarea, evaluar en una futura pasada si vale la pena.
+4. ~~Revisar PR #22~~ — **hecho**, veredicto APROBAR con evidencia real (ver sección 2, revisión del 29-08-2026). **Falta solo la autorización explícita del usuario para correr `gh pr merge 22 --merge`** — no ejecutado todavía, pedido expresamente así.
+4b. **Decidir sobre el límite de audio bajo descubierto** (mean_volume < -45dB rompe transcripción/silencios, sin fix automático confiable encontrado — `loudnorm` empeora el resultado): ¿el sistema solo advierte (comportamiento actual) o conviene investigar una segunda estrategia (ej. un modelo de whisper más grande, o simplemente exigir que el usuario re-grabe/normalice antes de subir)? No decidido.
+5. **Definir el siguiente paso del MVP** una vez aprobado PR #22 — candidatos ya identificados y explícitamente fuera de alcance de la v1: recorte de video basado en `silences.json`, o avanzar hacia el "AI Editor/Orchestrator" conceptual del estudio de viabilidad. Ninguno decidido todavía.
+6. Si se avanza hacia análisis de audio más fino (detección de tempo/beat, escenas vía Python), decidir qué instalar (`librosa`/`pydub`/`pyscenedetect`) — instalar dependencias es línea roja explícita, requiere aprobación.
+7. Retirar el banco corto de keywords de `FRAMEWORK_VIRAL_V2.md` Parte 3 (dejar solo el link a `CTB_PALABRAS_DISRUPTIVAS.md`) — sigue pendiente de aprobación explícita.
+8. Sesión de **diseño, no ejecución**, para decidir qué hacer con el graveyard de hooks duplicados y sin cablear (`.claude/hooks/memory-persistence/*.sh` vs `.claude/scripts/hooks/*.js` vs ninguno) antes de borrar nada.
+9. Decidir si `.claude/settings.local.json` (donde vive el único hook activo, `impeccable`) se versiona en git o se documenta explícitamente como configuración local intencional.
+10. Retirar las plantillas de copy superadas (`FRAMEWORK_VIRAL_V2.md` Partes 4-5, `VIRAL_PLAYBOOK.md` §5.1-5.4), dejando `MANUAL_COPY_META_TIKTOK.md` como autoridad única con referencia cruzada, no borrado silencioso.
+11. Decidir sobre `brief-creativo-lexia.md` (recuperar/recrear el brief, o retirar las 3 referencias de `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md`) — ya documentado inline en el archivo, decisión pendiente del usuario.
+12. Reubicar `AGENTS/AUDITOR_IA_MARCA_PROFESIONAL/` y `PRODUCTION/SAREN_TOTUMA_SCRIPT_FLOW.md` a `CLIENTS/` o una carpeta de entregables/campañas — no son sistemas reutilizables ni prompts de agente.
+13. Verificar si `.claude/skills/brainstorming/` (vendorizado, 160 KB) solapa funcionalmente con la skill de plataforma `superpowers:brainstorming`.
+14. Evaluar la limpieza del historial Git de binarios eliminados si `.git` (~450 MB) sigue siendo innecesariamente alto; hacerlo sólo con backup/plan de recuperación.
+15. Añadir fecha de última verificación a `KNOWLEDGE/SAREN_PRACTICE.md` (riesgo de desactualización frente a nuevas circulares SAREN, ya advertido en `RULES/ANTI_HALLUCINATION.md`).
+16. ~~Construir la skill "Generación de Prompts Flow/Veo"~~ — **hecho** (29-08-2026): no se creó una skill nueva (habría sido tercera copia) — se corrigió la sección ya existente en `SKILLS/ceinca-ia/SKILL.md` (tenía "hiperrealista" vivo, contradicción no detectada antes) y se incorporó `PRODUCTION/GUIA_PROMPTS_FLOW_UGC.md` como fuente canónica. Ver sección 2.
+17. ~~Auditar `CEINCA_FLOW_VIDEO_DIRECTOR_SYSTEM_v3.0.md`~~ — **hecho** (29-08-2026): veredicto RECHAZAR fusión, nada se incorporó a v1.1 (genérico, sin evidencia de producción, y 2 conflictos reales — plantilla de prompt como lista de campos en vez de párrafo fusionado, y "Ultra realista" adyacente a la palabra prohibida). Ver sección 2. Pendiente: decisión del usuario sobre archivar/eliminar el archivo v3.0 (fuera de git, no tocado).
+18. Decidir sobre `CEINCA_FLOW_VIDEO_DIRECTOR_SYSTEM_v3.0.md` (`CEINCA-WORKSPACE`, sin git) — mantener como referencia histórica, archivar, o eliminar. No es fuente de verdad y no se fusionó nada de él (ver punto 17).
+19. **`WEBKIT/` (PR #15) recién mergeado — validar el flujo end-to-end antes de usarlo con un cliente real:** correr `cd WEBKIT && claude` y confirmar que el scaffold de Next.js/shadcn funciona en este entorno (el proxy de egreso ya bloqueó `ui.shadcn.com` una vez — mismo fix: red "Custom" + allowlist del dominio) y que las rutas repuntadas a `../.claude/skills/ui-ux-pro-max/` se resuelven bien dentro de una sesión real (ya verificado a mano con `python3` directo, falta el flujo completo con el agente). También decidir la convención de destino para los `site/` que genere (hoy caen en `WEBKIT/site/`, gitignoreado) — probablemente mover cada landing terminada a `CLIENTS/<cliente>/`.
+20. Rama `claude/playwright-setup-qehg88` (ya pusheada, sin PR abierto): decidir si abrir PR a `main`. Instala Playwright E2E sobre `ig-viral-tracker/frontend` — **verificar primero si sigue siendo relevante**, dado que `ig-viral-tracker/` fue eliminado del repo en PR #16; si el frontend ya no existe, esta rama probablemente deba descartarse en vez de mergearse.

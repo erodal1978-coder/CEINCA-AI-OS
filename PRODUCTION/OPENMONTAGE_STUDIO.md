@@ -155,7 +155,7 @@ REVISIÓN DE CONTENIDO (temas legales/KNOWLEDGE)
 ☐ Cifras y referencias legales verificadas o marcadas como no confirmadas
 
 POST-PRODUCCIÓN
-☐ Video final revisado contra identidad visual CEINCA (navy #0B1D3A + dorado)
+☐ Video final revisado contra identidad visual CEINCA (navy #122A63 + dorado)
   si se usan overlays o textos — OpenMontage no aplica esta paleta por defecto,
   ajustar manualmente si el resultado lo requiere
 ☐ Publicación en el nivel correspondiente de la Escalera de Monetización

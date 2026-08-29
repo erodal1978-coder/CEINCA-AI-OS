@@ -124,7 +124,7 @@ Voz: narrador o personaje, tono (experto, cercano, educativo, inspirador), veloc
 Ritmo de cortes (máx. 2-3 seg por plano — ver sección 3), momentos de cambio visual, zooms digitales, overlays sugeridos (ver política de overlays, sección 2), B-roll. **Frame final:** describir exactamente cómo termina la escena (posición, movimiento final, encuadre, estado visual) — ese frame es la referencia de entrada para la siguiente escena.
 
 **12. Restricciones técnicas y control de calidad IA**
-Instrucciones negativas obligatorias en cada prompt — evitar: deformaciones faciales, manos incorrectas, dedos extra, cambios de identidad, cambios de ropa, flickering, morphing, objetos apareciendo de la nada, texto generado incorrecto, logos deformados, movimientos imposibles, apariencia artificial. Mantener: hiperrealismo, calidad cinematográfica, aspecto profesional.
+Instrucciones negativas obligatorias en cada prompt — evitar: deformaciones faciales, manos incorrectas, dedos extra, cambios de identidad, cambios de ropa, flickering, morphing, objetos apareciendo de la nada, texto generado incorrecto, logos deformados, movimientos imposibles, apariencia artificial. Mantener: calidad cinematográfica profesional, aspecto natural y auténtico, ausencia de artefactos de IA (nunca usar las palabras "hiperrealismo"/"fotorrealista" — regla NO NEGOCIABLE §4.6).
 
 ---
 

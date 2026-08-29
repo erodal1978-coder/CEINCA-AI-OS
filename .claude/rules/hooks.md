@@ -6,21 +6,16 @@
 - **PostToolUse**: After tool execution (auto-format, checks)
 - **Stop**: When session ends (final verification)
 
-## Current Hooks (in ~/.claude/settings.json)
+## Current Hooks (in `.claude/hooks/hooks.json`, tracked in git — active in any clone)
 
 ### PreToolUse
-- **tmux reminder**: Suggests tmux for long-running commands (npm, pnpm, yarn, cargo, etc.)
-- **git push review**: Opens Zed for review before push
-- **doc blocker**: Blocks creation of unnecessary .md/.txt files
+- **tmux reminder**: blocks `npm run dev` / `pnpm dev` / `yarn dev` / `bun run dev` outside tmux, suggesting `tmux new-session -d -s dev "..."` for persistent logs.
+- **git push reminder**: prints a reminder to review `git diff`/`git status` before `git push` (does not block the push, does not open an editor).
+
+## Local-only hooks (in `.claude/settings.local.json`, gitignored globally — NOT present in a fresh clone or another machine)
 
 ### PostToolUse
-- **PR creation**: Logs PR URL and GitHub Actions status
-- **Prettier**: Auto-formats JS/TS files after edit
-- **TypeScript check**: Runs tsc after editing .ts/.tsx files
-- **console.log warning**: Warns about console.log in edited files
-
-### Stop
-- **console.log audit**: Checks all modified files for console.log before session ends
+- **impeccable design detector**: runs `.claude/skills/impeccable/scripts/hook.mjs` after `Edit`/`Write`/`MultiEdit`, surfaces design findings on UI file changes as a system reminder.
 
 ## Auto-Accept Permissions
 
