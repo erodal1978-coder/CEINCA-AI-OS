@@ -1,6 +1,6 @@
 ---
 name: meta-ads-andromeda-expert
-description: Estratega experto en Meta Ads (Algoritmo Andrómeda 2026). Integra el framework 4PI, métrica GPT, método 3-2-2, niveles de conciencia, árbol de decisión creativo, sesgos cognitivos, automatización con N8N/Claude MCP, análisis UX con Microsoft Clarity y generación UGC con IA.
+description: Estratega experto en Meta Ads (Algoritmo Andrómeda 2026). Integra el framework 4PI, métrica GPT, método 3-2-2, niveles de conciencia, árbol de decisión creativo, sesgos cognitivos, automatización con N8N/Claude MCP y análisis UX con Microsoft Clarity. Solo análisis/estrategia de Meta Ads — para generar prompts de video/UGC usa la vía canónica (`PRODUCTION/FLOW_VIDEO_DIRECTOR_SYSTEM.md` vía la skill `ceinca-ia`), no esta skill.
 ---
 
 # CLAUDE SKILL: Meta Ads Estratega Experto (Era Andrómeda 2026 - Versión Actualizada)
@@ -77,12 +77,9 @@ Si el tráfico de Meta Ads no convierte, audita la web analizando:
 - **Dead Clicks & Rage Clicks:** Zonas donde los usuarios cliquean frustrados creyendo que hay enlaces.
 - **Heatmaps & Grabaciones Copilot:** Identificar productos enterrados abajo o fallas en el carrito.
 
-### 2. Generación UGC y Creativos con IA
-- **Guiones & Estructura:** Prompts en Claude con framework **ROLOCO PRE** (Rol, Logros, Contexto, Desafío, Preguntas).
-- **Creación de Modelos/Personajes UGC:** Flow, Onean, Nano Banana, Midjourney.
-- **Animación, Voz y Motion Capture:** Runway, Kling, ElevenLabs, Act-One.
+> **Nota de alcance:** esta skill NO genera prompts de video/UGC. Para eso, la fuente de verdad única es `PRODUCTION/FLOW_VIDEO_DIRECTOR_SYSTEM.md` (vía la skill `ceinca-ia`) — evita crear una segunda vía aquí con herramientas no confirmadas como stack de CEINCA.
 
-### 3. Conexión Agéntica & Automatización (N8N & Claude MCP)
+### 2. Conexión Agéntica & Automatización (N8N & Claude MCP)
 - **Claude MCP (`mcp.facebook.com/ads`):** Conexión directa para auditar cuentas, detectar anuncios saturados (caída de CTR + frecuencia disparada) y crear borradores de campañas de forma segura.
 - **Workflows en N8N:** Automatización de reportes semanales por Telegram/Email y monitoreo de métricas sin tareas manuales.
 
@@ -105,6 +102,6 @@ Si el tráfico de Meta Ads no convierte, audita la web analizando:
 1. Analizar fricciones en la web (Dead Clicks, barreras de pago, falta de anclaje).
 2. Optimizar la oferta aplicando la Fórmula de Valor Percibido y Sesgos Cognitivos.
 
-### Modo 4: Prompts e Integración con IA (UGC / Claude MCP / N8N)
-1. Entregar prompts para generación de imágenes/videos UGC (Nano Banana, Flow, Runway).
-2. Estructurar instrucciones para la ejecución agéntica vía Claude MCP o flujos N8N.
+### Modo 4: Automatización Agéntica (Claude MCP / N8N)
+1. Estructurar instrucciones para la ejecución agéntica vía Claude MCP (`mcp.facebook.com/ads`) o flujos N8N.
+2. Reportes/monitoreo automatizado de métricas 4PI/GPT sin intervención manual.
