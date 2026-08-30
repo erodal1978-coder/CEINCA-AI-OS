@@ -1,0 +1,31 @@
+# GUION DE SUBTÍTULOS — Reel de testimonios Casa & Campo
+#
+# Los tiempos ya están medidos sobre el audio: son los tramos reales
+# de habla del Reel montado. NO hay que tocarlos.
+# Escribe después de la barra lo que dice cada tramo.
+# Un tramo vacío no genera subtítulo (útil si es una risa o un 'eh').
+#
+# formato:  id  inicio  fin  | texto
+
+# --- testimonio A (voz_a.wav) — 1 tramos, 2.02s a 3.80s
+a01    2.02    3.80  | 
+
+# --- testimonio B (voz_b.wav) — 2 tramos, 3.84s a 9.40s
+b01    3.84    8.52  | 
+b02    8.52    9.40  | 
+
+# --- testimonio C (voz_c.wav) — 5 tramos, 9.58s a 17.48s
+c01    9.58   11.08  | 
+c02   11.08   12.62  | 
+c03   12.62   13.52  | 
+c04   13.52   16.41  | 
+c05   16.41   17.48  | 
+
+# --- testimonio D (voz_d.wav) — 7 tramos, 17.72s a 26.46s
+d01   17.72   20.03  | 
+d02   20.03   20.81  | 
+d03   20.81   21.65  | 
+d04   21.65   22.93  | 
+d05   22.93   24.16  | 
+d06   24.16   25.20  | 
+d07   25.20   26.46  | 

@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>Manual de Identidad Visual — CEINCA English</title>
+<style>
+  :root{
+    --navy:#1E3A8A;
+    --navy-dark:#122a63;
+    --navy-soft:#2d4fa8;
+    --gold:#C8A951;
+    --gold-soft:#f2e9d3;
+    --paper:#f7f6f2;
+    --card:#ffffff;
+    --ink:#1b1b1b;
+    --muted:#5b6270;
+    --line:#e3e1d9;
+    --good:#2f7a4f;
+    --bad:#b3432f;
+    --pending:#9a6b1f;
+    --pending-bg:#fbf1de;
+    font-size:16px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Manrope",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+  }
+  .sans{font-family:"Manrope",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  img{max-width:100%; display:block;}
+
+  header.hero{
+    background:linear-gradient(135deg,var(--navy-dark),var(--navy) 60%,var(--navy-soft));
+    color:#fff;
+    padding:64px 8vw 56px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:40px;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute; right:-10%; top:-30%;
+    width:520px; height:520px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.12);
+  }
+  header.hero::before{
+    content:"";
+    position:absolute; right:6%; top:10%;
+    width:340px; height:340px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.1);
+  }
+  .hero-text{position:relative; z-index:1; flex:1 1 480px;}
+  .hero-badge{position:relative; z-index:1; flex:0 0 auto; width:min(220px,30vw);}
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:.72rem;
+    color:var(--gold-soft);
+    font-weight:600;
+  }
+  h1{
+    font-size:2.5rem;
+    margin:.4em 0 .2em;
+    max-width:18ch;
+    font-weight:600;
+    text-wrap:balance;
+  }
+  .hero p.lead{
+    max-width:56ch;
+    font-size:1.06rem;
+    color:#dfe3f0;
+  }
+  main{
+    max-width:1000px;
+    margin:0 auto;
+    padding:0 8vw 100px;
+  }
+  section.block{margin-top:64px;}
+  section.block > h2{
+    font-size:1.6rem;
+    color:var(--navy);
+    border-bottom:2px solid var(--gold);
+    padding-bottom:.35em;
+    display:flex;
+    align-items:baseline;
+    gap:.5em;
+  }
+  section.block > h2 .num{
+    font-size:.85rem;
+    color:var(--gold);
+    font-weight:700;
+    letter-spacing:.05em;
+  }
+  section.block > p.intro{max-width:70ch; color:var(--muted); margin-top:14px;}
+  h3.sub{
+    font-size:.85rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--navy-soft);
+    margin:34px 0 12px;
+    font-weight:700;
+  }
+
+  /* ---- pending badge ---- */
+  .pending{
+    display:inline-block;
+    font-size:.68rem;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-weight:700;
+    color:var(--pending);
+    background:var(--pending-bg);
+    border:1px dashed var(--pending);
+    border-radius:5px;
+    padding:2px 8px;
+    margin-left:8px;
+    vertical-align:middle;
+  }
+
+  /* ---- palette ---- */
+  .palette-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+    margin-top:24px;
+  }
+  .swatch{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+  }
+  .swatch-color{height:110px;}
+  .swatch-body{padding:16px 18px;}
+  .swatch-body h4{margin:0 0 4px; font-size:1.05rem; color:var(--navy);}
+  .swatch-codes{
+    font-variant-numeric:tabular-nums;
+    font-size:.82rem;
+    color:var(--muted);
+    display:flex;
+    gap:14px;
+    margin:6px 0 10px;
+  }
+  .swatch-use{font-size:.92rem; color:var(--ink);}
+
+  /* ---- ratio bar ---- */
+  .ratio-bar{
+    display:flex;
+    height:34px;
+    border-radius:6px;
+    overflow:hidden;
+    margin-top:22px;
+    font-size:.72rem;
+    font-weight:700;
+    color:#fff;
+  }
+  .ratio-bar span{display:flex; align-items:center; justify-content:center; letter-spacing:.02em;}
+  .ratio-legend{
+    display:flex; gap:22px; flex-wrap:wrap; margin-top:12px;
+    font-size:.82rem; color:var(--muted);
+  }
+  .ratio-legend b{color:var(--ink);}
+
+  /* ---- principio callout ---- */
+  .principle{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:4px solid var(--gold);
+    border-radius:8px;
+    padding:20px 24px;
+    margin-top:24px;
+  }
+  .principle .tag{background:var(--gold-soft); color:#8a6a1e; margin-bottom:10px;}
+  .principle p{margin:0; font-size:.98rem;}
+  .principle p + p{margin-top:10px;}
+
+  /* ---- logo cards ---- */
+  .logo-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+  }
+  .logo-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .logo-stage{
+    height:230px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .logo-stage img{max-height:100%; width:auto; max-width:100%;}
+  .logo-stage svg.iso-svg{width:auto; max-height:110px; display:block;}
+  .stage-paper{background:var(--paper);}
+  .stage-navy{background:linear-gradient(160deg,var(--navy-dark),var(--navy));}
+  .stage-photo{
+    background:
+      linear-gradient(160deg, rgba(18,42,99,.55), rgba(18,42,99,.75)),
+      repeating-linear-gradient(45deg, #3a3a3a 0 10px, #333 10px 20px);
+  }
+  .logo-info{padding:14px 18px 18px; border-top:1px solid var(--line);}
+  .logo-info h4{margin:0 0 6px; font-size:.98rem; color:var(--navy);}
+  .logo-info p{margin:0; font-size:.87rem; color:var(--muted); line-height:1.45;}
+  .tag{
+    display:inline-block;
+    font-size:.68rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-weight:700;
+    padding:3px 8px;
+    border-radius:999px;
+    margin-bottom:8px;
+  }
+  .tag-primary{background:var(--gold-soft); color:#8a6a1e;}
+  .tag-alt{background:#eef1f9; color:var(--navy-soft);}
+
+  /* ---- subbrand lockups (construidos en CSS a partir del isotipo oficial) ---- */
+  .lockup-stack{display:flex; flex-direction:column; align-items:center; gap:10px;}
+  .lockup-stack svg.iso-svg{width:78px; height:auto; display:block;}
+  .lockup-word{text-align:center; line-height:1.05;}
+  .lockup-word .ceinca{
+    display:block; font-weight:800; font-size:1.55rem; letter-spacing:.005em;
+  }
+  .lockup-word .english{
+    display:block; font-weight:700; font-size:.62rem; letter-spacing:.34em;
+    text-transform:uppercase; margin-top:5px;
+  }
+  .lockup-word.on-blue .ceinca{color:var(--navy);}
+  .lockup-word.on-blue .english{color:var(--navy-soft);}
+  .lockup-word.on-white .ceinca, .lockup-word.on-white .english{color:#fff;}
+  .lockup-word.on-white .english{opacity:.85;}
+  .lockup-word.on-gold .ceinca, .lockup-word.on-gold .english{color:var(--gold);}
+
+  .lockup-horizontal{display:flex; align-items:center; gap:20px;}
+  .lockup-horizontal svg.iso-svg{width:64px; flex:0 0 auto;}
+  .lockup-horizontal .lockup-word{text-align:left;}
+
+  .badge-circle{
+    width:190px; height:190px; border-radius:50%;
+    background:var(--navy);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .badge-circle .lockup-stack{gap:14px;}
+  .badge-circle .lockup-stack svg.iso-svg{width:66px;}
+  .badge-circle .lockup-word .ceinca{font-size:1.5rem;}
+  .badge-circle .lockup-word .english{font-size:.58rem; letter-spacing:.28em;}
+
+  /* ---- construccion ---- */
+  .construccion{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:32px;
+    margin-top:28px;
+    align-items:start;
+  }
+  .construccion-visual{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+  }
+  .construccion-visual .lockup-stack svg.iso-svg{width:100px;}
+  .construccion dl{margin:0;}
+  .construccion dt{font-weight:700; color:var(--navy); margin-top:18px;}
+  .construccion dt:first-child{margin-top:0;}
+  .construccion dd{margin:4px 0 0; color:var(--ink);}
+
+  /* ---- clear space ---- */
+  .clearspace-demo{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:24px;
+  }
+  .clearspace-box{
+    border:1.5px dashed var(--gold);
+    padding:34px;
+    display:inline-flex;
+  }
+  .clearspace-box .lockup-stack svg.iso-svg{width:100px;}
+  .spec-list{
+    margin-top:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:14px;
+  }
+  .spec-item{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:4px solid var(--navy);
+    border-radius:6px;
+    padding:14px 18px;
+  }
+  .spec-item h4{margin:0 0 4px; font-size:.9rem; color:var(--navy);}
+  .spec-item p{margin:0; font-size:.88rem; color:var(--muted);}
+
+  /* ---- dont grid ---- */
+  .dont-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:16px;
+    margin-top:24px;
+  }
+  .dont-card{background:var(--card); border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+  .dont-stage{
+    height:150px; background:var(--paper);
+    display:flex; align-items:center; justify-content:center; padding:20px;
+    position:relative;
+  }
+  .dont-stage .lockup-stack svg.iso-svg{width:56px;}
+  .dont-stage .lockup-word .ceinca{font-size:1.05rem;}
+  .dont-stage .lockup-word .english{font-size:.42rem;}
+  .dont-card.ok .dont-stage{background:#f4f6fb;}
+  .dont-label{
+    padding:12px 16px 16px; font-size:.85rem;
+    display:flex; gap:8px; align-items:flex-start;
+  }
+  .mark{font-weight:800; flex:0 0 auto;}
+  .dont-card:not(.ok) .mark{color:var(--bad);}
+  .dont-card.ok .mark{color:var(--good);}
+  .stretch .lockup-stack{transform:scaleX(1.7); transform-origin:center;}
+  .wrongcolor .lockup-stack{filter:hue-rotate(130deg) saturate(3.2);}
+  .lowcontrast{background:linear-gradient(160deg,#213f8f,#2b4ea3) !important;}
+  .effects .lockup-stack{filter:drop-shadow(5px 6px 3px rgba(0,0,0,.55)) drop-shadow(0 0 10px rgba(200,169,81,.7));}
+  .rotate .lockup-stack{transform:rotate(-18deg);}
+  .orphan .lockup-word .ceinca{opacity:.15;}
+
+  /* ---- arquitectura de marca ---- */
+  .arch-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:16px;
+    margin-top:24px;
+  }
+  .arch-card{
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:18px 20px;
+  }
+  .arch-card.recommended{border-color:var(--gold); border-width:2px; box-shadow:0 4px 18px rgba(200,169,81,.18);}
+  .arch-card .lockup-sample{font-weight:800; color:var(--navy); font-size:1.15rem; margin-bottom:8px;}
+  .arch-card .verdict{font-size:.85rem; color:var(--muted);}
+  .arch-card.recommended .verdict{color:var(--ink);}
+
+  /* ---- relación / diagrama ---- */
+  .relation-diagram{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    margin-top:24px; padding:24px; background:var(--card); border:1px solid var(--line); border-radius:10px;
+  }
+  .relation-node{
+    padding:14px 18px; border-radius:8px; font-weight:700; font-size:.92rem; text-align:center;
+  }
+  .relation-node.root{background:var(--navy); color:#fff;}
+  .relation-node.branch{background:var(--gold-soft); color:#8a6a1e; border:1px solid var(--gold);}
+  .relation-node.future{background:transparent; color:var(--muted); border:1.5px dashed var(--line); font-weight:600;}
+  .relation-arrow{color:var(--gold); font-size:1.3rem; font-weight:700;}
+
+  /* ---- tagline ---- */
+  .tagline-grid{margin-top:22px; display:grid; gap:10px;}
+  .tagline-card{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    background:var(--card); border:1px solid var(--line); border-radius:8px;
+    padding:14px 18px;
+  }
+  .tagline-card.recommended{border-left:4px solid var(--gold);}
+  .tagline-card .txt{font-weight:700; color:var(--ink); font-size:1rem;}
+  .tagline-card .why{font-size:.82rem; color:var(--muted); margin-top:3px;}
+
+  /* ---- mockups ---- */
+  .mockup-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-top:22px;
+  }
+  .mockup-card{
+    background:var(--card); border:1px solid var(--line); border-radius:10px; padding:18px 20px;
+  }
+  .mockup-card h4{margin:0 0 6px; color:var(--navy); font-size:.96rem; display:flex; align-items:center; flex-wrap:wrap;}
+  .mockup-card p{margin:0; font-size:.87rem; color:var(--muted);}
+
+  /* ---- channel table ---- */
+  .channel{
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:22px 26px; margin-top:16px;
+  }
+  .channel h4{margin:0 0 8px; color:var(--navy); font-size:1.02rem;}
+  .channel p{margin:0; color:var(--ink);}
+
+  /* ---- checklist ---- */
+  ul.checklist{list-style:none; margin:20px 0 0; padding:0; display:grid; gap:10px;}
+  ul.checklist li{padding-left:1.6em; position:relative;}
+  ul.checklist li::before{content:"☐"; position:absolute; left:0; color:var(--gold); font-size:1.05em;}
+
+  footer{
+    padding:40px 8vw 60px; font-size:.8rem; color:var(--muted);
+    border-top:1px solid var(--line); max-width:1000px; margin:0 auto;
+  }
+
+  @media (max-width:640px){
+    .construccion{grid-template-columns:1fr;}
+    header.hero{flex-direction:column; align-items:flex-start;}
+    .hero-badge{width:150px;}
+    .lockup-horizontal{flex-direction:column; text-align:center;}
+    .lockup-horizontal .lockup-word{text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-text">
+    <div class="eyebrow">Manual de marca · Extensión de identidad visual</div>
+    <h1>Manual de Identidad Visual — CEINCA English</h1>
+    <p class="lead">Guía de arquitectura y uso visual de <strong>CEINCA English</strong>, la división de formación en inglés de CEINCA — Centro Integral de Estudios e Innovación, C.A., con sede en El Piñal, estado Táchira. Este documento extiende el <strong>Manual de Identidad Visual — CEINCA</strong> (v1.1): no lo reemplaza ni crea una marca nueva, define cómo esa misma identidad se aplica a la especialización en inglés.</p>
+  </div>
+  <div class="hero-badge">
+    <div class="badge-circle">
+      <div class="lockup-stack">
+        <svg class="iso-svg iso-blanco" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#FFFFFF" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
+        <div class="lockup-word on-white"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="block">
+    <h2><span class="num">01</span> Resumen</h2>
+    <p class="intro">CEINCA English es la división de CEINCA dedicada a la enseñanza y formación en inglés, con sede en El Piñal, estado Táchira. Este manual define cómo se ve esa división: la arquitectura de marca que la vincula a CEINCA, la construcción autorizada de su lockup, la paleta y tipografía heredadas, los usos correctos e incorrectos, y las aplicaciones prioritarias — para que cualquier pieza que produzca el equipo de El Piñal se reconozca de inmediato como parte de CEINCA.</p>
+
+    <div class="principle">
+      <span class="tag sans">Principio rector</span>
+      <p>CEINCA English no es una academia de inglés que además usa los colores de CEINCA — es <strong>CEINCA operando en el área de formación en inglés</strong>. La pregunta antes de publicar cualquier pieza no es "¿se ve bien?", es <strong>"¿se reconoce como CEINCA, con English como su especialización — y no como una marca nueva que casualmente comparte paleta?"</strong></p>
+      <p>Todo lo que seguiría a esta pregunta ya está resuelto en el <strong>Manual de Identidad Visual — CEINCA v1.1</strong>: isotipo, proporciones, regla del dorado, protocolo de IA. Este documento no repite esas reglas por gusto — las hereda y muestra cómo se aplican al lockup y a los materiales propios de CEINCA English.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">02</span> Arquitectura de marca</h2>
+    <p class="intro">CEINCA English se construye como <strong>extensión de marca</strong>, no como marca independiente. CEINCA conserva el liderazgo visual; "English" funciona como descriptor de especialización — el mismo rol que hoy cumple "MERCANTIL" en el logotipo matriz.</p>
+
+    <h3 class="sub">Opciones evaluadas</h3>
+    <div class="arch-grid">
+      <div class="arch-card recommended">
+        <div class="tag tag-primary">Recomendada</div>
+        <div class="lockup-sample">CEINCA <span style="font-weight:600; color:var(--navy-soft); font-size:.65em; letter-spacing:.12em;">ENGLISH</span></div>
+        <p class="verdict">Lockup apilado o en línea, <strong>CEINCA</strong> en peso fuerte y <strong>ENGLISH</strong> en versalitas ligeras y tracked debajo — exactamente la gramática visual que ya usa CEINCA MERCANTIL hoy. No introduce ningún recurso gráfico nuevo: es la misma regla de jerarquía tipográfica, aplicada a un segundo descriptor.</p>
+      </div>
+      <div class="arch-card">
+        <div class="lockup-sample">CEINCA | ENGLISH</div>
+        <p class="verdict">La barra vertical se lee como separador de co-marca o alianza entre dos entidades — introduce ambigüedad sobre si "English" es una empresa distinta. Se descarta.</p>
+      </div>
+      <div class="arch-card">
+        <div class="lockup-sample" style="letter-spacing:.03em;">CEINCA ENGLISH</div>
+        <p class="verdict">Incorrecta jerárquicamente: al escribir ambas palabras con el mismo peso y tamaño, "English" compite con "CEINCA" en vez de subordinarse a ella — rompe el patrón ya establecido por "CEINCA MERCANTIL". Se descarta.</p>
+      </div>
+      <div class="arch-card">
+        <div class="lockup-sample">CEINCA + ENGLISH</div>
+        <p class="verdict">El signo "+" comunica combinación de dos marcas independientes (como un bundle o partnership), no una división interna de una misma organización. Se descarta.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">Relación con CEINCA matriz</h3>
+    <div class="relation-diagram">
+      <div class="relation-node root">CEINCA<br><span style="font-weight:500; font-size:.78em;">Centro Integral de Estudios e Innovación, C.A.</span></div>
+      <span class="relation-arrow">→</span>
+      <div class="relation-node branch">CEINCA English<br><span style="font-weight:500; font-size:.78em;">El Piñal, Táchira</span></div>
+      <span class="relation-arrow">→</span>
+      <div class="relation-node future">otra división futura<br><span style="font-weight:500; font-size:.78em;">no desarrollada en este manual</span></div>
+    </div>
+    <p style="max-width:70ch; color:var(--muted); margin-top:12px; font-size:.92rem;">CEINCA es siempre el nodo raíz — nunca aparece un lockup de "English" sin el ancla "CEINCA" adjunta (ver sección 10, uso incorrecto "huérfano").</p>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">03</span> Concepto creativo</h2>
+    <p class="intro">CEINCA English debe comunicar, al mismo tiempo: educación, aprendizaje del idioma, formación profesional, modernidad, confianza, proyección internacional, oportunidades, y crecimiento personal — sin dejar de sentirse CEINCA.</p>
+
+    <h3 class="sub">Personalidad de marca</h3>
+    <div class="spec-list">
+      <div class="spec-item"><h4>Institucional</h4><p>Hereda el respaldo y la seriedad de CEINCA — no es una academia informal.</p></div>
+      <div class="spec-item"><h4>Educativa</h4><p>El aprendizaje es el producto, no el pretexto — el tono es de instructor, no de vendedor.</p></div>
+      <div class="spec-item"><h4>Moderna</h4><p>Sin nostalgia de salón de clases tradicional — misma limpieza visual que el resto de CEINCA.</p></div>
+      <div class="spec-item"><h4>Internacional, con medida</h4><p>La proyección internacional se sugiere, no se ilustra literalmente (ver clichés a evitar).</p></div>
+      <div class="spec-item"><h4>Accesible</h4><p>Aprender inglés se presenta como herramienta de oportunidad, no como lujo ni como examen.</p></div>
+      <div class="spec-item"><h4>Profesional, no fría</h4><p>Institucional no es sinónimo de distante — el registro es cercano sin dejar de ser serio.</p></div>
+    </div>
+
+    <h3 class="sub">Qué evitar</h3>
+    <p style="max-width:70ch; color:var(--muted); margin-top:0;">Ningún cliché visual de academia de idiomas genérica: banderas gigantes, Big Ben, globos terráqueos, mapas, aviones, símbolos turísticos, exceso de iconografía británica, o elementos infantiles. Si en algún momento se necesita una referencia internacional puntual, debe ser sutil, secundaria, y nunca competir con el isotipo — por ejemplo, un detalle tipográfico o una línea, nunca un ícono de bandera o monumento.</p>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">04</span> Construcción del logotipo / submarca</h2>
+    <p class="intro">CEINCA English <strong>no tiene isotipo propio</strong>. Usa el isotipo oficial de CEINCA (el documento con la firma en movimiento) exactamente como existe en los archivos maestros — sin recolorear, redibujar ni recrear con IA. Lo único que cambia frente al lockup matriz es el descriptor tipográfico: "ENGLISH" en vez de "MERCANTIL", compuesto en texto real con la misma jerarquía que ya usa CEINCA hoy, no como una pieza gráfica nueva.</p>
+
+    <div class="construccion">
+      <div class="construccion-visual">
+        <div class="lockup-stack">
+          <svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
+          <div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
+        </div>
+      </div>
+      <dl>
+        <dt>Isotipo — heredado, sin cambios</dt>
+        <dd>Se toma directamente de <code class="sans">Logos/</code> / <code class="sans">Logos/logos svg/</code>, tal como lo define el manual matriz. Ningún equipo — ni CEINCA English, ni una IA generativa — está autorizado a redibujarlo, "mejorarlo" ni generar una variante propia.</dd>
+        <dt>Wordmark — CEINCA + ENGLISH</dt>
+        <dd><strong>CEINCA</strong> mantiene su peso fuerte y mayúscula compacta. <strong>ENGLISH</strong> sustituye a "MERCANTIL" en el mismo tratamiento — versalitas livianas, más espaciado entre letras, subordinado visualmente al nombre.</dd>
+        <dt>Sin insignia circular propia nueva</dt>
+        <dd>El círculo azul de avatar (arriba, en la portada de este manual) reutiliza exactamente la misma construcción del badge matriz — círculo sólido, isotipo blanco, wordmark blanco — solo cambia el texto del wordmark. No se diseñó un contenedor, forma o tratamiento nuevos.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">05</span> Paleta cromática</h2>
+    <p class="intro">CEINCA English usa exactamente la paleta de CEINCA — no se introduce ningún color de marca nuevo.</p>
+    <div class="palette-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1E3A8A;"></div>
+        <div class="swatch-body">
+          <h4>Azul CEINCA</h4>
+          <div class="swatch-codes"><span>#1E3A8A</span><span>RGB 30·58·138</span></div>
+          <p class="swatch-use">Color principal, heredado sin variación. Fondo del avatar circular, color del wordmark sobre fondos claros, base de toda papelería y material institucional de CEINCA English.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#C8A951;"></div>
+        <div class="swatch-body">
+          <h4>Dorado CEINCA</h4>
+          <div class="swatch-codes"><span>#C8A951</span><span>RGB 200·169·81</span></div>
+          <p class="swatch-use">Acento premium, mismo uso que en la marca matriz: certificados de nivel, constancias, piezas de cierre de curso. Nunca como color dominante de un post o una plantilla de uso diario.</p>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#ffffff; border-bottom:1px solid var(--line);"></div>
+        <div class="swatch-body">
+          <h4>Blanco</h4>
+          <div class="swatch-codes"><span>#FFFFFF</span><span>RGB 255·255·255</span></div>
+          <p class="swatch-use">Reservado para fondos oscuros o fotográficos, igual que en el manual matriz.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub">Proporción de uso</h3>
+    <div class="ratio-bar">
+      <span style="background:#1E3A8A; flex:75;">Azul / blanco / neutros — 75%</span>
+      <span style="background:#2d4fa8; flex:18;">Azul secundario — 18%</span>
+      <span style="background:#C8A951; flex:7; color:#4a3a10;">Dorado — 7%</span>
+    </div>
+    <div class="ratio-legend">
+      <span><b>70–80%</b> azul / blanco / neutros</span>
+      <span><b>15–25%</b> azul secundario</span>
+      <span><b>5–10%</b> dorado — solo el acento</span>
+    </div>
+
+    <h3 class="sub">Sobre colores adicionales</h3>
+    <p style="max-width:70ch; color:var(--muted); margin-top:0;">El sistema educativo de CEINCA English (niveles, progreso, aciertos/errores en material de clase) podría tentar a introducir una paleta tipo "semáforo" por nivel — se descarta deliberadamente: para indicadores de nivel o progreso, se usan <strong>los neutros y funcionales ya existentes en CEINCA</strong> — gris (<code class="sans">#5b6270</code>), verde de confirmación (<code class="sans">#2f7a4f</code>) y el dorado como marca de logro — nunca una paleta arcoíris nueva. Esto evita que CEINCA English adquiera un lenguaje cromático propio que la aleje visualmente de CEINCA.</p>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">06</span> Tipografía y jerarquía</h2>
+    <p class="intro">Manrope, heredada sin cambios — misma familia, mismos pesos (400/600/700/800) que el manual matriz.</p>
+    <div class="spec-list">
+      <div class="spec-item"><h4>CEINCA (nombre)</h4><p>Manrope ExtraBold 800, mayúscula compacta — siempre el elemento de mayor peso visual del lockup.</p></div>
+      <div class="spec-item"><h4>ENGLISH (descriptor)</h4><p>Manrope Bold 700, versalitas, tracking amplio (~.32em) — mismo tratamiento que hoy recibe "MERCANTIL".</p></div>
+      <div class="spec-item"><h4>Títulos de sección</h4><p>Manrope Semibold 600 — igual que este manual y el manual matriz.</p></div>
+      <div class="spec-item"><h4>Cuerpo de texto</h4><p>Manrope Regular 400, interlineado 1.5–1.6 — nunca por debajo de 1.5 dentro de cajas de color.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">07</span> Versiones autorizadas</h2>
+    <p class="intro">El lockup de CEINCA English se construye siempre a partir del isotipo oficial (imagen, sin alterar) + el wordmark "CEINCA / ENGLISH" tipografiado. A continuación, las variantes autorizadas por contexto.</p>
+
+    <h3 class="sub">Avatar principal (redes sociales)</h3>
+    <div class="logo-grid">
+      <div class="logo-card">
+        <div class="logo-stage stage-navy">
+          <div class="badge-circle">
+            <div class="lockup-stack">
+              <svg class="iso-svg iso-blanco" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#FFFFFF" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
+              <div class="lockup-word on-white"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="logo-info">
+          <span class="tag tag-primary">Versión principal</span>
+          <h4>Avatar circular azul</h4>
+          <p>Foto de perfil de Instagram y WhatsApp Business de CEINCA English. Único uso pensado para recortarse en círculo, igual que en la marca matriz.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub">Logotipo completo — vertical (uso general)</h3>
+    <div class="logo-grid">
+      <div class="logo-card">
+        <div class="logo-stage stage-paper">
+          <div class="lockup-stack">
+            <svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
+            <div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
+          </div>
+        </div>
+        <div class="logo-info">
+          <span class="tag tag-alt">Fondos claros</span>
+          <h4>Azul sobre blanco</h4>
+          <p>Versión de uso diario: documentos, membretes, PDFs, portadas de presentación, cualquier fondo claro. Si hay que elegir una sola versión para papelería, es esta.</p>
+        </div>
+      </div>
+      <div class="logo-card">
+        <div class="logo-stage stage-paper">
+          <div class="lockup-stack">
+            <svg class="iso-svg iso-dorado" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#C8A951" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
+            <div class="lockup-word on-gold"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
+          </div>
+        </div>
+        <div class="logo-info">
+          <span class="tag tag-alt">Materiales premium</span>
+          <h4>Dorado sobre blanco</h4>
+          <p>Certificados de nivel, constancias, invitaciones a graduación de curso. No usar en tamaños pequeños ni en redes de uso diario — se reserva para "ocasión especial", igual que en el manual matriz.</p>
+        </div>
+      </div>
+      <div class="logo-card">
+        <div class="logo-stage stage-navy">
+          <div class="lockup-stack">
+            <svg class="iso-svg iso-blanco" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#FFFFFF" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
+            <div class="lockup-word on-white"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
+          </div>
+        </div>
+        <div class="logo-info">
+          <span class="tag tag-alt">Fondos oscuros</span>
+          <h4>Blanco sobre azul</h4>
+          <p>Fondos de video, diapositivas oscuras, fotografías con poca luz o cualquier color sólido oscuro que no sea el propio azul de marca.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub">Logotipo horizontal (membretes y espacios anchos)</h3>
+    <div class="logo-grid">
+      <div class="logo-card">
+        <div class="logo-stage stage-paper">
+          <div class="lockup-horizontal">
+            <svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
+            <div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
+          </div>
+        </div>
+        <div class="logo-info">
+          <span class="tag tag-alt">Membretes / banners anchos</span>
+          <h4>Versión horizontal</h4>
+          <p>Isotipo a la izquierda, wordmark alineado a la izquierda a la derecha. Para encabezados de documento, banners y espacios de proporción ancha donde el apilado vertical desperdicia espacio.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub">Versión vertical adicional</h3>
+    <p style="max-width:70ch; color:var(--muted); margin-top:0; font-size:.92rem;">No se define una tercera variante "vertical" distinta a la ya mostrada arriba (isotipo + wordmark apilados): el manual matriz tampoco distingue "vertical" de "logotipo completo" como piezas separadas. Introducir una versión adicional solo para tener más variantes sería una decisión estética, no funcional — se descarta por la misma regla de "usar siempre la más simple que siga siendo legible" del manual matriz.</p>
+
+    <h3 class="sub">Isotipo solo (archivos oficiales, sin modificar)</h3>
+    <div class="logo-grid">
+      <div class="logo-card">
+        <div class="logo-stage stage-paper"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg></div>
+        <div class="logo-info"><span class="tag tag-alt">Espacios reducidos</span><h4>Isotipo azul</h4><p>Favicon, ícono de app, marca de agua discreta. Idéntico al de CEINCA — el isotipo no se diferencia por división.</p></div>
+      </div>
+      <div class="logo-card">
+        <div class="logo-stage stage-paper"><svg class="iso-svg iso-dorado" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#C8A951" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg></div>
+        <div class="logo-info"><span class="tag tag-alt">Espacios reducidos</span><h4>Isotipo dorado</h4><p>Sello sobre certificado, marca de agua sobre pieza dorada — mismo archivo oficial del manual matriz.</p></div>
+      </div>
+      <div class="logo-card">
+        <div class="logo-stage stage-navy"><svg class="iso-svg iso-blanco" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#FFFFFF" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg></div>
+        <div class="logo-info"><span class="tag tag-alt">Espacios reducidos</span><h4>Isotipo blanco</h4><p>Marca de agua esquinera sobre video o fondo oscuro — mismo archivo oficial del manual matriz.</p></div>
+      </div>
+    </div>
+
+    <h3 class="sub">Ícono para espacios mínimos (favicon)</h3>
+    <div class="logo-grid">
+      <div class="logo-card">
+        <div class="logo-stage stage-paper" style="padding:36px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" style="width:110px;">
+            <path d="M228.11,448.86 C190.79,444.96 151.79,428.33 122.50,403.83 C99.63,384.70 83.52,364.19 70.43,337.50 C35.94,267.22 46.07,182.49 96.15,122.50 C170.93,32.92 304.30,25.39 388.35,105.99 C450.39,165.48 467.48,258.07 430.69,335.31 C403.61,392.14 351.26,433.40 291.00,445.40 C269.39,449.71 247.67,450.90 228.11,448.86 Z" fill="#1E3A8A" fill-rule="evenodd"/>
+            <g transform="translate(120.84,111.29) scale(1.5920)">
+            <path d="M14.52,157.04 C16.83,146.11 24.14,137.49 36.05,131.65 C44.99,127.27 54.68,124.71 70.62,122.51 C92.56,119.49 105.02,116.08 118.11,109.51 C130.08,103.51 135.81,98.86 142.72,89.54 C146.43,84.55 147.03,84.07 146.47,86.54 C143.99,97.56 131.06,112.64 118.50,119.19 C104.50,126.49 94.49,129.32 71.62,132.48 C43.24,136.41 27.35,143.29 17.33,156.00 L13.78,160.50 L14.52,157.04 Z M28.00,72.04 L28.00,18.15 L30.63,16.07 C33.17,14.08 34.42,14.00 64.40,14.00 L95.53,14.00 L109.76,28.26 L124.00,42.53 L124.00,70.69 L124.00,98.86 L121.00,101.00 L118.00,103.14 L118.00,75.57 L118.00,48.00 L106.95,48.00 C96.56,48.00 95.76,47.86 93.45,45.55 C90.88,42.97 90.77,42.56 90.55,34.50 C90.48,31.75 90.32,27.36 90.21,24.75 L90.00,20.00 L62.00,20.00 L34.00,20.00 L34.00,70.81 C34.00,123.86 34.00,123.85 29.75,125.33 C28.10,125.90 28.00,122.94 28.00,72.04 Z M114.00,41.73 C114.00,41.58 110.17,37.65 105.50,33.00 L97.00,24.54 L97.00,33.27 L97.00,42.00 L105.50,42.00 C110.17,42.00 114.00,41.88 114.00,41.73 Z" fill="#FFFFFF" fill-rule="evenodd"/>
+            </g>
+          </svg>
+        </div>
+        <div class="logo-info"><span class="tag tag-alt">16—64px</span><h4>Favicon azul</h4><p>Idéntico al favicon de CEINCA — sin wordmark, mismo archivo SVG oficial. El favicon no lleva descriptor de división: es el elemento raíz compartido por todo el ecosistema CEINCA.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">08</span> Área de protección y tamaño mínimo</h2>
+    <p class="intro">Se heredan exactamente las reglas del manual matriz: ni el isotipo ni la proporción tipográfica del wordmark cambian — solo cambia la palabra del descriptor.</p>
+    <div class="clearspace-demo">
+      <div class="clearspace-box">
+        <div class="lockup-stack">
+          <svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg>
+          <div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="spec-list">
+      <div class="spec-item"><h4>Área de protección</h4><p>Margen mínimo en los cuatro lados equivalente a la altura de la "C" de "CEINCA" — ningún texto o elemento gráfico puede invadirlo.</p></div>
+      <div class="spec-item"><h4>Tamaño mínimo — digital</h4><p>Lockup completo: 32px de alto. Isotipo solo: 24px. Por debajo, usar solo isotipo o, si no cabe, omitir el logo antes que deformarlo.</p></div>
+      <div class="spec-item"><h4>Tamaño mínimo — impreso</h4><p>Lockup completo: 12mm de alto en papelería tamaño carta.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">09</span> Uso sobre distintos fondos</h2>
+    <div class="spec-list">
+      <div class="spec-item"><h4>Fondo blanco / claro</h4><p>Versión azul sobre blanco (sección 07). Es el default para el 90% de las piezas: documentos, plantillas de redes con fondo claro, papelería.</p></div>
+      <div class="spec-item"><h4>Fondo azul CEINCA</h4><p>Nunca la versión azul sobre azul — usar siempre blanco sobre azul. El azul de marca no es "un fondo más": es el color del propio logo.</p></div>
+      <div class="spec-item"><h4>Fondos fotográficos</h4><p>Versión blanca, con suficiente contraste (evitar zonas claras de la foto detrás del isotipo). Si la foto no da contraste parejo, agregar una placa/overlay azul semitransparente detrás del lockup antes que forzarlo sobre la imagen.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">10</span> Usos incorrectos</h2>
+    <p class="intro">Los mismos errores que prohíbe el manual matriz, más uno propio de la arquitectura de submarca: separar "ENGLISH" de su ancla "CEINCA".</p>
+    <div class="dont-grid">
+      <div class="dont-card ok">
+        <div class="dont-stage">
+          <div class="lockup-stack"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
+        </div>
+        <div class="dont-label"><span class="mark">✓</span><span>Proporción original, sobre fondo de suficiente contraste, "ENGLISH" siempre junto a "CEINCA".</span></div>
+      </div>
+      <div class="dont-card stretch">
+        <div class="dont-stage">
+          <div class="lockup-stack"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
+        </div>
+        <div class="dont-label"><span class="mark">✕</span><span>No estirar ni comprimir el lockup en un solo eje.</span></div>
+      </div>
+      <div class="dont-card wrongcolor">
+        <div class="dont-stage">
+          <div class="lockup-stack"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
+        </div>
+        <div class="dont-label"><span class="mark">✕</span><span>No recolorear fuera de azul, dorado o blanco.</span></div>
+      </div>
+      <div class="dont-card">
+        <div class="dont-stage lowcontrast">
+          <div class="lockup-stack"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg><div class="lockup-word on-white"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
+        </div>
+        <div class="dont-label"><span class="mark">✕</span><span>No usar la versión azul sobre fondo azul o de contraste insuficiente.</span></div>
+      </div>
+      <div class="dont-card effects">
+        <div class="dont-stage">
+          <div class="lockup-stack"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
+        </div>
+        <div class="dont-label"><span class="mark">✕</span><span>No añadir sombras, brillos ni contornos — el logo va plano.</span></div>
+      </div>
+      <div class="dont-card orphan">
+        <div class="dont-stage">
+          <div class="lockup-stack"><svg class="iso-svg iso-azul" viewBox="0 0 161 167" aria-hidden="true"><g transform="translate(0,167) scale(0.1,-0.1)" fill="#1E3A8A" stroke="none"><path d="M303 1506 l-28 -24 -3 -524 c-1 -287 0 -528 2 -535 4 -9 13 -10 36
+-2 l30 11 0 519 0 519 279 0 279 0 4 -116 3 -116 28 -24 28 -24 110 0 109 0 0
+-276 0 -275 30 21 30 21 0 282 0 282 -143 143 -142 142 -312 0 -312 0 -28 -24z
+m766 -254 c-40 -2 -78 -1 -86 2 -9 4 -13 28 -13 88 l0 83 85 -85 86 -85 -72
+-3z"/>
+<path d="M1421 768 c-59 -80 -135 -139 -256 -198 -117 -57 -237 -90 -436 -120
+-261 -39 -390 -85 -485 -172 -45 -42 -87 -117 -99 -178 l-7 -35 33 42 c112
+138 287 209 619 248 287 35 517 158 625 335 28 46 60 130 52 136 -1 0 -22 -26
+-46 -58z"/></g></svg><div class="lockup-word on-blue"><span class="ceinca">CEINCA</span><span class="english">ENGLISH</span></div></div>
+        </div>
+        <div class="dont-label"><span class="mark">✕</span><span>No aislar "ENGLISH" quitando peso o presencia a "CEINCA" — el descriptor nunca sustituye al nombre matriz.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">11</span> Ubicación — El Piñal, Táchira</h2>
+    <p class="intro">La sede es información de contexto, no un elemento permanente del lockup. Se trata igual que el manejo de "MERCANTIL" en el manual matriz: aparece cuando aporta, se omite cuando solo añade ruido.</p>
+    <div class="spec-list">
+      <div class="spec-item"><h4>Aparece</h4><p>Señalización física de la sede, papelería con dirección, pie de certificados, primera diapositiva de presentaciones institucionales dirigidas a la sede de El Piñal.</p></div>
+      <div class="spec-item"><h4>Se omite</h4><p>Avatar de redes, favicon, contenido genérico de feed (posts, historias, Reels) y cualquier pieza que deba funcionar igual de bien si CEINCA English abre una segunda sede en el futuro.</p></div>
+      <div class="spec-item"><h4>Formato</h4><p>Cuando aparece, se escribe <strong>EL PIÑAL — TÁCHIRA</strong>, en versalitas, subordinada tipográficamente al lockup — nunca del mismo tamaño que "CEINCA".</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">12</span> Tagline</h2>
+    <p class="intro">Un tagline es opcional, no obligatorio — se evalúa aquí porque el brief lo pide, pero su uso queda limitado a piezas de portada/hero (nunca junto al lockup en el avatar ni en el favicon). Las 5 alternativas evitan la fórmula genérica "Learn English": todas anclan el idioma a una consecuencia (oportunidad, avance, apertura), consistente con la personalidad definida en la sección 03.</p>
+    <div class="tagline-grid">
+      <div class="tagline-card recommended">
+        <div><div class="txt">"El inglés que abre puertas."</div><div class="why">Recomendado — ancla el idioma a la idea de oportunidad sin ser abstracto; corto, se lee bien apilado bajo el lockup y en un renglón de caption.</div></div>
+        <span class="tag tag-primary">Recomendada</span>
+      </div>
+      <div class="tagline-card"><div><div class="txt">"Inglés que impulsa tu carrera."</div><div class="why">Más directo al público adulto/profesional — funciona mejor en piezas B2B o de formación corporativa que en piezas generales.</div></div></div>
+      <div class="tagline-card"><div><div class="txt">"Formación en inglés, con el respaldo CEINCA."</div><div class="why">Refuerza la arquitectura de marca explícitamente — útil solo en piezas de lanzamiento, demasiado larga para uso recurrente.</div></div></div>
+      <div class="tagline-card"><div><div class="txt">"Aprende. Certifica. Avanza."</div><div class="why">Ritmo de tres tiempos coherente con el "checklist" visual de CEINCA, pero suena más a proceso que a promesa.</div></div></div>
+      <div class="tagline-card"><div><div class="txt">"Tu llave a más oportunidades."</div><div class="why">Metáfora válida, pero "llave" ya no referencia directamente al idioma — requiere más contexto alrededor para que se entienda.</div></div></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">13</span> Sistema gráfico complementario e iconografía<span class="pending">Pendiente de definición</span></h2>
+    <p class="intro">No existe todavía un set de iconos propio de CEINCA English — no se inventa uno en este manual. Se documenta la única regla dura, para que quien lo diseñe no rompa el sistema: si se necesita iconografía de apoyo (niveles, materias, tipos de clase), debe construirse en <strong>trazo monolínea simple</strong>, coherente con el trazo del isotipo (documento + firma) — nunca íconos rellenos, ilustrativos o con degradado, y nunca los clichés listados en la sección 03.</p>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">14</span> Aplicaciones</h2>
+    <div class="channel">
+      <h4>Papelería básica</h4>
+      <p>Membrete con logotipo horizontal azul (sección 07) en la cabecera; pie con wordmark solo + "EL PIÑAL — TÁCHIRA" cuando la pieza lo justifique (sección 11).</p>
+    </div>
+    <div class="channel">
+      <h4>Certificados</h4>
+      <p>Versión dorada del lockup (sección 07) como elemento de cierre — refleja exactamente el uso que el manual matriz reserva para "materiales de mayor formalidad o valor percibido". El nombre del alumno y el nivel cursado llevan la jerarquía tipográfica de la sección 06; el dorado se limita al lockup, una línea divisoria y el sello — nunca al fondo completo del certificado.</p>
+    </div>
+    <div class="channel">
+      <h4>Material académico y presentaciones</h4>
+      <p>Portada con lockup azul o blanco según fondo (sección 09); interior con la misma jerarquía tipográfica de este manual (Manrope, 3 niveles máximo por página) para mantener consistencia entre el material de CEINCA English y cualquier otro documento CEINCA.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">15</span> Redes sociales y WhatsApp</h2>
+    <div class="channel">
+      <h4>Instagram <span class="pending">Handle pendiente de definición</span></h4>
+      <p>Avatar: círculo azul (sección 07). Dentro de posts, carruseles e historias: lockup azul sobre fondo claro o blanco sobre foto — nunca el avatar circular completo pegado dentro de otra pieza, igual que en la marca matriz.</p>
+    </div>
+    <div class="channel">
+      <h4>WhatsApp Business <span class="pending">Número pendiente de definición</span></h4>
+      <p>Foto de perfil: avatar circular. Mensaje de bienvenida y catálogo pueden usar el logotipo horizontal en la cabecera si el formato lo permite.</p>
+    </div>
+    <div class="channel">
+      <h4>Feed de @ceinca.mercantil</h4>
+      <p>Puede anunciar o mencionar CEINCA English como línea de negocio, usando su propio lockup — nunca el wordmark "MERCANTIL" para referirse a la división de inglés, y viceversa (ver sección 19, reglas de convivencia).</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">16</span> Identificación institucional y señalización de sede</h2>
+    <div class="spec-list">
+      <div class="spec-item"><h4>Uniformes <span class="pending">Pendiente</span></h4><p>No hay información sobre si el equipo de El Piñal usa uniforme — no se define un sistema de identificación textil en este manual.</p></div>
+      <div class="spec-item"><h4>Credenciales <span class="pending">Pendiente</span></h4><p>No se especifica formato de credencial institucional (foto, cargo, código) — pendiente de que el equipo de CEINCA English aporte esos datos.</p></div>
+      <div class="spec-item"><h4>Señalización de la sede</h4><p>Definida: fachada y rótulo interior usan el logotipo horizontal azul (o blanco si el fondo del rótulo es oscuro/metálico) + "EL PIÑAL — TÁCHIRA" en versalitas subordinadas, siguiendo la regla de la sección 11.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">17</span> Publicidad digital</h2>
+    <p class="intro">Misma proporción cromática de la sección 05 (70–80% azul/blanco, 15–25% azul secundario, 5–10% dorado). El dorado se reserva para un CTA o cifra destacada — no para fondos de anuncio. Sin clichés de academia de idiomas (sección 03), incluso bajo presión de "vender más rápido".</p>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">18</span> Mockups conceptuales</h2>
+    <p class="intro">Descripciones de aplicación, no fotografías — CEINCA English decide la ejecución final de cada pieza sobre esta base.</p>
+    <div class="mockup-grid">
+      <div class="mockup-card"><h4>Fachada de la sede</h4><p>Logotipo horizontal azul sobre fondo claro del rótulo, o blanco si el rótulo es oscuro, + ubicación en versalitas debajo.</p></div>
+      <div class="mockup-card"><h4>Uniforme<span class="pending">Pendiente</span></h4><p>Sin dato de prenda/uso — de aplicarse, isotipo solo (sección 07) bordado o estampado, nunca el lockup completo en superficie pequeña.</p></div>
+      <div class="mockup-card"><h4>Certificado</h4><p>Ver sección 14 — lockup dorado como cierre, nombre y nivel en jerarquía tipográfica estándar.</p></div>
+      <div class="mockup-card"><h4>Carpeta académica</h4><p>Lockup azul centrado en portada, fondo blanco o crema (<code class="sans">--paper</code>), sin ilustración adicional.</p></div>
+      <div class="mockup-card"><h4>Publicación de Instagram</h4><p>Lockup azul en esquina o pie de la pieza — nunca como elemento central de la composición (sección 01: "el logo firma, no protagoniza").</p></div>
+      <div class="mockup-card"><h4>Historia de Instagram</h4><p>Isotipo solo, discreto, esquina superior o inferior — mismo criterio que el manejo de TikTok en el manual matriz (sección 08 del manual matriz).</p></div>
+      <div class="mockup-card"><h4>Perfil de WhatsApp Business<span class="pending">Datos de contacto pendientes</span></h4><p>Avatar circular (sección 07); descripción de negocio redactada por el equipo de CEINCA English.</p></div>
+      <div class="mockup-card"><h4>Presentación institucional</h4><p>Portada con lockup azul o blanco, jerarquía tipográfica de la sección 06 en el resto de diapositivas.</p></div>
+      <div class="mockup-card"><h4>Material de clase</h4><p>Isotipo o wordmark solo en pie de página — el lockup completo compite con contenido pedagógico si se usa en cada hoja de trabajo.</p></div>
+      <div class="mockup-card"><h4>Credencial<span class="pending">Formato pendiente</span></h4><p>Sin dato de formato — de definirse, isotipo azul + wordmark, franja de color según jerarquía interna que CEINCA English determine.</p></div>
+      <div class="mockup-card"><h4>Banner exterior</h4><p>Logotipo horizontal, alto contraste, tamaño mínimo calculado según distancia de lectura — nunca por debajo de la proporción de la sección 08 extrapolada al formato.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">19</span> Reglas de convivencia CEINCA ↔ CEINCA English</h2>
+    <ul class="checklist">
+      <li>El isotipo raíz (documento + firma) es compartido y constante entre CEINCA y CEINCA English — es el elemento de reconocimiento inmediato de todo el ecosistema.</li>
+      <li>Ninguna pieza de CEINCA English usa el wordmark "MERCANTIL", y ninguna pieza de CEINCA MERCANTIL usa "ENGLISH" — cada descriptor identifica exclusivamente a su división.</li>
+      <li>Toda pieza de CEINCA English incluye, como mínimo, el isotipo o el wordmark "CEINCA" — nunca "English" aislado sin su ancla (sección 10).</li>
+      <li>La cuenta principal de CEINCA (@ceinca.mercantil) puede mencionar o promocionar CEINCA English como línea de negocio; CEINCA English, a su vez, puede referenciar a CEINCA como su casa matriz — siempre con lockups propios y correctos, nunca mezclando wordmarks en una sola pieza.</li>
+      <li>Ambas divisiones comparten paleta, tipografía y reglas de proporción del dorado sin excepción — ninguna división "actualiza" el sistema visual por su cuenta.</li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">20</span> Sistema de submarcas escalable</h2>
+    <p class="intro">La regla que sigue permite que CEINCA incorpore futuras divisiones sin romper el sistema — no se desarrollan esas divisiones aquí, solo la regla que las haría válidas.</p>
+    <ul class="checklist">
+      <li>Toda división nueva reutiliza el isotipo oficial sin alteración — nunca un símbolo propio.</li>
+      <li>El nombre de cada división se compone como wordmark tipografiado (Manrope, mismo tratamiento CEINCA fuerte / descriptor liviano tracked) — nunca como una pieza gráfica diseñada aparte.</li>
+      <li>Ninguna división introduce colores de marca nuevos — la paleta azul/dorado es única y compartida por todo el ecosistema CEINCA.</li>
+      <li>El avatar circular de cada división sigue la misma construcción (círculo azul sólido + isotipo blanco + wordmark blanco) — solo cambia el texto.</li>
+      <li>Toda pieza de cualquier división incluye el ancla "CEINCA" — ninguna división se presenta de forma aislada.</li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">21</span> CEINCA English + Inteligencia Artificial</h2>
+    <p class="intro">Extiende, sin excepción, el protocolo de IA del manual matriz (su sección 07) al lockup de CEINCA English.</p>
+    <ul class="checklist">
+      <li>Nunca pedirle a una IA de imágenes que "regenere", "recree" o "dibuje de nuevo" el isotipo — tampoco para producir una versión "English" del símbolo.</li>
+      <li>El wordmark "CEINCA / ENGLISH" se compone siempre como texto real (HTML/CSS, editor de diseño, tipografía viva) — nunca como una imagen generada por IA que imite letras.</li>
+      <li>Usar únicamente los archivos oficiales de <code class="sans">Logos/</code> / <code class="sans">Logos/logos svg/</code> para el isotipo — nunca una captura, una reconstrucción aproximada o una versión exportada de otra pieza.</li>
+      <li>Una IA puede diseñar <em>alrededor</em> del lockup (fondos, layouts, ilustraciones de apoyo que respeten la sección 13) — nunca <em>el isotipo en sí</em>.</li>
+      <li>Si una pieza generada por IA necesita el lockup y el archivo oficial no se puede insertar directamente (video, 3D, animación), se pausa y se resuelve manualmente.</li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <h2><span class="num">22</span> Checklist rápido antes de publicar</h2>
+    <ul class="checklist">
+      <li>¿Incluye la pieza el ancla "CEINCA" — nunca "English" aislado?</li>
+      <li>¿Es la versión de lockup pensada para este fondo (claro / oscuro / foto)?</li>
+      <li>¿El isotipo viene del archivo oficial, sin alterar ni recrear con IA?</li>
+      <li>¿El wordmark "ENGLISH" está compuesto como texto real, no como imagen generada?</li>
+      <li>¿Respeta el área de protección y el tamaño mínimo (sección 08)?</li>
+      <li>¿Los colores son exactamente azul, dorado o blanco — sin filtros ni efectos?</li>
+      <li>Si el dorado aparece, ¿está marcando algo de verdad importante (certificado, cierre de nivel) y no solo decorando?</li>
+      <li>Si aparece "EL PIÑAL — TÁCHIRA", ¿es una pieza donde la ubicación aporta (sección 11)?</li>
+      <li>¿Se evitaron los clichés de academia de idiomas (banderas, Big Ben, globos, mapas, aviones)?</li>
+      <li>Si es un documento institucional o de sede: ¿usé el logotipo horizontal/vertical azul y no el avatar circular?</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  Manual de Identidad Visual — CEINCA English · v1.0 (2026-08-29) · Extensión del Manual de Identidad Visual — CEINCA v1.1 — no lo reemplaza; ante cualquier conflicto de interpretación, prevalece el manual matriz · Isotipo oficial reutilizado sin alteración desde los archivos maestros de CEINCA · Uso interno del equipo de CEINCA English — El Piñal, Táchira
+</footer>
+
+</body>
+</html>
