@@ -125,7 +125,7 @@ Para TODA solicitud de contenido/marketing, entrega estos tres bloques:
 [PROPUESTA ESTRATÉGICA / COPIES / SCRIPTS]
 - Framework aplicado: NEAPS+AIDA / ACTÚA™ / Híbrido / BOFU Script
 - Instrucción visual (si aplica): posts/carruseles en 3:4 (1080×1440px) · Reels en 9:16 · cortes cada 2-3s · subtítulos fijos Bold centrados
-- Paleta: #0B1D3A (fondo) — Dorado (CTB/logo cierre) — Blanco (tipografía)
+- Paleta: #122A63 (fondo) — Dorado (CTB/logo cierre) — Blanco (tipografía)
 - Entregable completo formateado y listo para copy-paste
 
 [CONTROL DE CALIDAD IA]
@@ -192,7 +192,7 @@ Consulta `references/frameworks.md` para la implementación completa.
 
 ## LINEAMIENTOS VISUALES
 
-- **Colores oficiales:** Azul Profundo `#0B1D3A` · Dorado Premium · Blanco `#FFFFFF`
+- **Colores oficiales:** Azul Profundo `#122A63` · Dorado Premium · Blanco `#FFFFFF`
 - **Tipografía:** Bold centrada para subtítulos en Reels; Montserrat ExtraBold para títulos
 - **Formato Reel:** 9:16 · Cortes dinámicos cada 2-3 segundos · Subtítulos fijos centrados
 - **Formato Post/Carrusel:** 1080×1440px (3:4) · 108px márgenes de seguridad
@@ -216,7 +216,9 @@ Al activar este skill, **lee inmediatamente** `references/frameworks.md` para ca
 
 ## MODO PRODUCCIÓN AUDIOVISUAL (FLOW + META EDITS)
 
-Activar cuando el usuario pida: Reel, video, escenas para Flow, script de video, avatar IA, producción cinematográfica, prompts para Google Flow.
+Activar cuando el usuario pida: Reel, video, escenas para Flow, script de video, avatar IA, producción cinematográfica, prompts para Google Flow, o un avatar de marca/producto (Ingredients-a-Video).
+
+**Antes de generar cualquier prompt, leer `references/frameworks.md` → Módulo 8** — ahí están las fuentes de verdad completas (metodología v1.1, stack/b-rolls en `FLOW_REELS.md`, y el protocolo de avatar+producto en `GUIA_PROMPTS_FLOW_UGC.md`). Este modo no repite esas reglas para no volver a desincronizarse de la fuente — solo define el formato de salida.
 
 **Estructura de salida obligatoria:**
 
@@ -229,7 +231,8 @@ Activar cuando el usuario pida: Reel, video, escenas para Flow, script de video,
 [PAQUETE DE ESCENAS]
 Para cada escena:
   ESCENA N — TIPO (Xs)
-  PROMPT FLOW: [prompt completo listo para pegar]
+  PROMPT FLOW: [un solo párrafo cinematográfico fusionado — nunca una lista
+                de campos etiquetados; ver v1.1 §4bis]
   APERTURA: [estado visual desde cierre anterior]
   CIERRE: [cómo termina — qué ve la escena siguiente]
 
@@ -237,13 +240,8 @@ Para cada escena:
 - Subtítulos, música, transiciones, export
 ```
 
-**Reglas inmutables:**
-- Máximo 6s / 8s / 10s por escena (límite técnico Flow + Omni)
-- Escena 2 en adelante SIEMPRE inicia desde el cierre de la escena anterior
-- NUNCA usar continuidad entre escenas en los prompts
-- Estética hiperrealista — nunca aspecto IA generado
-- B-rolls de pantalla Gemini/documentos para no depender solo del avatar hablando
-- Color CEINCA en motion graphics: Navy #0B1D3A + Dorado #C8A951 + Blanco
+**Duración por escena:** 6s / 8s / 10s (tabla v1.1 §5; 4s solo como extrapolación excepcional, ver `FLOW_REELS.md`).
 
 Consultar `references/frameworks.md` → **Módulo 8** para plantillas completas,
-biblioteca de B-rolls, cierres/aperturas y ejemplo GEM LOPNNA.
+biblioteca de B-rolls, cierres/aperturas, ejemplo GEM LOPNNA y el protocolo de
+avatar de marca + producto (`GUIA_PROMPTS_FLOW_UGC.md`).

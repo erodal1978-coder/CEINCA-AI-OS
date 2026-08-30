@@ -1,0 +1,47 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node / frontend
+node_modules/
+.next/
+dist/
+build/
+coverage/
+
+# ...pero las carpetas build/ de CLIENTS/ son recetas de montaje
+# (scripts fuente), no salidas de compilación.
+!CLIENTS/**/build/
+!CLIENTS/**/build/**
+
+# Video, audio and render outputs
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.webm
+*.wav
+*.mp3
+*.aac
+*.m4a
+*.flac
+/renders/
+/exports/
+/output/
+/tmp/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Portadas/covers de vídeo — el resto de formatos ya cae en la regla global de arriba
+*_portada.jpg

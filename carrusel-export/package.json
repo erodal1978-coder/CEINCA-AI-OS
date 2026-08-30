@@ -1,0 +1,13 @@
+{
+  "name": "carrusel-export",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Export standalone (Node + Playwright) del sistema de carruseles CEINCA a PNG. Aislado de ig-viral-tracker/.",
+  "type": "module",
+  "scripts": {
+    "render": "node src/render.js"
+  },
+  "dependencies": {
+    "playwright": "^1.62.0"
+  }
+}

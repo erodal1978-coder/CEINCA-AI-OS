@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "tool == \"Bash\" && tool_input.command matches \"(npm run dev|pnpm( run)? dev|yarn dev|bun run dev)\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"console.error('[Hook] BLOCKED: run development servers inside tmux for persistent logs.'); console.error('[Hook] Example: tmux new-session -d -s dev \\\"npm run dev\\\"'); process.exit(1)\""
+          }
+        ],
+        "description": "Keep long-running development servers in tmux"
+      },
+      {
+        "matcher": "tool == \"Bash\" && tool_input.command matches \"git push\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"console.error('[Hook] Review git diff and status before pushing.'); console.log('')\""
+          }
+        ],
+        "description": "Reminder before pushing changes"
+      }
+    ]
+  }
+}
