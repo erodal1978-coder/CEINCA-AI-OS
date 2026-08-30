@@ -284,8 +284,13 @@ tercera copia sincronizada a mano:
 - **Avatar de marca/producto genérico (no el avatar-abogado) vía Ingredients-a-Video:**
   `PRODUCTION/GUIA_PROMPTS_FLOW_UGC.md` — complementario, no fuente de verdad;
   sigue las mismas reglas NO NEGOCIABLES de v1.1 §4 sin excepciones.
+- **Dirección visual/cinematográfica avanzada, idioma/voz, continuidad multi-escena
+  (character/location/style/audio/brand bible), microeventos y checklist de
+  Director:** `PRODUCTION/FLOW_GUIA_DIRECCION_AVANZADA.md` — complementario, no
+  fuente de verdad; su plantilla de campos (sección 36) es solo un andamiaje de
+  checklist, nunca se entrega como campos separados al modelo (regla v1.1 §4.9).
 
-Leer los tres antes de generar cualquier prompt de escena para Flow — especialmente
+Leer los cuatro antes de generar cualquier prompt de escena para Flow — especialmente
 las reglas NO NEGOCIABLES de v1.1 §4 (nunca nombre propio del sujeto —ni real ni
 ficticio—, nunca "hiperrealismo"/"fotorrealista" en el prompt — ambas validadas
 por un rechazo real de política de Flow en producción).
