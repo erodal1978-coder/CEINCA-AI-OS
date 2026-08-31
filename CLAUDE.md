@@ -24,7 +24,8 @@
 * `CLIENTS/` — Carpetas por cliente con auditorías, contenido generado y seguimiento.
 * `PRODUCTION/` — Sistemas y workflows de producción audiovisual y contenido.
 * `carrusel-export/` — Motor de exportación programática de carruseles.
-* `video-export/` — Base del motor de composición de vídeo con Remotion.
+* `video-export/` — Base del motor de composición de vídeo con Remotion (scaffold genérico, sin contenido propio todavía).
+* `PRODUCTION/lexia-launch-video/` — Proyecto Remotion real (rescatado 30-08-2026) del reel vertical de lanzamiento de LEXIA™ (42s, 9:16, guion NEAPS, 5 escenas). Deliverable de campaña, no motor genérico — para eso sigue siendo `video-export/`.
 * `media-mvp/` — Prototipo mínimo de análisis audiovisual (ffprobe + whisper + detección de silencios).
 * `WEBKIT/` — Claude Web Builder (Hainrixz/claude-webkit, vendorizado): genera landing pages para clientes (Next.js + Tailwind + shadcn/ui). Es un proyecto autocontenido con su propio `CLAUDE.md` y 18 skills en `.claude/skills/` — entra con `cd WEBKIT && claude` para activar el flujo guiado de 6 fases (cuestionario → deploy). No mezcles su rol de "web builder" con el rol CEINCA de este archivo raíz.
 
