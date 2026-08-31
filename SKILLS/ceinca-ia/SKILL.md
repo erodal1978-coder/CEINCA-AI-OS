@@ -218,7 +218,7 @@ Al activar este skill, **lee inmediatamente** `references/frameworks.md` para ca
 
 Activar cuando el usuario pida: Reel, video, escenas para Flow, script de video, avatar IA, producción cinematográfica, prompts para Google Flow, o un avatar de marca/producto (Ingredients-a-Video).
 
-**Antes de generar cualquier prompt, leer `references/frameworks.md` → Módulo 8** — ahí están las fuentes de verdad completas (metodología v1.1, stack/b-rolls en `FLOW_REELS.md`, y el protocolo de avatar+producto en `GUIA_PROMPTS_FLOW_UGC.md`). Este modo no repite esas reglas para no volver a desincronizarse de la fuente — solo define el formato de salida.
+**Antes de generar cualquier prompt, leer `references/frameworks.md` → Módulo 8** — ahí están las fuentes de verdad completas (metodología v1.1, stack/b-rolls en `FLOW_REELS.md`, el protocolo de avatar+producto en `GUIA_PROMPTS_FLOW_UGC.md`, y la dirección visual/cinematográfica avanzada en `FLOW_GUIA_DIRECCION_AVANZADA.md`). Este modo no repite esas reglas para no volver a desincronizarse de la fuente — solo define el formato de salida.
 
 **Estructura de salida obligatoria:**
 
