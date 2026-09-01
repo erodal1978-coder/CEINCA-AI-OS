@@ -77,3 +77,38 @@ def build_phase_windows(duration_s):
         windows.append({"phase": phase, "start_s": round(cursor, 3), "end_s": end})
         cursor = end
     return windows
+
+
+STOPWORDS_ES = {
+    "el", "la", "los", "las", "un", "una", "unos", "unas", "de", "del", "al",
+    "a", "en", "y", "o", "que", "con", "por", "para", "es", "son", "tu",
+    "su", "sus", "lo", "se", "no", "si", "ya", "te", "le", "les", "este",
+    "esta", "estos", "estas", "como", "más", "mas", "muy", "pero", "porque",
+    "cuando", "donde", "desde", "hasta", "sobre", "sin", "entre", "hay",
+    "fue", "ser", "estar", "tener", "hacer", "puede", "puedes", "todo",
+    "toda", "todos", "todas", "nos", "les",
+}
+
+# Keyword de respaldo por fase cuando el tramo no tiene texto de locución
+# propio (ej. cae en un hueco de silencio de la transcripción).
+PHASE_GENERIC_KEYWORD = {
+    "hook": "persona sorprendida mirando celular",
+    "problema": "persona preocupada revisando documentos",
+    "autoridad": "oficina profesional escritorio computadora",
+    "solucion": "manos escribiendo en laptop tramite digital",
+    "prueba_social": "persona sonriendo satisfecha documento en mano",
+    "cierre": "persona hablando a camara cierre",
+}
+
+RE_WORD = re.compile(r"[a-záéíóúñü]+")
+
+
+def generate_broll_keyword(subtitle_text, phase, max_words=6):
+    """Genera un keyword de búsqueda de B-roll a partir de las palabras de
+    contenido (no vacías) del subtítulo del plano. Si no hay texto de
+    locución para ese plano, cae al keyword genérico de la fase."""
+    words = RE_WORD.findall(subtitle_text.lower())
+    content_words = [w for w in words if len(w) > 3 and w not in STOPWORDS_ES]
+    if not content_words:
+        return PHASE_GENERIC_KEYWORD[phase]
+    return " ".join(content_words[:max_words])

@@ -66,11 +66,25 @@ def test_build_phase_windows_proportions_sum_to_one():
     assert abs(sum(edl.PHASE_PROPORTIONS.values()) - 1.0) < 1e-9
 
 
+def test_generate_broll_keyword_strips_stopwords():
+    kw = edl.generate_broll_keyword("el usuario entra al portal del SAREN", "solucion")
+    assert "usuario" in kw
+    assert "portal" in kw
+    assert f" el " not in f" {kw} "
+
+
+def test_generate_broll_keyword_falls_back_to_phase_generic():
+    kw = edl.generate_broll_keyword("", "cierre")
+    assert kw == edl.PHASE_GENERIC_KEYWORD["cierre"]
+
+
 TESTS = [
     test_parse_srt_segments_basic,
     test_parse_srt_segments_ignores_blank_blocks,
     test_build_phase_windows_covers_full_duration_in_order,
     test_build_phase_windows_proportions_sum_to_one,
+    test_generate_broll_keyword_strips_stopwords,
+    test_generate_broll_keyword_falls_back_to_phase_generic,
 ]
 
 
