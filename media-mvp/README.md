@@ -192,3 +192,28 @@ reales.
 - La primera vez que se usa un modelo de whisper, este se descarga
   (requiere red) — no es un error si la primera corrida tarda más.
 - Todo lo generado en runtime vive en `output/`, gitignored localmente.
+
+## Video Editor MVP (plan_video.py / process_video.py)
+
+Este módulo implementa un pipeline de edición de video de dos fases:
+
+**Fase 1: Director (`plan_video.py`)**
+Se invoca con:
+`python3 plan_video.py <narracion_real> <project_name> --brief "<brief_text>" --output-dir <output_dir>`
+
+Analiza el clip de narración usando `analyze.py` (Whisper/ffprobe) y construye un EDL borrador basado en la estructura NEAPS (hook, problema, solucion, etc.). Sugiere planos B-roll y asigna duraciones algorítmicamente. Escribe el resultado en `plan.json` y una representación legible en `plan.md`.
+
+**Aprobación mediada por Claude (Paso manual)**
+El usuario interactúa con Claude revisando `plan.md`. Tras debatir, construyen el `approved_plan.json` donde se asignan las decisiones finales para cada plano (`"source_decision": "agent_searches" | "user_provides"` y sus rutas). 
+
+**Fase 2: Ensamblador (`process_video.py`)**
+Se invoca con:
+`python3 process_video.py <approved_plan.json>`
+
+1. **Workers**: Descarga B-roll de Pexels/Pixabay para los planos marcados como `agent_searches` o usa el video proveído localmente.
+2. **Ensamblador (ffmpeg)**: Recorta cada plano a la duración requerida, encadena todo en un video base, quema los subtítulos (`captions.srt`), agrega textos complementarios, mezcla el audio original con música de fondo (si se provee) y ajusta los volúmenes.
+3. **QC Automático**: Evalúa la duración, resolución, si contiene audio y si los subtítulos están presentes. Si `captions.srt` está vacío, el paso de quemado de subtítulos se salta automáticamente sin fallar, dejando un warning en el QC final.
+
+### Límites Conocidos del Video Editor
+- **SRT Vacío**: Si Whisper no reconoce diálogo y el SRT resulta vacío (0 bytes), `process_video.py` lo salta sin intentar usar libass, evitando un crash de ffmpeg.
+- **Sin validación avanzada de FPS/Resolución al concatenar**: Aún asume que los planos provistos o descargados se pueden concatenar directamente de manera segura por ffmpeg.
