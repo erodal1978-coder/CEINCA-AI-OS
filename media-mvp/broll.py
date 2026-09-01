@@ -62,8 +62,19 @@ def _pixabay_candidates(raw_json):
     return candidates
 
 
+# Pexels (y algunos CDNs de descarga) devuelven 403 Forbidden al
+# User-Agent por defecto de urllib ("Python-urllib/X.Y") -- bug real
+# encontrado en la validación end-to-end (Task 15): un User-Agent de
+# navegador evita el bloqueo sin necesitar ninguna otra cabecera.
+DEFAULT_USER_AGENT = (
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
+    "Chrome/120.0.0.0 Safari/537.36"
+)
+
+
 def _http_get_json(url, headers=None, timeout=15):
-    req = urllib.request.Request(url, headers=headers or {})
+    all_headers = {"User-Agent": DEFAULT_USER_AGENT, **(headers or {})}
+    req = urllib.request.Request(url, headers=all_headers)
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
@@ -96,7 +107,7 @@ def search_pixabay(keyword, api_key, fetch_fn=_http_get_json):
 
 
 def download_asset(download_url, dest_path):
-    req = urllib.request.Request(download_url)
+    req = urllib.request.Request(download_url, headers={"User-Agent": DEFAULT_USER_AGENT})
     with urllib.request.urlopen(req, timeout=60) as resp, open(dest_path, "wb") as f:
         f.write(resp.read())
     return dest_path
