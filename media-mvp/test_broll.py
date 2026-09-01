@@ -69,11 +69,75 @@ def test_pixabay_candidates_parses_hits():
     assert candidates[0]["download_url"] == "l.mp4"
 
 
+def test_search_pexels_fatal_without_api_key():
+    raised = False
+    try:
+        broll.search_pexels("oficina", api_key=None)
+    except SystemExit:
+        raised = True
+    assert raised, "esperaba SystemExit sin PEXELS_API_KEY"
+
+
+def test_search_pexels_uses_injected_fetch_fn():
+    def fake_fetch(url, headers=None, timeout=15):
+        assert "oficina" in url
+        return {"videos": [{"id": 1, "duration": 5, "video_files": [
+            {"link": "x.mp4", "width": 1080, "height": 1920}
+        ]}]}
+
+    candidates = broll.search_pexels("oficina", api_key="fake-key", fetch_fn=fake_fetch)
+    assert len(candidates) == 1
+    assert candidates[0]["id"] == "pexels:1"
+
+
+def test_resolve_broll_worker_marks_unresolved_when_nothing_found():
+    shot = {"id": 7, "broll_keyword": "algo muy raro", "duration_s": 3.0, "source_path": None}
+
+    def no_results_pexels(keyword, api_key):
+        return []
+
+    def no_results_pixabay(keyword, api_key):
+        return []
+
+    result = broll.resolve_broll_worker(
+        shot, "pk", "pxk", "/tmp",
+        search_pexels_fn=no_results_pexels, search_pixabay_fn=no_results_pixabay,
+    )
+    assert result["source_path"] is None
+
+
+def test_resolve_broll_worker_downloads_first_valid_pexels_result():
+    shot = {"id": 8, "broll_keyword": "oficina", "duration_s": 3.0, "source_path": None,
+            "source_offset_s": 0.0}
+    downloaded = {}
+
+    def fake_pexels(keyword, api_key):
+        return [{"id": "pexels:9", "duration_s": 5.0, "width": 1080, "height": 1920,
+                  "download_url": "http://example.com/clip.mp4"}]
+
+    def fake_download(url, dest_path):
+        downloaded["url"] = url
+        downloaded["dest_path"] = dest_path
+        return dest_path
+
+    result = broll.resolve_broll_worker(
+        shot, "pk", "pxk", "/tmp/proyecto",
+        search_pexels_fn=fake_pexels, download_fn=fake_download,
+    )
+    assert result["source_path"] == downloaded["dest_path"]
+    assert downloaded["url"] == "http://example.com/clip.mp4"
+    assert "shot8" in downloaded["dest_path"]
+
+
 TESTS = [
     test_choose_best_candidate_picks_first_valid,
     test_choose_best_candidate_returns_none_when_nothing_qualifies,
     test_pexels_candidates_parses_video_files,
     test_pixabay_candidates_parses_hits,
+    test_search_pexels_fatal_without_api_key,
+    test_search_pexels_uses_injected_fetch_fn,
+    test_resolve_broll_worker_marks_unresolved_when_nothing_found,
+    test_resolve_broll_worker_downloads_first_valid_pexels_result,
 ]
 
 
