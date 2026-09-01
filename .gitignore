@@ -43,5 +43,8 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Git worktrees (aislamiento de sesiones de desarrollo)
+.worktrees/
+
 # Portadas/covers de vídeo — el resto de formatos ya cae en la regla global de arriba
 *_portada.jpg
