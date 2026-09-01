@@ -130,6 +130,31 @@ def test_build_shots_footage_offsets_advance_sequentially():
     assert offsets[0] == 0.0
 
 
+def test_propose_music_direction_default():
+    mood = edl.propose_music_direction("Un video sobre apostilla de titulos")
+    assert mood == edl.DEFAULT_MUSIC_MOOD
+
+
+def test_propose_music_direction_matches_brief_keyword():
+    mood = edl.propose_music_direction("Necesito un video urgente para hoy")
+    assert mood == edl.MUSIC_MOOD_BY_BRIEF_KEYWORD["urgente"]
+
+
+def test_build_edl_shape():
+    segments = [{"start": 0.0, "end": 4.0, "text": "hola"}]
+    result = edl.build_edl(
+        "test-project", "brief corto", "/tmp/narracion.wav", "/tmp/captions.srt",
+        segments, 47.0,
+    )
+    assert result["project"] == "test-project"
+    assert result["narration_path"] == "/tmp/narracion.wav"
+    assert result["captions_srt_path"] == "/tmp/captions.srt"
+    assert result["duration_s"] == 47.0
+    assert result["music_path"] is None
+    assert len(result["shots"]) > 0
+    assert "music_direction" in result
+
+
 TESTS = [
     test_parse_srt_segments_basic,
     test_parse_srt_segments_ignores_blank_blocks,
@@ -143,6 +168,9 @@ TESTS = [
     test_build_shots_falls_back_to_broll_when_footage_runs_out,
     test_build_shots_assigns_subtitle_text_from_overlapping_segments,
     test_build_shots_footage_offsets_advance_sequentially,
+    test_propose_music_direction_default,
+    test_propose_music_direction_matches_brief_keyword,
+    test_build_edl_shape,
 ]
 
 

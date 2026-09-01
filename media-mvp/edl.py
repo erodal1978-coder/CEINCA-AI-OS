@@ -207,3 +207,44 @@ def build_shots(phase_windows, transcript_segments, footage_map=None):
 
     _flag_breather_shot(shots)
     return shots
+
+
+MUSIC_MOOD_BY_BRIEF_KEYWORD = {
+    "urgente": "electrónico energético, tempo alto, percusión marcada",
+    "legal": "instrumental corporativo, ritmo moderado, sin voces",
+    "emotivo": "piano/cuerdas suaves, tempo lento",
+}
+
+# Mood por defecto derivado del análisis real en reference/viral_video_standards.md
+# sección 6: pista rítmica instrumental moderna continua.
+DEFAULT_MUSIC_MOOD = "instrumental moderno, ritmo medio, sin voces"
+
+
+def propose_music_direction(brief_text):
+    """Propone un mood/género de música a partir de palabras clave simples
+    del brief. Nunca busca ni genera el archivo — eso lo aporta el usuario
+    (ver spec sección 1, fuera de alcance de v1)."""
+    brief_lower = brief_text.lower()
+    for keyword, mood in MUSIC_MOOD_BY_BRIEF_KEYWORD.items():
+        if keyword in brief_lower:
+            return mood
+    return DEFAULT_MUSIC_MOOD
+
+
+def build_edl(project_name, brief_text, narration_path, captions_srt_path,
+              transcript_segments, duration_s, footage_map=None):
+    """Ensambla el EDL borrador completo: fases -> planos -> plan.json.
+    music_path queda en None -- lo llena Claude en la fase de aprobación
+    (approved_plan.json), igual que source_decision de cada plano."""
+    phase_windows = build_phase_windows(duration_s)
+    shots = build_shots(phase_windows, transcript_segments, footage_map)
+    return {
+        "project": project_name,
+        "brief": brief_text,
+        "narration_path": narration_path,
+        "captions_srt_path": captions_srt_path,
+        "duration_s": duration_s,
+        "music_direction": propose_music_direction(brief_text),
+        "music_path": None,
+        "shots": shots,
+    }
