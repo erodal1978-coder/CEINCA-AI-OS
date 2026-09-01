@@ -95,10 +95,16 @@ def _assemble_final(edl_dict, output_dir):
     )
 
     subtitled_path = os.path.join(output_dir, "_subtitled.mp4")
-    assemble.run_ffmpeg(
-        assemble.build_subtitle_command(concat_path, edl_dict["captions_srt_path"], subtitled_path),
-        "quemado de subtítulos",
-    )
+    if os.path.getsize(edl_dict["captions_srt_path"]) > 0:
+        assemble.run_ffmpeg(
+            assemble.build_subtitle_command(concat_path, edl_dict["captions_srt_path"], subtitled_path),
+            "quemado de subtítulos"
+        )
+    else:
+        assemble.run_ffmpeg(
+            ["ffmpeg", "-y", "-i", concat_path, "-c", "copy", subtitled_path],
+            "quemado de subtítulos (saltado, SRT vacío)"
+        )
 
     plates_cmd = assemble.build_text_plates_command(subtitled_path, shots, os.path.join(output_dir, "_plated.mp4"))
     if plates_cmd is None:
