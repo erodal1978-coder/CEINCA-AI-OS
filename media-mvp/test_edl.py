@@ -155,6 +155,25 @@ def test_build_edl_shape():
     assert "music_direction" in result
 
 
+def test_render_plan_markdown_flags_unresolved_broll():
+    result = edl.build_edl(
+        "test-project", "brief", "/tmp/n.wav", "/tmp/c.srt", [], 20.0,
+    )
+    md = edl.render_plan_markdown(result)
+    assert "Plan de edición" in md
+    assert "Huecos de B-roll a resolver" in md
+    assert "test-project" in md
+
+
+def test_render_plan_markdown_shows_footage_when_provided():
+    footage_map = {"hook": {"path": "/tmp/hook.mp4", "duration_s": 10.0}}
+    result = edl.build_edl(
+        "test-project", "brief", "/tmp/n.wav", "/tmp/c.srt", [], 20.0, footage_map,
+    )
+    md = edl.render_plan_markdown(result)
+    assert "/tmp/hook.mp4" in md
+
+
 TESTS = [
     test_parse_srt_segments_basic,
     test_parse_srt_segments_ignores_blank_blocks,
@@ -171,6 +190,8 @@ TESTS = [
     test_propose_music_direction_default,
     test_propose_music_direction_matches_brief_keyword,
     test_build_edl_shape,
+    test_render_plan_markdown_flags_unresolved_broll,
+    test_render_plan_markdown_shows_footage_when_provided,
 ]
 
 

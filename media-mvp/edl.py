@@ -248,3 +248,47 @@ def build_edl(project_name, brief_text, narration_path, captions_srt_path,
         "music_path": None,
         "shots": shots,
     }
+
+
+def render_plan_markdown(edl_dict):
+    """Versión legible del EDL para presentar en el chat durante la
+    aprobación (spec sección 3, 'Aprobación'). Nunca se lee por código —
+    solo por el usuario/Claude."""
+    lines = [
+        f"# Plan de edición — {edl_dict['project']}",
+        "",
+        f"**Brief:** {edl_dict['brief']}",
+        f"**Duración total:** {edl_dict['duration_s']:.1f}s",
+        f"**Dirección de música propuesta:** {edl_dict['music_direction']}",
+        "",
+        "## Planos",
+        "",
+        "| # | Fase | Inicio | Fin | Dur | Fuente | Subtítulo / Keyword B-roll | Respiro |",
+        "|---|---|---|---|---|---|---|---|",
+    ]
+
+    unresolved_count = 0
+    for shot in edl_dict["shots"]:
+        if shot["source_type"] == "footage_provided":
+            fuente = f"footage propio ({shot['source_path']})"
+            texto = shot["subtitle_text"] or "—"
+        else:
+            fuente = "**FALTA B-ROLL**"
+            texto = f"keyword sugerido: `{shot['broll_keyword']}`"
+            unresolved_count += 1
+        breather = "🌬️" if shot["is_breather"] else ""
+        lines.append(
+            f"| {shot['id']} | {shot['phase']} | {shot['start_s']:.1f}s | "
+            f"{shot['end_s']:.1f}s | {shot['duration_s']:.1f}s | {fuente} | "
+            f"{texto} | {breather} |"
+        )
+
+    lines += [
+        "",
+        f"## Huecos de B-roll a resolver: {unresolved_count}",
+        "",
+        "Por cada hueco, decide: `user_provides` (subes el archivo) o "
+        "`agent_searches` (Pexels/Pixabay con el keyword sugerido). Confirma "
+        "también el archivo de música o si se resuelve manualmente después.",
+    ]
+    return "\n".join(lines)
