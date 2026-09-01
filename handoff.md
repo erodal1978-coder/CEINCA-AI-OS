@@ -286,5 +286,21 @@ Sesión mantenimiento quirúrgico (01-09-2026, sobre `main` directo):
 33. ~~Rescate del proyecto Remotion de LEXIA~~ — **hecho** (30-08-2026): PR #27 (rama `claude/lexia-remotion-launch-video-9lrsg7`) mergeado a `main`. Ver sección 3.
 34. **Validar que `PRODUCTION/lexia-launch-video/` renderiza de verdad** (rescatado de una rama de 2 meses de antigüedad — dependencias en `package-lock.json` no re-instaladas ni verificadas en este entorno): correr `npm install && npx remotion render LexiaLaunch` dentro de esa carpeta antes de dar por buena la composición para producción real.
 35. Decidir si vale la pena rescatar además los assets del build local no versionado `/home/eduardo/ceinca` (3 clips de video reales de eventos, fotos de Barinas/Caracas/San Cristóbal, logos) como B-roll complementario para el video de LEXIA — no se tocó, sigue sin versionar en disco.
-36. **Video Editor MVP — el usuario debe confirmar por escrito que revisó `docs/superpowers/specs/2026-08-31-video-editor-mvp-design.md`** (o pedir cambios) antes de invocar `writing-plans` para el plan de implementación — paso obligatorio del proceso de brainstorming, todavía no confirmado explícitamente al cierre de esta sesión.
-37. ~~Una vez aprobado el plan de implementación del Video Editor MVP: construir...~~ — **hecho** (01-09-2026): Plan completo finalizado. **Tarea 15 completada** en el worktree `.worktrees/feat-video-editor-mvp/` (rama `feat/video-editor-mvp`). Commits finales generados (`12e5adc` a `211ba8b`) que incluyen el bugfix de SRT vacío (salto del filtro libass para evitar crash en clips sin voz documentado) y actualización del README y CLAUDE.md. Batería de pruebas unitarias 52/52 exitosas. Validación E2E (con clip local y de workers) completada con éxito. El worktree se encuentra totalmente limpio sin archivos temporales. **Siguiente acción concreta:** Ejecutar merge definitivo (`main...feat/video-editor-mvp`) y eliminar el worktree.
+36. ~~Video Editor MVP — el usuario debe confirmar por escrito que revisó `docs/superpowers/specs/2026-08-31-video-editor-mvp-design.md`~~ (o pedir cambios) antes de invocar `writing-plans` para el plan de implementación — **hecho** (01-09-2026): Plan completo finalizado.
+37. ~~Una vez aprobado el plan de implementación del Video Editor MVP: construir...~~ — **hecho** (01-09-2026): Plan completo finalizado. **Tarea 15 completada** en el worktree `.worktrees/feat-video-editor-mvp/` (rama `feat/video-editor-mvp`). Commits finales generados (`12e5adc` a `211ba8b`) que incluyen el bugfix de SRT vacío (salto del filtro libass para evitar crash en clips sin voz documentado) y actualización del README y CLAUDE.md. Batería de pruebas unitarias 52/52 exitosas. Validación E2E (con clip local y de workers) completada con éxito. El worktree se encuentra totalmente limpio sin archivos temporales. **Siguiente acción concreta:** Merge definitivo a `main` completado y worktree eliminado.
+
+---
+## Checkpoint Operativo (01-09-2026)
+
+* **WORKSPACE activo:** `/home/eduardo/CEINCA-AI-OS`
+* **BRANCH activa:** `main`
+* **HEAD final:** (limpio, incluye commits integrados de `feat/video-editor-mvp`)
+* **Video Editor MVP:** completado e integrado en `media-mvp/`.
+* **Tarea 15 del plan:** completada (incluye bugfix para saltar SRT vacío, 52/52 tests unitarios OK, validación E2E OK).
+* **Worktree de desarrollo:** eliminado.
+* **Siguiente tarea real pendiente:** Tarea 21 (CEINCA English — completar datos pendientes y regenerar PDF) o Tarea 34 (Validar render de `PRODUCTION/lexia-launch-video/`).
+
+> **Instrucciones para el próximo agente:**
+> 1. Lee `AGENTS.md` y `handoff.md`.
+> 2. No repitas la Tarea 15 (Video Editor MVP), ya está completamente integrada.
+> 3. Identifica y continúa con la siguiente tarea pendiente de la lista (ej. Tarea 21 o 34) según indique el usuario.
