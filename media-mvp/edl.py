@@ -112,3 +112,98 @@ def generate_broll_keyword(subtitle_text, phase, max_words=6):
     if not content_words:
         return PHASE_GENERIC_KEYWORD[phase]
     return " ".join(content_words[:max_words])
+
+
+# Estándares de ritmo (reference/viral_video_standards.md sección 7): cortes
+# cada 2-4s, ~3s en promedio. No se fuerzan estrictamente en fases muy
+# cortas (ver Límites conocidos en README.md) — se documenta como
+# aproximación, no como garantía dura.
+MIN_SHOT_S = 2.0
+MAX_SHOT_S = 4.0
+TARGET_SHOT_S = 3.0
+
+
+def _chunk_phase(start_s, end_s):
+    """Divide una ventana de fase en tramos (start, end) de ~TARGET_SHOT_S,
+    repartiendo el sobrante de forma pareja en vez de dejar un último tramo
+    desproporcionado."""
+    span = round(end_s - start_s, 3)
+    if span <= 0:
+        return []
+    n_shots = max(1, round(span / TARGET_SHOT_S))
+    shot_len = span / n_shots
+    spans = []
+    cursor = start_s
+    for i in range(n_shots):
+        is_last = i == n_shots - 1
+        shot_end = end_s if is_last else round(cursor + shot_len, 3)
+        spans.append((round(cursor, 3), shot_end))
+        cursor = shot_end
+    return spans
+
+
+def _flag_breather_shot(shots):
+    """Marca como plano de respiro el último plano de 'prueba_social'
+    (justo antes del cierre — ver spec sección 3.2). Si esa fase no
+    produjo ningún plano (fase muy corta), usa el primero de 'cierre'."""
+    prueba_social_shots = [s for s in shots if s["phase"] == "prueba_social"]
+    if prueba_social_shots:
+        prueba_social_shots[-1]["is_breather"] = True
+        return
+    cierre_shots = [s for s in shots if s["phase"] == "cierre"]
+    if cierre_shots:
+        cierre_shots[0]["is_breather"] = True
+
+
+def build_shots(phase_windows, transcript_segments, footage_map=None):
+    """Construye la lista ordenada de planos del EDL borrador: chunkea cada
+    fase en tramos de ritmo, decide footage propio vs. B-roll consumiendo
+    footage_map en orden dentro de cada fase, y asigna el subtítulo de cada
+    tramo a partir de los segmentos de transcripción que lo solapan."""
+    footage_map = footage_map or {}
+    shots = []
+    shot_id = 1
+
+    for window in phase_windows:
+        phase = window["phase"]
+        footage = footage_map.get(phase)
+        footage_remaining = footage["duration_s"] if footage else 0.0
+
+        for span_start, span_end in _chunk_phase(window["start_s"], window["end_s"]):
+            span_dur = round(span_end - span_start, 3)
+            overlapping = [
+                seg for seg in transcript_segments
+                if seg["start"] < span_end and seg["end"] > span_start
+            ]
+            subtitle_text = " ".join(seg["text"] for seg in overlapping).strip()
+
+            if footage and footage_remaining >= span_dur:
+                source_type = "footage_provided"
+                broll_keyword = None
+                source_path = footage["path"]
+                source_offset_s = round(footage["duration_s"] - footage_remaining, 3)
+                footage_remaining = round(footage_remaining - span_dur, 3)
+            else:
+                source_type = "broll_needed"
+                broll_keyword = generate_broll_keyword(subtitle_text, phase)
+                source_path = None
+                source_offset_s = 0.0
+
+            shots.append({
+                "id": shot_id,
+                "phase": phase,
+                "start_s": span_start,
+                "end_s": span_end,
+                "duration_s": span_dur,
+                "source_type": source_type,
+                "broll_keyword": broll_keyword,
+                "source_decision": None,
+                "source_path": source_path,
+                "source_offset_s": source_offset_s,
+                "subtitle_text": subtitle_text,
+                "is_breather": False,
+            })
+            shot_id += 1
+
+    _flag_breather_shot(shots)
+    return shots

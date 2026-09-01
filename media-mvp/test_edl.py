@@ -78,6 +78,58 @@ def test_generate_broll_keyword_falls_back_to_phase_generic():
     assert kw == edl.PHASE_GENERIC_KEYWORD["cierre"]
 
 
+def test_build_shots_respects_positive_duration():
+    windows = edl.build_phase_windows(47.0)
+    shots = edl.build_shots(windows, transcript_segments=[])
+    assert len(shots) > 0
+    for shot in shots:
+        assert shot["duration_s"] > 0
+
+
+def test_build_shots_marks_one_breather_before_cierre():
+    windows = edl.build_phase_windows(47.0)
+    shots = edl.build_shots(windows, transcript_segments=[])
+    breathers = [s for s in shots if s["is_breather"]]
+    assert len(breathers) == 1, f"esperaba 1 respiro, dio {len(breathers)}"
+    assert breathers[0]["phase"] == "prueba_social"
+
+
+def test_build_shots_uses_footage_before_broll():
+    windows = edl.build_phase_windows(47.0)
+    footage_map = {"hook": {"path": "/tmp/hook.mp4", "duration_s": 10.0}}
+    shots = edl.build_shots(windows, transcript_segments=[], footage_map=footage_map)
+    hook_shots = [s for s in shots if s["phase"] == "hook"]
+    assert all(s["source_type"] == "footage_provided" for s in hook_shots)
+    assert all(s["source_path"] == "/tmp/hook.mp4" for s in hook_shots)
+
+
+def test_build_shots_falls_back_to_broll_when_footage_runs_out():
+    windows = edl.build_phase_windows(47.0)
+    footage_map = {"hook": {"path": "/tmp/hook.mp4", "duration_s": 1.0}}
+    shots = edl.build_shots(windows, transcript_segments=[], footage_map=footage_map)
+    hook_shots = [s for s in shots if s["phase"] == "hook"]
+    assert any(s["source_type"] == "broll_needed" for s in hook_shots), (
+        "con solo 1s de footage para una fase mas larga, algun plano debe caer a broll"
+    )
+
+
+def test_build_shots_assigns_subtitle_text_from_overlapping_segments():
+    windows = edl.build_phase_windows(47.0)
+    segments = [{"start": 0.0, "end": 4.0, "text": "Ya puedes apostillar tu titulo"}]
+    shots = edl.build_shots(windows, transcript_segments=segments)
+    assert "apostillar" in shots[0]["subtitle_text"]
+
+
+def test_build_shots_footage_offsets_advance_sequentially():
+    windows = edl.build_phase_windows(47.0)
+    footage_map = {"hook": {"path": "/tmp/hook.mp4", "duration_s": 10.0}}
+    shots = edl.build_shots(windows, transcript_segments=[], footage_map=footage_map)
+    hook_shots = [s for s in shots if s["phase"] == "hook"]
+    offsets = [s["source_offset_s"] for s in hook_shots]
+    assert offsets == sorted(offsets), "los offsets dentro del mismo clip deben avanzar"
+    assert offsets[0] == 0.0
+
+
 TESTS = [
     test_parse_srt_segments_basic,
     test_parse_srt_segments_ignores_blank_blocks,
@@ -85,6 +137,12 @@ TESTS = [
     test_build_phase_windows_proportions_sum_to_one,
     test_generate_broll_keyword_strips_stopwords,
     test_generate_broll_keyword_falls_back_to_phase_generic,
+    test_build_shots_respects_positive_duration,
+    test_build_shots_marks_one_breather_before_cierre,
+    test_build_shots_uses_footage_before_broll,
+    test_build_shots_falls_back_to_broll_when_footage_runs_out,
+    test_build_shots_assigns_subtitle_text_from_overlapping_segments,
+    test_build_shots_footage_offsets_advance_sequentially,
 ]
 
 
