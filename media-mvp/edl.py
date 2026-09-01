@@ -46,3 +46,34 @@ def parse_srt_segments(srt_path):
             segments.append({"start": round(start, 3), "end": round(end, 3), "text": text})
 
     return sorted(segments, key=lambda s: s["start"])
+
+
+# Fases narrativas NEAPS/AIDA (ver spec sección 3.2) y su proporción por
+# defecto de la duración total. Derivadas del desglose plano-por-plano de
+# reference/viral_video_standards.md (hook ~13%, contexto/autoridad ~10%,
+# solución ~43% -el bloque de mayor duración, paso a paso-, prueba social
+# ~7-10%, cierre ~13-18%). Suman 1.0 exactamente.
+PHASE_ORDER = ["hook", "problema", "autoridad", "solucion", "prueba_social", "cierre"]
+
+PHASE_PROPORTIONS = {
+    "hook": 0.12,
+    "problema": 0.10,
+    "autoridad": 0.10,
+    "solucion": 0.40,
+    "prueba_social": 0.10,
+    "cierre": 0.18,
+}
+
+
+def build_phase_windows(duration_s):
+    """Reparte la duración total entre las 6 fases NEAPS/AIDA según
+    PHASE_PROPORTIONS. La última fase absorbe el redondeo para que el
+    total cubra exactamente [0, duration_s] sin huecos."""
+    windows = []
+    cursor = 0.0
+    for i, phase in enumerate(PHASE_ORDER):
+        is_last = i == len(PHASE_ORDER) - 1
+        end = duration_s if is_last else round(cursor + duration_s * PHASE_PROPORTIONS[phase], 3)
+        windows.append({"phase": phase, "start_s": round(cursor, 3), "end_s": end})
+        cursor = end
+    return windows

@@ -51,9 +51,26 @@ def test_parse_srt_segments_ignores_blank_blocks():
         shutil.rmtree(d)
 
 
+def test_build_phase_windows_covers_full_duration_in_order():
+    windows = edl.build_phase_windows(47.0)
+    assert windows[0]["start_s"] == 0.0
+    assert windows[-1]["end_s"] == 47.0
+    assert [w["phase"] for w in windows] == edl.PHASE_ORDER
+    for i in range(len(windows) - 1):
+        assert windows[i]["end_s"] == windows[i + 1]["start_s"], (
+            f"hueco entre fase {i} y {i+1}"
+        )
+
+
+def test_build_phase_windows_proportions_sum_to_one():
+    assert abs(sum(edl.PHASE_PROPORTIONS.values()) - 1.0) < 1e-9
+
+
 TESTS = [
     test_parse_srt_segments_basic,
     test_parse_srt_segments_ignores_blank_blocks,
+    test_build_phase_windows_covers_full_duration_in_order,
+    test_build_phase_windows_proportions_sum_to_one,
 ]
 
 
