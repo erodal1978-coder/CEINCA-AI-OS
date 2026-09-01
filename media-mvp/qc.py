@@ -40,7 +40,8 @@ def check_resolution(width, height, expected_w=EXPECTED_WIDTH, expected_h=EXPECT
 def check_captions_present(captions_srt_path):
     if not os.path.isfile(captions_srt_path):
         return {"status": "WARN", "message": "captions.srt no encontrado"}
-    content = open(captions_srt_path, encoding="utf-8").read().strip()
+    with open(captions_srt_path, encoding="utf-8") as f:
+        content = f.read().strip()
     status = "OK" if content else "WARN"
     message = "" if content else "captions.srt está vacío"
     return {"status": status, "message": message}
