@@ -75,6 +75,26 @@ def test_check_audio_levels_unmeasurable_is_warn():
     assert result["status"] == "WARN"
 
 
+def test_format_qc_report_flags_warn_visibly():
+    report = {
+        "duration": {"status": "OK", "message": ""},
+        "resolution": {"status": "WARN", "message": "se esperaba 1080x1920, salió 1920x1080"},
+        "captions": {"status": "OK", "message": ""},
+        "audio": {"status": "OK", "message": ""},
+    }
+    text = qc.format_qc_report(report)
+    assert "resolution" in text
+    assert "WARN" in text
+    assert "se esperaba 1080x1920" in text
+
+
+def test_format_qc_report_fatal_short_circuits():
+    report = {"status": "FATAL", "message": "ffprobe no pudo leer 'x.mp4'"}
+    text = qc.format_qc_report(report)
+    assert "FATAL" in text
+    assert "x.mp4" in text
+
+
 TESTS = [
     test_check_duration_within_tolerance_is_ok,
     test_check_duration_outside_tolerance_is_warn,
@@ -85,6 +105,8 @@ TESTS = [
     test_check_audio_levels_in_range_is_ok,
     test_check_audio_levels_too_quiet_is_warn,
     test_check_audio_levels_unmeasurable_is_warn,
+    test_format_qc_report_flags_warn_visibly,
+    test_format_qc_report_fatal_short_circuits,
 ]
 
 

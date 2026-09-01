@@ -5,6 +5,7 @@ nivel de audio. Cada check devuelve OK/WARN explícito, nunca falla en
 silencio (spec sección 5) — un WARN no bloquea la entrega del .mp4.
 """
 
+import json
 import os
 import re
 import subprocess
@@ -57,3 +58,58 @@ def check_audio_levels(mean_volume_db):
         f"{AUDIO_MEAN_VOLUME_MIN_DB} a {AUDIO_MEAN_VOLUME_MAX_DB}dB)"
     )
     return {"status": status, "mean_volume_db": mean_volume_db, "message": message}
+
+
+def probe_duration_and_resolution(video_path):
+    cmd = [
+        "ffprobe", "-v", "error", "-print_format", "json",
+        "-show_format", "-show_streams", video_path,
+    ]
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    if r.returncode != 0:
+        return None
+    raw = json.loads(r.stdout)
+    fmt = raw.get("format", {})
+    video_stream = next((s for s in raw.get("streams", []) if s.get("codec_type") == "video"), None)
+    return {
+        "duration_s": float(fmt.get("duration", 0.0)),
+        "width": video_stream.get("width") if video_stream else None,
+        "height": video_stream.get("height") if video_stream else None,
+    }
+
+
+def measure_audio_level(video_path):
+    # volumedetect imprime a nivel 'info', no 'error' — nunca usar -v error
+    # aquí (mismo hallazgo documentado en analyze.py/handoff.md).
+    cmd = [
+        "ffmpeg", "-hide_banner", "-nostats", "-i", video_path,
+        "-af", "volumedetect", "-f", "null", "-",
+    ]
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    m = RE_MEAN_VOLUME.search(r.stderr)
+    return float(m.group(1)) if m else None
+
+
+def run_qc(final_path, captions_srt_path, expected_duration_s):
+    probe = probe_duration_and_resolution(final_path)
+    if probe is None:
+        return {"status": "FATAL", "message": f"ffprobe no pudo leer '{final_path}'"}
+
+    return {
+        "duration": check_duration(probe["duration_s"], expected_duration_s),
+        "resolution": check_resolution(probe["width"], probe["height"]),
+        "captions": check_captions_present(captions_srt_path),
+        "audio": check_audio_levels(measure_audio_level(final_path)),
+    }
+
+
+def format_qc_report(report):
+    if report.get("status") == "FATAL":
+        return f"QC  FATAL — {report['message']}"
+
+    lines = ["--- QC final ---"]
+    for name, check in report.items():
+        flag = "OK" if check["status"] == "OK" else "⚠️  WARN"
+        extra = f" — {check['message']}" if check.get("message") else ""
+        lines.append(f"{name:12s} {flag}{extra}")
+    return "\n".join(lines)
