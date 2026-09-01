@@ -137,6 +137,7 @@ Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agente
     12. `assemble.py` — `run_ffmpeg()` (cierra `assemble.py`) — commit `5b53f62`.
   - **Los 4 módulos de funciones puras están completos y aprobados: `edl.py`, `broll.py`, `qc.py`, `assemble.py` (Tareas 1-12/15).** `python3 media-mvp/test_edl.py test_broll.py test_qc.py test_assemble.py test_regressions.py` — 17+8+11+7+9 = 52/52 tests OK.
   - **Siguiente tarea a despachar: Tarea 13** (`plan_video.py` — primer CLI, Fase 1 Director: orquesta `analyze.py`+`edl.py`, escribe `plan.json`/`plan.md`/`captions.srt`). No tiene tests unitarios propios (es integración real, como `analyze.py`'s `main()`) — se valida con un smoke test manual definido en el propio plan (correr contra `media-mvp/test_rapido.mp4`). Ver sección 5 punto 37 para cómo retomar completo.
+  - **Segundo corte por rate limit (01-09-2026, ~13:04, modelo `sonnet` esta vez)**: el primer despacho de la Tarea 13 fue terminado por el harness (`rate_limit, HTTP 429, "hit your session limit · resets 5:30pm (America/Caracas)"`) antes de crear ningún archivo. HEAD del worktree sigue limpio en `5b53f62` (el mismo commit de cierre de la Tarea 12) — nada que revertir, solo redespachar la Tarea 13 desde cero una vez pasada la hora de reset. Ver sección 4 para el patrón (ya es la segunda vez en esta sesión).
 
 ## 3. Archivos y cambios (esta sesión)
 Commits de limpieza y documentación en `main`:
