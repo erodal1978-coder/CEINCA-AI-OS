@@ -119,3 +119,11 @@ def build_narration_only_command(video_path, narration_path, dest_path):
         "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
         dest_path,
     ]
+
+
+def run_ffmpeg(cmd, step_name):
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    if r.returncode != 0:
+        print(f"ERROR: ffmpeg falló en el paso '{step_name}':", file=sys.stderr)
+        print(r.stderr, file=sys.stderr)
+        sys.exit(1)
