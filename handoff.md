@@ -154,6 +154,14 @@ Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agente
     - `process_video.py`: Workers descargaron 7 clips B-roll HD vertical; ffmpeg recortó a 1080×1920 30fps, concatenó, quemó subtítulos y placas en `Montserrat Bold` real, y mezcló audio original.
     - Reporte QC: Duración OK (16.67s), Resolución OK (1080x1920), Subtítulos OK, Audio WARN (-32.4dB por nivel bajo de grabación original).
     - Entregable: `output/prueba_en_vivo/final.mp4` (12.5 MB, H.264/AAC, abierto y verificado en reproductor Celluloid).
+- **Auditoría y optimización de configuración Claude Code ejecutada (04-09-2026, spec `docs/superpowers/specs/2026-09-04-auditoria-claude-config-design.md`)**:
+  - **Plugins globales (`~/.claude/settings.json`)**: respaldo creado en `~/.claude/backups/settings.json.bak`. Deshabilitados en `enabledPlugins`: `telegram`, `greptile`, `serena`, `chrome-devtools-mcp` (valor `false`, conservando las claves).
+  - **GitHub MCP**: resuelta la causa raíz añadiendo `export GITHUB_PERSONAL_ACCESS_TOKEN="$(gh auth token)"` a `~/.bashrc` (fuera del repo). Verificado que exporta el token de 40 caracteres desde la autenticación existente de la CLI `gh`.
+  - **Playwright MCP**: caché de npx precalentada (`@playwright/mcp@latest` v0.0.80) y binarios Chromium descargados con `npx --yes playwright install chromium` en `~/.cache/ms-playwright/` (`chromium-1234`, `ffmpeg-1011`, `chromium_headless_shell-1234`). Verificado con handshake JSON-RPC `initialize` exitoso e inmediato (<1s, sin timeout).
+  - **NotebookLM MCP**: binario CLI y MCP `/home/eduardo/.local/bin/notebooklm-mcp` verificado funcional y responde de inmediato al handshake JSON-RPC (<1s), pero `nlm doctor` confirma ausencia de perfil autenticado (`Profiles: none → Run nlm login to authenticate`). En `~/.claude.json` se encuentra en `disabledMcpServers` para `/home/eduardo/CEINCA-AI-OS`. Pendiente decisión del usuario si autenticar ejecutando `nlm login` o retirar la entrada manual de `mcpServers`.
+  - **Navegador**: eliminado el directorio `~/.claude/skills/agent-browser/` (symlink y target) para retirar redundancia. La navegación queda consolidada en `claude-in-chrome` y `playwright`.
+  - **Skills duplicados en repo CEINCA-AI-OS**: eliminados los directorios `.claude/skills/brainstorming/`, `.claude/skills/requesting-code-review/`, `.claude/skills/verification-before-completion/` y sus 3 entradas en `skills-lock.json`. Confirmado con `grep -rn` que cero referencias quedaron apuntando a los directorios eliminados. Comiteado en `5dd16d0`.
+  - **Conclusión sobre `/tdd`, `/e2e` y `tdd-workflow`**: confirmado que la eliminación en commit `f036662` fue intencional y limpia. `tdd-workflow` no está huérfano: sigue activo vía `.claude/rules/testing.md`, `.claude/rules/git-workflow.md` y `.claude/agents/build-error-resolver.md`, y se invoca de forma contextual por su `description` sin requerir comando explícito.
 
 ## 3. Archivos y cambios (esta sesión)
 Commits de limpieza y documentación en `main`:
@@ -231,6 +239,28 @@ Sesión fixes post-auditoría Video Editor MVP (04-09-2026):
 - `media-mvp/test_assemble.py`: agregados tests de resolución de Montserrat y fontsdir (9/9 OK).
 - `media-mvp/test_regressions.py`: agregados tests de regresión para Bug 1 (narration_path absoluto) y Bug 2 (resolución de Montserrat sin caer a Noto Sans) (11/11 OK). Batería completa: 57/57 tests unitarios OK.
 
+Sesión auditoría y optimización de configuración Claude Code (04-09-2026):
+Commits en `main`:
+- `25cdb05` — docs: spec de auditoría de skills, MCP, plugins y configuración de Claude Code
+- `5dd16d0` — chore: eliminar skills duplicados de superpowers
+
+`git diff --stat 25cdb05..5dd16d0`:
+```text
+ .claude/skills/brainstorming/SKILL.md              | 151 -----
+ .../brainstorming/scripts/frame-template.html      | 213 ------
+ .claude/skills/brainstorming/scripts/helper.js     | 167 -----
+ .claude/skills/brainstorming/scripts/server.cjs    | 723 ---------------------
+ .../skills/brainstorming/scripts/start-server.sh   | 209 ------
+ .../skills/brainstorming/scripts/stop-server.sh    | 120 ----
+ .../brainstorming/spec-document-reviewer-prompt.md |  49 --
+ .claude/skills/brainstorming/visual-companion.md   | 298 ---------
+ .claude/skills/requesting-code-review/SKILL.md     |  95 ---
+ .../skills/requesting-code-review/code-reviewer.md | 172 -----
+ .../skills/verification-before-completion/SKILL.md | 120 ----
+ skills-lock.json                                   |  18 -
+ 12 files changed, 2335 deletions(-)
+```
+
 ## 4. Intentos fallidos
 <!-- NO BORRAR NINGUNA ENTRADA DE ESTA SECCIÓN. Solo agregar. -->
 <!-- Si supera ~20 líneas, mover las más antiguas a handoff-archive.md (nunca eliminar). -->
@@ -281,7 +311,7 @@ Sesión fixes post-auditoría Video Editor MVP (04-09-2026):
 10. ~~Retirar las plantillas de copy superadas~~ — **hecho** (01-09-2026): `MARKETING/FRAMEWORK_VIRAL_V2.md` y `MARKETING/VIRAL_PLAYBOOK.md` §5 apuntan formalmente a `MARKETING/MANUAL_COPY_META_TIKTOK.md` como autoridad única v2.0.
 11. Decidir sobre `brief-creativo-lexia.md` (recuperar/recrear el brief, o retirar las 3 referencias de `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md`) — ya documentado inline en el archivo, decisión pendiente del usuario.
 12. Reubicar `AGENTS/AUDITOR_IA_MARCA_PROFESIONAL/` y `PRODUCTION/SAREN_TOTUMA_SCRIPT_FLOW.md` a `CLIENTS/` o una carpeta de entregables/campañas — no son sistemas reutilizables ni prompts de agente.
-13. Verificar si `.claude/skills/brainstorming/` (vendorizado, 160 KB) solapa funcionalmente con la skill de plataforma `superpowers:brainstorming`.
+13. ~~Verificar si `.claude/skills/brainstorming/` (vendorizado, 160 KB) solapa funcionalmente con la skill de plataforma `superpowers:brainstorming`~~ — **hecho** (04-09-2026): eliminado del repo (commit `5dd16d0`) junto con `requesting-code-review` y `verification-before-completion`. La versión canónica y actualizada es la provista globalmente por el plugin `superpowers`.
 14. Evaluar la limpieza del historial Git de binarios eliminados si `.git` (~450 MB) sigue siendo innecesariamente alto; hacerlo sólo con backup/plan de recuperación.
 15. ~~Añadir fecha de última verificación a `KNOWLEDGE/SAREN_PRACTICE.md`~~ — **hecho** (01-09-2026): agregada fecha (2026-09-01) y advertencia de verificación normativa según `RULES/ANTI_HALLUCINATION.md`.
 16. ~~Construir la skill "Generación de Prompts Flow/Veo"~~ — **hecho** (29-08-2026): no se creó una skill nueva (habría sido tercera copia) — se corrigió la sección ya existente en `SKILLS/ceinca-ia/SKILL.md` (tenía "hiperrealista" vivo, contradicción no detectada antes) y se incorporó `PRODUCTION/GUIA_PROMPTS_FLOW_UGC.md` como fuente canónica. Ver sección 2.
@@ -313,6 +343,7 @@ Sesión fixes post-auditoría Video Editor MVP (04-09-2026):
 36. ~~Video Editor MVP — el usuario debe confirmar por escrito que revisó `docs/superpowers/specs/2026-08-31-video-editor-mvp-design.md`~~ (o pedir cambios) antes de invocar `writing-plans` para el plan de implementación — **hecho** (01-09-2026): Plan completo finalizado.
 37. ~~Una vez aprobado el plan de implementación del Video Editor MVP: construir...~~ — **hecho** (01-09-2026): Plan completo finalizado. **Tarea 15 completada** en el worktree `.worktrees/feat-video-editor-mvp/` (rama `feat/video-editor-mvp`). Commits finales generados (`12e5adc` a `211ba8b`) que incluyen el bugfix de SRT vacío (salto del filtro libass para evitar crash en clips sin voz documentado) y actualización del README y CLAUDE.md. Batería de pruebas unitarias 52/52 exitosas. Validación E2E (con clip local y de workers) completada con éxito. El worktree se encuentra totalmente limpio sin archivos temporales. **Siguiente acción concreta:** Merge definitivo a `main` completado y worktree eliminado.
 38. **Post-auditoría Video Editor MVP: 2 bugs reales encontrados y corregidos (04-09-2026)** — ver sección 2 y "Archivos y cambios" para el detalle técnico completo. Commits `df6d409` (fixes), `b792ab5` (docs marketing pendientes), `4df01e5` (`AGENTS.md`) — los 3 pusheados a `origin/main`.
+39. **Decidir sobre NotebookLM MCP (`~/.claude.json`)**: el servidor MCP y CLI funcionan y responden de inmediato (<1s) a la inicialización JSON-RPC, pero `nlm doctor` confirma ausencia de perfil autenticado (`Profiles: none → Run nlm login to authenticate`). Actualmente figura en `disabledMcpServers` para `/home/eduardo/CEINCA-AI-OS`. Decidir si el usuario se autentica en terminal con `nlm login` o si se retira la entrada manual de `mcpServers`.
 
 > 🧊 **Nota sobre los puntos 21 y 34 (congelados, 04-09-2026):** decisión explícita del usuario — no retomar CEINCA English (punto 21) ni la validación de render de `lexia-launch-video` (punto 34) hasta una sesión futura dedicada a actualizar/revisar todas las redes sociales de CEINCA. No son bloqueantes de nada más; simplemente no se tocan por ahora.
 
@@ -321,17 +352,25 @@ Sesión fixes post-auditoría Video Editor MVP (04-09-2026):
 
 * **WORKSPACE activo:** `/home/eduardo/CEINCA-AI-OS`
 * **BRANCH activa:** `main`
-* **HEAD final:** (limpio, incluye commits integrados de `feat/video-editor-mvp` + fixes post-auditoría)
+* **HEAD final:** `5dd16d0` (incluye eliminación de skills duplicados de superpowers; pendiente commit de actualización de `handoff.md`)
+* **Auditoría y optimización Claude Code:** Completada según spec `docs/superpowers/specs/2026-09-04-auditoria-claude-config-design.md`.
+  - Plugins globales deshabilitados (`false`): `telegram`, `greptile`, `serena`, `chrome-devtools-mcp`.
+  - GitHub MCP: variable `GITHUB_PERSONAL_ACCESS_TOKEN` configurada en `~/.bashrc`.
+  - Playwright: caché npx y binarios Chromium instalados en `~/.cache/ms-playwright/`, handshake JSON-RPC verificado exitoso.
+  - Navegador redundante: eliminado `~/.claude/skills/agent-browser/`. Consolidado en `claude-in-chrome` y `playwright`.
+  - Skills duplicados de repo: eliminados `brainstorming/`, `requesting-code-review/`, `verification-before-completion/` y de `skills-lock.json`. Cero referencias rotas.
+  - Conclusión `/tdd`, `/e2e` y `tdd-workflow`: resuelto limpiamente desde commit `f036662`; `tdd-workflow` sigue activo vía rules y agentes.
 * **Video Editor MVP:** completado e integrado en `media-mvp/`.
 * **Fixes post-auditoría:** aplicados (Bug 1: `narration_path` y footage absolutos; Bug 2: resolución dinámica de fuente Montserrat Bold y `fontsdir` para subtítulos y placas, sin fallback a Noto Sans).
 * **Suite de tests:** 57/57 tests unitarios OK (`test_edl.py` 18, `test_broll.py` 8, `test_qc.py` 11, `test_assemble.py` 9, `test_regressions.py` 11).
 * **Prueba E2E en vivo:** `output/prueba_en_vivo/final.mp4` generado (12.5 MB, 1080×1920, 7 planos B-roll Pexels, Montserrat Bold, QC OK).
 * **Worktree de desarrollo:** eliminado.
 * **Tareas 21 y 34 (CEINCA English, render de `lexia-launch-video`): congeladas** por decisión explícita del usuario hasta una sesión futura de revisión de todas las redes sociales — no son la siguiente tarea real pendiente.
-* **Siguiente tarea real pendiente:** ninguna asignada explícitamente — preguntar al usuario, o revisar el resto de "Próximos pasos" (puntos 6, 8-14, 18, 20, 23-28, 35) por prioridad.
+* **Siguiente tarea real pendiente:** Decidir sobre `notebooklm-mcp` (autenticar con `nlm login` o retirar entrada), o atender los puntos abiertos de "Próximos pasos" (6, 8-12, 14, 18-20, 23-28, 35) por prioridad.
 
 > **Instrucciones para el próximo agente:**
 > 1. Lee `AGENTS.md` y `handoff.md`.
 > 2. No repitas la Tarea 15 (Video Editor MVP) ni los fixes post-auditoría, ya están completamente integrados y testeados.
 > 3. No retomes las Tareas 21 (CEINCA English) ni 34 (render `lexia-launch-video`) — están congeladas hasta la sesión de revisión de redes; si el usuario no la ha mencionado, no asumas que ya llegó.
 > 4. Identifica y continúa con la siguiente tarea pendiente de la lista según indique el usuario.
+
