@@ -46,6 +46,7 @@ def _build_footage_map(footage_args):
         if phase not in edl.PHASE_ORDER:
             print(f"ERROR: fase '{phase}' inválida. Válidas: {', '.join(edl.PHASE_ORDER)}.", file=sys.stderr)
             sys.exit(1)
+        path = os.path.abspath(path)
         if not os.path.isfile(path):
             print(f"ERROR: no existe el archivo de footage '{path}' (fase '{phase}').", file=sys.stderr)
             sys.exit(1)
@@ -57,30 +58,31 @@ def _build_footage_map(footage_args):
 def main():
     args = parse_args(sys.argv[1:])
 
-    if not os.path.isfile(args.narration_path):
+    narration_path = os.path.abspath(args.narration_path)
+    if not os.path.isfile(narration_path):
         print(f"ERROR: no existe el archivo de narración '{args.narration_path}'.", file=sys.stderr)
         sys.exit(1)
 
-    output_dir = args.output_dir or os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "output", args.project_name
+    output_dir = os.path.abspath(args.output_dir) if args.output_dir else os.path.abspath(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "output", args.project_name)
     )
     os.makedirs(output_dir, exist_ok=True)
 
     footage_map = _build_footage_map(args.footage)
 
     print("[1/3] metadata de la narración (ffprobe)...")
-    narration_meta = analyze.probe_metadata(args.narration_path)
+    narration_meta = analyze.probe_metadata(narration_path)
     duration_s = narration_meta["duration_s"]
     print(f"  ok  duración {duration_s:.2f}s")
 
     print(f"[2/3] transcripción (whisper, modelo={args.whisper_model}, idioma={args.lang})...")
-    captions_srt_path = analyze.run_whisper(args.narration_path, output_dir, args.whisper_model, args.lang)
+    captions_srt_path = analyze.run_whisper(narration_path, output_dir, args.whisper_model, args.lang)
     transcript_segments = edl.parse_srt_segments(captions_srt_path)
     print(f"  ok  {len(transcript_segments)} segmentos -> captions.srt")
 
     print("[3/3] construyendo EDL borrador...")
     edl_dict = edl.build_edl(
-        args.project_name, args.brief, args.narration_path, captions_srt_path,
+        args.project_name, args.brief, narration_path, captions_srt_path,
         transcript_segments, duration_s, footage_map,
     )
     plan_json_path = os.path.join(output_dir, "plan.json")

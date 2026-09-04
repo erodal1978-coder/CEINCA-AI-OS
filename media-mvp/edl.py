@@ -7,6 +7,7 @@ plan.md. Sin efectos de lado (sin ffmpeg/whisper/HTTP reales) — eso vive
 en plan_video.py, broll.py y process_video.py.
 """
 
+import os
 import re
 
 RE_SRT_TIME = re.compile(
@@ -241,8 +242,8 @@ def build_edl(project_name, brief_text, narration_path, captions_srt_path,
     return {
         "project": project_name,
         "brief": brief_text,
-        "narration_path": narration_path,
-        "captions_srt_path": captions_srt_path,
+        "narration_path": os.path.abspath(narration_path) if narration_path else narration_path,
+        "captions_srt_path": os.path.abspath(captions_srt_path) if captions_srt_path else captions_srt_path,
         "duration_s": duration_s,
         "music_direction": propose_music_direction(brief_text),
         "music_path": None,

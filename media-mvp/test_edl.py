@@ -174,6 +174,16 @@ def test_render_plan_markdown_shows_footage_when_provided():
     assert "/tmp/hook.mp4" in md
 
 
+def test_build_edl_stores_absolute_narration_path():
+    result = edl.build_edl(
+        "test-project", "brief", "relativa/narracion.wav", "relativa/captions.srt", [], 15.0
+    )
+    assert os.path.isabs(result["narration_path"])
+    assert result["narration_path"].endswith("relativa/narracion.wav")
+    assert os.path.isabs(result["captions_srt_path"])
+    assert result["captions_srt_path"].endswith("relativa/captions.srt")
+
+
 TESTS = [
     test_parse_srt_segments_basic,
     test_parse_srt_segments_ignores_blank_blocks,
@@ -192,6 +202,7 @@ TESTS = [
     test_build_edl_shape,
     test_render_plan_markdown_flags_unresolved_broll,
     test_render_plan_markdown_shows_footage_when_provided,
+    test_build_edl_stores_absolute_narration_path,
 ]
 
 

@@ -19,11 +19,59 @@ TARGET_FPS = 30
 # reference/viral_video_standards.md sección 6.
 MUSIC_DUCK_DB = -19
 
+def resolve_montserrat_font():
+    """Busca la fuente Montserrat Bold en el sistema evitando el fallback
+    silencioso de fontconfig a Noto Sans."""
+    candidates = [
+        os.path.expanduser("~/.local/share/fonts/MontserratBold.ttf"),
+        os.path.expanduser("~/.local/share/fonts/Montserrat-Bold.ttf"),
+        os.path.expanduser("~/.fonts/MontserratBold.ttf"),
+        os.path.expanduser("~/.fonts/Montserrat-Bold.ttf"),
+        "/usr/share/fonts/truetype/montserrat/Montserrat-Bold.ttf",
+        "/usr/share/fonts/truetype/montserrat/MontserratBold.ttf",
+        "/usr/local/share/fonts/Montserrat-Bold.ttf",
+        "/usr/local/share/fonts/MontserratBold.ttf",
+    ]
+    for c in candidates:
+        if os.path.isfile(c):
+            return c
+
+    for query in ["Montserrat Bold", "Montserrat-Bold", "Montserrat:weight=bold", "Montserrat"]:
+        try:
+            r = subprocess.run(["fc-match", "-f", "%{file}", query], capture_output=True, text=True)
+            if r.returncode == 0:
+                p = r.stdout.strip()
+                if p and os.path.isfile(p) and "montserrat" in p.lower():
+                    return p
+        except Exception:
+            pass
+
+    return "/usr/share/fonts/truetype/montserrat/Montserrat-Bold.ttf"
+
+
+def resolve_font_family(font_path):
+    """Obtiene el nombre de familia registrado en el archivo TTF para libass."""
+    if font_path and os.path.isfile(font_path):
+        try:
+            r = subprocess.run(["fc-scan", "-f", "%{family}", font_path], capture_output=True, text=True)
+            if r.returncode == 0 and r.stdout.strip():
+                return r.stdout.strip().split(",")[0].strip()
+        except Exception:
+            pass
+        basename = os.path.basename(font_path).lower()
+        if "montserrat" in basename and "bold" in basename:
+            return "Montserrat Bold"
+    return "Montserrat"
+
+
+DEFAULT_PLATE_FONTFILE = resolve_montserrat_font()
+DEFAULT_FONTS_DIR = os.path.dirname(DEFAULT_PLATE_FONTFILE) if os.path.isfile(DEFAULT_PLATE_FONTFILE) else None
+DEFAULT_SUBTITLE_FONTNAME = resolve_font_family(DEFAULT_PLATE_FONTFILE)
+
 DEFAULT_SUBTITLE_STYLE = (
-    "FontName=Montserrat,FontSize=16,PrimaryColour=&H00FFFFFF,"
+    f"FontName={DEFAULT_SUBTITLE_FONTNAME},FontSize=16,PrimaryColour=&H00FFFFFF,"
     "BorderStyle=1,Outline=2,Alignment=2,MarginV=180"
 )
-DEFAULT_PLATE_FONTFILE = "/usr/share/fonts/truetype/montserrat/Montserrat-Bold.ttf"
 
 
 def build_trim_command(source_path, source_offset_s, duration_s, dest_path,
@@ -54,10 +102,14 @@ def build_concat_command(shot_clip_paths, concat_list_path, dest_path):
     ]
 
 
-def build_subtitle_command(video_path, srt_path, dest_path, style=DEFAULT_SUBTITLE_STYLE):
+def build_subtitle_command(video_path, srt_path, dest_path, style=DEFAULT_SUBTITLE_STYLE, fontsdir=DEFAULT_FONTS_DIR):
     """Quema subtítulos en tercio inferior sin ocluir el rostro (MarginV
     alto) vía libass — mismo patrón validado en CLIENTS/casacampobarinas1."""
-    vf = f"subtitles={srt_path}:force_style='{style}'"
+    vf_parts = [f"subtitles={srt_path}"]
+    if fontsdir:
+        vf_parts.append(f"fontsdir={fontsdir}")
+    vf_parts.append(f"force_style='{style}'")
+    vf = ":".join(vf_parts)
     return [
         "ffmpeg", "-y", "-i", video_path, "-vf", vf,
         "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-an",
@@ -73,6 +125,10 @@ def build_text_plates_command(video_path, shots, dest_path, fontfile=DEFAULT_PLA
     plate_shots = [s for s in shots if s["phase"] in ("hook", "cierre") and s["subtitle_text"]]
     if not plate_shots:
         return None
+
+    if not os.path.isfile(fontfile):
+        print(f"  ⚠️  ADVERTENCIA: no se encontró la fuente '{fontfile}'. drawtext usará el fallback del sistema.",
+              file=sys.stderr)
 
     filters = []
     for shot in plate_shots:

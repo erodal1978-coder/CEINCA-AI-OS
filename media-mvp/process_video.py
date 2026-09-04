@@ -161,6 +161,25 @@ def main():
         json.dump(edl_dict, f, indent=2, ensure_ascii=False)
     print(f"  ok  todos los planos resueltos -> {resolved_plan_path}")
 
+    # Asegurar rutas absolutas y existencia para audio antes de ensamblar
+    if "narration_path" in edl_dict and edl_dict["narration_path"]:
+        np = edl_dict["narration_path"]
+        if not os.path.isabs(np):
+            candidate = os.path.join(output_dir, np)
+            edl_dict["narration_path"] = os.path.abspath(candidate) if os.path.isfile(candidate) else os.path.abspath(np)
+        if not os.path.isfile(edl_dict["narration_path"]):
+            print(f"ERROR: el archivo de narración '{edl_dict['narration_path']}' no existe.", file=sys.stderr)
+            sys.exit(1)
+
+    if edl_dict.get("music_path"):
+        mp = edl_dict["music_path"]
+        if not os.path.isabs(mp):
+            candidate = os.path.join(output_dir, mp)
+            edl_dict["music_path"] = os.path.abspath(candidate) if os.path.isfile(candidate) else os.path.abspath(mp)
+        if not os.path.isfile(edl_dict["music_path"]):
+            print(f"ERROR: el archivo de música '{edl_dict['music_path']}' no existe.", file=sys.stderr)
+            sys.exit(1)
+
     print("[2/3] ensamblando video final (ffmpeg)...")
     final_path = _assemble_final(edl_dict, output_dir)
     print(f"  ok  {final_path}")

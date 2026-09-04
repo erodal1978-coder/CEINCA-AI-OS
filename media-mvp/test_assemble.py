@@ -77,6 +77,25 @@ def test_build_narration_only_command_maps_video_and_narration():
     assert cmd[-1] == "/out/final.mp4"
 
 
+def test_resolve_montserrat_font_locates_existing_file():
+    font_path = assemble.resolve_montserrat_font()
+    assert font_path is not None
+    local_font = os.path.expanduser("~/.local/share/fonts/MontserratBold.ttf")
+    if os.path.isfile(local_font):
+        assert os.path.isfile(font_path)
+        assert "montserrat" in font_path.lower()
+
+
+def test_build_subtitle_command_includes_fontsdir_when_available():
+    cmd = assemble.build_subtitle_command(
+        "/out/concat.mp4", "/out/captions.srt", "/out/subtitled.mp4",
+        fontsdir="/custom/fonts"
+    )
+    vf = cmd[cmd.index("-vf") + 1]
+    assert "fontsdir=/custom/fonts" in vf
+    assert "/out/captions.srt" in vf
+
+
 TESTS = [
     test_build_trim_command_includes_offset_and_duration,
     test_build_concat_command_writes_list_file,
@@ -85,6 +104,8 @@ TESTS = [
     test_build_text_plates_command_builds_drawtext_for_hook,
     test_build_audio_mix_command_maps_video_and_mixed_audio,
     test_build_narration_only_command_maps_video_and_narration,
+    test_resolve_montserrat_font_locates_existing_file,
+    test_build_subtitle_command_includes_fontsdir_when_available,
 ]
 
 

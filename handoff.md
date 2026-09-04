@@ -140,7 +140,20 @@ Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agente
   - **Segundo corte por rate limit (01-09-2026, ~13:04, modelo `sonnet` esta vez)**: el primer despacho de la Tarea 13 fue terminado por el harness (`rate_limit, HTTP 429, "hit your session limit · resets 5:30pm (America/Caracas)"`) antes de crear ningún archivo. HEAD del worktree sigue limpio en `5b53f62` (el mismo commit de cierre de la Tarea 12) — nada que revertir, solo redespachar la Tarea 13 desde cero una vez pasada la hora de reset. Ver sección 4 para el patrón (ya es la segunda vez en esta sesión).
   - **Tarea 13 (`plan_video.py`, primer CLI) redespachada con éxito a las 17:49**: commit `19ab809`. Smoke test real corrido contra `media-mvp/test_rapido.mp4` (invoca whisper de verdad, tardó ~5 min) — produjo 7 planos en `plan.json`/`plan.md` (los 7 marcados `**FALTA B-ROLL**` porque no se pasó `--footage`) y `captions.srt` con 3 segmentos reales de whisper. **Aprobada** (revisión inusualmente rigurosa: el reviewer reprodujo a mano el algoritmo de chunking/keywords contra el `captions.srt` real en disco para confirmar que el smoke test no era inventado — confirmado genuino).
   - **Tarea 14 (`process_video.py`, segundo y último CLI) completada y aprobada**: commit `94987a9`. Reviewer (`sonnet`) verificó a mano las 11 llamadas externas contra las firmas reales de `analyze.py`/`broll.py`/`qc.py`/`assemble.py`, y las 3 propiedades de seguridad mandatorias (fatal si queda algún plano `unresolved` antes de ensamblar, fatal por decisión no reconocida, fallback a narración-sola si no hay música) — todas correctas.
-  - **Tarea 15 (validación end-to-end real + docs, ÚLTIMA tarea del plan) despachada** (modelo `sonnet`, con margen para depurar bugs reales de ffmpeg/fuentes/API): corre el pipeline completo narración→EDL→aprobación→B-roll→ensamblaje ffmpeg→QC contra `media-mvp/test_rapido.mp4` como narración y `test.mp4`/`test_ruido.mp4` como footage de prueba, corrige cualquier bug real que aparezca (se le advirtió explícitamente que `DEFAULT_PLATE_FONTFILE` en `assemble.py` casi seguro no existe en esta máquina), y actualiza `media-mvp/README.md` + `CLAUDE.md` al cierre. En curso al momento de este handoff — es la última tarea, cuando termine y se apruebe el plan completo queda listo para la revisión final de rama.
+  - **Tarea 15 (validación end-to-end real + docs, ÚLTIMA tarea del plan) completada y mergeada a main**: commit `0fd393d` ("Merge branch 'feat/video-editor-mvp'"). Los 6 módulos (`edl.py`, `broll.py`, `qc.py`, `assemble.py`, `plan_video.py`, `process_video.py`) están en `main`. Worktree eliminado.
+- **Post-auditoría Video Editor MVP — Fixes a 2 bugs reales aplicados y testeados (04-09-2026)**:
+  - Auditoría de Claude sobre `media-mvp/` confirmó que los 6 módulos están mergeados en `main` y validó el pipeline E2E, pero identificó 2 bugs reales antes de uso con clientes:
+    1. **`narration_path` y footage se guardaban relativos en el EDL (`plan_video.py` / `edl.py` / `process_video.py`)**: si `process_video.py` se ejecutaba desde otro directorio o con `--output-dir` externo, ffmpeg fallaba al mezclar audio con `Error opening input file`. Fix: normalización obligatoria a `os.path.abspath()` en `plan_video.py` (para narración, footage y `output_dir`) y en `edl.build_edl()`, además de resolución y verificación defensiva de existencia previa en `process_video.py`.
+    2. **Fallback silencioso de tipografía Montserrat → Noto Sans (`assemble.py`)**: `DEFAULT_PLATE_FONTFILE` apuntaba a `/usr/share/fonts/truetype/montserrat/Montserrat-Bold.ttf` inexistente en esta máquina (la fuente real vive en `~/.local/share/fonts/MontserratBold.ttf`), provocando que `drawtext` cayera en silencio a `NotoSans-Regular.ttf`. Asimismo, libass con `FontName=Montserrat` caía a Noto Sans porque el family name en fontconfig es `Montserrat Bold`. Fix: función `resolve_montserrat_font()` que escanea candidatos de rutas locales/sistema y consulta `fc-match` (verificando coincidencia real de Montserrat), función `resolve_font_family()` vía `fc-scan`, inclusión automática de `fontsdir` en `build_subtitle_command()`, y advertencia explícita en `build_text_plates_command()`.
+  - Suite de pruebas unitarias ampliada de 52 a 57 tests (18 `test_edl.py`, 8 `test_broll.py`, 11 `test_qc.py`, 9 `test_assemble.py`, 11 `test_regressions.py`), todos 100% pasando sin pytest.
+  - Verificación end-to-end corrida con éxito tanto para `plan_video.py` como para `process_video.py` desde un `cwd` externo (`/home/eduardo`), confirmando en logs verbose de ffmpeg la selección de `Montserrat-Bold` sin fallback.
+  - **Prueba completa en vivo ejecutada sobre `test_rapido.mp4` (`output/prueba_en_vivo/`, 04-09-2026)**:
+    - Clip base: 16.67 s de narración real en español.
+    - `plan_video.py`: Whisper transcribió 3 segmentos a `captions.srt` y estructuró 7 planos NEAPS con paths absolutos en `plan.json`/`plan.md`.
+    - Aprobación: 7 planos resueltos vía `agent_searches` en Pexels con keywords optimizadas (`publicidad movil marketing`, `abogado documentos legal`, `firma contrato oficina`, etc.).
+    - `process_video.py`: Workers descargaron 7 clips B-roll HD vertical; ffmpeg recortó a 1080×1920 30fps, concatenó, quemó subtítulos y placas en `Montserrat Bold` real, y mezcló audio original.
+    - Reporte QC: Duración OK (16.67s), Resolución OK (1080x1920), Subtítulos OK, Audio WARN (-32.4dB por nivel bajo de grabación original).
+    - Entregable: `output/prueba_en_vivo/final.mp4` (12.5 MB, H.264/AAC, abierto y verificado en reproductor Celluloid).
 
 ## 3. Archivos y cambios (esta sesión)
 Commits de limpieza y documentación en `main`:
@@ -209,6 +222,15 @@ Sesión mantenimiento quirúrgico (01-09-2026, sobre `main` directo):
 - `MARKETING/FRAMEWORK_VIRAL_V2.md`: eliminada la tabla estática y desactualizada de keywords en Parte 3, dejando puntero canónico al registro maestro `MARKETING/CTB_PALABRAS_DISRUPTIVAS.md`; referenciado `MARKETING/MANUAL_COPY_META_TIKTOK.md` en Partes 4 y 5.
 - `MARKETING/VIRAL_PLAYBOOK.md`: referenciado `MARKETING/MANUAL_COPY_META_TIKTOK.md` en la sección 5 como estándar de copy v2.0 (Meta 4 textos / TikTok 3 textos).
 
+Sesión fixes post-auditoría Video Editor MVP (04-09-2026):
+- `media-mvp/plan_video.py`: normaliza `narration_path`, `footage_map` y `output_dir` a rutas absolutas con `os.path.abspath`.
+- `media-mvp/edl.py`: importa `os`, normaliza `narration_path` y `captions_srt_path` a absoluto en `build_edl()`.
+- `media-mvp/process_video.py`: resolución defensiva a absoluto y validación de existencia para `narration_path` y `music_path` antes de iniciar el ensamblaje ffmpeg.
+- `media-mvp/assemble.py`: funciones `resolve_montserrat_font()` (escaneo de candidatos locales y fallback a `fc-match` validando "montserrat") y `resolve_font_family()` (`fc-scan` para family de libass), definición de `DEFAULT_FONTS_DIR`, `fontsdir` en `build_subtitle_command()`, y advertencia explícita en `build_text_plates_command()` si el archivo no existe.
+- `media-mvp/test_edl.py`: agregado test de almacenamiento de rutas absolutas en EDL (18/18 OK).
+- `media-mvp/test_assemble.py`: agregados tests de resolución de Montserrat y fontsdir (9/9 OK).
+- `media-mvp/test_regressions.py`: agregados tests de regresión para Bug 1 (narration_path absoluto) y Bug 2 (resolución de Montserrat sin caer a Noto Sans) (11/11 OK). Batería completa: 57/57 tests unitarios OK.
+
 ## 4. Intentos fallidos
 <!-- NO BORRAR NINGUNA ENTRADA DE ESTA SECCIÓN. Solo agregar. -->
 <!-- Si supera ~20 líneas, mover las más antiguas a handoff-archive.md (nunca eliminar). -->
@@ -242,6 +264,8 @@ Sesión mantenimiento quirúrgico (01-09-2026, sobre `main` directo):
 - Se descartó meter música bajo los testimonios pese a que se pidió con ducking al 15-20%: esos clips ya arrastran la música del party detrás de la voz, y una segunda pista encima sumaba un tercer plano sonoro que deshacía los ~20 dB de inteligibilidad recuperados. La música compuesta suena sólo en el gancho y el cierre, y no por ducking: el arreglo directamente no toca ahí.
 - Ejecución `subagent-driven-development` del plan del Video Editor MVP (01-09-2026): el subagente implementador de la Tarea 6 fue terminado por el harness con `rate_limit, HTTP 429, "hit your session limit · resets 12:30pm (America/Caracas)"` antes de leer el brief — no llegó a tocar ningún archivo. No es un error del plan ni del subagente, es un límite de cuota de la sesión. El HEAD del worktree quedó limpio en el commit de la Tarea 5 (`5aa0633`), sin nada que revertir. Lección: si un despacho de subagente falla por rate limit a mitad de una ejecución larga de varias tareas, verificar `git status`/`git log` en el worktree antes de reintentar — puede no haber hecho ningún cambio (como aquí) o puede haber dejado trabajo parcial sin commitear.
 - Una sesión de diseño del Video Editor MVP (31-08-2026) se interrumpió por un Ctrl+Z en la terminal del usuario antes de llegar a `handoff.md` — el trabajo de código/git no se perdió (el árbol de trabajo seguía limpio al retomar, confirmado con `git status`), pero un análisis de video viral que el usuario había pegado directamente en el chat (sin guardarlo en ningún archivo) sí se perdió y hubo que pedírselo de nuevo. Lección aplicada de inmediato en la misma sesión: cualquier contenido de referencia sustancial que el usuario pegue en el chat (análisis, guiones, specs) se persiste a un archivo en el repo apenas se recibe, no se espera al cierre formal de la sesión — así sobrevive aunque la sesión se corte a mitad de camino.
+- `narration_path` y footage guardados con rutas relativas en el EDL: si `process_video.py` corre desde un directorio distinto a `plan_video.py`, ffmpeg falla al mezclar audio con `Error opening input file`. Fix: normalizar a `os.path.abspath()` en `plan_video.py` y `edl.build_edl()`, más validación previa y resolución defensiva en `process_video.py`.
+- Fallback silencioso de `drawtext` y `subtitles`: `drawtext` de ffmpeg con `fontfile` apuntando a una ruta inexistente cae a `NotoSans-Regular.ttf` sin emitir ningún error. Asimismo, en sistemas donde la fuente local TTF registra su family como `"Montserrat Bold"` (ej. `~/.local/share/fonts/MontserratBold.ttf`), libass con `FontName=Montserrat` no hace match y cae silenciosamente a Noto Sans. Fix: escanear candidatos de rutas locales/sistema y consultar `fc-match` (verificando que contenga "montserrat"), obtener el family exacto vía `fc-scan`, inyectar `fontsdir` en ruta absoluta al filtro `subtitles`, y advertir explícitamente en stderr si el fontfile no existe.
 
 ## 5. Próximos pasos
 1. ~~Reconciliación formal de `FLOW_REELS.md` → v1.1~~ — **hecho**, PR #21 mergeado (`92ac2b9`).
@@ -290,17 +314,19 @@ Sesión mantenimiento quirúrgico (01-09-2026, sobre `main` directo):
 37. ~~Una vez aprobado el plan de implementación del Video Editor MVP: construir...~~ — **hecho** (01-09-2026): Plan completo finalizado. **Tarea 15 completada** en el worktree `.worktrees/feat-video-editor-mvp/` (rama `feat/video-editor-mvp`). Commits finales generados (`12e5adc` a `211ba8b`) que incluyen el bugfix de SRT vacío (salto del filtro libass para evitar crash en clips sin voz documentado) y actualización del README y CLAUDE.md. Batería de pruebas unitarias 52/52 exitosas. Validación E2E (con clip local y de workers) completada con éxito. El worktree se encuentra totalmente limpio sin archivos temporales. **Siguiente acción concreta:** Merge definitivo a `main` completado y worktree eliminado.
 
 ---
-## Checkpoint Operativo (01-09-2026)
+## Checkpoint Operativo (04-09-2026)
 
 * **WORKSPACE activo:** `/home/eduardo/CEINCA-AI-OS`
 * **BRANCH activa:** `main`
-* **HEAD final:** (limpio, incluye commits integrados de `feat/video-editor-mvp`)
+* **HEAD final:** (limpio, incluye commits integrados de `feat/video-editor-mvp` + fixes post-auditoría)
 * **Video Editor MVP:** completado e integrado en `media-mvp/`.
-* **Tarea 15 del plan:** completada (incluye bugfix para saltar SRT vacío, 52/52 tests unitarios OK, validación E2E OK).
+* **Fixes post-auditoría:** aplicados (Bug 1: `narration_path` y footage absolutos; Bug 2: resolución dinámica de fuente Montserrat Bold y `fontsdir` para subtítulos y placas, sin fallback a Noto Sans).
+* **Suite de tests:** 57/57 tests unitarios OK (`test_edl.py` 18, `test_broll.py` 8, `test_qc.py` 11, `test_assemble.py` 9, `test_regressions.py` 11).
+* **Prueba E2E en vivo:** `output/prueba_en_vivo/final.mp4` generado (12.5 MB, 1080×1920, 7 planos B-roll Pexels, Montserrat Bold, QC OK).
 * **Worktree de desarrollo:** eliminado.
 * **Siguiente tarea real pendiente:** Tarea 21 (CEINCA English — completar datos pendientes y regenerar PDF) o Tarea 34 (Validar render de `PRODUCTION/lexia-launch-video/`).
 
 > **Instrucciones para el próximo agente:**
 > 1. Lee `AGENTS.md` y `handoff.md`.
-> 2. No repitas la Tarea 15 (Video Editor MVP), ya está completamente integrada.
+> 2. No repitas la Tarea 15 (Video Editor MVP) ni los fixes post-auditoría, ya están completamente integrados y testeados.
 > 3. Identifica y continúa con la siguiente tarea pendiente de la lista (ej. Tarea 21 o 34) según indique el usuario.

@@ -17,6 +17,8 @@ import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import analyze  # noqa: E402
+import assemble  # noqa: E402
+import edl  # noqa: E402
 
 
 def _tmpdir():
@@ -164,6 +166,29 @@ def test_whisper_output_found_renames_correctly():
         shutil.rmtree(d)
 
 
+def test_regression_narration_path_stored_as_absolute():
+    """Regresión Bug 1 audit: narration_path relativo rompe ffmpeg si se corre
+    process_video.py desde otro directorio. build_edl debe guardarlo absoluto."""
+    result = edl.build_edl("p", "b", "clip.mp4", "subs.srt", [], 10.0)
+    assert os.path.isabs(result["narration_path"])
+    assert result["narration_path"] == os.path.abspath("clip.mp4")
+    assert os.path.isabs(result["captions_srt_path"])
+    assert result["captions_srt_path"] == os.path.abspath("subs.srt")
+
+
+def test_regression_montserrat_font_resolution_avoids_noto_fallback():
+    """Regresión Bug 2 audit: DEFAULT_PLATE_FONTFILE no debe apuntar a una
+    ruta inexistente si Montserrat existe en ~/.local/share/fonts, ni subtítulos
+    debe caer silenciosamente a Noto Sans."""
+    font = assemble.resolve_montserrat_font()
+    assert font is not None
+    local_font = os.path.expanduser("~/.local/share/fonts/MontserratBold.ttf")
+    if os.path.isfile(local_font):
+        assert font == local_font
+        assert "notosans" not in font.lower()
+        assert assemble.DEFAULT_SUBTITLE_FONTNAME in ("Montserrat Bold", "Montserrat")
+
+
 TESTS = [
     test_bug1_empty_srt_reports_ok_not_missing,
     test_bug1_missing_srt_still_reports_missing,
@@ -174,6 +199,8 @@ TESTS = [
     test_genuinely_silent_clip_with_normal_audio_level_is_ok,
     test_whisper_output_missing_raises_instead_of_silent_continue,
     test_whisper_output_found_renames_correctly,
+    test_regression_narration_path_stored_as_absolute,
+    test_regression_montserrat_font_resolution_avoids_noto_fallback,
 ]
 
 
