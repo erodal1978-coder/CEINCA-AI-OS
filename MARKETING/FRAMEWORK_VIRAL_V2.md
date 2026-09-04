@@ -216,7 +216,7 @@ Para mantener variedad visual en el feed y evitar monotonía:
 
 ## PARTE 3 — KEYWORDS DISRUPTIVAS (TRIGGERS)
 
-> 📖 **Banco completo de palabras disruptivas:** el registro maestro (107 venezolanismos verificados por categoría + historial de uso + términos excluidos por carga política) vive en [`MARKETING/CTB_PALABRAS_DISRUPTIVAS.md`](./CTB_PALABRAS_DISRUPTIVAS.md). El banco corto de esta sección es solo referencia rápida — consulta ese archivo antes de asignar una keyword nueva.
+> 📖 **Registro Maestro Oficial:** Consulta [`MARKETING/CTB_PALABRAS_DISRUPTIVAS.md`](./CTB_PALABRAS_DISRUPTIVAS.md) para la lista completa y actualizada de keywords (107 venezolanismos verificados, clasificados por categoría, historial de campañas activas/usadas y términos excluidos). **Ese archivo es la única fuente de verdad.**
 
 ### Por qué palabras raras y no genéricas
 
@@ -234,57 +234,20 @@ Para mantener variedad visual en el feed y evitar monotonía:
 4. Identidad de marca memorable
 5. Meta no las confunde con falsos positivos
 
-### Banco de keywords disruptivas CEINCA
-
-**⛔ YA USADAS:** chichicuilote, yenyen
-
-**✅ DISPONIBLES (asignar 1 por post):**
-
-| # | Keyword | Ideal para tema |
-|---|---|---|
-| 1 | PARAGUACUTIRIMICARO | Post estrella / mega viral |
-| 2 | TOTUMA | SAREN / trámites |
-| 3 | PLATANAZO | Errores comunes |
-| 4 | SANCOCHO | Guía completa |
-| 5 | GUARAPO | Novedad |
-| 6 | CACHAPA | Contenido de valor nutritivo |
-| 7 | MANDOCA | Guías paso a paso |
-| 8 | MORROCOY | Urgencia |
-| 9 | CUNAGUARO | Contenido agresivo / potente |
-| 10 | TURPIAL | Contenido patriótico |
-| 11 | HALLAQUITA | Compilado / cierre |
-| 12 | CHIPICHIPI | Tips rápidos |
-| 13 | PAPELÓN | "Endulza tu negocio" |
-| 14 | GUACHAFITA | Errores / caos empresarial |
-| 15 | ZAPEROCO | Problemas legales / alertas |
-| 16 | BOCHINCHE | Noticias polémicas |
-| 17 | TUMBARRANCHO | Impacto fuerte |
-| 18 | GUAYOYO | Contenido mañanero |
-| 19 | PATACÓN | Contenido doble / "dos en uno" |
-| 20 | COCOLISO | Simplificación |
-| 21 | CHIRULÍ | Alertas rápidas |
-| 22 | COROCORA | Contenido profundo |
-| 23 | CATALINA | Testimonios |
-| 24 | CHAGUARAMO | Crecimiento |
-| 25 | AREPAZO | Verdades directas |
-| 26 | MAJARETE | Guías fáciles |
-| 27 | CURBINA | Contenido pesado |
-| 28 | GOLFEADO | Contenido envolvente |
-| 29 | TEQUICHE | Sorpresa |
-| 30 | MAMONSOTE | Ofertas grandes |
-
-### Reglas de uso
-1. NUNCA repetir una keyword
-2. Asignar ANTES de diseñar el post
-3. Llevar registro: KEYWORD → FECHA → POST → LEADS GENERADOS
-4. Keywords largas = posts de mayor impacto
-5. Keywords cortas = contenido frecuente
+### Reglas obligatorias de asignación
+1. **NUNCA repetir una keyword** entre campañas activas o marcas distintas.
+2. **Consultar el banco maestro** antes de diseñar la pieza y registrar la asignación en [`MARKETING/CTB_PALABRAS_DISRUPTIVAS.md`](./CTB_PALABRAS_DISRUPTIVAS.md).
+3. **Llevar registro:** KEYWORD → FECHA → POST/CAMPAÑA → LEADS GENERADOS.
+4. **Keywords largas/inéditas** = posts estrella o contenido de alto impacto.
+5. **Keywords de uso diario** = contenido educativo frecuente.
 
 ---
 
 ## PARTE 4 — COPY DE LA DESCRIPCIÓN
 
-### Estructura del copy
+> 📖 **Manual de Copy Oficial (v2.0):** Para la redacción detallada de los 4 textos de Meta (copy principal, fijado, respuesta pública y DM automático) y los 3 textos de TikTok, la fuente de verdad definitiva es [`MARKETING/MANUAL_COPY_META_TIKTOK.md`](./MANUAL_COPY_META_TIKTOK.md).
+
+### Estructura base del copy
 
 ```
 [EMOJI ANCLA] [HOOK DE 1 LÍNEA EN MAYÚSCULAS]
@@ -327,7 +290,7 @@ porque aquí publicamos [tema ancla] antes que nadie 🚀
 #Hashtag1 #Hashtag2 #Hashtag3 #Hashtag4 #Hashtag5
 ```
 
-### Hashtags por tema (rotar):
+### Hashtags por tema (rotar, máximo 5):
 
 | Tema | 5 hashtags |
 |---|---|
@@ -339,6 +302,8 @@ porque aquí publicamos [tema ancla] antes que nadie 🚀
 ---
 
 ## PARTE 5 — COMENTARIO FIJADO
+
+> 📖 Consultar [`MARKETING/MANUAL_COPY_META_TIKTOK.md`](./MANUAL_COPY_META_TIKTOK.md) §4.2 para variaciones según framing (pérdida futura / urgencia).
 
 ### Estructura del mensaje fijado
 

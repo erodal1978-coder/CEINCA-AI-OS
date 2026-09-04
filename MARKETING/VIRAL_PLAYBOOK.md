@@ -193,6 +193,8 @@ Separar 1 hora inmediata después de publicar SOLO para responder comentarios. E
 
 ## 5. PLANTILLAS DE CAPTIONS
 
+> 📖 **Fuente Canónica de Copy (v2.0):** Para la redacción y despliegue del sistema completo de 4 textos en Meta y 3 textos en TikTok (incluyendo la regla del "Síguenos", framings autorizados y disparadores de DM), consulta [`MARKETING/MANUAL_COPY_META_TIKTOK.md`](./MANUAL_COPY_META_TIKTOK.md). Las siguientes plantillas son referencias de ángulos de enfoque.
+
 ### 5.1 Caption de Valor (Post educativo)
 ```
 [EMOJI] [HOOK EN MAYÚSCULAS — visible antes del "...más"]
