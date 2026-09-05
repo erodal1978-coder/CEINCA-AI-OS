@@ -345,34 +345,203 @@ Commits en `main`:
 37. ~~Una vez aprobado el plan de implementación del Video Editor MVP: construir...~~ — **hecho** (01-09-2026): Plan completo finalizado. **Tarea 15 completada** en el worktree `.worktrees/feat-video-editor-mvp/` (rama `feat/video-editor-mvp`). Commits finales generados (`12e5adc` a `211ba8b`) que incluyen el bugfix de SRT vacío (salto del filtro libass para evitar crash en clips sin voz documentado) y actualización del README y CLAUDE.md. Batería de pruebas unitarias 52/52 exitosas. Validación E2E (con clip local y de workers) completada con éxito. El worktree se encuentra totalmente limpio sin archivos temporales. **Siguiente acción concreta:** Merge definitivo a `main` completado y worktree eliminado.
 38. **Post-auditoría Video Editor MVP: 2 bugs reales encontrados y corregidos (04-09-2026)** — ver sección 2 y "Archivos y cambios" para el detalle técnico completo. Commits `df6d409` (fixes), `b792ab5` (docs marketing pendientes), `4df01e5` (`AGENTS.md`) — los 3 pusheados a `origin/main`.
 39. ~~Decidir sobre NotebookLM MCP (`~/.claude.json`)~~ — **hecho** (04-09-2026): actualizado `notebooklm-mcp-cli` v0.8.0→v0.10.1 (`uv tool upgrade`, corrigió un bug de detección de login), autenticado con `nlm login` (24 notebooks encontrados), y reactivado en `~/.claude.json` (fuera de `disabledMcpServers`).
+40. ~~Auditoría Linux Mint (hardware+software+impresora)~~ — **hecho** (05-09-2026, sesión Antigravity): ejecutados Bloques A, B y C según el plan. Entregable `/home/eduardo/CEINCA-WORKSPACE/sistema-personalizacion-linux-mint.md` creado. Liberados +5.0 GB netos en `/` (de 123G a 129G libres), APT reducido de 2.4 GB a 676 KB, journalctl bajado a 198 MB, 5 kernels obsoletos purgados (/boot de 778 MB a 228 MB), Docker y dependencias huérfanas purgados, cola duplicada de impresora eliminada dejando solo `HP-LaserJet-Professional-P-1102w`, y diagnóstico SMART extraído (33,528 hrs, 0 sectores reasignados). Topología RAM documentada con Slot 3 libre para expansión.
+    - **Hallazgos clave del diagnóstico real (solo lectura) corrido en esta sesión:** CPU Intel i5-3570 (4 hilos, ~2012) con load average 3.5-3.9 casi saturado; RAM 7.7GB con <200MB libres; **único disco interno es un HDD mecánico WDC WD2500AAKX-7 (7200rpm, ~2012), sin SSD en la máquina**, sin smartmontools instalado; disco externo DOCUMENTOS1 (107GB FAT32) al 100% (402MB libres); impresora HP LaserJet P1102w con **dos colas CUPS duplicadas** para el mismo dispositivo; 7 kernels instalados en paralelo (`/boot` en 771M); **home cifrado con eCryptfs sobre el HDD mecánico — verificado en vivo que `du -sh` sobre `~/.cache`/`~/.config`/`CEINCA-AI-OS`/`CEINCA-WORKSPACE` tarda >20s cada uno** (probable cuello de botella #1 de la máquina, por encima de la CPU); `/var/cache/apt/archives` en 2.2GB; journal en 520MB; **Docker activo como servicio de arranque con 0 contenedores/0 imágenes**; 76 servicios systemd habilitados; `~/Descargas` ~18GB sin categorizar; `CEINCA-WORKSPACE/Antigravity.tar.gz` (171MB) y `Recording_2026_09_01.webm` (11MB) sueltos en la raíz del workspace.
+    - **Prompt completo entregado al usuario para Agy (texto íntegro, por si se pierde el chat):**
+      ```
+      Eres el agente encargado de ejecutar una auditoría y limpieza real del sistema
+      operativo de este equipo (Linux Mint 22.3 "Zena", usuario eduardo). Ya se hizo
+      un diagnóstico de solo lectura en una sesión previa de Claude Code — estos son
+      los hallazgos confirmados, no los vuelvas a redescubrir desde cero salvo que
+      necesites verificar un dato antes de actuar sobre él:
+
+      HARDWARE
+      - CPU: Intel i5-3570 @3.40GHz, 4 núcleos/4 hilos, ~2012. Load average
+        sostenido en 3.5-3.9 sobre 4 hilos (casi saturada en uso normal).
+      - RAM: 7.7GB totales, casi siempre <200MB libres.
+      - Disco interno: ÚNICO HDD mecánico WDC WD2500AAKX-7 (7200rpm, ~2012). No hay
+        ningún SSD en la máquina. No hay smartmontools instalado.
+      - GPU: AMD Oland (Radeon HD 8670 / R5 340X OEM, Dell) — ya optimizada
+        previamente con VAAPI para un proyecto de webcam, no la toques.
+      - Disco externo "DOCUMENTOS1" (/dev/sdb1, FAT32, 107GB): 100% lleno, 402MB
+        libres.
+      - Impresora: HP LaserJet Pro P1102w por USB (funciona bien, hp-check sin
+        dependencias faltantes). CUPS tiene DOS colas duplicadas para el mismo
+        dispositivo físico: "HP-LaserJet-Professional-P-1102w" (con guiones, es el
+        destino por defecto actual) y "HP_LaserJet_Professional_P_1102w" (con
+        guiones bajos, redundante).
+
+      SOFTWARE
+      - Kernel corriendo: confirma con `uname -r` antes de purgar nada (era
+        7.0.0-30-generic al momento del diagnóstico, pero puede haber cambiado).
+      - Kernels instalados en paralelo (verificar con
+        `dpkg -l 'linux-image-*' | grep ^ii`): en el diagnóstico había 7 versiones
+        (6.14.0-29, 6.14.0-37, 6.17.0-14, 6.17.0-19, 6.17.0-20, 7.0.0-30, 7.0.0-31),
+        todas marcadas "manual" en apt (por eso autoremove no las toca).
+      - El home de eduardo está cifrado con eCryptfs, montado sobre el HDD
+        mecánico. Esta combinación hace que operaciones triviales (du, git, caché
+        de Chrome, node_modules) sean extremadamente lentas — verificado en vivo:
+        `du -sh` sobre ~/.cache, ~/.config, ~/CEINCA-AI-OS y ~/CEINCA-WORKSPACE
+        tardó más de 20s cada una. NO toques el cifrado ni migres nada de esto en
+        esta pasada — es solo diagnóstico para esta sesión (ver Bloque B).
+      - /var/cache/apt/archives: 2.2GB de paquetes .deb descargados.
+      - Logs de journalctl: 520MB acumulados.
+      - Docker instalado y activo como servicio de arranque (10.7s de boot) con 0
+        contenedores y 0 imágenes — no se usa en ningún flujo de trabajo actual.
+      - 76 unidades systemd habilitadas. ProtonVPN split-tunneling (28s de boot) —
+        no lo toques sin preguntar si se usa a diario.
+      - ~/Descargas pesa ~18GB sin categorizar.
+      - ~/CEINCA-WORKSPACE/Antigravity.tar.gz (171MB) y
+        ~/CEINCA-WORKSPACE/Recording_2026_09_01.webm (11MB) están sueltos en la
+        raíz de ese workspace.
+
+      Ejecuta esto en 3 bloques:
+
+      ═══ BLOQUE A — Cambios reales, bajo riesgo. Ejecuta todo esto en una sola
+      pasada, SIN pedir confirmación paso a paso (ya está aprobado por el usuario):
+
+      1. `sudo apt-get clean && sudo apt-get autoclean`
+      2. `sudo journalctl --vacuum-size=200M`
+      3. Purga de kernels viejos:
+         - Primero corre `uname -r` y anota el kernel corriendo. NUNCA lo purgues.
+         - Lista los kernels instalados con `dpkg -l 'linux-image-*' | grep ^ii` y
+           ordénalos por versión.
+         - Deja instalados como mínimo: el que está corriendo + el más reciente
+           (normalmente coinciden con el que trackea `linux-image-generic-hwe-24.04`).
+         - Para cada versión sobrante, busca sus paquetes reales asociados con
+           `dpkg -l | grep <versión>` (image/headers/modules/modules-extra — no
+           todos existen para todas las versiones) y purga solo los que existen:
+           `sudo apt-get purge -y <paquetes encontrados>`
+         - Cierra con `sudo apt-get autoremove -y` y `sudo update-grub`.
+      4. Impresora duplicada: `sudo lpadmin -x HP_LaserJet_Professional_P_1102w`
+         (verifica antes con `lpstat -p -d` que efectivamente el destino por
+         defecto sigue siendo `HP-LaserJet-Professional-P-1102w`; si el default
+         fuera el otro, invierte cuál borras).
+      5. Purgar Docker (confirma antes que sigue en 0 contenedores/0 imágenes con
+         `docker ps -a` y `docker images`; si ya no está en 0, detente y pregunta):
+         `sudo systemctl disable --now docker`
+         `sudo apt-get purge -y docker.io docker-ce docker-ce-cli containerd.io 2>/dev/null`
+         `sudo apt-get autoremove -y`
+         (usa los nombres de paquete reales que encuentres instalados, pueden no
+         ser exactamente estos).
+      6. `sudo apt-get install -y smartmontools` y corre
+         `sudo smartctl -a /dev/sda > /tmp/smart_sda.txt` — guarda el resultado
+         completo para el archivo final (salud real del único disco de la
+         máquina, es la pieza más vieja y crítica que hay).
+
+      ═══ BLOQUE B — Solo diagnóstico, NO ejecutes cambios de esto:
+
+      1. `sudo dmidecode -t memory` — cuántos slots de RAM hay, cuáles están
+         ocupados/libres, y el máximo soportado por la placa. De esto depende si
+         vale la pena recomendar pasar de 8GB a 16GB.
+      2. Con lo anterior, escribe una recomendación de compra concreta:
+         - SSD SATA de al menos 480GB (esta placa es de ~2012, no tiene M.2/NVMe,
+           confírmalo si puedes con `lspci` buscando controladoras NVMe — no
+           debería haber ninguna).
+         - Documenta (sin ejecutar) 2 rutas de migración para una sesión futura:
+           (a) clonar el HDD completo al SSD con Clonezilla, manteniendo eCryptfs
+           tal cual — gana velocidad sin tocar el cifrado;
+           (b) reinstalar Mint 22.3 limpio en el SSD sin eCryptfs (usando LUKS de
+           disco completo en su lugar) y migrar datos a mano — más trabajo, pero
+           resuelve el cuello de botella de raíz en vez de solo mitigarlo.
+         - Si dmidecode muestra un slot de RAM libre, recomienda módulo(s)
+           concretos compatibles (tipo/velocidad de RAM que reporte dmidecode).
+      3. Lista los 76 servicios habilitados (`systemctl list-unit-files --state=enabled`)
+         y señala candidatos claros a deshabilitar (ej. servicios de Bluetooth si
+         `hciconfig`/`bluetoothctl` no muestran ningún adaptador o dispositivo
+         emparejado). Solo repórtalos — no deshabilites nada de este bloque sin
+         preguntarle primero al usuario, incluyendo ProtonVPN.
+
+      ═══ BLOQUE C — Solo inventario, NO borres nada de esto:
+
+      1. `du -sh --max-depth=1 ~/Descargas | sort -rh` (usa `timeout 60` por si el
+         disco va lento) y agrupa por tipo/antigüedad aproximada.
+      2. En el disco externo `/media/eduardo/DOCUMENTOS1`, qué es lo que más
+         espacio ocupa (`du -sh --max-depth=1` con timeout también).
+      3. Menciona explícitamente `~/CEINCA-WORKSPACE/Antigravity.tar.gz` (171MB) y
+         `~/CEINCA-WORKSPACE/Recording_2026_09_01.webm` (11MB) como candidatos a
+         revisar, sin tocarlos.
+
+      ═══ ENTREGABLE FINAL — crea el archivo
+      `/home/eduardo/CEINCA-WORKSPACE/sistema-personalizacion-linux-mint.md` con
+      estas secciones:
+
+      1. **Perfil de hardware**: CPU, RAM (con resultado real de dmidecode),
+         GPU, discos (modelos, tipo, tamaño, punto de montaje), impresora.
+      2. **Perfil de software**: versión de Mint/kernel, kernels retenidos y por
+         qué, lista de servicios habilitados relevantes.
+      3. **Impresora**: estado tras la limpieza de la cola duplicada.
+      4. **Hallazgo de rendimiento**: eCryptfs + HDD mecánico como cuello de
+         botella principal, con la evidencia (tiempos de du, etc.).
+      5. **Registro de cambios ejecutados**: fecha, comando exacto corrido,
+         resultado, espacio liberado antes/después (compara `df -h /` y
+         `du -sh /var/cache/apt/archives` antes/después).
+      6. **Resultado SMART del disco** (resumen del archivo generado en el
+         Bloque A, punto 6 — señala explícitamente si hay algún atributo en mal
+         estado).
+      7. **Recomendaciones pendientes de decisión del usuario**: compra de
+         SSD/RAM con las rutas de migración, qué borrar de Descargas/DOCUMENTOS1
+         según el inventario del Bloque C, servicios candidatos a deshabilitar.
+
+      Al terminar, corre esta verificación y repórtala en el chat:
+      - `df -h /` y `du -sh /var/cache/apt/archives` (espacio liberado)
+      - `lpstat -p -d` (una sola cola de impresora)
+      - `systemctl status docker` (removido/inactivo)
+      - `journalctl --disk-usage` (por debajo de 200M)
+      - `ls /boot` (solo 2 líneas de kernel)
+      - Confirma que el .md se creó correctamente.
+
+      Reglas de seguridad, no las rompas:
+      - Nunca purgues el kernel que está corriendo actualmente.
+      - Nunca borres nada dentro de ~/Descargas, DOCUMENTOS1, ni los dos archivos
+        sueltos de CEINCA-WORKSPACE — solo inventario.
+      - Nunca toques el cifrado eCryptfs ni el HDD actual — solo diagnóstico y
+        recomendación.
+      - Si algo no coincide con lo descrito aquí (ej. Docker ya no está en 0
+        contenedores, o el destino por defecto de impresión cambió), detente en
+        ese paso específico y pregunta antes de continuar con ese bloque.
+      ```
+    - **Resultado de la ejecución por Antigravity (05-09-2026):**
+      * Entregable generado: [`/home/eduardo/CEINCA-WORKSPACE/sistema-personalizacion-linux-mint.md`](file:///home/eduardo/CEINCA-WORKSPACE/sistema-personalizacion-linux-mint.md).
+      * **Espacio en disco:** +5.0 GB netos recuperados en partición raíz (de 123G a 129G disponibles; uso bajó a 41%).
+      * **APT:** reducida la caché de 2.4 GB a 676 KB.
+      * **Journalctl:** reducido de 516.5 MB a 198.0 MB.
+      * **Kernels:** purgados 5 kernels viejos (6.14.0-29/37, 6.17.0-14/19/20) y sus 33 paquetes dependientes; `/boot` bajó de 778 MB a 228 MB (-550 MB); conservados `7.0.0-31-generic` (activo) y `7.0.0-30-generic` (backup); GRUB actualizado.
+      * **Impresora:** eliminada cola duplicada `HP_LaserJet_Professional_P_1102w`. Queda una sola cola oficial `HP-LaserJet-Professional-P-1102w` como predeterminada.
+      * **Docker:** purgado por completo con `containerd`, `docker-compose-v2` y librerías huérfanas (~37.4 MB liberados; eliminados 10.7s de boot).
+      * **SMART:** `smartmontools` instalado y reporte `/tmp/smart_sda.txt` extraído: WD2500AAKX con 33,528 horas de encendido (~3.82 años 24/7), 0 sectores reasignados, 0 pendientes, autotests pasados pero con historial de lecturas fallidas en hora 20,156.
+      * **Memoria RAM:** `dmidecode` confirmó placa con 4 slots DDR3 (máx 32 GB): 3 slots ocupados (4GB + 2GB + 2GB = 8GB) y **Slot 3 (`ChannelB-DIMM0`) VACÍO**, listo para expansión a 12GB o 16GB con módulo DDR3 1600MHz de escritorio.
+
+41. 🖨️ **Bug de HPLIP e impresora HP LaserJet Pro P1102w (05-09-2026, requerimiento explícito del usuario):**
+    - **Problema reportado:** Cuando la impresora se queda sin papel durante una impresión, se detiene y no permite continuar tras reponer hojas.
+    - **Diagnóstico preliminar:** La P1102w usa driver host-based `hpcups 3.23.12` con plugin privativo. CUPS cambia el estado a `State Stopped / Reason paused` (`ErrorPolicy retry-job`). Al colocar papel, la comunicación bidireccional no reanuda automáticamente el demonio CUPS.
+    - **Workaround actual en terminal:** `cupsenable HP-LaserJet-Professional-P-1102w`.
+    - **Tarea pendiente para próxima sesión:** Revisar configuración de HPLIP (`hp-toolbox`, `hp-check`), evaluar actualización a upstream o crear un script/hook udev que reanude automáticamente la cola ante eventos de reposición o reconexión USB.
 
 > 🧊 **Nota sobre los puntos 21 y 34 (congelados, 04-09-2026):** decisión explícita del usuario — no retomar CEINCA English (punto 21) ni la validación de render de `lexia-launch-video` (punto 34) hasta una sesión futura dedicada a actualizar/revisar todas las redes sociales de CEINCA. No son bloqueantes de nada más; simplemente no se tocan por ahora.
 
 ---
-## Checkpoint Operativo (04-09-2026)
+## Checkpoint Operativo (05-09-2026)
 
 * **WORKSPACE activo:** `/home/eduardo/CEINCA-AI-OS`
 * **BRANCH activa:** `main`
-* **HEAD final:** `5dd16d0` (incluye eliminación de skills duplicados de superpowers; pendiente commit de actualización de `handoff.md`)
-* **Auditoría y optimización Claude Code:** Completada según spec `docs/superpowers/specs/2026-09-04-auditoria-claude-config-design.md`.
-  - Plugins globales deshabilitados (`false`): `telegram`, `greptile`, `serena`, `chrome-devtools-mcp`.
-  - GitHub MCP: variable `GITHUB_PERSONAL_ACCESS_TOKEN` configurada en `~/.bashrc`.
-  - Playwright: caché npx y binarios Chromium instalados en `~/.cache/ms-playwright/`, handshake JSON-RPC verificado exitoso.
-  - Navegador redundante: eliminado `~/.claude/skills/agent-browser/`. Consolidado en `claude-in-chrome` y `playwright`.
-  - Skills duplicados de repo: eliminados `brainstorming/`, `requesting-code-review/`, `verification-before-completion/` y de `skills-lock.json`. Cero referencias rotas.
-  - Conclusión `/tdd`, `/e2e` y `tdd-workflow`: resuelto limpiamente desde commit `f036662`; `tdd-workflow` sigue activo vía rules y agentes.
-* **Video Editor MVP:** completado e integrado en `media-mvp/`.
-* **Fixes post-auditoría:** aplicados (Bug 1: `narration_path` y footage absolutos; Bug 2: resolución dinámica de fuente Montserrat Bold y `fontsdir` para subtítulos y placas, sin fallback a Noto Sans).
-* **Suite de tests:** 57/57 tests unitarios OK (`test_edl.py` 18, `test_broll.py` 8, `test_qc.py` 11, `test_assemble.py` 9, `test_regressions.py` 11).
-* **Prueba E2E en vivo:** `output/prueba_en_vivo/final.mp4` generado (12.5 MB, 1080×1920, 7 planos B-roll Pexels, Montserrat Bold, QC OK).
-* **Worktree de desarrollo:** eliminado.
-* **Tareas 21 y 34 (CEINCA English, render de `lexia-launch-video`): congeladas** por decisión explícita del usuario hasta una sesión futura de revisión de todas las redes sociales — no son la siguiente tarea real pendiente.
-* **NotebookLM MCP:** autenticado y activo (04-09-2026) — ver punto 39.
-* **Siguiente tarea real pendiente:** ninguna asignada explícitamente — atender los puntos abiertos de "Próximos pasos" (6, 8-12, 14, 18-20, 23-28, 35) por prioridad, o preguntar al usuario.
+* **HEAD final:** `5dd16d0` (pendiente commit de actualización de `handoff.md`)
+* **Auditoría Linux Mint (Tarea 40):** COMPLETADA por Antigravity (05-09-2026).
+  - Bloque A (limpieza y optimización): ejecutado al 100%. 5 GB liberados en raíz, kernels viejos purgados, docker eliminado, journal compactado, cola duplicada de impresora borrada, smartmontools instalado.
+  - Bloque B (diagnóstico hardware/software): ejecutado al 100%. RAM de 4 slots con Slot 3 libre identificado; recomendación de compra de SSD SATA 2.5" y DDR3 1600MHz documentada; servicios candidatos a deshabilitar listados.
+  - Bloque C (inventario): ejecutado al 100%. Descargas (~18 GB) y DOCUMENTOS1 (108 GB respaldo) inventariados.
+  - Entregable: creado [`/home/eduardo/CEINCA-WORKSPACE/sistema-personalizacion-linux-mint.md`](file:///home/eduardo/CEINCA-WORKSPACE/sistema-personalizacion-linux-mint.md).
+* **webcam-app:** fix de rendimiento verificado independientemente en vivo (04-09-2026). 18/18 tests unitarios OK. Grabaciones reales horizontal y vertical en ~1.0x sin pérdida de frames. Bug de persistencia en `window.py` corregido y verificado.
+* **Video Editor MVP:** completado e integrado en `media-mvp/`. 57/57 tests unitarios OK. Prueba E2E en vivo generada.
+* **Tareas 21 y 34 (CEINCA English, render de `lexia-launch-video`): congeladas** por decisión explícita del usuario hasta una sesión futura de revisión de todas las redes sociales.
+* **NotebookLM MCP:** autenticado y activo (04-09-2026).
+* **Siguiente tarea real pendiente:**
+  1. Revisar y resolver bug de HPLIP en impresora cuando falta papel (punto 41).
+  2. Atender otros puntos abiertos de "Próximos pasos" (6, 8-12, 14, 18-20, 23-28, 35) según prioridad indicada por el usuario.
 
 > **Instrucciones para el próximo agente:**
 > 1. Lee `AGENTS.md` y `handoff.md`.
-> 2. No repitas la Tarea 15 (Video Editor MVP) ni los fixes post-auditoría, ya están completamente integrados y testeados.
-> 3. No retomes las Tareas 21 (CEINCA English) ni 34 (render `lexia-launch-video`) — están congeladas hasta la sesión de revisión de redes; si el usuario no la ha mencionado, no asumas que ya llegó.
-> 4. Identifica y continúa con la siguiente tarea pendiente de la lista según indique el usuario.
+> 2. No repitas la Tarea 15 (Video Editor MVP) ni la Tarea 40 (Auditoría Linux Mint), ya están completamente finalizadas y documentadas.
+> 3. No retomes las Tareas 21 ni 34 (congeladas hasta la sesión de revisión de redes).
+> 4. El punto 41 (bug de papel impresora HPLIP) es la tarea técnica recién levantada pendiente de resolución.
 
