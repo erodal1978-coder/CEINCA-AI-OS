@@ -522,10 +522,9 @@ Commits en `main`:
 * **WEBKIT end-to-end (Tarea 19):** COMPLETADA. Flujo validado exitosamente. `CLAUDE.md` actualizado con convención de destino hacia `CLIENTS/`.
 * **Ramas huérfanas (Tarea 20):** COMPLETADA. Rama `playwright-setup-qehg88` eliminada de origin.
 * **Bug Impresora HPLIP + Doble Cara (Tarea 41):** COMPLETADA. Auto-reanudar y cola virtual configurados en sistema.
-* **WEBKIT Landing Page (Casa & Campo Barinas):** DESARROLLADA Y COMPILADA (06-09-2026). Scaffold Next.js creado en `CLIENTS/casacampobarinas1/site/`. Se integraron fotos extraídas del pendrive `DOCUMENTOS1`, el Logo IG nuevo del workspace, y el contenido de auditoría. App compila al 100%. Pendiente revisión visual del usuario mediante `npm run dev`.
+* **WEBKIT Landing Page (Casa & Campo Barinas):** COMPLETADA Y GUARDADA (06-09-2026). Scaffold Next.js en `CLIENTS/casacampobarinas1/site/`. Fotos curadas, iconos originales de redes, widget de Elfsight para IG, y mapa de Google integrados. App corre y compila al 100%. Commit de respaldo subido.
 * **Siguiente tarea real pendiente:**
-  1. Revisar `localhost:3000` con el cliente para ajustes de texto/color de Casa & Campo.
-  2. Atender otros puntos abiertos de "Próximos pasos" (8-12, 18, 23-28, 35) según prioridad indicada por el usuario.
+  1. Atender otros puntos abiertos de "Próximos pasos" (8-12, 18, 23-28, 35) según prioridad indicada por el usuario.
 
 > **Instrucciones para el próximo agente:**
 > 1. Lee `AGENTS.md` y `handoff.md`.
