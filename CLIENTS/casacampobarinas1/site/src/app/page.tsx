@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Script from "next/script";
 import { MapPin, Phone } from "lucide-react";
 import * as motion from "framer-motion/client";
 
@@ -30,7 +31,7 @@ export default function Home() {
       <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero.jpg"
+            src="/images/hero-instalaciones.jpg"
             alt="Casa y Campo Paisaje"
             fill
             className="object-cover object-center"
@@ -86,7 +87,7 @@ export default function Home() {
             {/* Piscina */}
             <div className="group rounded-2xl overflow-hidden bg-[#FDFCF0] shadow-sm hover:shadow-xl transition-all border border-slate-100">
               <div className="relative h-48 overflow-hidden">
-                <Image src="/images/pool.jpg" alt="Piscina Casa y Campo" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                <Image src="/images/piscina-familiar.jpg" alt="Piscina Casa y Campo" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
               </div>
               <div className="p-6">
                 <h4 className="text-xl font-bold text-[#1B2945] mb-2 uppercase">Domingos de Piscina</h4>
@@ -97,7 +98,7 @@ export default function Home() {
             {/* Eventos */}
             <div className="group rounded-2xl overflow-hidden bg-[#FDFCF0] shadow-sm hover:shadow-xl transition-all border border-slate-100">
               <div className="relative h-48 bg-[#1B2945] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 opacity-20 bg-[url('/images/hero.jpg')] bg-cover bg-center" />
+                <div className="absolute inset-0 opacity-20 bg-[url('/images/eventos-montaje.jpg')] bg-cover bg-center" />
                 <span className="relative text-white font-bold text-2xl uppercase tracking-widest">Cumpleaños</span>
               </div>
               <div className="p-6">
@@ -109,7 +110,7 @@ export default function Home() {
             {/* Comida */}
             <div className="group rounded-2xl overflow-hidden bg-[#FDFCF0] shadow-sm hover:shadow-xl transition-all border border-slate-100">
               <div className="relative h-48 bg-[#397245] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 opacity-20 bg-[url('/images/hero.jpg')] bg-cover bg-center" />
+                <div className="absolute inset-0 opacity-20 bg-[url('/images/comida-sabor-llanero.png')] bg-cover bg-center" />
                 <span className="relative text-white font-bold text-2xl uppercase tracking-widest">Sabor Llanero</span>
               </div>
               <div className="p-6">
@@ -120,9 +121,8 @@ export default function Home() {
 
             {/* Hospedaje */}
             <div className="group rounded-2xl overflow-hidden bg-[#FDFCF0] shadow-sm hover:shadow-xl transition-all border border-slate-100">
-              <div className="relative h-48 bg-slate-800 flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 opacity-20 bg-[url('/images/pool.jpg')] bg-cover bg-center" />
-                <span className="relative text-white font-bold text-2xl uppercase tracking-widest">Descanso</span>
+              <div className="relative h-48 overflow-hidden">
+                <Image src="/images/hospedaje-habitacion.jpg" alt="Hospedaje Casa y Campo" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
               </div>
               <div className="p-6">
                 <h4 className="text-xl font-bold text-[#1B2945] mb-2 uppercase">Hospedaje</h4>
@@ -133,42 +133,93 @@ export default function Home() {
         </div>
       </section>
 
+      {/* TESTIMONIOS (VIDEO) */}
+      <section className="py-24 px-4 bg-[#FDFCF0]">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-sm font-bold text-[#397245] uppercase tracking-widest mb-2">Prueba Social</h2>
+          <h3 className="text-3xl md:text-5xl font-black text-[#1B2945] mb-12">Experiencias Reales</h3>
+          
+          <div className="flex justify-center">
+            <div className="w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl border border-slate-200 bg-white">
+              <iframe 
+                src="https://www.instagram.com/p/DcpArz6POC1/embed" 
+                width="100%" 
+                height="580" 
+                frameBorder="0" 
+                scrolling="no" 
+                className="w-full"
+              ></iframe>
+            </div>
+          </div>
+          <p className="mt-8 text-slate-600 italic max-w-2xl mx-auto">
+            "Nuestros visitantes son nuestra mejor carta de presentación. Dale al play para escuchar cómo se vive la experiencia Casa & Campo."
+          </p>
+        </div>
+      </section>
+
+      {/* INSTAGRAM FEED WIDGET */}
+      <section className="py-12 px-4 bg-white border-t border-slate-100 overflow-hidden" id="ig-feed-container">
+        <div className="container mx-auto max-w-6xl text-center">
+          <h3 className="text-2xl font-black text-[#1B2945] mb-8 uppercase tracking-tight">Lo Último en Nuestro Instagram</h3>
+          
+          {/* Script de Elfsight (Optimizado para Next.js) */}
+          <Script src="https://elfsightcdn.com/platform.js" strategy="lazyOnload" />
+          
+          {/* Contenedor del Widget */}
+          <div className="w-full">
+            <div className="elfsight-app-d3e311c8-480f-4ad6-861f-a41246542b6c" data-elfsight-app-lazy="true"></div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA / FOOTER */}
       <footer className="bg-[#1B2945] text-stone-300 py-16 border-t-8 border-[#397245]">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             <div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="relative w-12 h-12 bg-white rounded-full p-1">
-                  <div className="relative w-full h-full rounded-full overflow-hidden">
-                    <Image src="/images/logo.png" alt="Logo" fill className="object-cover" />
-                  </div>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="relative w-16 h-16 bg-white rounded-full overflow-hidden border-2 border-white">
+                  <Image src="/images/logo.png" alt="Logo" fill className="object-cover" />
                 </div>
                 <span className="text-2xl font-black text-white uppercase tracking-tight">Casa & Campo</span>
               </div>
               <p className="text-sm leading-relaxed mb-6 opacity-80">
                 El lugar ideal en Barinas para desconectar de la rutina y disfrutar del verdadero placer de sentirse bien en familia. Atendido directamente por su dueño Alirio Arévalo.
               </p>
-              <div className="flex gap-4">
-                <a href="https://instagram.com/casacampobarinas1" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#397245] transition-colors text-white">
-                  <span className="text-xs font-bold">IG</span>
-                </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#397245] transition-colors text-white">
-                  <span className="text-xs font-bold">FB</span>
-                </a>
+              <div className="flex flex-col gap-4">
+                <p className="text-white font-bold text-sm uppercase mb-2">Síguenos en nuestras redes:</p>
+                <div className="flex gap-4">
+                  <a href="https://instagram.com/casacampobarinas1" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition-transform overflow-hidden" title="Instagram">
+                    <Image src="/images/ig-icon.png" alt="Instagram" width={40} height={40} className="object-cover scale-110" />
+                  </a>
+                  <a href="https://www.facebook.com/profile.php?id=61561895614510" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition-transform overflow-hidden" title="Facebook">
+                    <Image src="/images/fb-icon.png" alt="Facebook" width={40} height={40} className="object-cover scale-110" />
+                  </a>
+                </div>
               </div>
             </div>
 
             <div>
-              <h4 className="text-white font-bold text-lg mb-6 uppercase">Visítanos</h4>
-              <ul className="space-y-4">
+              <h4 className="text-white font-bold text-lg mb-6 uppercase">Ubicación</h4>
+              <ul className="space-y-4 mb-6">
                 <li className="flex items-start gap-3">
                   <MapPin size={20} className="text-[#397245] shrink-0 mt-0.5" />
-                  <a href="https://share.google/YFvxYNzo1vyFo3w5u" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-white transition-colors">
-                    Barinas, Venezuela. <br/>(Ver en Google Maps)
+                  <a href="https://share.google/YFvxYNzo1vyFo3w5u" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-white transition-colors underline underline-offset-4 font-semibold">
+                    Barinas, Venezuela. (Abrir en Google Maps)
                   </a>
                 </li>
               </ul>
+              <div className="w-full h-32 rounded-xl overflow-hidden border border-white/20">
+                <iframe 
+                  src="https://maps.google.com/maps?q=Casa%20%26%20Campo,%20Barinas,%20Venezuela&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                  width="100%" 
+                  height="100%" 
+                  style={{border:0}} 
+                  allowFullScreen={false} 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade">
+                </iframe>
+              </div>
             </div>
 
             <div>
