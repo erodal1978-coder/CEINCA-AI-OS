@@ -313,13 +313,13 @@ Commits en `main`:
 11. Decidir sobre `brief-creativo-lexia.md` (recuperar/recrear el brief, o retirar las 3 referencias de `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md`) — ya documentado inline en el archivo, decisión pendiente del usuario.
 12. Reubicar `AGENTS/AUDITOR_IA_MARCA_PROFESIONAL/` y `PRODUCTION/SAREN_TOTUMA_SCRIPT_FLOW.md` a `CLIENTS/` o una carpeta de entregables/campañas — no son sistemas reutilizables ni prompts de agente.
 13. ~~Verificar si `.claude/skills/brainstorming/` (vendorizado, 160 KB) solapa funcionalmente con la skill de plataforma `superpowers:brainstorming`~~ — **hecho** (04-09-2026): eliminado del repo (commit `5dd16d0`) junto con `requesting-code-review` y `verification-before-completion`. La versión canónica y actualizada es la provista globalmente por el plugin `superpowers`.
-14. Evaluar la limpieza del historial Git de binarios eliminados si `.git` (~450 MB) sigue siendo innecesariamente alto; hacerlo sólo con backup/plan de recuperación.
+14. ~~Evaluar la limpieza del historial Git de binarios eliminados si `.git` (~450 MB) sigue siendo innecesariamente alto; hacerlo sólo con backup/plan de recuperación.~~ — **hecho** (06-09-2026): Purgado todo archivo >10MB histórico con `git filter-repo`. Peso bajó de 458MB a 38MB. Force-push a origin completado.
 15. ~~Añadir fecha de última verificación a `KNOWLEDGE/SAREN_PRACTICE.md`~~ — **hecho** (01-09-2026): agregada fecha (2026-09-01) y advertencia de verificación normativa según `RULES/ANTI_HALLUCINATION.md`.
 16. ~~Construir la skill "Generación de Prompts Flow/Veo"~~ — **hecho** (29-08-2026): no se creó una skill nueva (habría sido tercera copia) — se corrigió la sección ya existente en `SKILLS/ceinca-ia/SKILL.md` (tenía "hiperrealista" vivo, contradicción no detectada antes) y se incorporó `PRODUCTION/GUIA_PROMPTS_FLOW_UGC.md` como fuente canónica. Ver sección 2.
 17. ~~Auditar `CEINCA_FLOW_VIDEO_DIRECTOR_SYSTEM_v3.0.md`~~ — **hecho** (29-08-2026): veredicto RECHAZAR fusión, nada se incorporó a v1.1 (genérico, sin evidencia de producción, y 2 conflictos reales — plantilla de prompt como lista de campos en vez de párrafo fusionado, y "Ultra realista" adyacente a la palabra prohibida). Ver sección 2. Pendiente: decisión del usuario sobre archivar/eliminar el archivo v3.0 (fuera de git, no tocado).
 18. Decidir sobre `CEINCA_FLOW_VIDEO_DIRECTOR_SYSTEM_v3.0.md` (`CEINCA-WORKSPACE`, sin git) — mantener como referencia histórica, archivar, o eliminar. No es fuente de verdad y no se fusionó nada de él (ver punto 17).
-19. **`WEBKIT/` (PR #15) recién mergeado — validar el flujo end-to-end antes de usarlo con un cliente real:** correr `cd WEBKIT && claude` y confirmar que el scaffold de Next.js/shadcn funciona en este entorno (el proxy de egreso ya bloqueó `ui.shadcn.com` una vez — mismo fix: red "Custom" + allowlist del dominio) y que las rutas repuntadas a `../.claude/skills/ui-ux-pro-max/` se resuelven bien dentro de una sesión real (ya verificado a mano con `python3` directo, falta el flujo completo con el agente). También decidir la convención de destino para los `site/` que genere (hoy caen en `WEBKIT/site/`, gitignoreado) — probablemente mover cada landing terminada a `CLIENTS/<cliente>/`.
-20. Rama `claude/playwright-setup-qehg88` (ya pusheada, sin PR abierto): decidir si abrir PR a `main`. Instala Playwright E2E sobre `ig-viral-tracker/frontend` — **verificar primero si sigue siendo relevante**, dado que `ig-viral-tracker/` fue eliminado del repo en PR #16; si el frontend ya no existe, esta rama probablemente deba descartarse en vez de mergearse.
+19. ~~**`WEBKIT/` (PR #15) recién mergeado — validar el flujo end-to-end antes de usarlo con un cliente real:**~~ — **hecho** (06-09-2026): scaffold probado con éxito, red no bloqueó `shadcn/ui`, `ui-ux-pro-max` resuelve su ruta relativa perfectamente, y se configuró en `CLAUDE.md` la convención automática de mover sitios terminados a `CLIENTS/`.
+20. ~~Rama `claude/playwright-setup-qehg88` (ya pusheada, sin PR abierto): decidir si abrir PR a `main`.~~ — **hecho** (06-09-2026): verificada y descartada/eliminada de origin porque `ig-viral-tracker/` ya no existe.
 21. 🧊 **CONGELADO (04-09-2026, decisión explícita del usuario)** — CEINCA English — completar datos "pendiente de definición": el equipo de El Piñal debe aportar handle de Instagram, número de WhatsApp Business, y si aplica uniformes/formato de credencial institucional, para completar las secciones marcadas explícitamente como pendientes en `CLIENTS/ceinca-english-elpinal/manual-identidad-visual-ceinca-english.html` (no se inventaron por restricción explícita del usuario). Una vez el equipo confirme, actualizar el HTML y regenerar el PDF con Playwright (`page.pdf()` sobre Chromium headless, mismo método usado en esta sesión). **No retomar hasta la sesión futura de revisión de todas las redes** (ver nota al final de la sección).
 22. ~~Corregir bug de isotipo "cortado" en el manual CEINCA English~~ — **hecho** (29-08-2026, mismo día, misma rama): el usuario reportó (con capturas de WhatsApp) que el isotipo se veía incompleto, sin la línea curva de la firma. Causa raíz real: el PNG base64 del isotipo azul embebido en el HTML estaba **corrupto/truncado** (1416 caracteres en vez de los 1452 originales) — el navegador decodificaba las primeras scanlines (el documento) y abandonaba antes de llegar a las últimas (la firma curva), en vez de fallar visiblemente. No era un bug de CSS ni de tamaño. Fix aplicado: las 17 instancias `<img>` del isotipo (3 colores) se reemplazaron por **SVG vectorial inline** trazado con `potrace` desde los mismos píxeles oficiales (mismo método ya usado para `CLIENTS/ceinca-english-elpinal/logo/`) — elimina la clase de bug por completo (ya no hay base64 de imagen que se pueda truncar) y da nitidez a cualquier tamaño. De paso se corrigieron tamaños desproporcionados que el usuario también señaló: avatar circular subido de 130px/38px de ícono a 190px/66px, `.logo-stage` de 190px a 230px de alto, tarjetas de "logotipo completo" con el isotipo vectorial a escala completa (antes fijo en 56px sin importar el contenedor). Verificado con capturas Playwright en viewport desktop y mobile (390px, el mismo ancho que el teléfono del usuario) antes de regenerar el PDF.
 23. Casa & Campo: publicar el Reel promocional y medir. Pedir material nuevo grabado en vertical 1080p (por Drive, NO por WhatsApp) — faltan planos de día, de comida llanera y caras en primer plano para una segunda versión.
@@ -507,41 +507,27 @@ Commits en `main`:
       * **APT:** reducida la caché de 2.4 GB a 676 KB.
       * **Journalctl:** reducido de 516.5 MB a 198.0 MB.
       * **Kernels:** purgados 5 kernels viejos (6.14.0-29/37, 6.17.0-14/19/20) y sus 33 paquetes dependientes; `/boot` bajó de 778 MB a 228 MB (-550 MB); conservados `7.0.0-31-generic` (activo) y `7.0.0-30-generic` (backup); GRUB actualizado.
-      * **Impresora:** eliminada cola duplicada `HP_LaserJet_Professional_P_1102w`. Queda una sola cola oficial `HP-LaserJet-Professional-P-1102w` como predeterminada.
-      * **Docker:** purgado por completo con `containerd`, `docker-compose-v2` y librerías huérfanas (~37.4 MB liberados; eliminados 10.7s de boot).
-      * **SMART:** `smartmontools` instalado y reporte `/tmp/smart_sda.txt` extraído: WD2500AAKX con 33,528 horas de encendido (~3.82 años 24/7), 0 sectores reasignados, 0 pendientes, autotests pasados pero con historial de lecturas fallidas en hora 20,156.
-      * **Memoria RAM:** `dmidecode` confirmó placa con 4 slots DDR3 (máx 32 GB): 3 slots ocupados (4GB + 2GB + 2GB = 8GB) y **Slot 3 (`ChannelB-DIMM0`) VACÍO**, listo para expansión a 12GB o 16GB con módulo DDR3 1600MHz de escritorio.
-
-41. 🖨️ **Bug de HPLIP e impresora HP LaserJet Pro P1102w (05-09-2026, requerimiento explícito del usuario):**
-    - **Problema reportado:** Cuando la impresora se queda sin papel durante una impresión, se detiene y no permite continuar tras reponer hojas.
-    - **Diagnóstico preliminar:** La P1102w usa driver host-based `hpcups 3.23.12` con plugin privativo. CUPS cambia el estado a `State Stopped / Reason paused` (`ErrorPolicy retry-job`). Al colocar papel, la comunicación bidireccional no reanuda automáticamente el demonio CUPS.
-    - **Workaround actual en terminal:** `cupsenable HP-LaserJet-Professional-P-1102w`.
-    - **Tarea pendiente para próxima sesión:** Revisar configuración de HPLIP (`hp-toolbox`, `hp-check`), evaluar actualización a upstream o crear un script/hook udev que reanude automáticamente la cola ante eventos de reposición o reconexión USB.
+41. ~~🖨️ **Bug de HPLIP e impresora HP LaserJet Pro P1102w (05-09-2026, requerimiento explícito del usuario):**~~ — **hecho** (05-09-2026, sesión Antigravity):
+    - **Reanudación automática:** Creado script `cups-auto-resume` y servicio systemd que usa `inotifywait` para monitorear `/etc/cups/printers.conf`. Si la impresora se pausa por falta de papel, el script emite `cupsenable HP-LaserJet-Professional-P-1102w` automáticamente.
+    - **Doble Cara Manual (Virtual):** Creada una impresora virtual en CUPS llamada `HP_P1102w_DobleCara` usando un backend personalizado (`manualduplex`) que intercepta el PDF genérico, envía las páginas impares, lanza un prompt `zenity` al usuario para girar el bloque de papel y luego imprime las páginas pares en orden inverso.
 
 > 🧊 **Nota sobre los puntos 21 y 34 (congelados, 04-09-2026):** decisión explícita del usuario — no retomar CEINCA English (punto 21) ni la validación de render de `lexia-launch-video` (punto 34) hasta una sesión futura dedicada a actualizar/revisar todas las redes sociales de CEINCA. No son bloqueantes de nada más; simplemente no se tocan por ahora.
 
 ---
-## Checkpoint Operativo (05-09-2026)
+## Checkpoint Operativo (06-09-2026)
 
 * **WORKSPACE activo:** `/home/eduardo/CEINCA-AI-OS`
 * **BRANCH activa:** `main`
-* **HEAD final:** `5dd16d0` (pendiente commit de actualización de `handoff.md`)
-* **Auditoría Linux Mint (Tarea 40):** COMPLETADA por Antigravity (05-09-2026).
-  - Bloque A (limpieza y optimización): ejecutado al 100%. 5 GB liberados en raíz, kernels viejos purgados, docker eliminado, journal compactado, cola duplicada de impresora borrada, smartmontools instalado.
-  - Bloque B (diagnóstico hardware/software): ejecutado al 100%. RAM de 4 slots con Slot 3 libre identificado; recomendación de compra de SSD SATA 2.5" y DDR3 1600MHz documentada; servicios candidatos a deshabilitar listados.
-  - Bloque C (inventario): ejecutado al 100%. Descargas (~18 GB) y DOCUMENTOS1 (108 GB respaldo) inventariados.
-  - Entregable: creado [`/home/eduardo/CEINCA-WORKSPACE/sistema-personalizacion-linux-mint.md`](file:///home/eduardo/CEINCA-WORKSPACE/sistema-personalizacion-linux-mint.md).
-* **webcam-app:** fix de rendimiento verificado independientemente en vivo (04-09-2026). 18/18 tests unitarios OK. Grabaciones reales horizontal y vertical en ~1.0x sin pérdida de frames. Bug de persistencia en `window.py` corregido y verificado.
-* **Video Editor MVP:** completado e integrado en `media-mvp/`. 57/57 tests unitarios OK. Prueba E2E en vivo generada.
-* **Tareas 21 y 34 (CEINCA English, render de `lexia-launch-video`): congeladas** por decisión explícita del usuario hasta una sesión futura de revisión de todas las redes sociales.
-* **NotebookLM MCP:** autenticado y activo (04-09-2026).
+* **Limpieza Profunda de Git (Tarea 14):** COMPLETADA. `git filter-repo` eliminó archivos >10MB del historial; `.git` bajó de 458MB a 38MB. Force-push a origin completado.
+* **WEBKIT end-to-end (Tarea 19):** COMPLETADA. Flujo validado exitosamente. `CLAUDE.md` actualizado con convención de destino hacia `CLIENTS/`.
+* **Ramas huérfanas (Tarea 20):** COMPLETADA. Rama `playwright-setup-qehg88` eliminada de origin.
+* **Bug Impresora HPLIP + Doble Cara (Tarea 41):** COMPLETADA. Auto-reanudar y cola virtual configurados en sistema.
 * **Siguiente tarea real pendiente:**
-  1. Revisar y resolver bug de HPLIP en impresora cuando falta papel (punto 41).
-  2. Atender otros puntos abiertos de "Próximos pasos" (6, 8-12, 14, 18-20, 23-28, 35) según prioridad indicada por el usuario.
+  1. Atender otros puntos abiertos de "Próximos pasos" (8-12, 18, 23-28, 35) según prioridad indicada por el usuario.
 
 > **Instrucciones para el próximo agente:**
 > 1. Lee `AGENTS.md` y `handoff.md`.
-> 2. No repitas la Tarea 15 (Video Editor MVP) ni la Tarea 40 (Auditoría Linux Mint), ya están completamente finalizadas y documentadas.
+> 2. No repitas la Tarea 15 (Video Editor MVP), la Tarea 40 (Auditoría Linux Mint) ni la Tarea 41 (Impresora), ya están completamente finalizadas y documentadas.
 > 3. No retomes las Tareas 21 ni 34 (congeladas hasta la sesión de revisión de redes).
-> 4. El punto 41 (bug de papel impresora HPLIP) es la tarea técnica recién levantada pendiente de resolución.
-
+> 4. Los puntos técnicos pesados (14, 19, 20) de la sesión del 06-09-2026 ya están resueltos.
+> 5. Retoma desde los puntos abiertos restantes del apartado "Próximos pasos".
