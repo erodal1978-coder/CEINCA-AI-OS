@@ -514,7 +514,7 @@ Commits en `main`:
 > 🧊 **Nota sobre los puntos 21 y 34 (congelados, 04-09-2026):** decisión explícita del usuario — no retomar CEINCA English (punto 21) ni la validación de render de `lexia-launch-video` (punto 34) hasta una sesión futura dedicada a actualizar/revisar todas las redes sociales de CEINCA. No son bloqueantes de nada más; simplemente no se tocan por ahora.
 
 ---
-## Checkpoint Operativo (06-09-2026)
+## Checkpoint Operativo (07-09-2026)
 
 * **WORKSPACE activo:** `/home/eduardo/CEINCA-AI-OS`
 * **BRANCH activa:** `main`
@@ -522,7 +522,7 @@ Commits en `main`:
 * **WEBKIT end-to-end (Tarea 19):** COMPLETADA. Flujo validado exitosamente. `CLAUDE.md` actualizado con convención de destino hacia `CLIENTS/`.
 * **Ramas huérfanas (Tarea 20):** COMPLETADA. Rama `playwright-setup-qehg88` eliminada de origin.
 * **Bug Impresora HPLIP + Doble Cara (Tarea 41):** COMPLETADA. Auto-reanudar y cola virtual configurados en sistema.
-* **WEBKIT Landing Page (Casa & Campo Barinas):** COMPLETADA Y GUARDADA (06-09-2026). Scaffold Next.js en `CLIENTS/casacampobarinas1/site/`. Fotos curadas, iconos originales de redes, widget de Elfsight para IG, y mapa de Google integrados. App corre y compila al 100%. Commit de respaldo subido.
+* **WEBKIT Landing Page (Casa & Campo Barinas):** COMPLETADA, OPTIMIZADA Y GUARDADA (07-09-2026). Scaffold Next.js en `CLIENTS/casacampobarinas1/site/`. Fotos curadas, iconos originales de redes, widget de Elfsight para IG, mapa de Google, metadatos SEO completos (título, descripción, keywords), tarjetas OpenGraph / Twitter para WhatsApp/redes, idioma `lang="es"` y favicon con logo oficial integrados. Build estático 100% verificado.
 * **Siguiente tarea real pendiente:**
   1. Atender otros puntos abiertos de "Próximos pasos" (8-12, 18, 23-28, 35) según prioridad indicada por el usuario.
 
