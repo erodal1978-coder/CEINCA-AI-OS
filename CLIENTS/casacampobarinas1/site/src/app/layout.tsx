@@ -49,7 +49,10 @@ export const metadata: Metadata = {
     images: ["/images/hero-instalaciones.jpg"],
   },
   icons: {
-    icon: "/images/logo.png",
+    icon: [
+      { url: "/images/logo.png", type: "image/svg+xml" },
+      { url: "/images/logo.png", type: "image/png" },
+    ],
     apple: "/images/logo.png",
   },
 };

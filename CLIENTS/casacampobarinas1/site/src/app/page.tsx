@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Script from "next/script";
-import { MapPin, Phone } from "lucide-react";
+import { MapPin, Phone, Star } from "lucide-react";
 import * as motion from "framer-motion/client";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#1B2945]">
-              <Image src="/images/logo.png" alt="Casa & Campo Barinas Logo" fill className="object-cover" />
+              <Image src="/images/logo.png" alt="Casa & Campo Barinas Logo" fill className="object-cover" priority />
             </div>
             <span className="font-bold text-lg md:text-xl text-[#1B2945] uppercase tracking-tight">Casa & Campo</span>
           </div>
@@ -34,7 +34,7 @@ export default function Home() {
             src="/images/hero-instalaciones.jpg"
             alt="Casa y Campo Paisaje"
             fill
-            className="object-cover object-center"
+            className="object-cover object-bottom"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1B2945]/90 via-[#1B2945]/50 to-transparent" />
@@ -195,6 +195,9 @@ export default function Home() {
                   <a href="https://www.facebook.com/profile.php?id=61561895614510" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition-transform overflow-hidden" title="Facebook">
                     <Image src="/images/fb-icon.png" alt="Facebook" width={40} height={40} className="object-cover scale-110" />
                   </a>
+                  <a href="https://www.tiktok.com/@casacampobarinas_tiktok" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 transition-transform overflow-hidden" title="TikTok">
+                    <Image src="/images/tiktok-logo.png" alt="TikTok" width={40} height={40} className="object-cover scale-110" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -206,6 +209,12 @@ export default function Home() {
                   <MapPin size={20} className="text-[#397245] shrink-0 mt-0.5" />
                   <a href="https://share.google/YFvxYNzo1vyFo3w5u" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-white transition-colors underline underline-offset-4 font-semibold">
                     Barinas, Venezuela. (Abrir en Google Maps)
+                  </a>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Star size={20} className="text-yellow-400 shrink-0 mt-0.5" />
+                  <a href="https://g.page/r/CSpnTvQXNdVTEBM/review" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-yellow-400 transition-colors underline underline-offset-4 font-semibold">
+                    ¡Déjanos tu reseña en Google!
                   </a>
                 </li>
               </ul>

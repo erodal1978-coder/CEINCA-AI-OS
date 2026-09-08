@@ -325,7 +325,7 @@ Commits en `main`:
 23. Casa & Campo: publicar el Reel promocional y medir. Pedir material nuevo grabado en vertical 1080p (por Drive, NO por WhatsApp) — faltan planos de día, de comida llanera y caras en primer plano para una segunda versión.
 24. Casa & Campo hospedaje: crear la automatización Meta de HOSPEDAJE antes de publicar. NO reutilizar CHAPUZÓN/HAMACA/COROCORO: sus DM dicen "10am a 7pm", lo que contradice una oferta de hospedaje.
 25. Pedir fotos/vídeo del BAÑO para el vídeo de hospedaje — es la primera pregunta de quien va a dormir fuera y no hay ni una toma.
-26. Corregir la errata del logo: dice "El Placer de Sentirse bién", va sin tilde.
+26. ~~Corregir la errata del logo: dice "El Placer de Sentirse bién", va sin tilde.~~ — **hecho** (07-09-2026): Logo vectorizado como SVG puro maestro en `CLIENTS/casacampobarinas1/site/public/images/logo.svg`, errata corregida ("bien" sin tilde), PNG de alta resolución 512x512 renderizado en `logo.png` y conectado a Header, Footer y Favicon de la landing page. Ajustes visuales de la landing completados: encuadre de la piscina en Hero ajustado con `object-cover object-bottom` y sustitución de la foto de hospedaje de corazones por la toma en balcón con vista a la piscina de Daniela Deximar.
 27. Confirmar el parentesco de las personas del Reel de Angelo si se quiere etiquetarlas en pantalla (los captions no identifican a nadie).
 28. Testimonios Promoción 2026: **escribir el texto en
   `CLIENTS/casacampobarinas1/VIDEO_TESTIMONIOS/subs/guion.txt`** (15 tramos con
@@ -522,9 +522,10 @@ Commits en `main`:
 * **WEBKIT end-to-end (Tarea 19):** COMPLETADA. Flujo validado exitosamente. `CLAUDE.md` actualizado con convención de destino hacia `CLIENTS/`.
 * **Ramas huérfanas (Tarea 20):** COMPLETADA. Rama `playwright-setup-qehg88` eliminada de origin.
 * **Bug Impresora HPLIP + Doble Cara (Tarea 41):** COMPLETADA. Auto-reanudar y cola virtual configurados en sistema.
-* **WEBKIT Landing Page (Casa & Campo Barinas):** COMPLETADA, OPTIMIZADA Y GUARDADA (07-09-2026). Scaffold Next.js en `CLIENTS/casacampobarinas1/site/`. Fotos curadas, iconos originales de redes, widget de Elfsight para IG, mapa de Google, metadatos SEO completos (título, descripción, keywords), tarjetas OpenGraph / Twitter para WhatsApp/redes, idioma `lang="es"` y favicon con logo oficial integrados. Build estático 100% verificado.
-* **Siguiente tarea real pendiente:**
-  1. Atender otros puntos abiertos de "Próximos pasos" (8-12, 18, 23-28, 35) según prioridad indicada por el usuario.
+* **WEBKIT Landing Page (Casa & Campo Barinas):** COMPLETADA Y DESPLEGADA EN VERCEL (07-09-2026). Scaffold Next.js en `CLIENTS/casacampobarinas1/site/`. Fotos curadas, widget de Elfsight para IG, mapa de Google, metadatos SEO. El logo SVG modificado fue revertido al `logo.png` original suministrado por el cliente. Encuadre del Hero ajustado (`object-bottom`). Imagen de Hospedaje actualizada con un encuadre apaisado de la habitación (cama/cabecero), extraído directamente del video promocional y limpio de textos. Sitio desplegado exitosamente en Producción: `https://casacampo-barinas.vercel.app`.
+* **Siguientes tareas reales pendientes:**
+  1. 🎥 **Revisar la `webcam-app` (Prioridad Alta):** El audio de la voz va con cierta demora/desfase con respecto al video (o viceversa). Hay que revisar un video de prueba grabado por el usuario el 07-09-2026 (donde muestra la pantalla de la web de Casa & Campo recién terminada) para diagnosticar y corregir este problema de sincronización.
+  2. Atender otros puntos abiertos de "Próximos pasos" (8-12, 18, 23-25, 27-28, 35) según prioridad indicada por el usuario.
 
 > **Instrucciones para el próximo agente:**
 > 1. Lee `AGENTS.md` y `handoff.md`.
