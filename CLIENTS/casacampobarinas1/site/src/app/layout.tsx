@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://casacampobarinas.com"),
+  metadataBase: new URL("https://casacampo-barinas.vercel.app"),
   title: "Casa & Campo Barinas | El Placer de Sentirse Bien",
   description:
     "Tu oasis natural en Barinas. Piscina familiar, hospedaje campestre, gastronomía llanera y eventos privados para desconectar de la rutina. Planifica tu visita.",
@@ -50,7 +50,6 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/images/logo.png", type: "image/svg+xml" },
       { url: "/images/logo.png", type: "image/png" },
     ],
     apple: "/images/logo.png",
