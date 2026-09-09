@@ -280,6 +280,24 @@ Commits en `main`:
  12 files changed, 2335 deletions(-)
 ```
 
+Sesión triaje handoff + GUIA_MAESTRA (08-09-2026, sobre `main` directo, commit `a69fece`, retomando una sesión anterior interrumpida del mismo día):
+```text
+$ git diff --stat 75fd12e..a69fece
+ .../Auditor_IA_Marca_Guia_CEINCA.pdf               | Bin
+ .../assets/foto_evento_barinas.jpg                 | Bin
+ .../AUDITOR_IA_MARCA_PROFESIONAL/guia_source.html  |   0
+ MARKETING/SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md    |   8 ++--
+ PRODUCTION/FLOW_GUIA_DIRECCION_AVANZADA.md         |   2 +-
+ PRODUCTION/FLOW_REELS.md                           |   2 +-
+ PRODUCTION/GUIA_PROMPTS_FLOW_UGC.md                |   2 +-
+ .../{ => _archivo}/SAREN_TOTUMA_SCRIPT_FLOW.md     |   0
+ RULES/POLITICA_EVIDENCIA_Y_HERRAMIENTAS.md         |  43 ++++++++++++++++++++
+ handoff.md                                         |  45 ++++++++++++++++-----
+ media-mvp/broll.py                                 |   2 +-
+ 11 files changed, 86 insertions(+), 18 deletions(-)
+```
+Detalle completo de cada cambio en sección 2 (checkpoint 08-09-2026) y en tareas 11, 12, 18, 24, 34, 35, 42, 43, 44 de la sección 5. **Commiteado, no pusheado** — pendiente confirmación explícita del usuario antes de `git push`. Fuera de este commit quedan 7 imágenes untracked en `CLIENTS/casacampobarinas1/site/public/images/` (`hospedaje-*`, `logo-legacy-original.png`) de una sesión anterior distinta (07-09-2026) — no tocadas por no ser parte de esta tarea.
+
 ## 4. Intentos fallidos
 <!-- NO BORRAR NINGUNA ENTRADA DE ESTA SECCIÓN. Solo agregar. -->
 <!-- Si supera ~20 líneas, mover las más antiguas a handoff-archive.md (nunca eliminar). -->
