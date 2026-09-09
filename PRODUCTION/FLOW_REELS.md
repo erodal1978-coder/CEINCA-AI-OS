@@ -1,7 +1,7 @@
 # MÓDULO PRODUCCIÓN CINEMATOGRÁFICA — GOOGLE FLOW + META EDITS
 ## CEINCA AI OS v2.0 | Sistema de Reels con Avatar IA
 
-> ℹ️ **Documento reconciliado con la fuente de verdad vigente: `PRODUCTION/FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1.** Este documento es la referencia **técnica/de stack** (herramientas, biblioteca de b-rolls, lighting setups, parámetros de Meta Edits, ejemplo completo) — v1.1 sigue gobernando la metodología (formato, ritmo, overlays, reglas de prompt). Se corrigieron todas las instancias que usaban el nombre propio del sujeto o "hiperrealista"/"hiperrealismo" dentro de texto de prompt, en cumplimiento de las reglas NO NEGOCIABLES §4.5 y §4.6 de v1.1 (validadas por un rechazo real de política de Flow, documentado en `SAREN_TOTUMA_SCRIPT_FLOW.md`). Consolidado el 28-08-2026 — ver `handoff.md` para el detalle exacto de qué cambió.
+> ℹ️ **Documento reconciliado con la fuente de verdad vigente: `PRODUCTION/FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1.** Este documento es la referencia **técnica/de stack** (herramientas, biblioteca de b-rolls, lighting setups, parámetros de Meta Edits, ejemplo completo) — v1.1 sigue gobernando la metodología (formato, ritmo, overlays, reglas de prompt). Se corrigieron todas las instancias que usaban el nombre propio del sujeto o "hiperrealista"/"hiperrealismo" dentro de texto de prompt, en cumplimiento de las reglas NO NEGOCIABLES §4.5 y §4.6 de v1.1 (validadas por un rechazo real de política de Flow, documentado en `_archivo/SAREN_TOTUMA_SCRIPT_FLOW.md`, campaña archivada). Consolidado el 28-08-2026 — ver `handoff.md` para el detalle exacto de qué cambió.
 
 ---
 

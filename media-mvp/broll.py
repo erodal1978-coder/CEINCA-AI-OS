@@ -11,7 +11,7 @@ import sys
 import urllib.parse
 import urllib.request
 
-PEXELS_SEARCH_URL = "https://api.pexels.com/videos/search"
+PEXELS_SEARCH_URL = "https://api.pexels.com/v1/videos/search"
 PIXABAY_SEARCH_URL = "https://pixabay.com/api/videos/"
 
 

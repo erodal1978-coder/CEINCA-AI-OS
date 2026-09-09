@@ -4,7 +4,7 @@
 **Fecha:** Julio 2026
 **Alcance:** Sistema de contenido viral orgánico (Instagram) + estrategia de Meta Ads de conversión, aplicados al lanzamiento de LEXIA™.
 
-> ⚠️ **Referencia rota pendiente de decisión:** este documento cita `brief-creativo-lexia.md` 3 veces (guion del reel ángulo IA, estructura/estilo de la landing, copy del carrusel). Ese archivo no existe en el repositorio (verificado en el Brain Audit del 28-08-2026, confirmado de nuevo aquí — no se encontró con ningún nombre/ruta similar). No se inventó contenido de reemplazo. Decidir: (a) el brief nunca se subió y hay que recuperarlo/recrearlo, o (b) la referencia es obsoleta y debe retirarse.
+> 🧊 **Documento de campaña archivado (08-09-2026):** LEXIA es una campaña anterior, deprioritizada — este documento queda como referencia histórica, no como plan activo. Cerrada la referencia rota a `brief-creativo-lexia.md` (nunca existió en el repo, confirmado en 2 auditorías): las 3 menciones se retiraron en vez de seguir pendientes de decisión.
 
 ---
 
@@ -88,14 +88,14 @@ Desde oct. 2025, el algoritmo de Meta pasó de segmentación manual (intereses/l
 - **Objetivo:** Interacción/Mensajes.
 - **Presupuesto:** $3/día, 1 solo ad set (limitación real del cliente).
 - **Estructura de creativos (4-6, priorizados por el perfil de rendimiento arriba):**
-  1. Reel ángulo "IA" (mayor CTR histórico) — guion completo en `brief-creativo-lexia.md` (⚠️ archivo no existe en el repo, ver nota al inicio).
+  1. Reel ángulo "IA" (mayor CTR histórico) — guion completo (el brief separado nunca existió en el repo, ver nota al inicio).
   2. Video Eduardo hablando a cámara (formato ya probado).
   3. Testimonio Isabel Sánchez (menciona IA explícitamente — cruce perfecto con el hallazgo #2).
   4. Testimonio Grecia Vera (pull-quote "vale la pena la inversión" — pendiente corte del CTA ajeno "ESTRATEGIA360").
   5. Carrusel adaptado de la arquitectura Apostilla (6 slides).
   6. *(opcional)* Imagen estática del hero de la landing.
 - **Sin el gate de "sígueme"** en ningún creativo de ads (ver regla en sección 1).
-- **Landing de destino:** lexia-ceinca.vercel.app (estructura y estilo documentados en `brief-creativo-lexia.md` — ⚠️ no existe en el repo, ver nota al inicio — y en el propio repositorio de la landing).
+- **Landing de destino:** lexia-ceinca.vercel.app (estructura y estilo documentados en el propio repositorio de la landing; el brief separado nunca existió en este repo, ver nota al inicio).
 
 ---
 
@@ -109,6 +109,6 @@ Regla de tuteo venezolano / no-voseo — ahora vive en `RULES/ESTILO_REDACCION.m
 
 - [ ] Corte de video Grecia Vera: eliminar CTA "Comenta ESTRATEGIA360" (a partir del segundo 22.5 del original).
 - [ ] Grabación de reel LEXIA siguiendo storyboard (b-roll de pantallas: grabación real, NO generado con Flow — el texto de UI no es confiable con Flow).
-- [ ] Diseño de carrusel en Canva usando el copy de `brief-creativo-lexia.md` (⚠️ archivo no existe en el repo, ver nota al inicio).
+- [ ] Diseño de carrusel en Canva usando el copy de esta sección (el brief separado nunca existió en el repo, ver nota al inicio).
 - [ ] Deploy final de la landing actualizada a Vercel (pendiente por volumen de assets — requiere `vercel --prod` desde CLI local).
 - [ ] Revisar TODO el contenido ya generado (landing, PDFs de Canva, copies de ads) buscando residuos de voseo ("accedés", "escribís", etc.) y corregir a tuteo venezolano — ver regla en `RULES/ESTILO_REDACCION.md`.
