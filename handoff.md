@@ -649,3 +649,11 @@ Sesión Fases A-E + sandbox real (10-09-2026 a 11-09-2026):
 > 5. No repitas el diagnóstico del bug de audio de `webcam-app` — solo falta la prueba de campo real (punto 1 de arriba).
 > 5. No repitas las Tareas 11, 12, 18, 24, 42, 43, 44 (cerradas 08-09-2026) ni el análisis de `GUIA_MAESTRA_IA_GITHUB_CLAUDE_CODE_VIDEO_CEINCA.md` (Tarea 43) — todas documentadas con su resultado exacto.
 > 6. Retoma desde los puntos abiertos restantes del apartado "Próximos pasos".
+
+> **Cierre de sesión Antigravity (Agy) - 11-09-2026 (Tarde)**:
+> Frentes trabajados y pendientes:
+> 1. **Caso Lucía Eugenia Velásquez Alcalá (SAREN):** Se redactó el borrador de correo exigiendo corrección de datos personales apoyándose en medios probatorios del SAIME. Documento guardado como artifact en el chat.
+> 2. **Reorganización de Directorios:** Se creó el artefacto `plan_orden_directorios.md` para limpiar `/home/eduardo`. **PENDIENTE DE EJECUCIÓN:** El usuario debe autorizar. Agy detectó riesgos críticos en `repos.txt` (cron de respaldos) y rutas hardcodeadas de `google-cloud-sdk` en `.bashrc`.
+> 3. **Análisis de Competencia (BAS - Meta Ads Library):** A través de capturas de pantalla, se analizó la estrategia reactiva de "Business Accounting Services" (ausencias laborales por sismo/sucesos 24 de julio). *Nota:* Claude Code alucinó previamente la tabla de anuncios en `BAS.md` por falta de visión, pero el usuario solicitó conservar el archivo así.
+> 4. **Catálogo de Registro de Empresas (Planes):** Se analizaron referencias gráficas de Pinterest. Se guardaron los textos de los 3 planes en `Registro de empresas/textos_planes.md` listos para armar en Canva. Se diseñó la estructura para un Carrusel sin precios, usando un "Hook" potente contra la burocracia.
+> 5. **MCP de Canva Configurado:** Se añadió la configuración del servidor MCP remoto de Canva al archivo global `/home/eduardo/.gemini/config/mcp_config.json`. **PENDIENTE:** Reiniciar la terminal/agente para cargar el servidor MCP y probar la integración.
