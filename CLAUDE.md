@@ -19,6 +19,7 @@
 * `AGENTS/` — Agentes especializados (AUDITOR_MERCANTIL, CONTENT_ENGINE, VIRAL_CONTENT_CREATOR, IG_AUDITOR).
 * `KNOWLEDGE/` — Base de conocimiento técnico (SAREN, reconversiones, práctica mercantil).
 * `MARKETING/` — Frameworks de contenido, monetización y estrategia de ads.
+* `MARKETING/COMPETENCIA/` — Base de conocimiento viva de competidores rastreados en la Biblioteca de Anuncios de Meta (nicho mercantil/legal/contable): un archivo por competidor con sus anuncios, ángulos y patrones. Ver `INDICE.md` de esa carpeta.
 * `RULES/` — Anti-alucinación y razonamiento legal.
 * `STRATEGY/` — Audiencia y core del negocio.
 * `CLIENTS/` — Carpetas por cliente con auditorías, contenido generado y seguimiento.
