@@ -38,7 +38,85 @@ BAS no corre un anuncio suelto — mantiene un **lote grande y constante de anun
 | `1363039995813291` | 7-sep-2026 | Reel | Educativo #FinanzasParaNoFinancieros | Prueba Súper Ácida — fórmula + interpretación |
 | `1626538179264681` | 9-sep-2026 | Reel | Educativo #FinanzasParaNoFinancieros | Rotación de Cuentas por Cobrar — fórmula + interpretación |
 
-*(Solo el primero, `2192991834964569`, fue analizado a fondo hasta ahora — el resto quedó registrado a nivel de copy/ángulo desde el listado general de la página, sin abrir cada detalle individual.)*
+*(Los 14 anuncios de la tabla están analizados a fondo abajo — 6 individualmente, 8 como plantilla común con sus variables.)*
+
+---
+
+## Reverse engineering — el modelo de negocio detrás de los 3 frentes
+
+Viendo los 14 anuncios como un solo sistema (no como piezas sueltas), se infiere que BAS corre **dos motores de negocio distintos en paralelo, más un motor de marca que alimenta a ambos**:
+
+| Motor | Frente | Objetivo funcional real | Producto detrás |
+|---|---|---|---|
+| **Adquisición (ticket único)** | Lead-gen constitución de empresa | Leads vía formulario → WhatsApp | Constitución de empresa (pago una vez) |
+| **Retención/upsell (recurrente)** | Serie #FinanzasParaNoFinancieros | DMs de clientes/prospectos ya tibios, recordatorio del servicio pago | Contabilidad mensual + "dashboard financiero" (pago recurrente) |
+| **Marca/autoridad (no vende directo)** | Autoridad/RRPP ante coyuntura | Visitas a perfil de Instagram, shares B2B, awareness | Ninguno — alimenta a los otros dos con confianza/alcance |
+
+Evidencia de que son motores distintos, no el mismo funnel:
+- El Frente 1 (RRPP) nunca usa formulario ni "escríbenos al DM" — su CTA es 100% "comparte esta publicación" + link a perfil de Instagram (visto repetido 6-8 veces por anuncio). No buscan una conversión medible en el anuncio mismo.
+- El Frente 2 (constitución) usa el mismo formulario nativo de Meta en sus 2 anuncios, con fechas de lanzamiento separadas por 4 días (11-ago y 15-ago) — el patrón (mismo destino de conversión, ángulos distintos: uno educativo/listicle, otro con precios) sugiere test de creativos hacia el mismo objetivo, no dos ofertas distintas.
+- El Frente 3 (serie educativa) nunca pide un dato de contacto ni ofrece un formulario — solo "escríbenos al DM", y cada pieza menciona de pasada que el "dashboard financiero mensual" ya es parte de sus servicios de contabilidad. Es contenido de **nutrición para clientes/prospectos que ya los siguen**, no de captación fría.
+
+**Lectura estratégica:** BAS separó con disciplina "consigo un cliente nuevo" (constitución, campaña con presupuesto de ads, formulario, precios visibles) de "hago que mi base de seguidores confíe y eventualmente contrate el servicio recurrente" (contenido educativo gratuito con upsell suave, sin presión de conversión). El Frente 1 es el que más parece publicidad pagada "de verdad" (2 anuncios con objetivo de lead claro); los Frentes 2 y 3 parecen contenido orgánico con presupuesto de alcance detrás (boosted posts), no campañas de conversión diseñadas desde cero para ads.
+
+---
+
+## Frente: Autoridad/RRPP ante coyuntura (3 anuncios, todos 16-jul-2026)
+
+**Plantilla común:** cita una ley/artículo exacto → traduce el beneficio/protección en lenguaje simple → cierra con un llamado a **compartir con un rol profesional específico** (tu contador, tu equipo de RRHH, tus socios) → hashtags de nicho (`#ContadoresVenezuela`, `#DerechoTributario`, etc.) → **CTA real del anuncio: "Visit Instagram Profile", repetido 6-8 veces** (no hay formulario ni DM).
+
+| ID | Copy (resumen) | Gancho legal/evento | Ángulos | Reverse engineering |
+|---|---|---|---|---|
+| `1341127180935614` | Fuerza mayor exime responsabilidad ante clausuras/multas del SENIAT si un evento imprevisible impide declarar a tiempo (COT arts. 10, 45, 85) | Miedo a sanciones fiscales | **Autoridad citando ley exacta** (no opinión, texto legal) · **Alivio de miedo regulatorio** (la ley te protege) · **Compartir como señal de estatus profesional** ("para que todos sepan cómo actuar") | Ataca el miedo #1 de cualquier dueño de negocio en Venezuela (SENIAT) sin vender nada — construye "BAS sabe de esto" antes de necesitar el servicio. Público: dueños de negocio YA operando (no emprendedores nuevos). |
+| `1779157566597267` | Distinción Donación (ente público) vs. Liberalidad (fundación privada) bajo LISLR art. 27 — ambas deducibles de renta bruta | Responsabilidad social empresarial + beneficio fiscal | **Autoridad legal** · **Doble beneficio (hacer el bien + pagar menos impuesto)** · **Blindaje ante SENIAT** (contrato + carta de aceptación) | Timing: post-fuerza-mayor, mismo día — probable respuesta a una ola real de donaciones corporativas post-sismo (24-jun) que generó dudas fiscales reales. Contenido reactivo a la coyuntura, no genérico. |
+| `1036346099228711` | Llamado a la empatía en gestión de RRHH tras el sismo del 24-jun-2026 | Sismo real, contingencia habitacional/vial | **Empatía institucional** (no vende, acompaña) · **Autoridad blanda** (LOTTT mencionada sin citar artículo, a diferencia de los otros 2) · **Compartir como acto solidario** | El único de los 3 sin cita legal específica — es el más "humano" y menos "técnico", dirigido a gerentes/directores de RRHH, no a dueños. Redondea la narrativa post-sismo del trío (protección fiscal + incentivo a donar + trato humano al personal). |
+
+**Lo que revela el patrón completo:** los 3 salieron el mismo día, cubriendo 3 ángulos distintos de UN mismo evento (el sismo del 24-jun) desde 3 roles profesionales distintos (contador/dueño, RRHH, socios) — es una campaña de respuesta a coyuntura coordinada, no piezas sueltas.
+
+---
+
+## Frente: Lead-gen constitución de empresa (2 anuncios)
+
+| ID | Fecha | Formato | Copy (resumen) | Ángulos | Reverse engineering |
+|---|---|---|---|---|---|
+| `1094809813105924` | 11-ago-2026 | Reel + form | "20 requisitos que debes tener en cuenta para constituir tu empresa" — Reel listicle, cierra con formulario | **Hook tipo listicle** (número concreto = promesa de contenido completo/guardable) · **Reducción de ambigüedad** ("mayor claridad") · **Puerta de entrada educativa al lead-gen** | Primer contacto del funnel — capta a quien está investigando el proceso por su cuenta (fase de información), no listo para comprar todavía. Formato Reel = mejor alcance orgánico/pagado que un carrusel estático. |
+| `2192991834964569` | 15-ago-2026 | Carrusel | (ver análisis completo arriba) | (ver arriba, 6 ángulos) | Segundo contacto del funnel, 4 días después — ya no educa el "qué", muestra el "cuánto" (paquetes con precio implícito). Mismo formulario de destino que el Reel → coherente con retargeting: quien vio los "20 requisitos" es reimpactado con la oferta de paquetes. |
+
+**Lo que revela el patrón:** funnel de 2 pasos clásico (educar → ofertar) hacia un único formulario de conversión, con 4 días de espaciado — tiempo razonable para dejar correr el primer anuncio, medir, y lanzar el segundo como refuerzo/retargeting.
+
+---
+
+## Frente: Serie educativa #FinanzasParaNoFinancieros (9 anuncios: 1 lanzamiento + 8 de plantilla fija)
+
+### Anuncio de lanzamiento
+
+| ID | Fecha | Copy | Ángulos | Reverse engineering |
+|---|---|---|---|---|
+| `1056313337015711` | 7-sep-2026 | "Llegó #Septiembre el mes del #Contador y por todo este mes estaré realizando contenido #Financiero para No Financieros... Activa las notificaciones 🔔" | **Anclaje a calendario profesional** (septiembre = mes del Contador en Venezuela) · **Anticipación/expectativa** (promesa de una serie, no un post suelto) · **Personal branding** (habla en primera persona, `lcdooropeza`) | Es el "tráiler" de la serie — su objetivo no es enseñar nada, es conseguir que activen notificaciones (retención de audiencia) antes de lanzar los 8 posts de contenido real. Confirma que el resto se produjo en lote y se programó como campaña, no como calendario editorial día a día. |
+
+### Los 8 de plantilla fija
+
+**Plantilla exacta (idéntica en los 8):** `[Nombre del indicador] mide/revela [qué mide]` → `Fórmula rápida: 💡 [fórmula]` → `🔹 [interpretación cuando el resultado es alto/bueno]` → `🔹 [interpretación cuando es bajo/malo]` → frase de cierre memorable (quotable, formato aforismo) → `📲 Te recuerdo que dentro de nuestros servicios de contabilidad, te entregamos mensualmente este dashboard financiero para que tomes decisiones... ¡Escríbenos al DM y [verbo] tu [métrica]!` → 4-5 hashtags fijos + 1 variable.
+
+| ID | Fecha | Indicador | Fórmula | Frase de cierre (aforismo) |
+|---|---|---|---|---|
+| `1562107701637270` | 7-sep | Rotación/Días de Inventario (aclaratoria) | — | (aclara que no aplica a empresas de servicios — post de precisión técnica, no de fórmula) |
+| `1397123148551450` | 7-sep | Días de Inventario | (Inventario Promedio ÷ Costo de Ventas) × 365 | "El tiempo que tu producto pasa acumulando polvo es tiempo que tu caja pasa congelada." |
+| `1610917610447303` | 7-sep | Rotación de Inventarios | Costo de Ventas ÷ Inventario Promedio | "Tener el depósito lleno no es sinónimo de liquidez." |
+| `3057404011257838` | 7-sep | Capital de Trabajo | Activo Corriente − Pasivo Corriente | "Facturar no es lo mismo que tener flujo de caja." |
+| `2143494599933095` | 7-sep | Razón Corriente | Activo Corriente ÷ Pasivo Corriente | "No manejes tu empresa a ciegas ni adivinando números al final del mes." |
+| `1363039995813291` | 7-sep | Prueba Súper Ácida | (Efectivo y Equiv. + Inversiones Temp.) ÷ Pasivo Corriente | "Las cuentas por cobrar son una promesa; la caja es la realidad." |
+| `1673757704763596` | 8-sep | Prueba Ácida | (Activo Corriente − Inventarios) ÷ Pasivo Corriente | "El inventario no es efectivo en mano." |
+| `1626538179264681` | 9-sep | Rotación de Cuentas por Cobrar | Ventas a Crédito ÷ Promedio de Cuentas por Cobrar | "Una venta solo genera valor cuando el dinero entra a la caja." |
+
+**Ángulos de la plantilla (aplican a los 8 por igual):**
+1. **Autoridad técnica accesible** — fórmula real de finanzas corporativas, explicada sin jerga, con el propio hashtag `#FinanzasParaNoFinancieros` como promesa de marca.
+2. **Interpretación binaria simple** (🔹alto/🔹bajo) — reduce un concepto complejo a una decisión de 2 caminos, fácil de recordar y compartir.
+3. **Aforismo quotable de cierre** — cada post termina con una frase corta, contrastante, diseñada para ser el "screenshot" o el comentario citado (mecanismo de shareability).
+4. **Upsell incrustado sin presión** — "te recuerdo que... te entregamos mensualmente este dashboard" nunca pide la venta, la da por hecho como beneficio ya incluido en un servicio que el lector podría no tener — siembra la idea sin pedir nada a cambio.
+5. **CTA personalizado por métrica** ("evaluemos tu rotación", "midamos los días de tu inventario") — variación cosmética del mismo "escríbenos al DM", pero specific al tema del post, evita sonar 100% copiado-pegado.
+
+**Reverse engineering del sistema completo:** es una **fábrica de contenido de una sola plantilla con 8 variables intercambiables** (indicador, fórmula, 2 interpretaciones, aforismo, hashtag temático) — producible en lote (7 de los 8 salieron el mismo día), bajo costo marginal por pieza, y diseñada para nutrir a seguidores ya existentes hacia el servicio recurrente de contabilidad, no para captar leads fríos. Es el motor de **retención/upsell**, distinto y complementario al motor de **adquisición** (Frente 2).
 
 ---
 
