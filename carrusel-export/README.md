@@ -4,8 +4,8 @@ Export automático a PNG del sistema de carruseles CEINCA (formato "paso a paso"
 Carpeta aislada — Node + Playwright, sin relación con `ig-viral-tracker/frontend`
 ni `ig-viral-tracker/backend`.
 
-Fuente de verdad del diseño: `SKILLS/ceinca-design/references/components.md` +
-`carrusel-paso-a-paso-unificado.md` + `SKILLS/ceinca-design/SKILL.md` (dimensiones).
+Fuente de verdad del diseño: `.claude/skills/ceinca-design/references/components.md` +
+`carrusel-paso-a-paso-unificado.md` + `.claude/skills/ceinca-design/SKILL.md` (dimensiones).
 Si el sistema de diseño cambia ahí, hay que reflejarlo en `src/template.js`.
 
 ## Uso

@@ -275,7 +275,7 @@ Comenta 👉 [KEYWORD] 👈
 - **Diversidad creativa:** Mezclar UGC + talking head + carrusel + imagen estática
 
 ### 6.2 Fórmula de testing 3:2:2
-Ver `SKILLS/meta-ads-andromeda-expert/SKILL.md` § "Método 3-2-2" (fuente de verdad — incluye ángulo dolor/aspiracional y formato corto/largo por texto). Aplicado a CEINCA: 3 creativos = video UGC + carrusel + imagen estática → 12 combinaciones con mínimo esfuerzo.
+Ver `.claude/skills/meta-ads-andromeda-expert/SKILL.md` § "Método 3-2-2" (fuente de verdad — incluye ángulo dolor/aspiracional y formato corto/largo por texto). Aplicado a CEINCA: 3 creativos = video UGC + carrusel + imagen estática → 12 combinaciones con mínimo esfuerzo.
 
 ### 6.3 Campañas omnipresentes (High-ticket)
 - 14 conjuntos de anuncios con 14 anuncios diferentes
@@ -294,7 +294,7 @@ Ver `SKILLS/meta-ads-andromeda-expert/SKILL.md` § "Método 3-2-2" (fuente de ve
 
 ## 7. MÉTRICAS DE ANÁLISIS (Framework 4PI — Charley T)
 
-NO medir solo ROAS. Ver `SKILLS/meta-ads-andromeda-expert/SKILL.md` § "Matriz 4PI" (fuente de verdad — incluye el matiz TOFU/BOFU de frecuencia y la acción correctiva por métrica) y § "Rentabilidad Real (GPT)" para la ganancia real por transacción más allá del ROAS vanidoso.
+NO medir solo ROAS. Ver `.claude/skills/meta-ads-andromeda-expert/SKILL.md` § "Matriz 4PI" (fuente de verdad — incluye el matiz TOFU/BOFU de frecuencia y la acción correctiva por métrica) y § "Rentabilidad Real (GPT)" para la ganancia real por transacción más allá del ROAS vanidoso.
 
 ---
 
