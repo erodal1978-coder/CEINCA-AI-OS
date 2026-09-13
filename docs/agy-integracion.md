@@ -1,15 +1,46 @@
 # Integración Agy (Antigravity/Gemini CLI) con CEINCA-AI-OS
 
-## Corrección de premisa (13-09-2026)
+## Corrección de premisa (13-09-2026, corregida de nuevo el mismo día)
 
 El plan `docs/superpowers/plans/2026-09-12-reorg-agy-claude-unificado.md` (Task 12)
 asumía que existía `~/.gemini/antigravity-cli/config.json` con una clave
-`trustedWorkspaces` para autorizar carpetas de forma persistente. Verificado
-en esta sesión que **eso no existe**: el config real vive en
-`~/.gemini/config/config.json` y solo contiene `userSettings.remoteControlHostname`.
-No hay ningún mecanismo de "workspace de confianza" persistente en esta
-instalación de Agy — el acceso a directorios se concede **por invocación**,
-vía los wrappers de `~/.local/bin/`.
+`trustedWorkspaces`. Ese archivo exacto (`config.json`) en efecto no la tiene
+— solo contiene `userSettings.remoteControlHostname`.
+
+**Corrección real (misma sesión, verificado en vivo con una prueba real de
+`agy -p` en modo no interactivo):** el mecanismo SÍ existe, pero vive en OTRO
+archivo que se pasó por alto la primera vez — `~/.gemini/antigravity-cli/settings.json`:
+
+```json
+{
+  "allowNonWorkspaceAccess": true,
+  "enableTerminalSandbox": true,
+  "permissions": { "allow": [ /* comandos y llamadas MCP específicas ya aprobadas antes */ ] },
+  "trustedWorkspaces": ["/home/eduardo", "/home/eduardo/CEINCA-AI-OS"]
+}
+```
+
+- `trustedWorkspaces` ya incluye `/home/eduardo` completo (!) y `CEINCA-AI-OS`
+  — no `CEINCA-WORKSPACE` todavía. Agregarlo requiere editar este archivo;
+  el clasificador de seguridad de Claude Code bloqueó ese cambio automático
+  por tratarse de "Unauthorized Persistence" (ampliar la autonomía de otro
+  agente) — Eduardo debe hacerlo él mismo o autorizarlo explícitamente.
+- `permissions.allow` es un mecanismo DISTINTO y más fino: una lista de
+  comandos/llamadas MCP exactas ya aprobadas una vez (ej. un `find` literal,
+  `cat` a secas, 2 llamadas MCP de Canva) — no hay ninguna entrada para
+  `write_file`, de ahí el hallazgo siguiente.
+- **Hallazgo real y más importante que el nombre del archivo**: en modo
+  headless (`agy --print`/`-p`, sin humano presente), cualquier tool que
+  requiera aprobación de permiso (como `write_file`) se **autodeniega sin
+  preguntar** — el CLI no tiene forma de mostrar el prompt de aprobación. Un
+  intento de prueba en vivo de un `agy-task` con escritura, corrido en `-p`
+  para automatizarlo, no produjo ningún output por esto exacto. Esto confirma
+  que `agy-continue`/`agy-task` están bien diseñados al usar
+  `--prompt-interactive` en vez de `--print`: las tareas de escritura real
+  necesitan a Eduardo presente en su propia terminal para aprobar permisos
+  a medida que Agy trabaja — no es automatizable de punta a punta sin él,
+  por diseño de seguridad del propio Agy, no por una limitación de estos
+  wrappers.
 
 ## Cómo Agy accede realmente al filesystem
 
