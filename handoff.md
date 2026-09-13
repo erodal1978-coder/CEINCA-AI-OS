@@ -645,11 +645,12 @@ Sesión plan arquitectura unificada Agy/Claude (12-09-2026, sobre `main`, captur
     - **Task 12 — COMPLETADA, con corrección real al plan**: el plan asumía `~/.gemini/antigravity-cli/config.json` con clave `trustedWorkspaces` — **verificado que no existe** en esta instalación (el config real, `~/.gemini/config/config.json`, solo tiene `userSettings.remoteControlHostname`). El acceso real de Agy es por invocación: `agy-diagnose` monta TODO el filesystem read-only vía `bwrap` (Agy ya puede leer `CEINCA-AI-OS` hoy, sin cambios de config), `agy-continue` usa `--add-dir <proyecto>` por invocación (nunca `$HOME` completo, guarda ya existente desde el 12-09). Documentado el mecanismo real en `docs/agy-integracion.md`. Commit AI-OS `a3e7eb2`.
 
     ### Resumen ejecutivo del plan (13-09-2026, cierre de esta sesión)
-    **13/13 tareas (Task 0-12) ejecutadas.** Todo lo que era filesystem/git puro quedó commiteado en ambos repos, árboles limpios (`git status` sin salida en AI-OS y WORKSPACE). 3 cosas genuinamente pendientes, ninguna bloqueante para el resto del sistema:
-    1. **Confirmar y ejecutar el borrado de `CLIENTS/casacampobarinas1/site/` en AI-OS** (Task 1) — el sitio ya vive completo, con historial git real, en `~/repos/casacampo-barinas-site` (verificado deployable con `npm install --dry-run`, exit 0). Solo falta borrar la copia vieja para no mantener el sitio duplicado.
-    2. **Confirmar el borrado de 4 archivos de basura** (Task 10, arriba) — bloqueado por el clasificador de seguridad, no por falta de certeza.
-    3. **2 archivos sin poder clasificar por falta de contexto de negocio** (no por pereza): `Recording_2026_09_01.webm` (Task 6) y `Saren_solicitud de copia certificada.mp4` (Task 9, ¿de qué cliente?).
-    Ver mensaje de cierre de sesión de Claude Code para las 3 preguntas exactas.
+    **13/13 tareas (Task 0-12) ejecutadas**, más las 4 decisiones pendientes resueltas con confirmación explícita de Eduardo (AskUserQuestion) en la misma sesión:
+    1. **Borrado de `CLIENTS/casacampobarinas1/site/` duplicado en AI-OS** — confirmado y ejecutado (el sitio real vive en `~/repos/casacampo-barinas-site` con historial git completo, verificado deployable). El `rm -rf` fue notablemente lento (disco mecánico + eCryptfs, ver `docs/sistema/diagnostico-hardware-linux-mint-2026-09-05.md`) — confirmar en la próxima sesión que terminó limpio y que el commit de retiro del tracking en AI-OS quedó hecho (`git log` en AI-OS, buscar el commit posterior a `a3e7eb2`).
+    2. **4 archivos de basura en home** — confirmados y borrados: `CEINCA-AI-OS-git-backup.tar.gz` (428M), `google-cloud-cli-linux-x86_64.tar.gz` (87M), `protonvpn-stable-release_1.0.8_all.deb`, 5×`.claude.json.tmp.*`.
+    3. **`Recording_2026_09_01.webm`** — confirmado como material de LEXIA, archivado en `_archivo/2026-09-13/lexia-material-disperso-home/` (excluido de git por `*.webm` en `.gitignore`, solo filesystem).
+    4. **`Saren_solicitud de copia certificada.mp4`** — Eduardo prefirió dejarlo donde está (`/home/eduardo/`) por ahora, sin asignar cliente. Sigue pendiente, no es un olvido.
+    **Estado final verificado**: `git status` limpio en AI-OS y WORKSPACE antes de las 4 confirmaciones. Falta re-verificar tras el `rm -rf` lento del punto 1 (ver arriba) y comitear el resultado si aún no quedó cerrado.
 
 ---
 ## Checkpoint Operativo (07-09-2026)
