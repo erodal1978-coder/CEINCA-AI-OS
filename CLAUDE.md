@@ -28,6 +28,7 @@
 * `PRODUCTION/lexia-launch-video/` — Proyecto Remotion real (rescatado 30-08-2026) del reel vertical de lanzamiento de LEXIA™ (42s, 9:16, guion NEAPS, 5 escenas). Deliverable de campaña, no motor genérico — para eso sigue siendo `video-export/`.
 * `media-mvp/` — Análisis audiovisual (ffprobe/whisper/silencios) + Video Editor MVP de dos fases (plan_video.py/process_video.py: EDL borrador → aprobación en chat → ensamblaje ffmpeg + QC).
 * `WEBKIT/` — Claude Web Builder (Hainrixz/claude-webkit, vendorizado): genera landing pages para clientes (Next.js + Tailwind + shadcn/ui). Es un proyecto autocontenido con su propio `CLAUDE.md` y 18 skills en `.claude/skills/` — entra con `cd WEBKIT && claude` para activar el flujo guiado de 6 fases (cuestionario → deploy). No mezcles su rol de "web builder" con el rol CEINCA de este archivo raíz.
+* `MARKITDOWN/` — microsoft/markitdown vendorizado (librería Python, no es agente/skill): convierte documentos (PDF, Office, HTML, imágenes, audio) a Markdown. Poda de `tests/`, CI y archivos multimedia de prueba pesados según la Política de Assets — ver `MARKITDOWN/VENDOR_NOTES.md` para el detalle de qué se excluyó y el commit de origen. Úsalo como dependencia Python cuando un workflow de `KNOWLEDGE/` o `AGENTS/` necesite convertir actas/gacetas/PDFs a Markdown.
 
 ## POLÍTICA DE ASSETS
 * GitHub es para código, conocimiento, configuración, prompts, documentación y fuentes pequeñas necesarias para reproducibilidad.
