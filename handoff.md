@@ -8,6 +8,7 @@
 Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agentes, marketing y producción digital de CEINCA. El núcleo actual prioriza conocimiento/estrategia, agentes y skills de Claude Code, producción audiovisual, exportación de carruseles y workflows reproducibles. Los experimentos obsoletos deben retirarse en lugar de mantenerse por inercia.
 
 ## 2. Estado actual
+- **Sesión 03-10-2026 (rama `claude/friendly-bell-2zb2i2`)** — Carrusel "153 documentos SAREN" (Estilo B Bold Dark, 6 láminas 1080x1350) generado con `carrusel-export/campaigns/saren-153/render.js` (Playwright + Montserrat local). Salida en `out/saren-153/` (slide-01..06.png + contact-sheet.png), carpeta gitignored según política de assets — los PNG no se versionan. QC visual hecho: sin texto cortado (el script además aborta si algún slide desborda el lienzo). Contraste: verde #1B7A3D sobre negro = 3.9:1 (AA solo para texto grande; se usa únicamente en titulares ≥88px Black), dorado #D4A843 = 9.5:1 sobre negro y 7.4:1 sobre #0A1C4E.
 - Limpieza de repositorio completada y mergeada a `main` mediante PR #16, commit `d9d75a871b96721c187ca44680a1dac312392187`.
 - Eliminado `ig-viral-tracker/` completo: era un MVP/artefacto de aprendizaje y ya no forma parte del sistema.
 - Eliminados vídeos, audios y assets multimedia pesados que estaban almacenados temporalmente en GitHub.
@@ -183,6 +184,13 @@ Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agente
     - Documentar formalmente la convención de delegación a Agy (Antigravity): verificado en esta sesión que Claude Code en este entorno YA tiene acceso root/sudo sin contraseña, `DISPLAY` activo y `zenity` disponible — es decir, **la diferencia con Antigravity no es de capacidad técnica** (ambos pueden tocar el sistema operativo real), sino de flujo de trabajo: Antigravity corre en una ventana/sesión aparte que el usuario alimenta a mano con un prompt (sin puente automático entre ambos agentes), útil para paralelizar trabajo largo/de bajo riesgo de supervisión mientras esta sesión sigue con el repo. `AGENTS.md` (raíz del repo) ya está escrito específicamente para que Antigravity (o cualquier agente que respete la convención `AGENTS.md`) lea `handoff.md`, revise `git status` y siga el mismo protocolo de cierre — si se abre este repo como workspace de Antigravity, la paridad operativa ya está resuelta sin cambios adicionales. Confirmado además (vía búsqueda exhaustiva) que Antigravity no tiene handoff/memoria propio divergente — sus únicas 2 sesiones conocidas (05-09-2026, auditoría Linux Mint + impresora) fueron tareas de sistema operativo fuera de cualquier repo git, ya volcadas íntegras en este mismo `handoff.md`.
 
 ## 3. Archivos y cambios (esta sesión)
+Sesión 03-10-2026 (rama `claude/friendly-bell-2zb2i2`):
+```
+ .gitignore                                    |   1 + (ignora /out/)
+ carrusel-export/campaigns/saren-153/render.js | 166 ++++
+ handoff.md                                    | (esta entrada)
+```
+
 Commits de limpieza y documentación en `main`:
 - `d9d75a871b96721c187ca44680a1dac312392187` — merge de PR #16: elimina tracker obsoleto, assets multimedia pesados y endurece `.gitignore`.
 - `d6a6f3d2a6be01de60d5fe89e5d28ba244ed15f9` — actualiza `CLAUDE.md` para reflejar la arquitectura y política de assets vigentes.
@@ -335,6 +343,7 @@ Detalle completo de cada cambio en sección 2 (checkpoint 08-09-2026) y en tarea
 - Fallback silencioso de `drawtext` y `subtitles`: `drawtext` de ffmpeg con `fontfile` apuntando a una ruta inexistente cae a `NotoSans-Regular.ttf` sin emitir ningún error. Asimismo, en sistemas donde la fuente local TTF registra su family como `"Montserrat Bold"` (ej. `~/.local/share/fonts/MontserratBold.ttf`), libass con `FontName=Montserrat` no hace match y cae silenciosamente a Noto Sans. Fix: escanear candidatos de rutas locales/sistema y consultar `fc-match` (verificando que contenga "montserrat"), obtener el family exacto vía `fc-scan`, inyectar `fontsdir` en ruta absoluta al filtro `subtitles`, y advertir explícitamente en stderr si el fontfile no existe.
 
 ## 5. Próximos pasos
+0. (03-10-2026) Carrusel SAREN-153: subir los PNG de `out/saren-153/` a Instagram y configurar la automatización Meta para la keyword **CACHAPA** (falta el copy, comentario fijado y la respuesta DM con la lista oficial por categorías — no se generaron en esta sesión). Regenerar con `cd carrusel-export && npm install && node campaigns/saren-153/render.js`.
 1. ~~Reconciliación formal de `FLOW_REELS.md` → v1.1~~ — **hecho**, PR #21 mergeado (`92ac2b9`).
 2. ~~Corregir la contradicción interna de `FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1~~ — **hecho**, commit `7041af6` en `main`.
 3. ~~Decidir qué hacer con la tercera copia duplicada en `frameworks.md`~~ — **hecho**, reemplazada por puntero, commit `7041af6` en `main`. `PRODUCTION/OPENMONTAGE_STUDIO.md` (2 menciones sueltas de `@Eduardo`) sigue sin tocar — no era parte del alcance de esta tarea, evaluar en una futura pasada si vale la pena.

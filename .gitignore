@@ -35,6 +35,7 @@ coverage/
 /renders/
 /exports/
 /output/
+/out/
 /tmp/
 
 # OS / editor
