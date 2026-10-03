@@ -62,7 +62,7 @@ h1, .big { font-weight:900; text-transform:uppercase; letter-spacing:-0.03em; li
 .ctb { display:flex; flex-direction:column; gap:52px; }
 .verb { font-size:84px; }
 .ctb p { font-weight:600; font-size:38px; line-height:1.3; margin-top:12px; }
-.cachapa { font-size:168px; color:var(--gold); letter-spacing:-0.04em; line-height:.9; margin-top:12px; }
+.cachapa { font-size:124px; color:var(--gold); letter-spacing:-0.04em; line-height:.9; margin-top:12px; }
 `;
 
 const top = (n) => `<div class="top"><span class="logo">CEINCA<span class="dot">.</span></span><span class="count">${String(n).padStart(2, "0")} / ${String(TOTAL).padStart(2, "0")}</span></div>`;
@@ -122,7 +122,7 @@ const SLIDES = [
   `<div class="slide navy">${top(6)}<div class="body ctb">
     <div><div class="big verb">GUARDA</div><p>este carrusel para cuando te pidan apostillar un documento.</p></div>
     <div><div class="big verb">COMPARTE</div><p>con ese familiar o cliente que hoy sigue buscando cita.</p></div>
-    <div><div class="big verb">COMENTA</div><div class="big cachapa">CACHAPA</div><p>y te enviamos la lista oficial por categorías.</p></div>
+    <div><div class="big verb">COMENTA</div><div class="big cachapa">MAMONSOTE</div><p>y te enviamos la lista oficial por categorías.</p></div>
   </div><div class="foot"><span></span><span class="rule"></span></div></div>`,
 ];
 
