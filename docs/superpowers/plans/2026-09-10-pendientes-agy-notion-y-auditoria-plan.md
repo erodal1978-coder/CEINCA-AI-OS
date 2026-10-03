@@ -41,7 +41,7 @@
 
 **Files:**
 - Modify: elimina `CEINCA-WORKSPACE/CEINCA/recovery-codes.txt`
-- Create: `CEINCA-WORKSPACE/_archivo/2026-09-10/recovery-codes.txt.gpg`
+- Create: `CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/2026-09-10/recovery-codes.txt.gpg`
 
 **Interfaces:** ninguna (tarea de filesystem, sin código).
 
@@ -55,9 +55,9 @@ Esperado: `fatal: not a git repository` (CEINCA-WORKSPACE no es un repo — conf
 - [ ] **Paso 2: Cifrar el archivo con una passphrase que Eduardo escribe en el prompt interactivo (nunca hardcodeada)**
 
 ```bash
-mkdir -p /home/eduardo/CEINCA-WORKSPACE/_archivo/2026-09-10
+mkdir -p /home/eduardo/CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/2026-09-10
 gpg --symmetric --cipher-algo AES256 \
-  --output /home/eduardo/CEINCA-WORKSPACE/_archivo/2026-09-10/recovery-codes.txt.gpg \
+  --output /home/eduardo/CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/2026-09-10/recovery-codes.txt.gpg \
   /home/eduardo/CEINCA-WORKSPACE/CEINCA/recovery-codes.txt
 ```
 `gpg` pedirá la passphrase por terminal — Eduardo la escribe en el momento, no se guarda en ningún script.
@@ -65,7 +65,7 @@ gpg --symmetric --cipher-algo AES256 \
 - [ ] **Paso 3: Verificar que el cifrado es correcto antes de borrar el original**
 
 ```bash
-gpg --decrypt /home/eduardo/CEINCA-WORKSPACE/_archivo/2026-09-10/recovery-codes.txt.gpg > /tmp/verify-recovery.txt
+gpg --decrypt /home/eduardo/CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/2026-09-10/recovery-codes.txt.gpg > /tmp/verify-recovery.txt
 diff /tmp/verify-recovery.txt /home/eduardo/CEINCA-WORKSPACE/CEINCA/recovery-codes.txt && echo "OK idéntico" && rm /tmp/verify-recovery.txt
 ```
 Esperado: `OK idéntico`.
@@ -123,12 +123,12 @@ Esperado: `No such file or directory`.
 ### Task 3: Revisar y eliminar el proyecto Next.js/Remotion abandonado en `casa-campo-barinas/video/`
 
 **Files:**
-- Modify: elimina `CEINCA-WORKSPACE/Clientes-Asesoria/casa-campo-barinas/video/` completo (tras revisión)
+- Modify: elimina `CEINCA-WORKSPACE/04 CLIENTES/CASA CAMPO BARINAS/video/` completo (tras revisión)
 
 - [ ] **Paso 1: Listar el código fuente real (excluyendo `node_modules`/`.cache`/`.next`) para revisión humana**
 
 ```bash
-find "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/casa-campo-barinas/video" \
+find "/home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/CASA CAMPO BARINAS/video" \
   -type f -not -path "*/node_modules/*" -not -path "*/.cache/*" -not -path "*/.next/*" \
   -not -path "*/.git/*"
 ```
@@ -138,7 +138,7 @@ find "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/casa-campo-barinas/video"
 - [ ] **Paso 3 (solo tras confirmación): borrar la carpeta completa**
 
 ```bash
-rm -rf "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/casa-campo-barinas/video"
+rm -rf "/home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/CASA CAMPO BARINAS/video"
 ```
 
 - [ ] **Paso 4: Verificar espacio liberado**
@@ -382,7 +382,7 @@ chmod +x ~/.local/bin/agy-diagnose
 - [ ] **Paso 3: Ejecutar el wrapper sobre esa tarea real**
 
 ```bash
-agy-diagnose "Verifica si el proyecto en /home/eduardo/CEINCA-WORKSPACE/lexia-landing sigue deployado activamente en Vercel (revisa .vercel/project.json y, si tienes acceso, el estado del deployment). No modifiques nada. Reporta lo que encuentres."
+agy-diagnose "Verifica si el proyecto en /home/eduardo/CEINCA-WORKSPACE/06 TECNOLOGIA/LEXIA LANDING sigue deployado activamente en Vercel (revisa .vercel/project.json y, si tienes acceso, el estado del deployment). No modifiques nada. Reporta lo que encuentres."
 ```
 
 - [ ] **Paso 4: Escribir el resultado en el campo `Hallazgos-Agy` de esa página de Notion (`mcp__claude_ai_Notion__notion-update-page`, command `update_properties`) y marcar `Estado = En progreso`.**
@@ -395,10 +395,10 @@ agy-diagnose "Verifica si el proyecto en /home/eduardo/CEINCA-WORKSPACE/lexia-la
 
 ### Task 11: Reconciliar Casa & Campo Barinas
 
-- [ ] **Paso 1: Listar lo que queda en `CEINCA-WORKSPACE/Clientes-Asesoria/casa-campo-barinas/` tras la Task 3 (ya sin `video/`)**
+- [ ] **Paso 1: Listar lo que queda en `CEINCA-WORKSPACE/04 CLIENTES/CASA CAMPO BARINAS/` tras la Task 3 (ya sin `video/`)**
 
 ```bash
-find "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/casa-campo-barinas" -maxdepth 2 -type f
+find "/home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/CASA CAMPO BARINAS" -maxdepth 2 -type f
 ```
 
 - [ ] **Paso 2: Comparar cada archivo contra `CEINCA-AI-OS/CLIENTS/casacampobarinas1/` — para cada uno, decidir: (a) ya existe equivalente en el repo → descartar de aquí, (b) es fuente única (foto/video que no está en el repo) → mover a `CLIENTS/casacampobarinas1/site/public/` o a una subcarpeta de material fuente, (c) es material de campaña ya publicado → mover a `_archivo/2026-09-10/`.**
@@ -416,7 +416,7 @@ find "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/casa-campo-barinas" -maxd
 - [ ] **Paso 2: Si confirmado que no está activo/no aporta nada vivo: mover toda la carpeta a `_archivo/2026-09-10/lexia-landing/`.**
 
 ```bash
-mv "/home/eduardo/CEINCA-WORKSPACE/lexia-landing" "/home/eduardo/CEINCA-WORKSPACE/_archivo/2026-09-10/lexia-landing"
+mv "/home/eduardo/CEINCA-WORKSPACE/06 TECNOLOGIA/LEXIA LANDING" "/home/eduardo/CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/2026-09-10/lexia-landing"
 ```
 
 - [ ] **Paso 3: Actualizar el `Estado` de la tarea correspondiente en Notion a `Hecho` con `Fecha-cierre` = hoy.**
@@ -431,7 +431,7 @@ mv "/home/eduardo/CEINCA-WORKSPACE/lexia-landing" "/home/eduardo/CEINCA-WORKSPAC
 
 ```bash
 mv "/home/eduardo/CEINCA-WORKSPACE/curso claude" "/home/eduardo/CEINCA-WORKSPACE/claude-nuevos-tutoriales" \
-   "/home/eduardo/CEINCA-WORKSPACE/muestra-gems" "/home/eduardo/CEINCA-WORKSPACE/prompts" \
+   "/home/eduardo/CEINCA-WORKSPACE/02 SERVICIOS LEGALES/CATALOGO DE PRODUCTOS/MUESTRA GEMS" "/home/eduardo/CEINCA-WORKSPACE/06 TECNOLOGIA/PROMPTS Y GEMS/prompts" \
    /home/eduardo/Documentos/
 ```
 
@@ -450,9 +450,9 @@ mv "/home/eduardo/CEINCA-WORKSPACE/curso claude" "/home/eduardo/CEINCA-WORKSPACE
 - [ ] **Paso 2: Para cada carpeta confirmada como cerrada (LEXIA, CEINCA/videos, generados/, y media-mvp/output si aplica): mover a `_archivo/2026-09-10/`.**
 
 ```bash
-mkdir -p /home/eduardo/CEINCA-WORKSPACE/_archivo/2026-09-10
+mkdir -p /home/eduardo/CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/2026-09-10
 mv /home/eduardo/CEINCA-WORKSPACE/CEINCA/LEXIA /home/eduardo/CEINCA-WORKSPACE/CEINCA/videos \
-   /home/eduardo/CEINCA-WORKSPACE/generados /home/eduardo/CEINCA-WORKSPACE/_archivo/2026-09-10/
+   /home/eduardo/CEINCA-WORKSPACE/generados /home/eduardo/CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/2026-09-10/
 ```
 
 - [ ] **Paso 3: Subir cada carpeta archivada a Google Drive con `mcp__claude_ai_Google_Drive__create_file`, en una carpeta privada dedicada (ej. "CEINCA — Archivo 2026-09-10"), confirmando que cada subida termina sin error antes de continuar con la siguiente.**

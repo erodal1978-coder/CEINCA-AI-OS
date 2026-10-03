@@ -13,11 +13,11 @@
 ## Global Constraints
 
 - NUNCA borrar nada de forma irreversible sin mover antes a una carpeta `_archivo/<fecha>/` (convención ya establecida en CEINCA-WORKSPACE desde 2026-08-26).
-- NUNCA mover/borrar un archivo dentro de `CEINCA-WORKSPACE/_archivo/` — es zona de cuarentena ya usada, se queda intacta.
+- NUNCA mover/borrar un archivo dentro de `CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/` — es zona de cuarentena ya usada, se queda intacta.
 - Política de assets de `CEINCA-AI-OS/CLAUDE.md`: NO video/audio/binarios pesados versionados en git salvo excepción explícita ya documentada (PRODUCTION/lexia-launch-video/public/audio). El binario `agy` (213MB) NUNCA se mete en el repo git de CEINCA-AI-OS — se queda en `~/.local/bin` (ubicación estándar), solo se reconfigura su área de trabajo.
 - CEINCA-WORKSPACE se convierte en repo git privado (decisión de Eduardo, 2026-09-12) para integrarse al cron `git-wip-checkpoint` (cada 15 min, solo commits locales, nunca push) — mismo mecanismo que ya protege los otros 7 repos.
 - `CLIENTS/casacampobarinas1/site` se extrae a su propio repo git (recomendación dada, aceptada implícitamente): es un producto vivo en Vercel (`projectId prj_BuKEcvVRQVDB7ybTLJrRiKWLlRFC`, deploy vía CLI de Vercel, no vía integración de GitHub) — extraerlo no interrumpe el sitio en producción porque Vercel no depende de dónde vive el código localmente, solo del `.vercel/project.json` (gitignored, se preserva físicamente en la carpeta al moverla).
-- Todo movimiento de archivo de cliente respeta la convención `Clientes-Asesoria/<cliente>/<servicio>/` con servicios en minúscula y guiones: `redes-sociales/`, `legal/`, `formacion-curso/`. Un cliente monoservicio no necesita la subcarpeta si el 100% de su contenido es un solo servicio (ej. `Clientes - Legales/*`).
+- Todo movimiento de archivo de cliente respeta la convención `04 CLIENTES/<CLIENTE>/<servicio>/` con servicios en minúscula y guiones: `redes-sociales/`, `legal/`, `formacion-curso/`. Un cliente monoservicio no necesita la subcarpeta si el 100% de su contenido es un solo servicio (ej. `Clientes - Legales/*`).
 - Antes de cada tarea que toca `CEINCA-AI-OS`, correr `git status` y confirmar árbol limpio o los cambios esperados — es un repo git real con push previo, no tocar sin verificar.
 
 ---
@@ -168,8 +168,8 @@ No correr `vercel --prod` en este paso — solo confirmar que el proyecto remoto
 ### Task 2: Mover el resto de CLIENTS/ (contenido no-código) a CEINCA-WORKSPACE
 
 **Files:**
-- Modify: `CEINCA-AI-OS/CLIENTS/casacampobarinas1/*` (todo menos `site/`, ya movido en Task 1) → `CEINCA-WORKSPACE/Clientes-Asesoria/casa-campo-barinas/`
-- Modify: `CEINCA-AI-OS/CLIENTS/ceinca-english-elpinal/` → `CEINCA-WORKSPACE/Clientes-Asesoria/ceinca-english-elpinal/`
+- Modify: `CEINCA-AI-OS/CLIENTS/casacampobarinas1/*` (todo menos `site/`, ya movido en Task 1) → `CEINCA-WORKSPACE/04 CLIENTES/CASA CAMPO BARINAS/`
+- Modify: `CEINCA-AI-OS/CLIENTS/ceinca-english-elpinal/` → `CEINCA-WORKSPACE/04 CLIENTES/CEINCA ENGLISH EL PINAL/`
 
 - [ ] **Paso 1: Listar qué queda en CLIENTS/ tras la Task 1**
 
@@ -181,10 +181,10 @@ find /home/eduardo/CEINCA-AI-OS/CLIENTS -maxdepth 2
 
 ```bash
 cd /home/eduardo/CEINCA-AI-OS
-mkdir -p /home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/casa-campo-barinas
-mkdir -p /home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/ceinca-english-elpinal
-git mv CLIENTS/casacampobarinas1/* /home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/casa-campo-barinas/
-git mv CLIENTS/ceinca-english-elpinal/* /home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/ceinca-english-elpinal/
+mkdir -p /home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/CASA CAMPO BARINAS
+mkdir -p /home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/CEINCA ENGLISH EL PINAL
+git mv CLIENTS/casacampobarinas1/* /home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/CASA CAMPO BARINAS/
+git mv CLIENTS/ceinca-english-elpinal/* /home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/CEINCA ENGLISH EL PINAL/
 rmdir CLIENTS/casacampobarinas1 CLIENTS/ceinca-english-elpinal CLIENTS 2>/dev/null; true
 ```
 Nota: `git mv` hacia una ruta fuera del propio repo no funciona con historial en un solo comando entre 2 repos distintos — si `git mv` falla por "fatal: not under version control" al cruzar el repo de WORKSPACE, usar `mv` normal seguido de `git rm -r CLIENTS/` en AI-OS y `git add -A` en WORKSPACE (ya inicializado en Task 0) para que quede trackeado en su nuevo repo.
@@ -223,10 +223,10 @@ Esperado: sin salida (nada trackeado) — si algo aparece, detener y revisar ant
 - [ ] **Paso 2: Mover a archivo (no borrar) — usar la convención ya establecida en WORKSPACE**
 
 ```bash
-mkdir -p /home/eduardo/CEINCA-WORKSPACE/_archivo/2026-09-12
-mv /home/eduardo/CEINCA-AI-OS/Videos /home/eduardo/CEINCA-WORKSPACE/_archivo/2026-09-12/CEINCA-AI-OS-Videos-huerfana
-mv /home/eduardo/CEINCA-AI-OS/assets/testimonial-janet-marquez /home/eduardo/CEINCA-WORKSPACE/_archivo/2026-09-12/testimonial-janet-marquez
-mv /home/eduardo/CEINCA-AI-OS/media-mvp/output /home/eduardo/CEINCA-WORKSPACE/_archivo/2026-09-12/media-mvp-output
+mkdir -p /home/eduardo/CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/2026-09-12
+mv /home/eduardo/CEINCA-AI-OS/Videos /home/eduardo/CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/2026-09-12/CEINCA-AI-OS-Videos-huerfana
+mv /home/eduardo/CEINCA-AI-OS/assets/testimonial-janet-marquez /home/eduardo/CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/2026-09-12/testimonial-janet-marquez
+mv /home/eduardo/CEINCA-AI-OS/media-mvp/output /home/eduardo/CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/2026-09-12/media-mvp-output
 ```
 
 - [ ] **Paso 3: Verificar espacio recuperado en el working tree de AI-OS**
@@ -261,16 +261,16 @@ done
 ### Task 5: Reconciliar duplicado divergente y mover tooling de Claude fuera de CEINCA-WORKSPACE
 
 **Files:**
-- Review: `CEINCA-WORKSPACE/sistema-personalizacion-linux-mint.md` vs `CEINCA-WORKSPACE/CEINCA/Manuales MARCA CEINCA/sistema-personalizacion-linux-mint.md` (contenido distinto, confirmado por `diff`)
+- Review: `CEINCA-WORKSPACE/sistema-personalizacion-linux-mint.md` vs `CEINCA-WORKSPACE/01 IDENTIDAD DE MARCA/MANUALES DE MARCA/sistema-personalizacion-linux-mint.md` (contenido distinto, confirmado por `diff`)
 - Modify: mover a `CEINCA-AI-OS/docs/` una vez reconciliado
 - Modify: `CEINCA-WORKSPACE/GUIA_MAESTRA_IA_GITHUB_CLAUDE_CODE_VIDEO_CEINCA.md` → `CEINCA-AI-OS/docs/`
-- Modify: `CEINCA-WORKSPACE/CEINCA/Manuales MARCA CEINCA/Guia imagen Claude code.png` → `CEINCA-AI-OS/docs/`
+- Modify: `CEINCA-WORKSPACE/01 IDENTIDAD DE MARCA/MANUALES DE MARCA/Guia imagen Claude code.png` → `CEINCA-AI-OS/docs/`
 
 - [ ] **Paso 1: Ver el diff exacto entre las dos versiones para decidir cuál es la vigente**
 
 ```bash
 diff /home/eduardo/CEINCA-WORKSPACE/sistema-personalizacion-linux-mint.md \
-     "/home/eduardo/CEINCA-WORKSPACE/CEINCA/Manuales MARCA CEINCA/sistema-personalizacion-linux-mint.md"
+     "/home/eduardo/CEINCA-WORKSPACE/01 IDENTIDAD DE MARCA/MANUALES DE MARCA/sistema-personalizacion-linux-mint.md"
 ```
 Con el diff en mano, Eduardo confirma cuál queda como versión final (o si hay que fusionar contenido de ambas).
 
@@ -279,9 +279,9 @@ Con el diff en mano, Eduardo confirma cuál queda como versión final (o si hay 
 ```bash
 mkdir -p /home/eduardo/CEINCA-AI-OS/docs/sistema
 mv /home/eduardo/CEINCA-WORKSPACE/sistema-personalizacion-linux-mint.md /home/eduardo/CEINCA-AI-OS/docs/sistema/ # (o la otra version, segun Paso 1)
-rm "/home/eduardo/CEINCA-WORKSPACE/CEINCA/Manuales MARCA CEINCA/sistema-personalizacion-linux-mint.md"  # la descartada, ya reconciliada
+rm "/home/eduardo/CEINCA-WORKSPACE/01 IDENTIDAD DE MARCA/MANUALES DE MARCA/sistema-personalizacion-linux-mint.md"  # la descartada, ya reconciliada
 mv /home/eduardo/CEINCA-WORKSPACE/GUIA_MAESTRA_IA_GITHUB_CLAUDE_CODE_VIDEO_CEINCA.md /home/eduardo/CEINCA-AI-OS/docs/
-mv "/home/eduardo/CEINCA-WORKSPACE/CEINCA/Manuales MARCA CEINCA/Guia imagen Claude code.png" /home/eduardo/CEINCA-AI-OS/docs/
+mv "/home/eduardo/CEINCA-WORKSPACE/01 IDENTIDAD DE MARCA/MANUALES DE MARCA/Guia imagen Claude code.png" /home/eduardo/CEINCA-AI-OS/docs/
 ```
 
 - [ ] **Paso 3: Commit en ambos repos**
@@ -309,10 +309,10 @@ ls -la /home/eduardo/CEINCA-WORKSPACE/{003-CIRCULAR0001.pdf,CUNAGUARO.html,Gems.
 
 ---
 
-### Task 7: Unificar convención `Clientes - Legales/` → `Clientes-Asesoria/`
+### Task 7: Unificar convención `Clientes - Legales/` → `04 CLIENTES/`
 
 **Files:**
-- Modify: `CEINCA-WORKSPACE/Clientes - Legales/{Caso Lucia Cedula, Frima personal AZUCENA}` → `CEINCA-WORKSPACE/Clientes-Asesoria/<cliente>/legal/`
+- Modify: `CEINCA-WORKSPACE/Clientes - Legales/{Caso Lucia Cedula, Frima personal AZUCENA}` → `CEINCA-WORKSPACE/04 CLIENTES/<CLIENTE>/legal/`
 
 - [ ] **Paso 1: Listar contenido actual**
 
@@ -323,10 +323,10 @@ find "/home/eduardo/CEINCA-WORKSPACE/Clientes - Legales" -maxdepth 2
 - [ ] **Paso 2: Mover cada caso a su propia carpeta de cliente dentro de Clientes-Asesoria, bajo `legal/`**
 
 ```bash
-mkdir -p "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/lucia-cedula/legal"
-mkdir -p "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/azucena/legal"
-mv "/home/eduardo/CEINCA-WORKSPACE/Clientes - Legales/Caso Lucia Cedula"/* "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/lucia-cedula/legal/"
-mv "/home/eduardo/CEINCA-WORKSPACE/Clientes - Legales/Frima personal AZUCENA"/* "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/azucena/legal/"
+mkdir -p "/home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/LUCIA - CEDULA/LEGAL"
+mkdir -p "/home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/AZUCENA/LEGAL"
+mv "/home/eduardo/CEINCA-WORKSPACE/Clientes - Legales/Caso Lucia Cedula"/* "/home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/LUCIA - CEDULA/LEGAL/"
+mv "/home/eduardo/CEINCA-WORKSPACE/Clientes - Legales/Frima personal AZUCENA"/* "/home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/AZUCENA/LEGAL/"
 rmdir "/home/eduardo/CEINCA-WORKSPACE/Clientes - Legales/Caso Lucia Cedula" "/home/eduardo/CEINCA-WORKSPACE/Clientes - Legales/Frima personal AZUCENA" "/home/eduardo/CEINCA-WORKSPACE/Clientes - Legales" 2>/dev/null; true
 ```
 Nota: los nombres finales de carpeta (`lucia-cedula`, `azucena`) son una propuesta razonable — ajustar si Eduardo prefiere otro nombre de cliente.
@@ -334,7 +334,7 @@ Nota: los nombres finales de carpeta (`lucia-cedula`, `azucena`) son una propues
 - [ ] **Paso 3: Commit**
 
 ```bash
-cd /home/eduardo/CEINCA-WORKSPACE && git add -A && git commit -m "refactor: unificar convencion de nombres de Clientes - Legales bajo Clientes-Asesoria"
+cd /home/eduardo/CEINCA-WORKSPACE && git add -A && git commit -m "refactor: unificar convencion de nombres de Clientes - Legales bajo 04 CLIENTES"
 ```
 
 ---
@@ -342,8 +342,8 @@ cd /home/eduardo/CEINCA-WORKSPACE && git add -A && git commit -m "refactor: unif
 ### Task 8: Introducir subcarpetas de servicio en clientes multiservicio y consolidar duplicado FONPYME
 
 **Files:**
-- Modify: `Clientes-Asesoria/{Viajes Harmar, orlando_fonpyme, NOVA AUDITOR GEM, Yilviana R}` → introducir `redes-sociales/`, `legal/`, `formacion-curso/` según lo que ya se les ofrece
-- Modify: `CEINCA/Cursos septiembre - Diciembre 2026/FONPYME - JUNIOR TORRES CURSO` → `Clientes-Asesoria/orlando_fonpyme/formacion-curso/`
+- Modify: `04 CLIENTES/{Viajes Harmar, orlando_fonpyme, NOVA AUDITOR GEM, Yilviana R}` → introducir `redes-sociales/`, `legal/`, `formacion-curso/` según lo que ya se les ofrece
+- Modify: `03 FORMACION/JORNADAS SEPTIEMBRE - DICIEMBRE 2026/FONPYME - JUNIOR TORRES CURSO` → `04 CLIENTES/ORLANDO - FONPYME/FORMACION/`
 
 Este task requiere que Eduardo confirme qué servicio(s) tiene cada cliente antes de mover archivos ciegamente (evita adivinar y mover a la carpeta equivocada). Listar primero, mover después.
 
@@ -351,7 +351,7 @@ Este task requiere que Eduardo confirme qué servicio(s) tiene cada cliente ante
 
 ```bash
 for c in "Viajes Harmar" orlando_fonpyme "NOVA AUDITOR GEM" "Yilviana R"; do
-  echo "=== $c ==="; find "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/$c" -maxdepth 1; echo
+  echo "=== $c ==="; find "/home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/$c" -maxdepth 1; echo
 done
 ```
 
@@ -360,9 +360,9 @@ done
 - [ ] **Paso 3: Consolidar FONPYME**
 
 ```bash
-mkdir -p "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/orlando_fonpyme/formacion-curso"
-mv "/home/eduardo/CEINCA-WORKSPACE/CEINCA/Cursos septiembre - Diciembre 2026/FONPYME - JUNIOR TORRES CURSO"/* \
-   "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/orlando_fonpyme/formacion-curso/"
+mkdir -p "/home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/ORLANDO - FONPYME/FORMACION"
+mv "/home/eduardo/CEINCA-WORKSPACE/03 FORMACION/JORNADAS SEPTIEMBRE - DICIEMBRE 2026/FONPYME - JUNIOR TORRES CURSO"/* \
+   "/home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/ORLANDO - FONPYME/FORMACION/"
 ```
 
 - [ ] **Paso 4: Commit**
@@ -376,15 +376,15 @@ cd /home/eduardo/CEINCA-WORKSPACE && git add -A && git commit -m "refactor: subc
 ### Task 9: Mover contenido de negocio suelto en home a CEINCA-WORKSPACE
 
 **Files:**
-- Modify: `~/lexia todos/`, `~/lexia-landing/`, `~/lexia-landing.zip` → reconciliar contra `CEINCA-WORKSPACE/lexia-landing/` (ya existe y está vivo)
-- Modify: `~/ADECUACION ESTATUTOS...ASOCIACIÓN CIVIL ESCUELA AGROECOLÓGICA MONTALBÁN.docx.md` → `Clientes-Asesoria/escuela-agroecologica-montalban/legal/`
+- Modify: `~/lexia todos/`, `~/lexia-landing/`, `~/lexia-landing.zip` → reconciliar contra `CEINCA-WORKSPACE/06 TECNOLOGIA/LEXIA LANDING/` (ya existe y está vivo)
+- Modify: `~/ADECUACION ESTATUTOS...ASOCIACIÓN CIVIL ESCUELA AGROECOLÓGICA MONTALBÁN.docx.md` → `04 CLIENTES/ESCUELA AGROECOLOGICA MONTALBAN/LEGAL/`
 - Modify: `~/Saren_solicitud de copia certificada.mp4` → carpeta legal del cliente SAREN correspondiente (confirmar cuál cliente con Eduardo, el nombre solo no lo identifica)
 
-- [ ] **Paso 1: Comparar `~/lexia-landing/` (si aún existe suelto en home) contra `CEINCA-WORKSPACE/lexia-landing/` (la que está viva y deployada)**
+- [ ] **Paso 1: Comparar `~/lexia-landing/` (si aún existe suelto en home) contra `CEINCA-WORKSPACE/06 TECNOLOGIA/LEXIA LANDING/` (la que está viva y deployada)**
 
 ```bash
 ls -la /home/eduardo/lexia-landing 2>/dev/null
-diff -rq /home/eduardo/lexia-landing /home/eduardo/CEINCA-WORKSPACE/lexia-landing 2>/dev/null | head -20
+diff -rq /home/eduardo/lexia-landing /home/eduardo/CEINCA-WORKSPACE/06 TECNOLOGIA/LEXIA LANDING 2>/dev/null | head -20
 ```
 Si son iguales o la de home es una copia vieja: borrar la de home (o archivarla) y quedarse solo con la de WORKSPACE. Si `~/lexia-landing.zip` es un zip del mismo contenido: mismo tratamiento.
 
@@ -397,9 +397,9 @@ find "/home/eduardo/lexia todos" -maxdepth 2
 - [ ] **Paso 3: Mover el documento de Escuela Agroecológica Montalbán**
 
 ```bash
-mkdir -p "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/escuela-agroecologica-montalban/legal"
+mkdir -p "/home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/ESCUELA AGROECOLOGICA MONTALBAN/LEGAL"
 mv "/home/eduardo/ADECUACION ESTATUTOS...ASOCIACIÓN CIVIL ESCUELA AGROECOLÓGICA MONTALBÁN.docx.md" \
-   "/home/eduardo/CEINCA-WORKSPACE/Clientes-Asesoria/escuela-agroecologica-montalban/legal/"
+   "/home/eduardo/CEINCA-WORKSPACE/04 CLIENTES/ESCUELA AGROECOLOGICA MONTALBAN/LEGAL/"
 ```
 (Ajustar el nombre exacto del archivo — verificar con `ls ~/ADECUACION*` antes de mover, el nombre real puede diferir levemente del listado del audit.)
 
@@ -520,5 +520,5 @@ cd /home/eduardo/CEINCA-AI-OS && git add docs/agy-integracion.md && git commit -
 
 - Auditoría profunda de `~/Descargas` y `~/Escritorio` (482M) — casi seguro tienen más archivos de cliente sin clasificar ("Salto Angel", "FUNDESTA" ya vistos ahí). Necesita su propio plan.
 - Puente de formato entre `.claude/skills/`/`.claude/agents/` (Claude Code) y `~/.gemini/antigravity-cli/builtin/skills` (Agy) — investigación aparte antes de prometer paridad de herramientas, no solo de conocimiento en texto plano.
-- Triage interno de los dumps de video ya archivados en `CEINCA-WORKSPACE/_archivo/2026-09-10/LEXIA` y `Clientes-Asesoria/casa-campo-barinas/video` — no se tocan, siguen en cuarentena reversible.
+- Triage interno de los dumps de video ya archivados en `CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/2026-09-10/LEXIA` y `04 CLIENTES/CASA CAMPO BARINAS/video` — no se tocan, siguen en cuarentena reversible.
 - Decisión de contenido de `~/lexia todos/` más allá de lo cubierto en Task 9 Paso 2, si resulta ser más que un simple duplicado.

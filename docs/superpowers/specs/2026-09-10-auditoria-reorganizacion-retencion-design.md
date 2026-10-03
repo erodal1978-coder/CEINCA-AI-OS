@@ -14,7 +14,7 @@ Escaneo real ejecutado esta sesión (`du`/`find`, solo lectura) — hallazgos ve
 1. **Retención**: 90 días desde que una tarea/cliente se marca cerrada en el sistema de pendientes (ver spec hermano `2026-09-10-workflow-tareas-agy-notion-design.md`) antes de mover a `_archivo/AAAA-MM-DD/`; otro periodo igual antes de subir a Google Drive y borrar la copia local.
 2. **Destino de respaldo en la nube**: Google Drive (ya conectado vía MCP en esta sesión, sin configuración nueva).
 3. **Documentos legales/PII de cliente**: misma regla de tiempo, pero el respaldo en Drive queda siempre en una carpeta privada — nunca se sube a un espacio compartido/público ni a Notion.
-4. **Reusar el patrón ya existente** `CEINCA-WORKSPACE/_archivo/AAAA-MM-DD/` en vez de crear una convención nueva.
+4. **Reusar el patrón ya existente** `CEINCA-WORKSPACE/90 ARCHIVO HISTORICO/AAAA-MM-DD/` en vez de crear una convención nueva.
 5. **Caché de build/dependencias no entra en la política de retención** — se borra de inmediato, es 100% regenerable y ya está gitignoreada; no es "contenido" en el sentido que preocupa a Eduardo.
 
 ## Hallazgos y acción por categoría
@@ -25,7 +25,7 @@ Escaneo real ejecutado esta sesión (`du`/`find`, solo lectura) — hallazgos ve
 |---|---|---|---|
 | `CEINCA-AI-OS/CLIENTS/casacampobarinas1/site/node_modules` + `.next` | 1.1G | Caché de build Next.js, gitignoreada | `rm -rf`, se regenera con `npm install`/`next build` cuando haga falta tocar el sitio |
 | `CEINCA-AI-OS/WEBKIT/site` (node_modules incluido) | 858M | Mismo patrón, herramienta WEBKIT | `rm -rf` |
-| `CEINCA-WORKSPACE/Clientes-Asesoria/casa-campo-barinas/video/node_modules` + `.cache` | ~900M | Proyecto Next.js/Remotion abandonado (incluye `chrome-headless-shell` 209M) | Antes de borrar: 1 revisión rápida del código fuente (no `node_modules`) de esa carpeta para confirmar que no tiene nada que `CLIENTS/casacampobarinas1/` no tenga ya. Si confirmado, `rm -rf` de toda la carpeta `video/`, no solo el caché. |
+| `CEINCA-WORKSPACE/04 CLIENTES/CASA CAMPO BARINAS/video/node_modules` + `.cache` | ~900M | Proyecto Next.js/Remotion abandonado (incluye `chrome-headless-shell` 209M) | Antes de borrar: 1 revisión rápida del código fuente (no `node_modules`) de esa carpeta para confirmar que no tiene nada que `CLIENTS/casacampobarinas1/` no tenga ya. Si confirmado, `rm -rf` de toda la carpeta `video/`, no solo el caché. |
 | `CEINCA-WORKSPACE/Antigravity.tar.gz` | 164M | Instalador suelto en la raíz, redescargable | ~~Borrar~~ **hecho** (10-09-2026, autorización explícita de Eduardo) |
 
 ### B. Seguridad — acción inmediata, no espera de retención
@@ -37,8 +37,8 @@ Escaneo real ejecutado esta sesión (`du`/`find`, solo lectura) — hallazgos ve
 
 ### C. Reconciliar antes de archivar (estructura, no solo espacio)
 
-- **Casa & Campo Barinas duplicado en 3 sitios**: repo real/deployado (`CEINCA-AI-OS/CLIENTS/casacampobarinas1/`), carpeta vieja (`CEINCA-WORKSPACE/Clientes-Asesoria/casa-campo-barinas/`, tras limpiar su `node_modules` quedan videos/png sueltos + `material-julio`), y salidas sueltas (`CEINCA-WORKSPACE/generados/casa_campo_promo*.mp4`). Acción: revisar si la carpeta vieja tiene algún activo fuente (video/foto) que no exista ya en el repo — si sí, moverlo a `CLIENTS/casacampobarinas1/` como material fuente; el resto se archiva.
-- **`CEINCA-WORKSPACE/lexia-landing/`**: tiene su propio `.git` y `.vercel` anidados — un tercer lugar para LEXIA además de `CEINCA-AI-OS/PRODUCTION/lexia-launch-video/`. LEXIA ya está deprioritizada (handoff CEINCA-AI-OS). Acción: confirmar con `vercel ls`/dashboard si el deployment sigue activo; si no aporta nada vivo, archivar la carpeta completa.
+- **Casa & Campo Barinas duplicado en 3 sitios**: repo real/deployado (`CEINCA-AI-OS/CLIENTS/casacampobarinas1/`), carpeta vieja (`CEINCA-WORKSPACE/04 CLIENTES/CASA CAMPO BARINAS/`, tras limpiar su `node_modules` quedan videos/png sueltos + `material-julio`), y salidas sueltas (`CEINCA-WORKSPACE/generados/casa_campo_promo*.mp4`). Acción: revisar si la carpeta vieja tiene algún activo fuente (video/foto) que no exista ya en el repo — si sí, moverlo a `CLIENTS/casacampobarinas1/` como material fuente; el resto se archiva.
+- **`CEINCA-WORKSPACE/06 TECNOLOGIA/LEXIA LANDING/`**: tiene su propio `.git` y `.vercel` anidados — un tercer lugar para LEXIA además de `CEINCA-AI-OS/PRODUCTION/lexia-launch-video/`. LEXIA ya está deprioritizada (handoff CEINCA-AI-OS). Acción: confirmar con `vercel ls`/dashboard si el deployment sigue activo; si no aporta nada vivo, archivar la carpeta completa.
 - **Contenido personal en la raíz de `CEINCA-WORKSPACE`**: `curso claude/`, `claude-nuevos-tutoriales/`, `muestra-gems/`, `prompts/` — no es material de negocio CEINCA. Acción: mover a una ubicación personal fuera de este workspace (ej. `Documentos/`), o confirmar con Eduardo si deben quedarse.
 
 ### D. Contenido real de tareas cerradas — aplica retención 90 días → Drive (~1.1-1.2G)
@@ -53,7 +53,7 @@ Escaneo real ejecutado esta sesión (`du`/`find`, solo lectura) — hallazgos ve
 
 ### No tocar (activo, no aplica ninguna política)
 
-- `CEINCA-WORKSPACE/CEINCA/Cursos septiembre - Diciembre 2026/` (82M) — cursos vigentes/próximos.
+- `CEINCA-WORKSPACE/03 FORMACION/JORNADAS SEPTIEMBRE - DICIEMBRE 2026/` (82M) — cursos vigentes/próximos.
 - `Clientes - Legales/Frima personal AZUCENA/` (4.4M) — cliente activo con PII; entra a la política de retención solo cuando el caso se cierre explícitamente, no ahora.
 - `CEINCA-AI-OS/media-mvp/test_*.mp4` — fixtures de test reusados por la suite, no confundir con contenido de cliente.
 
