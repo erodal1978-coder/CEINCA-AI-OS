@@ -1,6 +1,6 @@
 # MANUAL DE COPY CEINCA — Meta & TikTok (v2.0)
 
-> Sucede al Manual de Copy v1.0 (`CEINCA-Systems-Manual-de-Copy.pdf`, solo Meta) sumando un módulo TikTok construido desde cero. Complementa `FRAMEWORK_VIRAL_V2.md` (estructura de slides y diseño) y `CTB_PALABRAS_DISRUPTIVAS.md` (banco de keywords) — este manual cubre los **textos**, no el diseño visual del carrusel.
+> Sucede al Manual de Copy v1.0 (`CEINCA-Systems-Manual-de-Copy.pdf`, solo Meta) sumando un módulo TikTok construido desde cero. Complementa `SISTEMA_VIRAL.md` (estructura de slides y diseño) y `CTB_PALABRAS_DISRUPTIVAS.md` (banco de keywords) — este manual cubre los **textos**, no el diseño visual del carrusel.
 
 ---
 
@@ -370,4 +370,4 @@ En Meta, cuatro textos entregan y protegen el enlace. En TikTok, cada pieza llev
 
 ---
 
-*Manual de Copy CEINCA v2.0 · También publicado como manual visual HTML en `Manuales MARCA CEINCA/manual-copy-meta-tiktok.html` · Complementa `MARKETING/FRAMEWORK_VIRAL_V2.md`, `MARKETING/VIRAL_PLAYBOOK.md` y `MARKETING/CTB_PALABRAS_DISRUPTIVAS.md`.*
+*Manual de Copy CEINCA v2.0 · También publicado como manual visual HTML en `Manuales MARCA CEINCA/manual-copy-meta-tiktok.html` · Complementa `MARKETING/SISTEMA_VIRAL.md` y `MARKETING/CTB_PALABRAS_DISRUPTIVAS.md`.*

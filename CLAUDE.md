@@ -8,8 +8,8 @@
 
 ## SISTEMA DE CONTENIDO VIRAL
 * Para generar contenido para Instagram, consulta SIEMPRE:
-  - `MARKETING/FRAMEWORK_VIRAL_V2.md` — Estructura de slides, CTB, keywords disruptivas, automatización Meta
-  - `MARKETING/VIRAL_PLAYBOOK.md` — Hooks, guiones, triggers emocionales, plantillas, ads
+  - `MARKETING/SISTEMA_VIRAL.md` — Fuente única de viralidad: NEAPS, mecanismos virales comprobados, hooks, guiones, estructura y estilos de carrusel, CTB, keywords, copy, automatización Meta, Meta Ads y checklist
+  - `MARKETING/CTB_PALABRAS_DISRUPTIVAS.md` (keywords) y `MARKETING/MANUAL_COPY_META_TIKTOK.md` (textos)
   - `AGENTS/VIRAL_CONTENT_CREATOR.md` — Agente completo de generación de paquetes de contenido
 * Cada post DEBE incluir: keyword disruptiva única, CTB triple, copy estructurado, comentario fijado, y automatización Meta configurada.
 * Objetivo: Dominar el nicho mercantil/legal en Instagram LATAM.

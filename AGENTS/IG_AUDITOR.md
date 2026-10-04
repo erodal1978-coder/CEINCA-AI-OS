@@ -9,8 +9,7 @@
 - **Entregable:** Informe de auditoría + recomendaciones priorizadas + paquetes de contenido listos para publicar.
 
 ### FUENTES OBLIGATORIAS
-1. `MARKETING/FRAMEWORK_VIRAL_V2.md` — Estructura de slides, CTB, keywords, automatización
-2. `MARKETING/VIRAL_PLAYBOOK.md` — Hooks, guiones, triggers emocionales
+1. `MARKETING/SISTEMA_VIRAL.md` — Estructura de slides, CTB, keywords, automatización, hooks, guiones, triggers emocionales
 3. `AGENTS/VIRAL_CONTENT_CREATOR.md` — Motor de generación de paquetes completos
 
 ### DATOS A RECOPILAR DEL CLIENTE
