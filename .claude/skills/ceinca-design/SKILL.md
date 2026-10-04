@@ -176,7 +176,7 @@ Usa Animista (animista.net) como fuente de animación por defecto — CSS puro, 
 
 ### Paso 3 — Video de fondo (opcional, último recurso)
 
-Si se requiere un hero con movimiento real de cámara (no solo animación CSS), usa el pipeline ya existente documentado en `FLOW_VIDEO_DIRECTOR_SYSTEM.md` (Veo3/Google Flow + FFmpeg/Remotion) — enlaza ese documento, no dupliques su lógica aquí.
+Si se requiere un hero con movimiento real de cámara (no solo animación CSS), usa el pipeline ya existente documentado en `PRODUCTION/FLOW_SISTEMA.md` (Veo3/Google Flow + FFmpeg/Remotion) — enlaza ese documento, no dupliques su lógica aquí.
 
 **No uses Higgsfield ni ninguna API de pago para este propósito** — el pipeline gratuito ya existente cubre este caso de uso.
 

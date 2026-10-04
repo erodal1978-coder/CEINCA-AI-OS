@@ -218,7 +218,7 @@ Al activar este skill, **lee inmediatamente** `references/frameworks.md` para ca
 
 Activar cuando el usuario pida: Reel, video, escenas para Flow, script de video, avatar IA, producción cinematográfica, prompts para Google Flow, o un avatar de marca/producto (Ingredients-a-Video).
 
-**Antes de generar cualquier prompt, leer `references/frameworks.md` → Módulo 8** — ahí están las fuentes de verdad completas (metodología v1.1, stack/b-rolls en `FLOW_REELS.md`, el protocolo de avatar+producto en `GUIA_PROMPTS_FLOW_UGC.md`, y la dirección visual/cinematográfica avanzada en `FLOW_GUIA_DIRECCION_AVANZADA.md`). Este modo no repite esas reglas para no volver a desincronizarse de la fuente — solo define el formato de salida.
+**Antes de generar cualquier prompt, leer `references/frameworks.md` → Módulo 8** — remite a la fuente única de verdad `PRODUCTION/FLOW_SISTEMA.md` (reglas NO NEGOCIABLES, dirección visual, stack, b-rolls, avatar+producto, Meta Edits y ejemplo GEM LOPNNA). Este modo no repite esas reglas para no volver a desincronizarse de la fuente — solo define el formato de salida.
 
 **Estructura de salida obligatoria:**
 
@@ -232,7 +232,7 @@ Activar cuando el usuario pida: Reel, video, escenas para Flow, script de video,
 Para cada escena:
   ESCENA N — TIPO (Xs)
   PROMPT FLOW: [un solo párrafo cinematográfico fusionado — nunca una lista
-                de campos etiquetados; ver v1.1 §4bis]
+                de campos etiquetados; ver FLOW_SISTEMA §3 regla 9 y §12]
   APERTURA: [estado visual desde cierre anterior]
   CIERRE: [cómo termina — qué ve la escena siguiente]
 
@@ -240,8 +240,8 @@ Para cada escena:
 - Subtítulos, música, transiciones, export
 ```
 
-**Duración por escena:** 6s / 8s / 10s (tabla v1.1 §5; 4s solo como extrapolación excepcional, ver `FLOW_REELS.md`).
+**Duración por escena:** 6s / 8s / 10s (tabla `FLOW_SISTEMA.md` §4.1; 4s solo como extrapolación excepcional).
 
 Consultar `references/frameworks.md` → **Módulo 8** para plantillas completas,
 biblioteca de B-rolls, cierres/aperturas, ejemplo GEM LOPNNA y el protocolo de
-avatar de marca + producto (`GUIA_PROMPTS_FLOW_UGC.md`).
+avatar de marca + producto (`FLOW_SISTEMA.md` §8.4).

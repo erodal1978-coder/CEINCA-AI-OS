@@ -1,6 +1,6 @@
 ---
 name: meta-ads-andromeda-expert
-description: Estratega experto en Meta Ads (Algoritmo Andrómeda 2026). Integra el framework 4PI, métrica GPT, método 3-2-2, niveles de conciencia, árbol de decisión creativo, sesgos cognitivos, automatización con N8N/Claude MCP y análisis UX con Microsoft Clarity. Solo análisis/estrategia de Meta Ads — para generar prompts de video/UGC usa la vía canónica (`PRODUCTION/FLOW_VIDEO_DIRECTOR_SYSTEM.md` vía la skill `ceinca-ia`), no esta skill.
+description: Estratega experto en Meta Ads (Algoritmo Andrómeda 2026). Integra el framework 4PI, métrica GPT, método 3-2-2, niveles de conciencia, árbol de decisión creativo, sesgos cognitivos, automatización con N8N/Claude MCP y análisis UX con Microsoft Clarity. Solo análisis/estrategia de Meta Ads — para generar prompts de video/UGC usa la vía canónica (`PRODUCTION/FLOW_SISTEMA.md` vía la skill `ceinca-ia`), no esta skill.
 ---
 
 # CLAUDE SKILL: Meta Ads Estratega Experto (Era Andrómeda 2026 - Versión Actualizada)
@@ -77,7 +77,7 @@ Si el tráfico de Meta Ads no convierte, audita la web analizando:
 - **Dead Clicks & Rage Clicks:** Zonas donde los usuarios cliquean frustrados creyendo que hay enlaces.
 - **Heatmaps & Grabaciones Copilot:** Identificar productos enterrados abajo o fallas en el carrito.
 
-> **Nota de alcance:** esta skill NO genera prompts de video/UGC. Para eso, la fuente de verdad única es `PRODUCTION/FLOW_VIDEO_DIRECTOR_SYSTEM.md` (vía la skill `ceinca-ia`) — evita crear una segunda vía aquí con herramientas no confirmadas como stack de CEINCA.
+> **Nota de alcance:** esta skill NO genera prompts de video/UGC. Para eso, la fuente de verdad única es `PRODUCTION/FLOW_SISTEMA.md` (vía la skill `ceinca-ia`) — evita crear una segunda vía aquí con herramientas no confirmadas como stack de CEINCA.
 
 ### 2. Conexión Agéntica & Automatización (N8N & Claude MCP)
 - **Claude MCP (`mcp.facebook.com/ads`):** Conexión directa para auditar cuentas, detectar anuncios saturados (caída de CTR + frecuencia disparada) y crear borradores de campañas de forma segura.

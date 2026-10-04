@@ -277,20 +277,16 @@ Sistema de producción de Reels con avatar IA (Google Flow + Veo 3 + Meta Edits)
 La metodología completa vive fuera de este archivo para evitar mantener una
 tercera copia sincronizada a mano:
 
-- **Metodología / reglas de prompt / dirección audiovisual (fuente de verdad):**
-  `PRODUCTION/FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1
-- **Stack técnico / biblioteca de b-rolls / lighting / parámetros Meta Edits /
-  ejemplo completo:** `PRODUCTION/FLOW_REELS.md`
-- **Avatar de marca/producto genérico (no el avatar-abogado) vía Ingredients-a-Video:**
-  `PRODUCTION/GUIA_PROMPTS_FLOW_UGC.md` — complementario, no fuente de verdad;
-  sigue las mismas reglas NO NEGOCIABLES de v1.1 §4 sin excepciones.
-- **Dirección visual/cinematográfica avanzada, idioma/voz, continuidad multi-escena
-  (character/location/style/audio/brand bible), microeventos y checklist de
-  Director:** `PRODUCTION/FLOW_GUIA_DIRECCION_AVANZADA.md` — complementario, no
-  fuente de verdad; su plantilla de campos (sección 36) es solo un andamiaje de
-  checklist, nunca se entrega como campos separados al modelo (regla v1.1 §4.9).
+- **Fuente única de verdad (unificada el 04-10-2026):** `PRODUCTION/FLOW_SISTEMA.md` —
+  reglas NO NEGOCIABLES de prompt (§3), idioma y voz, duración/palabras/microeventos,
+  ritmo, overlays, continuidad y biblias de proyecto, avatar principal y avatar de
+  marca + producto (Ingredients-a-Video, §8.4), cámara/iluminación/color grade,
+  audio, narrativa y biblioteca de b-rolls, los dos checklists de 12 puntos,
+  Flow Agent/Tools/Street View, parámetros de Meta Edits y ejemplo GEM LOPNNA.
+  Sus andamiajes de campos son solo checklist: el prompt final es siempre un único
+  párrafo cinematográfico fusionado (§3 regla 9).
 
 Leer los cuatro antes de generar cualquier prompt de escena para Flow — especialmente
-las reglas NO NEGOCIABLES de v1.1 §4 (nunca nombre propio del sujeto —ni real ni
+las reglas NO NEGOCIABLES de `FLOW_SISTEMA.md` §3 (nunca nombre propio del sujeto —ni real ni
 ficticio—, nunca "hiperrealismo"/"fotorrealista" en el prompt — ambas validadas
 por un rechazo real de política de Flow en producción).
