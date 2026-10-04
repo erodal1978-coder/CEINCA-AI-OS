@@ -117,7 +117,7 @@ Validadas en producción real (campaña SAREN/TOTUMA). Mandan sobre cualquier pl
 1. **Autocontención total.** Cada escena se genera individualmente. El prompt nunca asume memoria de escenas anteriores ni la menciona.
 2. **Continuidad solo por coincidencia visual, nunca por referencia textual.** Antes de una escena nueva, analizar el último momento visual de la anterior y construir el primer fotograma de la nueva para que sea compatible. Prohibido escribir en el prompt "continúa el mismo hombre", "mismos rasgos de la escena anterior", "reconstruyendo el gesto final anterior", "las mismas manos... ahora", "same character", "same attorney". Cada escena repite su descripción física completa y describe su apertura como si fuera la primera vez.
 3. **Chaining Frames-to-Video** para las escenas 2, 3 y 4 de una misma pieza (§7.1).
-4. **Cero texto renderizado por el modelo**, salvo overlays estratégicos y pocos (§6, máx. 1-2 por escena). Excepción de riesgo conocido: texto largo/exacto de alta precisión (ej. un correo completo) se incluye si se pide y se valida en el primer resultado; si sale deformado, ese overlay pasa a Meta Edits como excepción de calidad.
+4. **Texto en pantalla: por defecto en post-producción** (Claude Code preferido, ver §6). Flow solo renderiza texto si se decide probarlo, en español, y se valida en el primer resultado; si sale deformado, pasa a post.
 5. **Nunca el nombre propio del sujeto dentro del prompt** — ni real ni ficticio, sin excepción para avatares sintéticos. Siempre "el sujeto" / "el hombre" / "el hombre venezolano" o una etiqueta interna neutral. Nombrar a una persona real activa el filtro de "persona real identificable". **Validado:** la Escena 1 de SAREN/TOTUMA fue rechazada por esto y aprobada al quitar el nombre.
 6. **Nunca "hiperrealismo", "hiperrealista", "fotorrealista" ni "ultra-realistic"** — usar "realista" / "calidad cinematográfica profesional". Pedir máximo realismo fotográfico de un rostro específico alimenta el mismo filtro. **Validado junto con la regla 5.**
 7. **Especificar siempre la voz dentro del prompt:** "voz en español latino neutro con acento venezolano [tono de la escena: cercano, experto, motivador…]", en la misma línea donde se describe el diálogo o la voz en off. El acento se mantiene fijo en toda la pieza.
@@ -168,12 +168,13 @@ Objetivo: **PATTERN INTERRUPTION SIN CAOS VISUAL.**
 
 ---
 
-## 6. OVERLAYS Y TEXTO EN PANTALLA (regla definitiva)
+## 6. OVERLAYS Y TEXTO EN PANTALLA (regla definitiva — actualizada 04-10-2026)
 
-- **Subtítulos:** SIEMPRE en Meta Edits (safe zones y timing nativos). Nunca se le pide a Flow que los renderice.
-- **Otros overlays** (títulos de apoyo, dato clave, CTB visual, cifra destacada): sí, pero **pocos y estratégicos — máximo 1-2 por escena de 8 s**, nunca saturar. Se han manejado sin problema en Edits.
-- Claude indica en el guion de escena **qué overlay va y en qué segundo**, pero el prompt de Flow no le pide al modelo que lo renderice: el overlay se agrega en post (Edits). Claude lo planifica y lo deja anotado como instrucción de edición.
-- **Formato C:** su fuerza viene de imagen + música + overlay puntual — el overlay sigue yendo a la capa de edición.
+- **Dónde se agregan (preferencia de Eduardo):** subtítulos y overlays se agregan **en post-producción con Claude Code** (ffmpeg/Remotion), que hoy los maneja con precisión — opción preferida. Alternativas: Meta Edits (safe zones y timing nativos) o, en ocasiones, el propio Flow, que a veces los renderiza bien (validar en el primer resultado; si sale deformado, pasa a post).
+- **Por defecto el prompt de Flow no pide renderizar texto:** el guion de escena deja el overlay **planificado** (texto exacto + segundo de aparición) y se monta en post. Si se decide probar el texto en Flow, va dentro del prompt en español y se valida.
+- **Pocos y estratégicos:** máximo 1-2 overlays por escena de 8 s (títulos de apoyo, dato clave, CTB visual, cifra destacada), nunca saturar el frame.
+- **Formato C:** su fuerza viene de imagen + música + overlay puntual; el overlay va en la capa de post-producción.
+- **Prompts siempre en español** (confirmado por Eduardo, 04-10-2026).
 - (Esto reemplaza la versión ambigua anterior de "cero texto", que fue una sobre-corrección.)
 - **Texto en pantalla:** breve, legible en móvil, estratégico, jerárquico, en español. Sin párrafos largos. Prioridad: HOOK → BENEFICIO → PRUEBA → CTB.
 - **Marcas y logos:** si Flow no puede reproducir texto o logo con precisión, priorizar la composición visual y reservar el elemento crítico para edición.
@@ -540,7 +541,7 @@ PRODUCCIÓN (por escena)
 ☐ Sujeto descrito físicamente, sin nombre propio
 ☐ Sin "hiperrealismo"/"fotorrealista"/"ultra-realistic"
 ☐ Voz en español latino con acento venezolano especificada
-☐ Overlays planificados como instrucción de edición (no renderizados por Flow)
+☐ Overlays planificados como instrucción de post-producción (Claude Code preferido)
 ☐ Audio implícito descrito para Veo 3.1
 ☐ End frame capturado como start frame de la siguiente
 ☐ Duración correcta: 6 / 8 / 10 s
@@ -571,28 +572,28 @@ POST-PRODUCCIÓN META EDITS
 
 **Concepto:** "La IA que genera documentos LOPNNA en segundos" · **Keyword CTB:** LOPNNA · **Duración:** ~46 s
 
-> ⚠️ **Corregido en la unificación (04-10-2026) para cumplir las reglas NO NEGOCIABLES — confirmar con Eduardo:** el ejemplo original (FLOW_REELS.md, jun-2026) (1) decía "64 documentos" en pantalla → ahora **60** (§17); (2) usaba "Ultra-realistic" → ahora "realista"/"calidad cinematográfica profesional" (§3 regla 6); (3) la escena 6 decía "same attorney" → ahora re-describe al sujeto (§3 regla 2); (4) pedía a Flow renderizar textos y lower third → ahora van como **overlay en Meta Edits** (§6); (5) estaba en inglés con campos etiquetados → ahora cada prompt es un párrafo en español con la cláusula de idioma implícita. El precio del ejemplo ($97, tachado $400) se mantuvo tal cual: confirmar si sigue vigente para GEM LOPNNA.
+> ✅ **Corregido en la unificación (04-10-2026) y aprobado por Eduardo:** el ejemplo original (FLOW_REELS.md, jun-2026) (1) decía "64 documentos" en pantalla → ahora **60** (§17); (2) usaba "Ultra-realistic" → ahora "realista"/"calidad cinematográfica profesional" (§3 regla 6); (3) la escena 6 decía "same attorney" → ahora re-describe al sujeto (§3 regla 2); (4) pedía a Flow renderizar textos y lower third → ahora van como **overlay en post-producción** (§6 — Claude Code preferido); (5) estaba en inglés con campos etiquetados → ahora cada prompt es un párrafo en español con la cláusula de idioma implícita. Precio del ejemplo ($97, tachado $400): se mantiene por ahora, **pendiente de revisión** — no hubo ventas de los GEM ni de LEXIA (Eduardo, 04-10-2026).
 
 **ESCENA 1 — HOOK (8 s) · Formato B · B-roll pantalla Gemini**
-Overlay (Edits): ninguno. Corte: rack focus dedos→pantalla a los 3 s.
+Overlay (post): ninguno. Corte: rack focus dedos→pantalla a los 3 s.
 > "Escena vertical 9:16 de 8 segundos con estética de grabación de pantalla realista: la pantalla de una laptop moderna llena el cuadro en primer plano, con la interfaz de Gemini abierta en modo oscuro y el cursor parpadeando en el campo de texto; unos dedos entran desde abajo y teclean rápido una solicitud de custodia monoparental según la LOPNNA, presionan enviar y Gemini empieza a generar texto que fluye en la pantalla. Sin persona en cuadro, solo b-roll. Cámara en primerísimo plano con rack focus de los dedos a la pantalla y micro movimiento de mano; la luz principal es el brillo de la pantalla con ambiente cálido desde la derecha; poca profundidad de campo, destello de lente desde el borde de la pantalla y grano de película al 10%. Audio ambiente de teclado mecánico y un ping de notificación generados por Veo 3.1. Cierra con un zoom rápido al centro de la pantalla, que es el frame final. Calidad cinematográfica profesional, sin texto deformado ni artefactos de IA."
 
 **ESCENA 2 — IMPACTO (6 s) · Formato C · Motion graphics**
-Overlay (Edits): "60 documentos. Listos en segundos." centrado, Montserrat bold blanco, del segundo 1 al 5.
+Overlay (post): "60 documentos. Listos en segundos." centrado, Montserrat bold blanco, del segundo 1 al 5.
 > "Escena vertical 9:16 de 6 segundos que abre desde la pantalla ampliada al máximo y corta a negro puro; en el centro queda un espacio limpio y sobrio para un titular, mientras una línea dorada fina color #C8A951 barre de izquierda a derecha con desenfoque de movimiento y el fondo pasa suavemente de negro a azul marino #122A63. Cámara estática perfectamente centrada con viñeta en los bordes, glow cálido sobre la línea dorada, grano de película al 15% y barras cinematográficas tipo letterbox. Audio: tono grave profundo que sube, generado por Veo 3.1. Cierra con la línea dorada desapareciendo y fundido a negro de medio segundo; el negro es el frame final. Calidad cinematográfica profesional, sin artefactos de IA."
 
 **ESCENA 3 — AUTORIDAD (10 s) · Formato A · Avatar a cámara**
-Overlay (Edits): ninguno. Corte interno: push-in leve a los 5 s.
+Overlay (post): ninguno. Corte interno: push-in leve a los 5 s.
 > "Escena vertical 9:16 de 10 segundos que emerge desde negro con luz ambiente creciente: el sujeto, un abogado venezolano con lentes grandes translúcidos rosé/marrón tipo aviador con detalle dorado, cabello corto sal y pimienta, chivera corta canosa y blazer oscuro profesional, está en el escritorio de un despacho jurídico moderno con dos monitores desenfocados detrás; habla directo a cámara con autoridad y calma, con voz en español latino neutro con acento venezolano, tono experto y cercano, y hace un leve gesto con la mano derecha hacia un documento fuera de cuadro. Plano medio cerrado del pecho a la coronilla con deriva lateral imperceptible, estética Sony FX3 con equivalente 85 mm; iluminación Rembrandt con key arriba a la izquierda a 3200K, relleno suave a la derecha y luz de pelo; negros levantados, piel ligeramente desaturada, sombras teal y altas luces cálidas; al fondo, en bokeh, estanterías, diplomas apenas legibles y luz de ventana. Ambiente de sala y aire acondicionado sutil generados por Veo 3.1. Cierra cuando deja de hablar y mira ligeramente hacia una pantalla fuera de cámara, con fundido a negro como frame final. Calidad cinematográfica profesional, sin deformaciones faciales, manos incorrectas ni cambios de identidad."
 
 **ESCENA 4 — DEMO (8 s) · Formato B · Documento generándose**
-Overlay (Edits): ninguno (el texto de UI generado por Flow no es confiable: si el encabezado sale ilegible, grabar pantalla real).
+Overlay (post): ninguno (el texto de UI generado por Flow no es confiable: si el encabezado sale ilegible, grabar pantalla real).
 > "Escena vertical 9:16 de 8 segundos donde una pantalla emerge desde la oscuridad mostrando un documento de Google Docs con formato legal venezolano formal, encabezado de solicitud de guarda y custodia, y párrafos que aparecen automáticamente mientras el cursor parpadea, con el panel lateral de Gemini visible en el borde derecho. Sin persona en cuadro, solo estética de grabación de pantalla, captura del monitor a cuadro completo con biseles apenas visibles y cámara inmóvil; la única luz es el brillo del monitor, con scan lines al 8% de opacidad y UI de Google Docs auténtica. Audio de tecleo y un tono de generación de página creados por Veo 3.1. Cierra con el documento desplazándose hasta el bloque de firma, un zoom a la marca de agua del pie de página y un corte seco a negro; el zoom sobre la marca de agua es el frame final. Calidad cinematográfica profesional, sin texto deformado ni artefactos de IA."
 
 **ESCENA 5 — PRECIO / OFERTA (6 s) · Formato C · Motion graphics**
-Overlays (Edits): "GEM LOPNNA" blanco Montserrat bold arriba; "$97" grande dorado al centro; "$400" gris tachado arriba a la derecha.
+Overlays (post): "GEM LOPNNA" blanco Montserrat bold arriba; "$97" grande dorado al centro; "$400" gris tachado arriba a la derecha.
 > "Escena vertical 9:16 de 6 segundos que parte del zoom sobre la marca de agua y se abre a un fondo azul marino profundo #122A63; en el centro aparece una línea horizontal dorada y queda un espacio limpio arriba y abajo para el nombre del producto y el precio, mientras un sistema de partículas doradas sube lentamente al fondo con desenfoque de movimiento. Cámara estática en el centro vertical exacto, glow de contorno detrás de la zona central y ambiente dorado cálido, con elementos que entran suavemente desde opacidad cero y brillo de profundidad. Audio: caja registradora sutil y un tono de cuerdas ascendente generados por Veo 3.1. Cierra con los elementos escalando levemente y un destello dorado que llena el cuadro antes de un corte seco a negro; el destello dorado es el frame final. Calidad cinematográfica profesional, sin artefactos de IA."
 
 **ESCENA 6 — CTB (8 s) · Formato A · Avatar + lower third**
-Overlays (Edits): lower third "Escribe LOPNNA" blanco bold con ícono de DM dorado a la izquierda, entra desde la izquierda; logo CEINCA dorado pequeño abajo al centro, fade hold 1,5 s.
+Overlays (post): lower third "Escribe LOPNNA" blanco bold con ícono de DM dorado a la izquierda, entra desde la izquierda; logo CEINCA dorado pequeño abajo al centro, fade hold 1,5 s.
 > "Escena vertical 9:16 de 8 segundos que emerge de un destello dorado que se desvanece y revela al sujeto, un abogado venezolano con lentes grandes translúcidos rosé/marrón tipo aviador con detalle dorado, cabello corto sal y pimienta, chivera corta canosa y blazer oscuro, en plano medio cerrado de hombros a coronilla, mirando directo a cámara con expresión segura y directa; dice una sola frase clara invitando a escribir la palabra clave, con voz en español latino neutro con acento venezolano, tono motivador y cercano, dejando espacio libre en el tercio inferior del cuadro. Cámara fija, sin movimiento, contacto visual directo; iluminación un poco más brillante que en la escena de autoridad, con relleno frontal más cálido y profundidad de campo que respira suavemente. Música motivacional sutil que crece, voz clara al frente. Cierra cuando asiente una vez y funde a negro. Calidad cinematográfica profesional, sin deformaciones faciales ni cambios de identidad."

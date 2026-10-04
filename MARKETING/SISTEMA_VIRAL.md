@@ -308,7 +308,7 @@ Por qué funciona el CTB triple:
 - Logo CEINCA pequeño en slide 1 y slide 6
 - "Desliza →" solo en slide 1
 
-> ⚠️ **Unificación 04-10-2026 — confirmar con Eduardo:** el `FRAMEWORK_VIRAL_V2` original decía en su tabla de paleta "keywords dorado / badges azul #2D4FA8", pero en otras líneas decía "keywords color verde", "badge verde" y "cards con borde verde". Aquí se aplicó la paleta oficial (dorado/azul). El verde se mantiene solo para la barra de "Tip" (#E8F5E9).
+> ✅ **Unificación 04-10-2026 — aprobado por Eduardo:** el `FRAMEWORK_VIRAL_V2` original decía en su tabla de paleta "keywords dorado / badges azul #2D4FA8", pero en otras líneas decía "keywords color verde", "badge verde" y "cards con borde verde". Aquí se aplicó la paleta oficial (dorado/azul). El verde se mantiene solo para la barra de "Tip" (#E8F5E9).
 
 ### 4.6 Estilo B — "Bold Dark" (variante de impacto)
 Estilo minimalista de alto contraste inspirado en cuentas de contenido viral (@charlesalbarran). Es **variación estratégica**, no estilo principal: el estilo A sigue siendo el default.
