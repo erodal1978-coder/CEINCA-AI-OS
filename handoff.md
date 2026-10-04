@@ -4,6 +4,18 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🧹 04-10-2026 — Limpieza: el repo queda como FUENTE DE LA VERDAD de CEINCA para IA
+
+Decisión de Eduardo: GitHub = solo conocimiento reutilizable (manuales, reglas, workflows, prompts, skills); docs, entregables, media y código van fuera. Respaldo: GitHub + Drive (`CEINCA RESPALDO/06 TECNOLOGIA/CEINCA-AI-OS`).
+- **Quitado (plantilla genérica de programación, no es CEINCA):** `.claude/agents` (7), `.claude/commands` (12), `.claude/rules` (8), `.claude/contexts` (3), `.claude/hooks`, `.claude/scripts`; skills `coding-standards`, `continuous-learning`, `eval-harness`, `frontend-patterns`, `strategic-compact`, `tdd-workflow`, `verification-loop`.
+- **Skills de diseño genéricas fuera del repo:** `impeccable`, `apple-design`, `emil-design-eng`, `design-taste-frontend`, `animation-vocabulary` (ya instaladas en Claude vía anthropic-skills); `ui-ux-pro-max` y `review-animations` copiadas a `~/.claude/skills/` (no estaban instaladas en otro lado). Hook de impeccable quitado de `.claude/settings.local.json`.
+- **Herramientas de código movidas a `~/repos/`:** `media-mvp`, `video-export`, `carrusel-export`, `lexia-launch-video` (ex `PRODUCTION/`), `WEBKIT`. Su historial sigue en este repo. ⚠️ En `~/repos` no tienen respaldo propio todavía (decidir: git propio o copia en Drive).
+- **Movido a WORKSPACE:** `MARKETING/AUDITOR_IA_MARCA_PROFESIONAL/` → `CEINCA-WORKSPACE/06 TECNOLOGIA/PROMPTS Y GEMS/AUDITOR IA MARCA PROFESIONAL/`.
+- **Borrado:** `docs/sistema/` (diagnóstico Linux Mint/Dell, obsoleto: disco y RAM nuevos), `CLIENTS/` y `.worktrees/` vacíos, ramas locales ya mergeadas.
+- `docs/superpowers/` → `docs/historico/superpowers/`. `FRAMEWORK_VIRAL_V2`: tipografía solo Montserrat (quitado "Poppins").
+- **Queda:** `CLAUDE.md`, `AGENTS.md`, `README.md`, `RULES/`, `STRATEGY/`, `KNOWLEDGE/`, `AGENTS/`, `MARKETING/`, `PRODUCTION/`, skills `ceinca-design`, `ceinca-ia`, `meta-ads-andromeda-expert`, `remotion-best-practices`, `no-ai-slop`.
+- **⏭️ PASO APARTE pendiente (aprobado por Eduardo):** (1) unificar viralidad: `FRAMEWORK_VIRAL_V2` + `VIRAL_PLAYBOOK` + `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA` + `NEAPS_AIDA` → un solo `MARKETING/SISTEMA_VIRAL.md` (el agente `VIRAL_CONTENT_CREATOR` lo referencia); (2) unificar Flow: `FLOW_REELS` + `FLOW_GUIA_DIRECCION_AVANZADA` + `FLOW_VIDEO_DIRECTOR_SYSTEM` + `GUIA_PROMPTS_FLOW_UGC` → un solo `PRODUCTION/FLOW_SISTEMA.md`. Fusionar sin perder contenido; donde se contradigan, preguntar a Eduardo.
+
 ## 1. Objetivo
 Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agentes, marketing y producción digital de CEINCA. El núcleo actual prioriza conocimiento/estrategia, agentes y skills de Claude Code, producción audiovisual, exportación de carruseles y workflows reproducibles. Los experimentos obsoletos deben retirarse en lugar de mantenerse por inercia.
 

@@ -106,7 +106,7 @@ Síguenos para más [tema ancla del perfil]."
 | CTA/Keyword | Dorado CEINCA sobre fondo oscuro | Cierre CTB |
 
 ### Tipografía
-- **Títulos:** Sans-serif bold (Montserrat/Poppins weight 700+), tamaño grande
+- **Títulos:** Sans-serif bold (Montserrat weight 700+), tamaño grande
 - **Cuerpo:** Sans-serif regular, 2-3 líneas máximo por bloque
 - **Badges:** Uppercase, tracking amplio, tamaño pequeño
 - **Keywords:** Bold + color verde, tamaño destacado
