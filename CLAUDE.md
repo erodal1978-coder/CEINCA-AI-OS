@@ -11,7 +11,7 @@
   - `MARKETING/SISTEMA_VIRAL.md` — Fuente única de viralidad: NEAPS, mecanismos virales comprobados, hooks, guiones, estructura y estilos de carrusel, CTB, keywords, copy, automatización Meta, Meta Ads y checklist
   - `MARKETING/CTB_PALABRAS_DISRUPTIVAS.md` (keywords) y `MARKETING/MANUAL_COPY_META_TIKTOK.md` (textos)
   - `AGENTS/VIRAL_CONTENT_CREATOR.md` — Agente completo de generación de paquetes de contenido
-* Cada post DEBE incluir: keyword disruptiva (una palabra = un recurso; se puede **reciclar** en el mismo tema con otro ángulo, y entonces no se crea una automatización nueva: solo se añade el post a la existente), CTB triple, copy estructurado, comentario fijado y automatización Meta activa.
+* Cada post DEBE incluir: keyword disruptiva (una palabra = un recurso; se puede **reciclar** en el mismo tema con otro ángulo, y entonces no se toca la automatización: la de esa palabra ya está activa para cualquier publicación), CTB triple, copy estructurado, comentario fijado y automatización Meta activa.
 * Proyecto de carruseles y posts: `MARKETING/PROYECTO_CARRUSELES/` (instrucciones + banco). Las mismas versiones se suben a Drive y a los proyectos de IA.
 * Objetivo: Dominar el nicho mercantil/legal en Instagram LATAM.
 

@@ -85,7 +85,6 @@ Tú escribes la estrategia, el copy, la guía y la automatización. El diseño f
 - **No** generes la guía (punto 8) ni la automatización (punto 9): ya están activas en Meta.
 - Escribe solo esta línea: "Automatización existente: [PALABRA] → [recurso que entrega]".
 - Comprueba que lo que promete la pieza nueva coincide con lo que ya entrega ese DM. Si no coincide, avísame.
-- Recuérdame en una línea: "En Meta, añade este post nuevo a la automatización de [PALABRA]". La automatización se configura por publicación y no se activa sola en un post nuevo.
 
 Entrega todo en una sola respuesta, en este orden:
 
@@ -157,7 +156,7 @@ Solo cuando yo diga **"genera la guía"**, la produces completa en modo Guías (
 
 ## 7. AUTOMATIZACIÓN META (Meta Business Suite)
 **Configuración:** Bandeja de entrada → Automatizaciones → Crear → Basada en comentarios.
-- Publicación: [el post].
+- Publicación: todas (la automatización por palabra clave se activa con cualquier comentario que la contenga, en cualquier post).
 - Disparador: "Comentario contiene palabra clave".
 - Palabra: [PALABRA en minúsculas].
 - Coincidencia: "Contiene".
