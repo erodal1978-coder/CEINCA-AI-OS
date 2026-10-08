@@ -41,7 +41,7 @@ Aplican a los siete activos de texto, siempre, sin discusión.
 |---|---|
 | **Máximo 5 hashtags** | En Meta (IG/Facebook) **y** en TikTok — regla única, sin excepción por canal. Más hashtags no amplían alcance real y ensucian la pieza; en TikTok además el algoritmo lee más el texto y el audio del video que el hashtag. |
 | 1 pieza = 1 problema = 1 solución | Mezclar temas diluye la keyword y confunde la métrica. No sabrás qué funcionó. |
-| 1 keyword = 1 recurso | Nunca se usa una keyword para dos recursos distintos, porque los leads caerían en el flujo equivocado. **Reciclar está permitido** (decisión del 08-10-2026): mismo tema y mismo recurso con otro ángulo o formato. No se crea otra automatización; solo se añade el post nuevo a la existente. Para medir cada pieza, se usan sus propias estadísticas en Business Suite. |
+| 1 keyword = 1 recurso | Nunca se usa una keyword para dos recursos distintos, porque los leads caerían en el flujo equivocado. **Reciclar está permitido** (decisión del 08-10-2026): mismo tema y mismo recurso con otro ángulo o formato. No se toca la automatización: la de esa palabra ya está activa para cualquier publicación de la cuenta. Para medir cada pieza, se usan sus propias estadísticas en Business Suite. |
 | Sin estadísticas inventadas | Un dato falso en contenido jurídico destruye años de autoridad. Usar "es común encontrar", "frecuentemente observamos". |
 | Evidencia antes que marketing | Capturas reales, portales reales, documentos reales. Es lo que multiplica el alcance orgánico en ambas plataformas. |
 | Automatización antes de publicar | Un comentario sin respuesta en los primeros minutos es un lead perdido y quema la keyword. En TikTok, sin automático, esto depende 100% de que Eduardo esté pendiente. |

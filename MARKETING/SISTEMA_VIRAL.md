@@ -429,7 +429,7 @@ SLIDE 6: CTB TRIPLE — fondo oscuro · Guardar → Compartir → Comentar · ke
 Ventajas: (1) no se activan por accidente; (2) generan conversación extra → más comentarios → más boost; (3) son trackeables al 100%; (4) identidad de marca memorable; (5) Meta no las confunde con falsos positivos.
 
 ### 6.2 Reglas obligatorias de asignación
-1. **Una keyword = un recurso.** Nunca se usa para recursos o marcas distintos. **Reciclar está permitido** (08-10-2026): mismo tema y mismo recurso con otro ángulo o formato. No se crea otra automatización; solo se añade el post nuevo a la existente.
+1. **Una keyword = un recurso.** Nunca se usa para recursos o marcas distintos. **Reciclar está permitido** (08-10-2026): mismo tema y mismo recurso con otro ángulo o formato. No se toca la automatización: la de esa palabra ya está activa para cualquier publicación de la cuenta.
 2. **Consultar el banco maestro** antes de diseñar la pieza y registrar la asignación en `CTB_PALABRAS_DISRUPTIVAS.md`.
 3. **Llevar registro:** KEYWORD → FECHA → POST/CAMPAÑA → LEADS GENERADOS.
 4. **Keywords largas/inéditas** = posts estrella o contenido de alto impacto.
@@ -585,7 +585,7 @@ Con esta guía, ya sabes cómo."] 🔥
 **Paso 1 — Acceder:** Meta Business Suite → Bandeja de entrada → Automatizaciones → Crear automatización → Basada en comentarios.
 
 **Paso 2 — Trigger:**
-- Publicación: [seleccionar el post específico]
+- Publicación: todas (una sola automatización por palabra clave; se activa con cualquier comentario que la contenga, en cualquier post)
 - Trigger: "Comentario contiene palabra clave"
 - Palabra clave: [KEYWORD DISRUPTIVA en minúsculas]
 - Coincidencia: "Contiene" (no "exacta")
@@ -736,7 +736,7 @@ COMENTARIO FIJADO
 ☐ Publicar y fijar en los primeros 30 segundos
 
 KEYWORD & AUTOMATIZACIÓN META
-☐ Keyword: si el tema ya tiene una, reciclarla (añadir el post a su automatización); si es un recurso nuevo, elegir una del banco que no esté usada
+☐ Keyword: si el tema ya tiene una, reciclarla (su automatización ya está activa; no se toca); si es un recurso nuevo, elegir una del banco que no esté usada
 ☐ Automatización creada o actualizada en Meta ANTES de publicar
 ☐ Trigger: "contiene" (no exacta)
 ☐ Respuesta pública + DM configurados

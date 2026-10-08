@@ -6,7 +6,7 @@ Este archivo es la única fuente válida. Debe ser idéntico en el repo CEINCA-A
 1. **Autenticidad:** solo venezolanismos auténticos y verificados. Nada genérico ni de otros países.
 2. **Una palabra = un tema/recurso.** **Excepción válida:** mismo tema con otro ángulo, si se pide comentar la misma palabra para obtener el mismo recurso. Condición: el DM entrega lo que prometen TODAS las piezas que usan esa palabra. Tema nuevo = palabra nueva.
    - **Ventaja:** no hay que crear otra automatización en Meta. Sirve para darle otro ángulo a una pieza que funcionó, o para recuperar una que no.
-   - **Al reutilizarla:** comprueba que la automatización existente incluya el post nuevo. Si está configurada por publicación, hay que añadirlo. El DM debe seguir siendo válido para ambos ángulos.
+   - **Al reutilizarla:** la automatización de esa palabra ya está activa para cualquier publicación de la cuenta; no se toca. Solo hay que comprobar que el DM siga siendo válido para el ángulo nuevo.
 3. **Cero política:** quedan fuera las palabras con carga partidista, aunque sean disruptivas.
 4. **CTA correcto:** "Comenta [PALABRA]". Nunca "por DM". El "Síguenos" va después del beneficio, con los framings del MANUAL_COPY §02. Nunca se dice que seguir la cuenta es necesario para recibir el mensaje.
 5. **Automatización:** Meta Business Suite (comentario → DM automático) o Ads Manager (clic a enlace con preguntas predefinidas). No se usa ManyChat.
