@@ -1,5 +1,5 @@
 # CEINCA — Banco de Palabras Disruptivas (CTB)
-**Versión 2.3 · actualizado 08-oct-2026 (con Auditoría Top 10 IG) · ARCHIVO MAESTRO ÚNICO**
+**Versión 2.4 · actualizado 08-oct-2026 (con Auditoría Top 10 IG) · ARCHIVO MAESTRO ÚNICO**
 Este archivo es la única fuente válida. Debe ser idéntico en el repo CEINCA-AI-OS, en Drive, en el proyecto de Claude y en cualquier otra IA. Si alguna copia difiere, manda esta.
 
 ## Reglas
@@ -28,6 +28,7 @@ Este archivo es la única fuente válida. Debe ser idéntico en el repo CEINCA-A
 | ZAPEROCO | Integración SAREN–SENIAT (carrusel 16 ago) | 🟢 Activa: solo para ese mismo tema |
 | PISCA | Evento IA ULA Táchira: foto 16 sep + reel 17 sep (otro ángulo) | 🟢 Activa: mismo tema y mismo recurso |
 | TURPIAL | Taquilla Única La Guaira (carrusel 20 sep) | 🟢 Activa: solo para ese mismo tema |
+| PLATANAZO | Auditor IA de Marca Profesional™ (GEM gratuito): carrusel 18 ago + relanzamiento oct 2026 (otro ángulo) | 🟢 Activa: mismo tema y mismo recurso |
 | YENYEN | Uso previo, tema no registrado | 🔴 Retirada: no es venezolanismo verificado |
 | CHICHICUILOTE | Uso previo, tema no registrado | 🔴 Retirada: es mexicanismo |
 
