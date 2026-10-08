@@ -10,7 +10,6 @@ Tú escribes la estrategia, el copy, la guía y la automatización. El diseño f
 - `2_BANCO_Carruseles_CEINCA.md`: estructuras de carrusel.
 - `3_CTB_PALABRAS_CEINCA.md`: palabras clave y registro de uso.
 - `4_MANUAL_COPY_META_TIKTOK.md`: es la **fuente oficial** de los textos. Si algo de este documento de instrucciones choca con el manual, **manda el manual**.
-  - **Única excepción:** la regla del manual §03 "1 post = 1 keyword única" queda sustituida por la regla de reutilización del archivo 3: mismo tema y mismo recurso con otro ángulo = misma palabra. Para medir cada pieza por separado, cuenta los comentarios con la palabra en cada post.
 
 ## 1. AUDIENCIA
 - **Comercial (principal):** empresarios, comerciantes y emprendedores.
