@@ -429,7 +429,7 @@ SLIDE 6: CTB TRIPLE — fondo oscuro · Guardar → Compartir → Comentar · ke
 Ventajas: (1) no se activan por accidente; (2) generan conversación extra → más comentarios → más boost; (3) son trackeables al 100%; (4) identidad de marca memorable; (5) Meta no las confunde con falsos positivos.
 
 ### 6.2 Reglas obligatorias de asignación
-1. **NUNCA repetir una keyword** entre campañas activas o marcas distintas.
+1. **Una keyword = un recurso.** Nunca se usa para recursos o marcas distintos. **Reciclar está permitido** (08-10-2026): mismo tema y mismo recurso con otro ángulo o formato. No se crea otra automatización; solo se añade el post nuevo a la existente.
 2. **Consultar el banco maestro** antes de diseñar la pieza y registrar la asignación en `CTB_PALABRAS_DISRUPTIVAS.md`.
 3. **Llevar registro:** KEYWORD → FECHA → POST/CAMPAÑA → LEADS GENERADOS.
 4. **Keywords largas/inéditas** = posts estrella o contenido de alto impacto.
@@ -736,8 +736,8 @@ COMENTARIO FIJADO
 ☐ Publicar y fijar en los primeros 30 segundos
 
 KEYWORD & AUTOMATIZACIÓN META
-☐ Keyword seleccionada del banco (verificar NO usada)
-☐ Automatización creada en Meta ANTES de publicar
+☐ Keyword: si el tema ya tiene una, reciclarla (añadir el post a su automatización); si es un recurso nuevo, elegir una del banco que no esté usada
+☐ Automatización creada o actualizada en Meta ANTES de publicar
 ☐ Trigger: "contiene" (no exacta)
 ☐ Respuesta pública + DM configurados
 ☐ PROBAR con cuenta secundaria
@@ -746,7 +746,7 @@ POST-PUBLICACIÓN
 ☐ Fijar comentario (primeros 30 segundos)
 ☐ Golden Hour: responder comentarios la primera hora (mínimo los primeros 5-10 a mano)
 ☐ Compartir en stories con sticker de pregunta/encuesta
-☐ Marcar keyword como ⛔ USADA en CTB_PALABRAS_DISRUPTIVAS.md
+☐ Registrar la pieza (keyword nueva o reciclada) en CTB_PALABRAS_DISRUPTIVAS.md
 ```
 
 ---
