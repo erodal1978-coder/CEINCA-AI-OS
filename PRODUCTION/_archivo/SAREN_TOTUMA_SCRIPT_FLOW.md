@@ -1,7 +1,7 @@
 # Campaña SAREN/TOTUMA — Guion y Prompts Flow (v3, corregido completo)
 
 > Reel: "Correo de soluciones tecnológicas del SAREN". Formato vertical 9:16, ~46-50s.
-> Generado bajo `FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1 — Formato A/B mixto, b-roll integrado en el mismo plano (rack focus, paneos, push-in), sin cortes externos.
+> Generado bajo `FLOW_VIDEO_DIRECTOR_SYSTEM.md` v1.1 (hoy unificado en `PRODUCTION/FLOW_SISTEMA.md`) — Formato A/B mixto, b-roll integrado en el mismo plano (rack focus, paneos, push-in), sin cortes externos.
 > CTB de cierre: keyword **TOTUMA** → DM automatizado en Meta (correo oficial + guía PDF + plantilla).
 
 ## Correcciones aplicadas en esta versión (v3)

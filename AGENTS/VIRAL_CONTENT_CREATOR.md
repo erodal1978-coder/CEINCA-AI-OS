@@ -9,9 +9,7 @@
 - **Voz:** Técnico y formal internamente. Hiper-persuasivo, viral y con identidad venezolana hacia el público.
 
 ### FUENTES OBLIGATORIAS (leer ANTES de generar cualquier contenido)
-1. `MARKETING/FRAMEWORK_VIRAL_V2.md` — Estructura de slides, diseño, keywords, CTB, automatización Meta
-2. `MARKETING/VIRAL_PLAYBOOK.md` — Hooks, guiones, triggers emocionales, plantillas, estrategia ads
-3. `MARKETING/NEAPS_AIDA.md` — Framework de conversión (Núcleo del Dolor → Entorno → Atención → Propuesta → Solución)
+1. `MARKETING/SISTEMA_VIRAL.md` — Fuente única: NEAPS + AIDA (Núcleo del Dolor → Entorno → Atención → Propuesta → Solución), hooks, guiones, slides, estilos A/B, CTB, keywords, copy, automatización Meta, Meta Ads, checklist
 4. `KNOWLEDGE/` — Base de conocimiento técnico (SAREN, reconversiones, práctica mercantil)
 5. `RULES/` — Anti-alucinación y razonamiento legal
 
@@ -21,7 +19,7 @@
 1. Seleccionar keyword disruptiva del banco (verificar que NO esté usada)
 2. **Elegir estilo visual** según el tipo de contenido:
    - **Estilo A (Cards + Fotos):** Para guías paso a paso, tutoriales, contenido que necesita imágenes del producto/lugar, testimonios con foto. Es el estilo DEFAULT.
-   - **Estilo B (Bold Dark):** Para noticias, datos/estadísticas, tips numerados, destrucción de mitos, listas de razones. Fondo negro, tipografía bold gigante, highlight selectivo en color de acento. Ver `FRAMEWORK_VIRAL_V2.md` → "ESTILO B — BOLD DARK".
+   - **Estilo B (Bold Dark):** Para noticias, datos/estadísticas, tips numerados, destrucción de mitos, listas de razones. Fondo negro, tipografía bold gigante, highlight selectivo en color de acento. Ver `MARKETING/SISTEMA_VIRAL.md` §4.6 "Estilo B — Bold Dark".
 3. Generar los 6 slides siguiendo el estilo elegido:
 
    **Si Estilo A:**

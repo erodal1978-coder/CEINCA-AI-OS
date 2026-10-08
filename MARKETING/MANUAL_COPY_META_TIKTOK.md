@@ -1,32 +1,32 @@
 # MANUAL DE COPY CEINCA — Meta & TikTok (v2.0)
 
-> Sucede al Manual de Copy v1.0 (`CEINCA-Systems-Manual-de-Copy.pdf`, solo Meta) sumando un módulo TikTok construido desde cero. Complementa `FRAMEWORK_VIRAL_V2.md` (estructura de slides y diseño) y `CTB_PALABRAS_DISRUPTIVAS.md` (banco de keywords) — este manual cubre los **textos**, no el diseño visual del carrusel.
+> Sucede al Manual de Copy v1.0 (`CEINCA-Systems-Manual-de-Copy.pdf`, solo Meta) sumando un módulo TikTok construido desde cero. Complementa `SISTEMA_VIRAL.md` (estructura de slides y diseño) y `CTB_PALABRAS_DISRUPTIVAS.md` (banco de keywords) — este manual cubre los **textos**, no el diseño visual del carrusel.
 
 ---
 
 ## 01 — Punto de partida
 
-En Meta, un post son **cuatro textos**. En TikTok son **tres, y ninguno se parece a los de Meta** — porque el video no se distribuye igual, la automatización no existe igual, y quien habla no es "CEINCA" sino Eduardo. Adaptar el copy de una plataforma a la otra cambiando solo el logo es la forma más rápida de que ninguna de las dos funcione.
+En Meta, un post son **cuatro textos**. En TikTok son **dos, y ninguno se parece a los de Meta** — porque el video no se distribuye igual, la automatización no existe igual, la cuenta no permite fijar el comentario propio del creador, y quien habla no es "CEINCA" sino Eduardo. Adaptar el copy de una plataforma a la otra cambiando solo el logo es la forma más rápida de que ninguna de las dos funcione.
 
 | Plataforma | Quién escribe | Qué convierte | Activos de texto |
 |---|---|---|---|
 | **Meta** (Instagram / Facebook) | CEINCA, la marca | El carrusel llama la atención; el texto alrededor convierte. | 4 — copy principal, fijado, respuesta pública, DM automático |
-| **TikTok** | Eduardo Rodríguez, la persona | El video retiene; el texto redirige a donde sí se entrega el recurso. | 3 — caption, fijado, respuesta a comentario |
+| **TikTok** | Eduardo Rodríguez, la persona | El video retiene; el texto redirige a donde sí se entrega el recurso. | 2 base — caption (Video) o título+caption (Foto), respuesta a comentario |
 
-**Por qué TikTok no es Meta con otro logo:** TikTok premia **tiempo de reproducción y recompras del video** (rewatch), no likes ni seguidores — y distribuye video por video, no por cuenta. Además, **no existe automatización nativa de comentario→DM** con la fiabilidad de Meta Business Suite: la keyword en TikTok no dispara nada sola, la responde Eduardo. Por eso el modelo de 4 textos de Meta no se traslada — se rediseña (ver Módulo B).
+**Por qué TikTok no es Meta con otro logo:** TikTok premia **tiempo de reproducción y recompras del video** (rewatch), no likes ni seguidores — y distribuye video por video, no por cuenta. Además, **no existe automatización nativa de comentario→DM** con la fiabilidad de Meta Business Suite: la keyword en TikTok no dispara nada sola, la responde Eduardo. Y a diferencia de Meta, **esta cuenta de TikTok no tiene la opción de fijar el comentario propio del creador** — por eso no hay comentario fijado en este módulo, solo caption y respuesta manual. Por eso el modelo de 4 textos de Meta no se traslada — se rediseña (ver Módulo B).
 
 ---
 
 ## 02 — La regla del "Síguenos"
 
-Va en los siete activos de ambas plataformas, sin excepción. Pero no de la misma forma en cada uno — y nunca antes del beneficio.
+Va en los seis activos de ambas plataformas, sin excepción. Pero no de la misma forma en cada uno — y nunca antes del beneficio.
 
 ### Los tres framings permitidos
 
 | # | Framing | Ejemplo | Dónde usarlo |
 |---|---|---|---|
 | 1 | **Razón de valor** | *"porque aquí publicamos las actualizaciones del SAREN antes que nadie"* | Copy principal, caption TikTok |
-| 2 | **Pérdida futura (FOMO)** | *"si no nos sigues te vas a perder las próximas guías"* | Comentario fijado (ambas plataformas) |
+| 2 | **Pérdida futura (FOMO)** | *"si no nos sigues te vas a perder las próximas guías"* | Comentario fijado (solo Meta — TikTok no tiene esta opción) |
 | 3 | **Continuidad** | *"síguenos para recibir las próximas guías gratis"* | DM automático, respuesta a comentario en TikTok |
 
 > **Framing prohibido — y por qué:** no usar *"para que se active la automatización debes seguirnos"*. Es falso técnicamente (la automatización se dispara por el comentario, no por el follow) y expone a la marca a que un usuario lo compruebe y lo diga en público. Sustitúyelo siempre por el framing 2 o 3.
@@ -41,7 +41,7 @@ Aplican a los siete activos de texto, siempre, sin discusión.
 |---|---|
 | **Máximo 5 hashtags** | En Meta (IG/Facebook) **y** en TikTok — regla única, sin excepción por canal. Más hashtags no amplían alcance real y ensucian la pieza; en TikTok además el algoritmo lee más el texto y el audio del video que el hashtag. |
 | 1 pieza = 1 problema = 1 solución | Mezclar temas diluye la keyword y confunde la métrica. No sabrás qué funcionó. |
-| 1 post = 1 keyword única | Reutilizar una keyword rompe la trazabilidad: los leads de dos campañas caen en el mismo flujo. |
+| 1 keyword = 1 recurso | Nunca se usa una keyword para dos recursos distintos, porque los leads caerían en el flujo equivocado. **Reciclar está permitido** (decisión del 08-10-2026): mismo tema y mismo recurso con otro ángulo o formato. No se crea otra automatización; solo se añade el post nuevo a la existente. Para medir cada pieza, se usan sus propias estadísticas en Business Suite. |
 | Sin estadísticas inventadas | Un dato falso en contenido jurídico destruye años de autoridad. Usar "es común encontrar", "frecuentemente observamos". |
 | Evidencia antes que marketing | Capturas reales, portales reales, documentos reales. Es lo que multiplica el alcance orgánico en ambas plataformas. |
 | Automatización antes de publicar | Un comentario sin respuesta en los primeros minutos es un lead perdido y quema la keyword. En TikTok, sin automático, esto depende 100% de que Eduardo esté pendiente. |
@@ -251,7 +251,11 @@ Encontrarás los 10 pasos oficiales del SAREN en 4 fases, las pantallas reales d
 
 ## MÓDULO B — TikTok (nuevo)
 
-Tres textos. Habla Eduardo, no CEINCA. El recurso se entrega en Instagram — aquí solo se redirige.
+Dos textos por pieza. Habla Eduardo, no CEINCA. El recurso se entrega en Instagram — aquí solo se redirige. A diferencia de Meta, esta cuenta de TikTok no tiene la opción de fijar el comentario propio del creador — no hay módulo de comentario fijado aquí.
+
+**TikTok admite 2 formatos de pieza, y cada uno lleva su propio texto — nunca se reutiliza el mismo caption entre los dos:**
+- **Video (Reel):** solo caption (5.1).
+- **Foto (ej. el Flyer):** TikTok agrega un campo **Título**, aparte de la descripción/caption (5.2) — ninguno de los dos se repite con el caption del video.
 
 TikTok no tiene automatización nativa de comentario→DM con la fiabilidad de Meta Business Suite (y CEINCA no usa ManyChat ni terceros). Eso cambia el objetivo de cada texto: en Meta, el copy **entrega**; en TikTok, el copy **redirige** — a Instagram, donde sí vive la automatización, o a la bio, donde vive el único enlace clicable de la plataforma.
 
@@ -263,7 +267,7 @@ TikTok no tiene automatización nativa de comentario→DM con la fiabilidad de M
 | Enlace clicable | En el DM, sin límite | Solo en la bio (uno) |
 | Voz | CEINCA, institucional-cercana | Eduardo Rodríguez, personal, de actualidad |
 
-### 5.1 — Caption
+### 5.1 — Caption (Video/Reel)
 
 80–200 caracteres recomendados (nunca el límite de 2.200). El hook real ya pasó en los primeros 3 segundos del video — el caption no rescata un mal video, y repetir el hook del video palabra por palabra es un texto desperdiciado.
 
@@ -286,17 +290,29 @@ Te dejo los 10 pasos en Instagram: comenta CHIPICHIPI en @ceinca.mercantil y te 
 #SAREN #LaGuaira #TrámitesVenezuela #RegistroVenezuela #AbogadoVenezolano
 ```
 
-### 5.2 — Comentario fijado
+### 5.2 — Título + Caption (Foto, ej. el Flyer)
 
-Misma lógica que en Meta — se fija el propio comentario del creador en el primer minuto — pero el contenido cambia de función: en TikTok no regala el recurso completo, entrega una pista extra y refuerza el redireccionamiento a Instagram para quien no leyó el caption.
+Cuando la pieza es una foto (el Flyer del evento, por ejemplo), TikTok da un campo **Título** además de la descripción/caption — algo que el formato Video no tiene. Ninguno de los dos textos de esta pieza se repite con el caption del Video/Reel: son piezas distintas, cada una necesita su propio gancho.
 
-**Ejemplo — fijado CHIPICHIPI en TikTok:**
+| # | Bloque | Función |
+|---|---|---|
+| 1 | Título | ~90 caracteres máx. (verificar límite vigente en la app). Titular corto tipo headline — no es el gancho del caption, es lo primero que se lee antes de abrir la pieza. |
+| 2 | Caption | Misma estructura y límite que 5.1 (80–200 car., puente a Instagram + keyword + máx. 5 hashtags) — pero con su propio gancho, distinto al del Video/Reel de la misma campaña. |
+
+**Ejemplo — Título + Caption CHIPICHIPI, pieza Foto (Flyer) en TikTok:**
 
 ```
-📌 Para los que preguntan: el trámite se llama "copias de duplicados" y se pide directo en el portal del SAREN — no en la oficina de Registro.
+Título: Así se pide la copia certificada del SAREN, paso a paso
 
-Los 10 pasos completos, con las capturas del sistema, los tengo en Instagram: @ceinca.mercantil. Comenta CHIPICHIPI allá y te llega gratis por DM. 💛
+Caption:
+🏚️ El Registro SÍ conserva un duplicado de tu inmueble en La Guaira.
+
+Te dejo la guía completa en Instagram: comenta CHIPICHIPI en @ceinca.mercantil y te la mando gratis.
+
+#SAREN #LaGuaira #TrámitesVenezuela #RegistroVenezuela #AbogadoVenezolano
 ```
+
+> **Nota:** el gancho del Título/Caption de la pieza Foto complementa al de la pieza Video, no lo repite — igual que el Flyer y el Reel de Meta nunca comparten Copy Principal (ver Módulo A).
 
 ### 5.3 — Respuesta a comentario clave
 
@@ -320,6 +336,7 @@ Reemplaza al DM automático de Meta — porque aquí no hay automático. Cuando 
 - Dejar comentarios con la keyword sin respuesta más de la Golden Hour — sin automático, el silencio es total, no parcial.
 - Hablar como "CEINCA" en vez de como Eduardo. Es la cara personal de la marca en esta plataforma.
 - Más de 5 hashtags, o hashtags genéricos sin relación con el tema exacto del video.
+- Repetir el Título/Caption de la pieza Foto con el caption de la pieza Video (o viceversa) — cada pieza necesita su propio gancho.
 
 ---
 
@@ -341,7 +358,7 @@ Reemplaza al DM automático de Meta — porque aquí no hay automático. Cuando 
 - [ ] Caption corto (80–200 car.), sin repetir el hook del video
 - [ ] Máximo 5 hashtags, de nicho antes que genéricos
 - [ ] Bio actualizada con el enlace vigente antes de publicar
-- [ ] Comentario fijado publicado en el primer minuto
+- [ ] Si hay pieza Foto (ej. Flyer): Título (~90 car.) y Caption redactados, ninguno repite el caption de la pieza Video
 - [ ] Eduardo (no un bot) disponible para responder comentarios en la Golden Hour completa
 - [ ] Ningún texto promete entrega directa en TikTok — todos redirigen a Instagram
 
@@ -349,8 +366,8 @@ Reemplaza al DM automático de Meta — porque aquí no hay automático. Cuando 
 
 ## Resumen del manual
 
-En Meta, cuatro textos entregan y protegen el enlace. En TikTok, tres textos retienen con el video y redirigen — nunca entregan directamente. El síguenos va en los siete, siempre después del beneficio. Máximo 5 hashtags, en cualquiera de las dos plataformas. Y nada se publica sin que la Golden Hour esté cubierta, con o sin automático.
+En Meta, cuatro textos entregan y protegen el enlace. En TikTok, cada pieza lleva su propio texto — caption en el Video, Título + Caption en la Foto, nunca repetidos entre sí — y retienen/redirigen, nunca entregan directamente; no hay comentario fijado porque la plataforma no lo permite para el creador. El síguenos va siempre después del beneficio. Máximo 5 hashtags, en cualquiera de las dos plataformas. Y nada se publica sin que la Golden Hour esté cubierta, con o sin automático.
 
 ---
 
-*Manual de Copy CEINCA v2.0 · También publicado como manual visual HTML en `Manuales MARCA CEINCA/manual-copy-meta-tiktok.html` · Complementa `MARKETING/FRAMEWORK_VIRAL_V2.md`, `MARKETING/VIRAL_PLAYBOOK.md` y `MARKETING/CTB_PALABRAS_DISRUPTIVAS.md`.*
+*Manual de Copy CEINCA v2.0 · También publicado como manual visual HTML en `Manuales MARCA CEINCA/manual-copy-meta-tiktok.html` · Complementa `MARKETING/SISTEMA_VIRAL.md` y `MARKETING/CTB_PALABRAS_DISRUPTIVAS.md`.*

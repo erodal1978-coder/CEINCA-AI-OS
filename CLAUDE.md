@@ -8,26 +8,28 @@
 
 ## SISTEMA DE CONTENIDO VIRAL
 * Para generar contenido para Instagram, consulta SIEMPRE:
-  - `MARKETING/FRAMEWORK_VIRAL_V2.md` — Estructura de slides, CTB, keywords disruptivas, automatización Meta
-  - `MARKETING/VIRAL_PLAYBOOK.md` — Hooks, guiones, triggers emocionales, plantillas, ads
+  - `MARKETING/SISTEMA_VIRAL.md` — Fuente única de viralidad: NEAPS, mecanismos virales comprobados, hooks, guiones, estructura y estilos de carrusel, CTB, keywords, copy, automatización Meta, Meta Ads y checklist
+  - `MARKETING/CTB_PALABRAS_DISRUPTIVAS.md` (keywords) y `MARKETING/MANUAL_COPY_META_TIKTOK.md` (textos)
   - `AGENTS/VIRAL_CONTENT_CREATOR.md` — Agente completo de generación de paquetes de contenido
-* Cada post DEBE incluir: keyword disruptiva única, CTB triple, copy estructurado, comentario fijado, y automatización Meta configurada.
+* Cada post DEBE incluir: keyword disruptiva (una palabra = un recurso; se puede **reciclar** en el mismo tema con otro ángulo, y entonces no se crea una automatización nueva: solo se añade el post a la existente), CTB triple, copy estructurado, comentario fijado y automatización Meta activa.
+* Proyecto de carruseles y posts: `MARKETING/PROYECTO_CARRUSELES/` (instrucciones + banco). Las mismas versiones se suben a Drive y a los proyectos de IA.
 * Objetivo: Dominar el nicho mercantil/legal en Instagram LATAM.
 
 ## MÓDULOS DEL SISTEMA
-* `.claude/` — Agentes, comandos, contexts, reglas y skills operativos de Claude Code.
+* `.claude/skills/` — Skills CEINCA de Claude Code: `ceinca-design` (sistema visual), `ceinca-ia` (gemelo digital / copy / consultoría), `meta-ads-andromeda-expert`, `remotion-best-practices`, `no-ai-slop`. Las skills genéricas de diseño (impeccable, ui-ux-pro-max, etc.) están instaladas a nivel de Claude, no aquí.
 * `AGENTS/` — Agentes especializados (AUDITOR_MERCANTIL, CONTENT_ENGINE, VIRAL_CONTENT_CREATOR, IG_AUDITOR).
 * `KNOWLEDGE/` — Base de conocimiento técnico (SAREN, reconversiones, práctica mercantil).
-* `MARKETING/` — Frameworks de contenido, monetización y estrategia de ads.
-* `RULES/` — Anti-alucinación y razonamiento legal.
+* `MARKETING/` — Frameworks de contenido, copy, monetización y estrategia de ads.
+* `MARKETING/COMPETENCIA/` — Base de conocimiento viva de competidores rastreados en la Biblioteca de Anuncios de Meta (nicho mercantil/legal/contable): un archivo por competidor con sus anuncios, ángulos y patrones. Ver `INDICE.md` de esa carpeta.
+* `RULES/` — Anti-alucinación, estilo de redacción, razonamiento legal y política de evidencia.
 * `STRATEGY/` — Audiencia y core del negocio.
-* `CLIENTS/` — Carpetas por cliente con auditorías, contenido generado y seguimiento.
-* `PRODUCTION/` — Sistemas y workflows de producción audiovisual y contenido.
-* `carrusel-export/` — Motor de exportación programática de carruseles.
-* `video-export/` — Base del motor de composición de vídeo con Remotion (scaffold genérico, sin contenido propio todavía).
-* `PRODUCTION/lexia-launch-video/` — Proyecto Remotion real (rescatado 30-08-2026) del reel vertical de lanzamiento de LEXIA™ (42s, 9:16, guion NEAPS, 5 escenas). Deliverable de campaña, no motor genérico — para eso sigue siendo `video-export/`.
-* `media-mvp/` — Análisis audiovisual (ffprobe/whisper/silencios) + Video Editor MVP de dos fases (plan_video.py/process_video.py: EDL borrador → aprobación en chat → ensamblaje ffmpeg + QC).
-* `WEBKIT/` — Claude Web Builder (Hainrixz/claude-webkit, vendorizado): genera landing pages para clientes (Next.js + Tailwind + shadcn/ui). Es un proyecto autocontenido con su propio `CLAUDE.md` y 18 skills en `.claude/skills/` — entra con `cd WEBKIT && claude` para activar el flujo guiado de 6 fases (cuestionario → deploy). No mezcles su rol de "web builder" con el rol CEINCA de este archivo raíz.
+* `PRODUCTION/` — Sistemas y workflows de producción audiovisual (Google Flow, OpenMontage).
+* `docs/historico/` — Planes y specs de sesiones pasadas (solo referencia).
+
+**Este repo es la FUENTE DE LA VERDAD de CEINCA para cualquier IA** (decisión de Eduardo, 04-10-2026): solo conocimiento reutilizable — manuales, reglas, workflows, prompts, skills. Nada de documentos de clientes, respaldos, entregables, archivos de webs ni herramientas de código:
+* Documentación de trabajo y entregables → `~/CEINCA-WORKSPACE` (respaldo en Drive `CEINCA RESPALDO`).
+* Herramientas de código (movidas el 04-10-2026): `~/repos/media-mvp`, `~/repos/video-export`, `~/repos/carrusel-export`, `~/repos/lexia-launch-video`, `~/repos/WEBKIT`.
+* Respaldo de este repo: GitHub + copia en Drive `CEINCA RESPALDO/06 TECNOLOGIA/CEINCA-AI-OS`.
 
 ## POLÍTICA DE ASSETS
 * GitHub es para código, conocimiento, configuración, prompts, documentación y fuentes pequeñas necesarias para reproducibilidad.

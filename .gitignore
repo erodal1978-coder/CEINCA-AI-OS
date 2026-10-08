@@ -48,3 +48,6 @@ Thumbs.db
 
 # Portadas/covers de vídeo — el resto de formatos ya cae en la regla global de arriba
 *_portada.jpg
+
+# Claude Code local settings
+.claude/settings.local.json

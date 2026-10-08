@@ -12,10 +12,10 @@ tema, propone un plan de costo, escribe el guion, genera la narración,
 busca metraje en bancos gratuitos (NASA, Archive.org, Wikimedia) y entrega el
 video final montado y renderizado.
 
-**No sustituye** el pipeline `PRODUCTION/FLOW_REELS.md` — lo complementa. Son
+**No sustituye** el pipeline de Google Flow (`PRODUCTION/FLOW_SISTEMA.md`) — lo complementa. Son
 dos productoras con objetivos distintos:
 
-| Criterio | FLOW_REELS (Google Flow + Meta Edits) | OpenMontage (Claude Code) |
+| Criterio | FLOW_SISTEMA (Google Flow + Meta Edits) | OpenMontage (Claude Code) |
 |---|---|---|
 | Formato objetivo | Reels 9:16, alto impacto NEAPS+AIDA | Explainers 16:9 o narrados, formato largo |
 | Avatar @Eduardo consistente | Sí (Ingredient + character consistency) | No — sin avatar humano entrenado |
@@ -25,7 +25,7 @@ dos productoras con objetivos distintos:
 | Control humano | Manual, escena por escena | Automatizado, con aprobación de costo previa |
 
 **Regla de uso:** si el video lleva a @Eduardo hablando a cámara para vender o
-cerrar (NEAPS paso S — Solución/CTB), usar FLOW_REELS. Si el video es
+cerrar (NEAPS paso S — Solución/CTB), usar FLOW_SISTEMA. Si el video es
 explicativo, de fondo, o para nutrir audiencia sin necesidad de rostro
 (NEAPS pasos N/E/A), OpenMontage es la vía más barata y rápida.
 
