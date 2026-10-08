@@ -1,7 +1,7 @@
 # CEINCA — Estructura Unificada de Carrusel "Paso a Paso"
 
 **Reemplaza/extiende:** el componente base en `references/components.md` (sección 1).
-**Combina:** el sistema Navy/Gold/Montserrat ya existente + el swipe file `swipe-file-carrusel-pasos.md`.
+**Combina:** el sistema Navy/Gold/Manrope ya existente + el swipe file `swipe-file-carrusel-pasos.md`.
 **Cuándo usar esta plantilla específica:** contenido tipo "cómo hacer X en N pasos" — lanzamiento de cursos por nicho, Diplomado AJ, tutoriales de Claude. Para alertas/urgencia tipo "riesgo oculto" sigue usando el formato original de 5 láminas de `components.md`, no este.
 
 ---
@@ -23,7 +23,7 @@ Cada lámina de paso lleva, en este orden:
 
 1. **`label-authority`** (ya existe) — kicker superior izquierdo: `PASO N` en vez del texto de alerta original
 2. **Indicador de progreso doble** (nuevo — ver CSS abajo): barra de progreso horizontal + `N/TOTAL` en texto, reemplaza el `slide-num` de solo texto
-3. **Headline** (ya existe, Montserrat black/uppercase) — la palabra clave del paso va en `.gold` + `italic` (simula el contraste serif/sans del swipe file sin salir de Montserrat, para no romper la identidad tipográfica de CEINCA)
+3. **Headline** (ya existe, Manrope ExtraBold/uppercase) — la palabra clave del paso va en `.gold` + `italic` (simula el contraste serif/sans del swipe file sin salir de Manrope, para no romper la identidad tipográfica de CEINCA)
 4. **`premium-list`** (ya existe) — máximo 3 bullets, una acción por bullet
 5. **`highlight-box`** (**nuevo componente**, no existía) — recuadro con borde gold, sin relleno, con LA frase de mayor impacto del paso (máx. 2 líneas) — es lo que el swipe file aportó y que CEINCA no tenía
 6. **`slide-footer`** (ya existe) — logo + sub + handle, sin cambios

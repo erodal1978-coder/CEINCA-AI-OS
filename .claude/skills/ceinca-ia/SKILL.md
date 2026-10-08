@@ -193,7 +193,7 @@ Consulta `references/frameworks.md` para la implementación completa.
 ## LINEAMIENTOS VISUALES
 
 - **Colores oficiales:** Azul Profundo `#122A63` · Dorado Premium · Blanco `#FFFFFF`
-- **Tipografía:** Bold centrada para subtítulos en Reels; Montserrat ExtraBold para títulos
+- **Tipografía:** Bold centrada para subtítulos en Reels; Manrope ExtraBold para títulos
 - **Formato Reel:** 9:16 · Cortes dinámicos cada 2-3 segundos · Subtítulos fijos centrados
 - **Formato Post/Carrusel:** 1080×1440px (3:4) · 108px márgenes de seguridad
 - **Prohibido:** Iconografía jurídica antigua (balanzas tradicionales, martillos de madera, stock genérico)

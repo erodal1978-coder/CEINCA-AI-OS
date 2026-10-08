@@ -24,7 +24,7 @@
   --grad-hero:     linear-gradient(135deg, #122A63 0%, #2D4FA8 100%);
 
   /* === TIPOGRAFÍA === */
-  --font-main:     'Montserrat', -apple-system, sans-serif;
+  --font-main:     'Manrope', -apple-system, sans-serif;
   --fw-regular:    400;
   --fw-semibold:   600;
   --fw-bold:       700;

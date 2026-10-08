@@ -1,7 +1,7 @@
 # CEINCA — Estructura Unificada de Carrusel "Alerta Noticiosa" (News-jacking)
 
 **Basado en:** análisis real del carrusel viral de CEINCA — "🚨 ÚLTIMA HORA: El SAREN activó la Apostilla Digital" (2,8 mil likes, 900 comentarios, 133 compartidos; pico histórico: 127K vistas, 5.200 DMs, 3.200 guardados).
-**Combina:** el componente base Navy/Gold/Montserrat de `references/components.md` + los hallazgos del análisis de esta pieza.
+**Combina:** el componente base Navy/Gold/Manrope de `references/components.md` + los hallazgos del análisis de esta pieza.
 **Diferencia clave frente a los otros dos formatos:** este NO se programa por calendario — se **activa quando hay un evento regulatorio/institucional real** (SAREN, SENIAT, Gaceta Oficial, TSJ). Es reactivo, no evergreen.
 
 Los 3 sistemas de carrusel de CEINCA, completos:
@@ -109,7 +109,7 @@ Se activa únicamente cuando ocurre uno de estos eventos verificables (ligado a 
 }
 .check-list .check {
   color: #4ADE80;
-  font-weight: 900;
+  font-weight: 800;
   flex-shrink: 0;
   margin-top: 1px;
 }

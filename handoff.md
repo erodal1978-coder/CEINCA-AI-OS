@@ -4,6 +4,18 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🧩 08-10-2026 — Proyecto "CEINCA · Carruseles" unificado (repo = Drive = proyecto de IA)
+- Nuevo `MARKETING/PROYECTO_CARRUSELES/` con `1_INSTRUCCIONES` v2.2, `2_BANCO` v1.1 (10 estructuras de Academia Meraki adaptadas + Alerta Noticiosa) y un README con el mapa de los 4 archivos.
+- `CTB_PALABRAS_DISRUPTIVAS.md` v2.3: numeración corregida (105 entradas), registro completo (BURDA, PAPELÓN, CHIPICHIPI, GUARAPO, ZAPEROCO, PISCA, TURPIAL) y regla de **reciclaje** (mismo tema y recurso con otro ángulo = misma palabra, sin automatización nueva).
+- `SISTEMA_VIRAL.md` §1.2: retirado el gate "si no nos sigues no te llega"; ahora se pide el follow siempre con los framings del manual. Corregido "107" → "105".
+- `MANUAL_COPY_META_TIKTOK.md` §03: "1 keyword = 1 recurso" con reciclaje permitido.
+- `editorial-guides.md`: el pie pasa a "Centro Integral de Estudios e Innovación, C.A.".
+- `CLAUDE.md`: regla de keyword actualizada y referencia al proyecto.
+- Base: Auditoría Top 10 IG (Drive, 08-10-2026).
+- **Sistema visual unificado (08-10-2026, decisión de Eduardo):** tipografía **Manrope** en todo (redes y guías), pesos 400/600/700/800 (los 900 pasan a 800). Azules anclados al logo (los SVG oficiales usan `#1E3A8A`): navy `#122A63`, azul suave `#2D4FA8`, `#EAF0FF`. Se retiran `#0B1D3A` y `#2F4798`/`#233978`/`#5A73C7`. Aplicado en `ceinca-design` (SKILL, tokens, components, editorial-guides, carruseles), `ceinca-ia`, `SISTEMA_VIRAL`, `FLOW_SISTEMA` e instrucciones v2.4.
+- **Pendiente fuera del repo:** `~/repos/carrusel-export` todavía usa `#0B1D3A` + Montserrat (prompt entregado a Eduardo). Skill de la cuenta de Claude: actualizar paleta (prompt para Cowork entregado).
+- **Pendiente:** contenido del post "agente IA gratis para auditar redes", primera prueba del proyecto (reutilizará su palabra ya automatizada).
+
 ## 🧹 04-10-2026 — Limpieza: el repo queda como FUENTE DE LA VERDAD de CEINCA para IA
 
 Decisión de Eduardo: GitHub = solo conocimiento reutilizable (manuales, reglas, workflows, prompts, skills); docs, entregables, media y código van fuera. Respaldo: GitHub + Drive (`CEINCA RESPALDO/06 TECNOLOGIA/CEINCA-AI-OS`).
