@@ -145,6 +145,8 @@ Zona segura texto: 200px desde top y bottom
 Subtítulos: Manrope Bold 52-60px, centrado, con background semi-opaco
 ```
 
+**Portada de Reel (thumbnail/cover):** reglas propias, más estrictas que el resto del reel — el feed recorta a un cuadro 1080×1080 centrado (zona segura y=420–1500) y la miniatura de grid es aún más chica, así que cualquier texto secundario pequeño (tags, badges, bullets, dirección) se vuelve ilegible ahí. Portada = un solo titular de máx. 2 líneas en tipografía grande, sin tags/cuadros/nombres superpuestos. Si el fondo es una foto real, usar un velo lateral degradado (nunca una franja horizontal de borde recto) para no cortar la cara del sujeto con un "cuadro". Detalle técnico completo y ejemplos: `PRODUCTION/FLOW_REELS.md` → sección "Portada de Reel".
+
 ### Landing Page / Artifact HTML
 
 ```

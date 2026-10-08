@@ -597,3 +597,97 @@ Overlays (post): "GEM LOPNNA" blanco Manrope bold arriba; "$97" grande dorado al
 **ESCENA 6 — CTB (8 s) · Formato A · Avatar + lower third**
 Overlays (post): lower third "Escribe LOPNNA" blanco bold con ícono de DM dorado a la izquierda, entra desde la izquierda; logo CEINCA dorado pequeño abajo al centro, fade hold 1,5 s.
 > "Escena vertical 9:16 de 8 segundos que emerge de un destello dorado que se desvanece y revela al sujeto, un abogado venezolano con lentes grandes translúcidos rosé/marrón tipo aviador con detalle dorado, cabello corto sal y pimienta, chivera corta canosa y blazer oscuro, en plano medio cerrado de hombros a coronilla, mirando directo a cámara con expresión segura y directa; dice una sola frase clara invitando a escribir la palabra clave, con voz en español latino neutro con acento venezolano, tono motivador y cercano, dejando espacio libre en el tercio inferior del cuadro. Cámara fija, sin movimiento, contacto visual directo; iluminación un poco más brillante que en la escena de autoridad, con relleno frontal más cálido y profundidad de campo que respira suavemente. Música motivacional sutil que crece, voz clara al frente. Cierra cuando asiente una vez y funde a negro. Calidad cinematográfica profesional, sin deformaciones faciales ni cambios de identidad."
+## 🔀 TÉCNICAS DE EDICIÓN AVANZADA (ffmpeg) — CEINCA Edit System
+
+> Añadido 27-28 sept 2026, validado en producción real (Reel FONPYME "IA para
+> Emprendedores", 2 oct 2026, con b-roll de ponente invitado Junior Torres).
+> Este bloque reemplaza Meta Edits para reels con más de un sujeto (avatar +
+> ponente invitado) o que requieran control fino de timing/transición.
+
+### Regla de generación independiente por escena (refuerzo — ver también arriba §"PROHIBIDO en prompts")
+
+Cada escena de un prompt de Flow es una generación 100% independiente — Flow
+no tiene noción de que varias escenas pertenecen al mismo video/reel. Esto
+aplica con más fuerza aún cuando el reel mezcla dos sujetos reales (ej. avatar
+CEINCA + ponente invitado) generados en sesiones/Ingredients separados:
+
+- ❌ NUNCA describir a un sujeto en relación a otro sujeto de otra escena
+  (ej. "el segundo hombre", "el mismo hombre de la escena anterior").
+- ✅ Cada prompt describe a su sujeto de forma autocontenida, como si fuera
+  la única persona que existe en esa generación — descripción física completa
+  repetida en cada prompt, nunca solo referenciada.
+- Dos sujetos reales (ej. avatar + ponente) se generan SIEMPRE como dos
+  proyectos/Ingredients de Flow completamente separados, nunca combinados en
+  una sola generación — combinar identidades reales en un mismo prompt de
+  Flow ha causado fallos reales de producción.
+- Nota del usuario: a futuro se buscará un sistema que maneje mejor el
+  contexto compartido entre escenas; por ahora esta regla aplica siempre.
+
+### Transiciones — Crossfade ffmpeg (estándar, reemplaza corte seco)
+
+```
+xfade (video) + acrossfade (audio), encadenados secuencialmente sobre N clips,
+duration d=0.5s. Para clips de igual duración, el offset de cada transición
+k es: (k-1) * (duración_clip - d). Duración total del reel = suma(duraciones)
+- (n-1)*d.
+```
+
+Ejemplo de filtro para 2 clips de 8s con d=0.5s:
+```bash
+ffmpeg -i clip1.mp4 -i clip2.mp4 -filter_complex \
+"[0:v][1:v]xfade=transition=fade:duration=0.5:offset=7.5[v]; \
+ [0:a][1:a]acrossfade=d=0.5[a]" \
+-map "[v]" -map "[a]" -c:v libx264 -crf 20 -c:a aac out.mp4
+```
+Encadenar para N clips: cada xfade/acrossfade toma como primera entrada la
+salida del anterior (`[vx1][v2]xfade=...offset=15.0[vx2]`, etc.).
+
+### Técnica de "cutaway" — intercalar b-roll de un segundo sujeto
+
+Para insertar el b-roll silencioso de un segundo sujeto (ej. ponente invitado)
+dentro de la escena de otro sujeto (ej. avatar CEINCA hablando), manteniendo
+el audio original del sujeto principal continuo y sin cortes:
+
+1. **Ubicar el punto de inserción** por forma de onda del audio
+   (`ffmpeg -filter_complex "showwavespic=s=1200x300:colors=white" -frames:v 1
+   waveform.png`, inspeccionado visualmente) — no por transcripción, salvo que
+   haya una herramienta de speech-to-text disponible en el entorno.
+2. **Dividir el video** (solo video, sin audio) de la escena principal en un
+   segmento "antes" y uno "después" del punto de inserción.
+3. **Extraer un segmento** del clip de b-roll (solo video, sin audio) con la
+   duración deseada del cutaway — silencioso, sin lip-sync, nunca el mismo
+   sujeto hablando/lip-sync a menos que se decida dejar su audio real y quitar
+   el del sujeto principal en ese tramo (evaluar caso por caso).
+4. **Concatenar** los tres segmentos de video (antes + b-roll + después) vía
+   el demuxer concat de ffmpeg.
+5. **Mezclar** el video compuesto con el audio ORIGINAL COMPLETO e
+   ININTERRUMPIDO del sujeto principal (extraído una sola vez con
+   `-vn -acodec pcm_s16le`) — el audio nunca se corta ni se re-sincroniza por
+   tramos, sigue sonando de corrido debajo del cutaway.
+6. **Reutilización del mismo b-roll más adelante en el reel**: usar siempre
+   un tramo/fotograma DISTINTO y no solapado del clip fuente — nunca repetir
+   el mismo tramo dos veces.
+7. **Lower third** con el nombre del segundo sujeto reaparece sincronizado
+   con cada aparición del cutaway.
+
+### Portada de Reel (thumbnail / cover frame)
+
+> Regla añadida tras feedback real sobre una portada generada con demasiado
+> texto — confirmado con captura del grid real de @ceinca.mercantil.
+
+- El feed de Instagram recorta la portada del reel a un cuadro **1080×1080
+  centrado** sobre el lienzo 1080×1920 (zona segura aprox. y=420 a y=1500).
+  Nada crítico (texto/CTA) fuera de esa franja.
+- La **miniatura del grid de perfil es mucho más chica** que el post abierto:
+  cualquier texto secundario pequeño (tags de nombre/rol, badges de fecha,
+  bullets, dirección) se vuelve ilegible ahí — se ve como "letras pequeñas"
+  / ruido visual.
+- **Portada = un solo titular, máximo 2 líneas, tipografía grande** (ideal:
+  línea 1 grande en blanco + línea 2 algo más chica pero aún grande en dorado
+  o verde de acento) — gancho corto y una sola idea, nunca un resumen del
+  evento. Mismo criterio que ya usan piezas del feed como "¡ÚLTIMA HORA!" /
+  "TAQUILLA ÚNICA": un titular grande, sin elementos secundarios pequeños.
+- Sin tags, cuadros ni nombres secundarios superpuestos sobre la portada.
+- Si la portada usa una foto real como fondo, aplicar un velo (scrim)
+  degradado lateral (nunca una franja horizontal de borde recto) para que el
+  texto no genere un "cuadro" visible sobre la cara del sujeto.
