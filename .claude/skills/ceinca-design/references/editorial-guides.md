@@ -6,10 +6,10 @@ Este modo aplica SOLO a documentos largos tipo manual/guía/playbook (PDF educat
 
 | Si es... | Usa |
 |---|---|
-| Carrusel IG, post, Reel/Story, landing, banner | Modo Social/Redes (Navy `#122A63` + Dorado `#C8A951` + Montserrat) |
+| Carrusel IG, post, Reel/Story, landing, banner | Modo Social/Redes (Navy `#122A63` + Dorado `#C8A951` + Manrope) |
 | Guía PDF, manual, playbook, curso, sistema de trabajo, documento de entrenamiento largo | Este modo (Azul `#1E3A8A` + Manrope) |
 
-Ambos modos son la misma marca CEINCA en dos registros distintos — no se reemplazan entre sí. Nunca uses Manrope en un carrusel ni Montserrat en una guía PDF.
+Ambos modos son la misma marca CEINCA en dos registros distintos. Desde el 08-10-2026 la **tipografía es Manrope en ambos modos**; lo que cambia es la paleta y la estructura. Nunca mezcles las dos paletas en la misma pieza.
 
 ## Posicionamiento del formato
 
@@ -162,7 +162,7 @@ Todo documento nuevo debe ubicarse explícitamente en una de estas cuatro catego
 
 ## Checklist antes de exportar cualquier guía
 
-- [ ] ¿Usé Azul/Manrope (nunca Navy/Dorado/Montserrat mezclado en la misma pieza)?
+- [ ] ¿Usé la paleta Azul de Guías (sin mezclarla con la paleta Navy/Dorado de redes en la misma pieza) y Manrope?
 - [ ] ¿Cada caja de color tiene padding simétrico ≥24px y centrado por flexbox?
 - [ ] ¿Line-height ≥1.5 en todo texto dentro de cajas de color?
 - [ ] ¿Máximo 3 niveles de jerarquía por página?

@@ -25,9 +25,9 @@ Este skill cubre dos registros visuales de la misma marca. **Nunca combines sus 
 
 | Modo | Cuándo | Paleta / Tipografía | Referencia |
 |---|---|---|---|
-| **Social/Redes** (default) | Carruseles, posts, Reels, landing, banners, artifacts de marketing | Navy `#122A63` + Dorado `#C8A951` + Montserrat | Este archivo + `references/components.md` + `references/tokens.md` |
+| **Social/Redes** (default) | Carruseles, posts, Reels, landing, banners, artifacts de marketing | Navy `#122A63` + Dorado `#C8A951` + Manrope | Este archivo + `references/components.md` + `references/tokens.md` |
 | **Guías PDF** (CEINCA Editorial System™) | Manuales, guías, playbooks, cursos, documentos de entrenamiento largos | Azul `#1E3A8A` + Manrope | `references/editorial-guides.md` |
-| **Landing/Web** | Construir o mejorar una landing page, sitio web, o página de venta para CEINCA o sus clientes | Navy `#122A63` + Dorado `#C8A951` + Montserrat (identidad forzada sobre cualquier referencia externa) | Este archivo, sección "Modo Landing/Web" |
+| **Landing/Web** | Construir o mejorar una landing page, sitio web, o página de venta para CEINCA o sus clientes | Navy `#122A63` + Dorado `#C8A951` + Manrope (identidad forzada sobre cualquier referencia externa) | Este archivo, sección "Modo Landing/Web" |
 
 Si la petición es ambigua (ej. "hazme algo para el curso"), pregunta si es una pieza de marketing (carrusel/post para promocionar el curso → Modo Social) o el material del curso en sí (guía/manual → Modo Guías) antes de elegir paleta.
 
@@ -63,25 +63,25 @@ GRADIENTES SIGNATURE
 
 ```
 DISPLAY / TÍTULOS PRINCIPALES
-  Font: Montserrat ExtraBold (800)
+  Font: Manrope ExtraBold (800)
   Uso: Títulos de carruseles, headlines de landing, número de slides
   Tracking: -0.02em a -0.04em (apretado, premium)
   Transform: UPPERCASE para impacto máximo
 
 SUBTÍTULOS / CUERPO FUERTE  
-  Font: Montserrat SemiBold (600)
+  Font: Manrope SemiBold (600)
   Uso: Subheads, bullets, nombres en cards
 
 CUERPO / LECTURA
-  Font: Montserrat Regular (400) o Inter Regular
+  Font: Manrope Regular (400) o Inter Regular
   Uso: Párrafos, descripciones, texto legal pequeño
 
 DATOS / NÚMEROS DESTACADOS
-  Font: Montserrat Black (900) o ExtraBold
+  Font: Manrope ExtraBold (800)
   Uso: Precios, estadísticas, porcentajes — siempre con color dorado
 
 CARGA WEB SEGURA (cuando no hay Google Fonts)
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
 ```
 
 ### Espaciado y Proporción
@@ -142,7 +142,7 @@ Márgenes seguros: 80px todos los lados
 ```
 Dimensiones: 1080 × 1920px (9:16)
 Zona segura texto: 200px desde top y bottom
-Subtítulos: Montserrat Bold 52-60px, centrado, con background semi-opaco
+Subtítulos: Manrope Bold 52-60px, centrado, con background semi-opaco
 ```
 
 ### Landing Page / Artifact HTML
@@ -163,7 +163,7 @@ Se activa cuando Eduardo pida construir o mejorar una landing page, sitio web, o
 
 Antes de diseñar, instala como referencia visual un sistema de estilo externo — por ejemplo https://opendesign.so, o inspiración de Linear/Vercel/Stripe según el tono del proyecto (más técnico/SaaS vs. más corporativo/legal).
 
-**Regla inquebrantable:** la referencia externa solo aporta *estructura y ritmo visual* (espaciado, jerarquía, layout) — nunca reemplaza la identidad de marca CEINCA. Navy `#122A63`, Dorado `#C8A951` y Montserrat se mantienen siempre, sobre cualquier paleta o tipografía que traiga la referencia externa.
+**Regla inquebrantable:** la referencia externa solo aporta *estructura y ritmo visual* (espaciado, jerarquía, layout) — nunca reemplaza la identidad de marca CEINCA. Navy `#122A63`, Dorado `#C8A951` y Manrope se mantienen siempre, sobre cualquier paleta o tipografía que traiga la referencia externa.
 
 ### Paso 2 — Animación (Animista por defecto)
 
@@ -264,7 +264,7 @@ Iconos alternativos: `▸` `◆` `→` `✦` `⬡` — NUNCA emojis en diseños 
 ### ❌ NUNCA
 
 - Fondos blancos puros en diseños de autoridad (usar `#FAF6ED` o navy)
-- Fuentes distintas a Montserrat/Inter en piezas CEINCA
+- Fuentes distintas a Manrope/Inter en piezas CEINCA
 - Más de 3 pesos tipográficos en una misma pieza
 - Gradientes multicolor (solo variaciones navy-navy o dorado-dorado)
 - Stock fotográfico genérico de hombre de traje con maletín
@@ -333,7 +333,7 @@ Cuando produzcas código para artifacts, seguir esta estructura base:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --navy:        #122A63;
@@ -345,7 +345,7 @@ Cuando produzcas código para artifacts, seguir esta estructura base:
       --white:       #FFFFFF;
       --cream:       #FAF6ED;
       --carbon:      #1C1C1E;
-      --font-main:   'Montserrat', sans-serif;
+      --font-main:   'Manrope', sans-serif;
       --shadow-card: 0 8px 40px rgba(0,0,0,0.25);
       --shadow-gold: 0 4px 20px rgba(200,169,81,0.3);
     }

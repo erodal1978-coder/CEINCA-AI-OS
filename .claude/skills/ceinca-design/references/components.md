@@ -9,13 +9,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carrusel CEINCA</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --navy: #122A63; --navy-mid: #1E3A8A; --navy-light: #2D4FA8;
       --gold: #C8A951; --gold-light: #DDB96A; --gold-dark: #A8892E;
       --white: #FFFFFF; --cream: #FAF6ED;
-      --font: 'Montserrat', sans-serif;
+      --font: 'Manrope', sans-serif;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -99,7 +99,7 @@
     }
     .headline {
       font-size: 28px;
-      font-weight: 900;
+      font-weight: 800;
       line-height: 1.1;
       letter-spacing: -0.02em;
       text-transform: uppercase;
@@ -127,7 +127,7 @@
     }
     .data-number {
       font-size: 72px;
-      font-weight: 900;
+      font-weight: 800;
       color: var(--gold);
       line-height: 1;
       letter-spacing: -0.04em;
@@ -158,7 +158,7 @@
     }
     .bullet {
       color: var(--gold);
-      font-weight: 900;
+      font-weight: 800;
       flex-shrink: 0;
       margin-top: 1px;
     }
@@ -199,7 +199,7 @@
     }
     .footer-logo {
       font-size: 13px;
-      font-weight: 900;
+      font-weight: 800;
       color: var(--gold);
       letter-spacing: 0.06em;
     }
@@ -439,13 +439,13 @@
   border-radius: 12px;
   padding: 28px 24px;
   max-width: 380px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Manrope', sans-serif;
   box-shadow: 0 8px 40px rgba(0,0,0,0.3);
 ">
   <div style="font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#C8A951;margin-bottom:16px;">
     🔥 OFERTA DE LANZAMIENTO
   </div>
-  <h3 style="font-size:22px;font-weight:900;color:#fff;margin-bottom:8px;line-height:1.1;">
+  <h3 style="font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.1;">
     GEM MERCANTIL CEINCA™
   </h3>
   <p style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:20px;">
@@ -453,7 +453,7 @@
   </p>
   <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:16px;margin-bottom:16px;">
     <div style="display:flex;align-items:baseline;gap:12px;">
-      <span style="font-size:48px;font-weight:900;color:#C8A951;line-height:1;">$97</span>
+      <span style="font-size:48px;font-weight:800;color:#C8A951;line-height:1;">$97</span>
       <div>
         <div style="font-size:13px;color:rgba(255,255,255,0.4);text-decoration:line-through;">$400</div>
         <div style="font-size:11px;color:#C8A951;font-weight:700;">AHORRA $303</div>
@@ -463,7 +463,7 @@
   <button style="
     width:100%;background:linear-gradient(135deg,#C8A951,#DDB96A);
     color:#122A63;border:none;border-radius:8px;padding:14px;
-    font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;
+    font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;
     text-transform:uppercase;letter-spacing:0.06em;cursor:pointer;
   ">
     OBTENER ACCESO AHORA →
@@ -483,7 +483,7 @@
   align-items: center;
   justify-content: center;
   padding: 80px 24px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Manrope', sans-serif;
   position: relative;
   overflow: hidden;
 ">
@@ -509,7 +509,7 @@
 
     <!-- Headline -->
     <h1 style="
-      font-size:clamp(36px,6vw,72px);font-weight:900;
+      font-size:clamp(36px,6vw,72px);font-weight:800;
       color:#fff;line-height:1.05;letter-spacing:-0.03em;
       text-transform:uppercase;margin-bottom:20px;
     ">
@@ -529,7 +529,7 @@
     <button style="
       background:linear-gradient(135deg,#C8A951,#DDB96A);
       color:#122A63;border:none;border-radius:8px;
-      padding:18px 40px;font-family:'Montserrat',sans-serif;
+      padding:18px 40px;font-family:'Manrope',sans-serif;
       font-size:15px;font-weight:800;text-transform:uppercase;
       letter-spacing:0.06em;cursor:pointer;
       box-shadow:0 4px 24px rgba(200,169,81,0.4);
@@ -548,7 +548,7 @@
 <!-- Versión horizontal con texto -->
 <div style="
   display:flex;align-items:center;gap:16px;
-  margin:24px 0;font-family:'Montserrat',sans-serif;
+  margin:24px 0;font-family:'Manrope',sans-serif;
 ">
   <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(200,169,81,0.5),transparent);"></div>
   <span style="font-size:10px;font-weight:800;letter-spacing:0.15em;color:#C8A951;text-transform:uppercase;">CEINCA™</span>
@@ -691,7 +691,7 @@ Estas clases se SUMAN al `<style>` del carrusel base (sección 1) — no reempla
 }
 .check-list .check {
   color: #4ADE80;
-  font-weight: 900;
+  font-weight: 800;
   flex-shrink: 0;
   margin-top: 1px;
 }

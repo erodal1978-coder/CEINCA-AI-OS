@@ -298,7 +298,7 @@ Por qué funciona el CTB triple:
 | CTA/Keyword | Dorado CEINCA sobre fondo oscuro | Cierre CTB |
 
 **Tipografía:**
-- Títulos: sans-serif bold (Montserrat 700+), tamaño grande
+- Títulos: sans-serif bold (Manrope 700+), tamaño grande
 - Cuerpo: sans-serif regular, 2-3 líneas máximo por bloque
 - Badges: uppercase, tracking amplio, tamaño pequeño
 - Keywords: bold + dorado CEINCA #C8A951, tamaño destacado
@@ -345,7 +345,7 @@ Estilo minimalista de alto contraste inspirado en cuentas de contenido viral (@c
 | CTA/Keyword (slide final) | Dorado CEINCA #C8A951 sobre negro | Cierre CTB |
 
 **Tipografía Bold Dark:**
-- Texto principal: sans-serif extra bold (Montserrat Black 900 / Impact), tamaño MÁXIMO — debe leerse desde el preview de la grilla
+- Texto principal: sans-serif extra bold (Manrope ExtraBold 800), tamaño MÁXIMO — debe leerse desde el preview de la grilla
 - Palabras highlight: mismo font, color de acento
 - Texto complementario (barra inferior): sans-serif regular, pequeño, uppercase
 
