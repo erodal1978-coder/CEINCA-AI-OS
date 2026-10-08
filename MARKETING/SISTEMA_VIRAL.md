@@ -4,7 +4,7 @@
 > Unifica (sin pérdida de contenido) los antiguos `FRAMEWORK_VIRAL_V2.md` (v2.0, 18-06-2026), `VIRAL_PLAYBOOK.md` (18-06-2026), `NEAPS_AIDA.md` y `SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA.md` (v1.0, jul-2026). Los originales quedan en el historial de git.
 >
 > **Fuentes canónicas que este documento NO repite (consultarlas directamente):**
-> - Keywords disruptivas (banco maestro, 107 venezolanismos, historial de uso): [`CTB_PALABRAS_DISRUPTIVAS.md`](./CTB_PALABRAS_DISRUPTIVAS.md)
+> - Keywords disruptivas (banco maestro, 105 venezolanismos, historial de uso): [`CTB_PALABRAS_DISRUPTIVAS.md`](./CTB_PALABRAS_DISRUPTIVAS.md)
 > - Redacción de los 4 textos de Meta y 3 de TikTok: [`MANUAL_COPY_META_TIKTOK.md`](./MANUAL_COPY_META_TIKTOK.md)
 > - Método de testing 3-2-2, Matriz 4PI y Rentabilidad Real: `.claude/skills/meta-ads-andromeda-expert/SKILL.md`
 > - Tuteo venezolano / no-voseo: [`../RULES/ESTILO_REDACCION.md`](../RULES/ESTILO_REDACCION.md)
@@ -50,7 +50,7 @@ Análisis de 5 posts virales reales de @ceinca.mercantil (oct 2025 – jul 2026)
 3. Checklist visual de 3-5 pasos con ✅
 4. CTA de guardar + compartir antes del CTA de conversión
 5. Keyword de conversión (APOSTILLA, APOSTILLA01, TOTUMA) → DM automatizado
-6. **Gate de seguir**: "si no nos sigues, la plataforma no nos deja enviarte el mensaje" — crecimiento de seguidores integrado al lead magnet
+6. **Pedido de seguir explícito** (histórico: "si no nos sigues, la plataforma no nos deja enviarte el mensaje"). Ese framing está **retirado** desde el 08-10-2026; ver la regla más abajo.
 
 **Mecanismo B — "Alarma/Opinión" (optimizado para alcance puro).** Usado en: "Las PYMES desaparecen del SAREN" (18-10-2025, reel, 24.956 alcance).
 1. Noticia de última hora con tono de incertidumbre (no de solución)
@@ -60,7 +60,9 @@ Análisis de 5 posts virales reales de @ceinca.mercantil (oct 2025 – jul 2026)
 **Regla de decisión:** A cuando el objetivo es generar leads calificados; B cuando el objetivo es alcance/crecimiento de seguidores puro.
 
 **Regla del gate de "seguir":**
-- **Orgánico: mantener.** Es el mecanismo de crecimiento de seguidores más efectivo comprobado.
+- **Orgánico: pedir el follow siempre de forma explícita** (en el copy y en la lámina final), con los framings autorizados en `MANUAL_COPY_META_TIKTOK.md` §02 (razón de valor, FOMO, continuidad).
+- **Prohibido** condicionar la entrega al follow ("si no nos sigues no te llega"). Es técnicamente falso: el DM se dispara con el comentario. Decisión del 08-10-2026, alineada con el Manual de Copy v2.0.
+- Evidencia (Auditoría Top 10 IG, 08-10-2026): las piezas que pidieron el follow ganaron más seguidores, pero eran reels; el efecto del formato no está aislado del efecto del pedido.
 - **Ads: NO incluir la frase explícita.** Motivos: (1) fricción innecesaria en tráfico ya pagado; (2) riesgo de política de Meta por parecido a *incentivized follow / engagement bait*.
 
 ### 1.3 Estructura narrativa a nivel de frame (análisis Claude Code + ffmpeg de 3 reels)
@@ -413,7 +415,7 @@ SLIDE 6: CTB TRIPLE — fondo oscuro · Guardar → Compartir → Comentar · ke
 
 ## 6. KEYWORDS DISRUPTIVAS (TRIGGERS)
 
-> 📖 **Registro maestro oficial:** [`CTB_PALABRAS_DISRUPTIVAS.md`](./CTB_PALABRAS_DISRUPTIVAS.md) — lista completa (107 venezolanismos verificados, por categoría, historial de campañas activas/usadas y términos excluidos). **Ese archivo es la única fuente de verdad de keywords.**
+> 📖 **Registro maestro oficial:** [`CTB_PALABRAS_DISRUPTIVAS.md`](./CTB_PALABRAS_DISRUPTIVAS.md) — lista completa (105 venezolanismos verificados, por categoría, historial de campañas activas/usadas y términos excluidos). **Ese archivo es la única fuente de verdad de keywords.**
 
 ### 6.1 Por qué palabras raras y no genéricas
 

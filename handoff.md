@@ -4,6 +4,16 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🧩 08-10-2026 — Proyecto "CEINCA · Carruseles" unificado (repo = Drive = proyecto de IA)
+- Nuevo `MARKETING/PROYECTO_CARRUSELES/` con `1_INSTRUCCIONES` v2.2, `2_BANCO` v1.1 (10 estructuras de Academia Meraki adaptadas + Alerta Noticiosa) y un README con el mapa de los 4 archivos.
+- `CTB_PALABRAS_DISRUPTIVAS.md` v2.3: numeración corregida (105 entradas), registro completo (BURDA, PAPELÓN, CHIPICHIPI, GUARAPO, ZAPEROCO, PISCA, TURPIAL) y regla de **reciclaje** (mismo tema y recurso con otro ángulo = misma palabra, sin automatización nueva).
+- `SISTEMA_VIRAL.md` §1.2: retirado el gate "si no nos sigues no te llega"; ahora se pide el follow siempre con los framings del manual. Corregido "107" → "105".
+- `MANUAL_COPY_META_TIKTOK.md` §03: "1 keyword = 1 recurso" con reciclaje permitido.
+- `editorial-guides.md`: el pie pasa a "Centro Integral de Estudios e Innovación, C.A.".
+- `CLAUDE.md`: regla de keyword actualizada y referencia al proyecto.
+- Base: Auditoría Top 10 IG (Drive, 08-10-2026).
+- **Pendiente:** contenido del post "agente IA gratis para auditar redes", primera prueba del proyecto (reutilizará su palabra ya automatizada).
+
 ## 🧹 04-10-2026 — Limpieza: el repo queda como FUENTE DE LA VERDAD de CEINCA para IA
 
 Decisión de Eduardo: GitHub = solo conocimiento reutilizable (manuales, reglas, workflows, prompts, skills); docs, entregables, media y código van fuera. Respaldo: GitHub + Drive (`CEINCA RESPALDO/06 TECNOLOGIA/CEINCA-AI-OS`).

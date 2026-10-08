@@ -143,7 +143,7 @@ Módulo 0X — [Nombre del módulo]
 Pie:
 ```
 CEINCA®
-Centro de Estudios e Investigación de Ciencias Administrativas
+Centro Integral de Estudios e Innovación, C.A.
 www.ceinca.com          Página 0X
 ```
 
