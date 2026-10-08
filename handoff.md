@@ -4,6 +4,11 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🗺️ 08-10-2026 (sesión nube) — Carrusel Pedro Camejo · nueva sede (palabra ALPARGATA)
+- 7 láminas PNG 1080×1440 (formato B, Manrope 400–800, navy `#122A63`, dorado `#C8A951`) generadas con un renderizador temporal fuera del repo; entregadas a Eduardo en el chat. Sin cambios de código en el repo.
+- ⚠️ `carrusel-export` ya no está en el repo y en la nube no existe `~/repos`: el render se hizo con un script propio. Para publicar, conviene re-exportar con `~/repos/carrusel-export` (versión oficial) usando el bloque del carrusel.
+- **Pendiente:** foto 2 opcional de L2 (franja con crédito "Foto: @saren_ve"), copy Meta, comentario fijado y verificar que el DM de ALPARGATA entrega el recurso que promete la pieza (reciclaje: no tocar automatización).
+
 ## 🧩 08-10-2026 — Proyecto "CEINCA · Carruseles" unificado (repo = Drive = proyecto de IA)
 - Nuevo `MARKETING/PROYECTO_CARRUSELES/` con `1_INSTRUCCIONES` v2.4, `2_BANCO` v1.1 (10 estructuras de Academia Meraki adaptadas + Alerta Noticiosa) y un README con el mapa de los 4 archivos.
 - `CTB_PALABRAS_DISRUPTIVAS.md` v2.4: numeración corregida (105 entradas), registro completo (BURDA, PAPELÓN, CHIPICHIPI, GUARAPO, ZAPEROCO, PISCA, TURPIAL) y regla de **reciclaje** (mismo tema y recurso con otro ángulo = misma palabra, sin automatización nueva).
