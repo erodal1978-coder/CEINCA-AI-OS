@@ -5,8 +5,8 @@
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
 ## 🧩 08-10-2026 — Proyecto "CEINCA · Carruseles" unificado (repo = Drive = proyecto de IA)
-- Nuevo `MARKETING/PROYECTO_CARRUSELES/` con `1_INSTRUCCIONES` v2.2, `2_BANCO` v1.1 (10 estructuras de Academia Meraki adaptadas + Alerta Noticiosa) y un README con el mapa de los 4 archivos.
-- `CTB_PALABRAS_DISRUPTIVAS.md` v2.3: numeración corregida (105 entradas), registro completo (BURDA, PAPELÓN, CHIPICHIPI, GUARAPO, ZAPEROCO, PISCA, TURPIAL) y regla de **reciclaje** (mismo tema y recurso con otro ángulo = misma palabra, sin automatización nueva).
+- Nuevo `MARKETING/PROYECTO_CARRUSELES/` con `1_INSTRUCCIONES` v2.4, `2_BANCO` v1.1 (10 estructuras de Academia Meraki adaptadas + Alerta Noticiosa) y un README con el mapa de los 4 archivos.
+- `CTB_PALABRAS_DISRUPTIVAS.md` v2.4: numeración corregida (105 entradas), registro completo (BURDA, PAPELÓN, CHIPICHIPI, GUARAPO, ZAPEROCO, PISCA, TURPIAL) y regla de **reciclaje** (mismo tema y recurso con otro ángulo = misma palabra, sin automatización nueva).
 - `SISTEMA_VIRAL.md` §1.2: retirado el gate "si no nos sigues no te llega"; ahora se pide el follow siempre con los framings del manual. Corregido "107" → "105".
 - `MANUAL_COPY_META_TIKTOK.md` §03: "1 keyword = 1 recurso" con reciclaje permitido.
 - `editorial-guides.md`: el pie pasa a "Centro Integral de Estudios e Innovación, C.A.".
@@ -14,6 +14,7 @@
 - Base: Auditoría Top 10 IG (Drive, 08-10-2026).
 - **Sistema visual unificado (08-10-2026, decisión de Eduardo):** tipografía **Manrope** en todo (redes y guías), pesos 400/600/700/800 (los 900 pasan a 800). Azules anclados al logo (los SVG oficiales usan `#1E3A8A`): navy `#122A63`, azul suave `#2D4FA8`, `#EAF0FF`. Se retiran `#0B1D3A` y `#2F4798`/`#233978`/`#5A73C7`. Aplicado en `ceinca-design` (SKILL, tokens, components, editorial-guides, carruseles), `ceinca-ia`, `SISTEMA_VIRAL`, `FLOW_SISTEMA` e instrucciones v2.4.
 - **Pendiente fuera del repo:** `~/repos/carrusel-export` todavía usa `#0B1D3A` + Montserrat (prompt entregado a Eduardo). Skill de la cuenta de Claude: actualizar paleta (prompt para Cowork entregado).
+- **Automatización Meta (corrección de Eduardo, 08-10-2026):** hay UNA automatización por palabra clave, activa en cualquier publicación (trigger "contiene"). Reciclar = no tocar Meta. Eliminado de instrucciones, CTB, Manual de Copy, SISTEMA_VIRAL y CLAUDE.md. PLATANAZO ya configurada. Prueba 01 (carrusel Auditor IA) entregada a Eduardo; faltan los 17 puntos del GEM, captura real y antes/después con permiso. PR #29 abierto, sin mergear.
 - **Pendiente:** contenido del post "agente IA gratis para auditar redes", primera prueba del proyecto (reutilizará su palabra ya automatizada).
 
 ## 🧹 04-10-2026 — Limpieza: el repo queda como FUENTE DE LA VERDAD de CEINCA para IA
