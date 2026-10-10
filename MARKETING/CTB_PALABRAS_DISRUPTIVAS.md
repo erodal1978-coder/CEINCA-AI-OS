@@ -1,12 +1,12 @@
 # CEINCA — Banco de Palabras Disruptivas (CTB)
-**Versión 2.3 · actualizado 08-oct-2026 (con Auditoría Top 10 IG) · ARCHIVO MAESTRO ÚNICO**
+**Versión 2.5 · actualizado 10-oct-2026 (palabras reservadas del postevento IA ULA Táchira + GOLFEADO) · ARCHIVO MAESTRO ÚNICO**
 Este archivo es la única fuente válida. Debe ser idéntico en el repo CEINCA-AI-OS, en Drive, en el proyecto de Claude y en cualquier otra IA. Si alguna copia difiere, manda esta.
 
 ## Reglas
 1. **Autenticidad:** solo venezolanismos auténticos y verificados. Nada genérico ni de otros países.
 2. **Una palabra = un tema/recurso.** **Excepción válida:** mismo tema con otro ángulo, si se pide comentar la misma palabra para obtener el mismo recurso. Condición: el DM entrega lo que prometen TODAS las piezas que usan esa palabra. Tema nuevo = palabra nueva.
    - **Ventaja:** no hay que crear otra automatización en Meta. Sirve para darle otro ángulo a una pieza que funcionó, o para recuperar una que no.
-   - **Al reutilizarla:** comprueba que la automatización existente incluya el post nuevo. Si está configurada por publicación, hay que añadirlo. El DM debe seguir siendo válido para ambos ángulos.
+   - **Al reutilizarla:** la automatización de esa palabra ya está activa para cualquier publicación de la cuenta; no se toca. Solo hay que comprobar que el DM siga siendo válido para el ángulo nuevo.
 3. **Cero política:** quedan fuera las palabras con carga partidista, aunque sean disruptivas.
 4. **CTA correcto:** "Comenta [PALABRA]". Nunca "por DM". El "Síguenos" va después del beneficio, con los framings del MANUAL_COPY §02. Nunca se dice que seguir la cuenta es necesario para recibir el mensaje.
 5. **Automatización:** Meta Business Suite (comentario → DM automático) o Ads Manager (clic a enlace con preguntas predefinidas). No se usa ManyChat.
@@ -28,6 +28,16 @@ Este archivo es la única fuente válida. Debe ser idéntico en el repo CEINCA-A
 | ZAPEROCO | Integración SAREN–SENIAT (carrusel 16 ago) | 🟢 Activa: solo para ese mismo tema |
 | PISCA | Evento IA ULA Táchira: foto 16 sep + reel 17 sep (otro ángulo) | 🟢 Activa: mismo tema y mismo recurso |
 | TURPIAL | Taquilla Única La Guaira (carrusel 20 sep) | 🟢 Activa: solo para ese mismo tema |
+| PLATANAZO | Auditor IA de Marca Profesional™ (GEM gratuito): carrusel 18 ago + relanzamiento oct 2026 (otro ángulo) | 🟢 Activa: mismo tema y mismo recurso |
+| GOLFEADO | Notaría en línea SAREN (arrancó en La Guaira): solicitud de copias de documentos notariados; guía PDF con capturas y checklist | 🟢 Activa: solo para ese mismo tema (registrada 10-oct-2026; uso previo no registrado) |
+| ÑAPA | Postevento IA ULA Táchira · P1 Recap: Guía del Participante completa | 🟡 Reservada: sin publicar |
+| HALLACA | Postevento IA ULA Táchira · P2: Fórmula del prompt | 🟡 Reservada: sin publicar |
+| AVISPAO | Postevento IA ULA Táchira · P3: Checklist de uso responsable | 🟡 Reservada: sin publicar |
+| VAINA | Postevento IA ULA Táchira · P4: Comandos de contexto | 🟡 Reservada: sin publicar |
+| CHAMBA | Postevento IA ULA Táchira · P5: Prompts por carrera | 🟡 Reservada: sin publicar |
+| PERINOLA | Postevento IA ULA Táchira · P6: Aviso de próxima jornada (Google Form) | 🟡 Reservada: sin publicar |
+| FLOJERA | Postevento IA ULA Táchira · P7: Prompts para estudiar un documento | 🟡 Reservada: sin publicar |
+| CORONAR | Postevento IA ULA Táchira · P8: Propuesta para institución | 🟡 Reservada: sin publicar |
 | YENYEN | Uso previo, tema no registrado | 🔴 Retirada: no es venezolanismo verificado |
 | CHICHICUILOTE | Uso previo, tema no registrado | 🔴 Retirada: es mexicanismo |
 
@@ -40,7 +50,8 @@ Motivo: posicionan a CEINCA de un lado del conflicto político frente a una audi
 ---
 
 ## 3. Banco: 105 entradas (101 disponibles)
-PISCA y TURPIAL se usaron pero no estaban en el banco: quedan en el registro (tabla 1).
+PISCA, TURPIAL y GOLFEADO se usaron pero no estaban en el banco: quedan en el registro (tabla 1).
+Las palabras 🟡 Reservadas (tabla 1) siguen sin tachar en el banco hasta que se publiquen; no se asignan a otro tema.
 Prioridad de uso: **A–E** son de reconocimiento amplio. **F** se verifica antes de usar. **G–H** son andinismos hiperlocales, así que se confirma el matiz antes de la primera campaña.
 Las palabras ya usadas o retiradas aparecen tachadas para que no se repitan por error.
 

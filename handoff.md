@@ -4,6 +4,12 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🔑 10-10-2026 — Banco de palabras v2.5 y keywords del postevento IA ULA Táchira
+- `MARKETING/CTB_PALABRAS_DISRUPTIVAS.md` **v2.5**: repo estaba en v2.3; ahora incluye PLATANAZO (de v2.4) y la regla 2 reescrita ("la automatización ya está activa para cualquier publicación; no se toca"). Registrada **GOLFEADO** (Notaría en línea SAREN, guía PDF de copias; uso previo no registrado) y **8 palabras 🟡 Reservadas** para el postevento: ÑAPA (P1), HALLACA (P2), AVISPAO (P3), VAINA (P4), CHAMBA (P5), PERINOLA (P6), FLOJERA (P7), CORONAR (P8). Reemplazan a las 8 inventadas fuera del banco (GOLFEADO, COCOLISO, AREPAZO, CATALINA, HALLAQUITA, CHIRULÍ, CHAGUARAMO, TEQUICHE).
+- Copias sincronizadas (md5 igual): repo, `Descargas/CARROUSEL CEINCA PROYECTO/3_CTB_PALABRAS_CEINCA.md`, `CEINCA-WORKSPACE/06 TECNOLOGIA/CEINCA-AI-OS/MARKETING/`, y Drive (v2.4 renombrada a `OBSOLETO_v2.4_...`).
+- **Pendiente:** (1) `CLAUDE.md` aún describe el reciclaje con el texto de v2.3 ("solo se añade el post a la existente"); alinearlo con v2.4. (2) `CEINCA-WORKSPACE/06 TECNOLOGIA/PROMPTS Y GEMS/prompts/instrucciones_proyecto_ceinca.md` línea 51 lista un banco viejo (incluye HALLAQUITA, SANCOCHO, etc.): copia del proyecto de Claude desactualizada. (3) PISCA sigue entregando el formulario de inscripción de un evento ya pasado. (4) Tras publicar cada pieza: tachar la palabra en la sección 3 y pasarla a 🟢 en la tabla 1.
+- Cambios sin commit en este repo (solo `MARKETING/CTB_PALABRAS_DISRUPTIVAS.md` y este `handoff.md`).
+
 ## 🧩 08-10-2026 — Proyecto "CEINCA · Carruseles" unificado (repo = Drive = proyecto de IA)
 - Nuevo `MARKETING/PROYECTO_CARRUSELES/` con `1_INSTRUCCIONES` v2.2, `2_BANCO` v1.1 (10 estructuras de Academia Meraki adaptadas + Alerta Noticiosa) y un README con el mapa de los 4 archivos.
 - `CTB_PALABRAS_DISRUPTIVAS.md` v2.3: numeración corregida (105 entradas), registro completo (BURDA, PAPELÓN, CHIPICHIPI, GUARAPO, ZAPEROCO, PISCA, TURPIAL) y regla de **reciclaje** (mismo tema y recurso con otro ángulo = misma palabra, sin automatización nueva).
