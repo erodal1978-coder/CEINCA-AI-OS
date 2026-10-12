@@ -4,6 +4,11 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 📰 12-10-2026 — Carrusel "Sedes SAREN La Guaira desde el 13-oct" (formato C, 6 láminas, ALPARGATA)
+- Bloque de Eduardo renderizado a 6 PNG 1080×1440 (navy/cream, Manrope 400–800, dorado como acento) con un renderizador Playwright desechable en el scratchpad de la sesión; **no se versionó** (política de assets). El exportador alineado `~/repos/carrusel-export` no existía en el contenedor cloud, así que no se usó.
+- Decisiones de diseño: sin emojis (🚨 y ✅ sustituidos por icono SVG de sirena y check dorado); badge ÚLTIMA HORA en rojo `#D64545`; en láminas cream el acento va en navy con subrayado dorado (el dorado `#C8A951` sobre cream no cumple contraste).
+- **Pendiente (Eduardo):** [VERIFICAR] direcciones y horarios de las dos sedes contra la fuente oficial antes de publicar; ALPARGATA está en `CTB_PALABRAS_DISRUPTIVAS.md` §B sin tachar, así que es palabra **nueva**: falta definir el recurso, generar guía + automatización Meta y marcarla como usada en el registro. Falta copy, comentario fijado y hashtags.
+
 ## 🧩 08-10-2026 — Proyecto "CEINCA · Carruseles" unificado (repo = Drive = proyecto de IA)
 - Nuevo `MARKETING/PROYECTO_CARRUSELES/` con `1_INSTRUCCIONES` v2.4, `2_BANCO` v1.1 (10 estructuras de Academia Meraki adaptadas + Alerta Noticiosa) y un README con el mapa de los 4 archivos.
 - `CTB_PALABRAS_DISRUPTIVAS.md` v2.4: numeración corregida (105 entradas), registro completo (BURDA, PAPELÓN, CHIPICHIPI, GUARAPO, ZAPEROCO, PISCA, TURPIAL) y regla de **reciclaje** (mismo tema y recurso con otro ángulo = misma palabra, sin automatización nueva).
