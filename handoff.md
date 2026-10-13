@@ -7,6 +7,7 @@
 ## 📰 12-10-2026 — Carrusel "Sedes SAREN La Guaira desde el 13-oct" (formato C, 6 láminas, ALPARGATA)
 - Bloque de Eduardo renderizado a 6 PNG 1080×1440 (navy/cream, Manrope 400–800, dorado como acento) con un renderizador Playwright desechable en el scratchpad de la sesión; **no se versionó** (política de assets). El exportador alineado `~/repos/carrusel-export` no existía en el contenedor cloud, así que no se usó.
 - Decisiones de diseño: sin emojis (🚨 y ✅ sustituidos por icono SVG de sirena y check dorado); badge ÚLTIMA HORA en rojo `#D64545`; en láminas cream el acento va en navy con subrayado dorado (el dorado `#C8A951` sobre cream no cumple contraste).
+- **13-10-2026:** L3 corregida por Eduardo (título "REGISTRO DE ORIGEN (LA GUAIRA)", dirección completa con Terminal de Pasajeros, fecha de apertura y nota de que los Registros Públicos del 1.er y 2.º Circuito siguen en la Taquilla Única de La Urbina, Caracas). **Ojo:** L2 y L4 conservan el texto original; revisar que sigan coherentes con la L3 nueva.
 - **Pendiente (Eduardo):** [VERIFICAR] direcciones y horarios de las dos sedes contra la fuente oficial antes de publicar; ALPARGATA está en `CTB_PALABRAS_DISRUPTIVAS.md` §B sin tachar, así que es palabra **nueva**: falta definir el recurso, generar guía + automatización Meta y marcarla como usada en el registro. Falta copy, comentario fijado y hashtags.
 
 ## 🧩 08-10-2026 — Proyecto "CEINCA · Carruseles" unificado (repo = Drive = proyecto de IA)
