@@ -86,7 +86,7 @@ La tabla del repo dice 14-16 palabras para 8 s. **En la práctica:**
 | 15 | 6,98 s (F1-C4) · 7,60 s (F2-C4) — Omni | Cómodo, margen 0,4 s |
 | 16 | 7,52 s (F1-C1, **Veo 3.1 Fast**) · **7,98 s (F1-C3 v1, Omni: se cortó la última palabra)** | Justo / se corta |
 **Hallazgo (10 clips medidos):** Omni **estira la voz hasta ≈ 7,3-7,6 s casi sin importar si la frase tiene 12 o 15 palabras**; con 16 se pasa. Por eso: para 8 s usar **12-15 palabras como máximo**; una frase de 12-13 no termina antes, solo habla más pausado. Si una frase de 16 no se puede recortar, pasar a 10 s. Margen mínimo recomendado antes del corte: ≥ 0,3 s.
-**Pronunciación:** Whisper puede transcribir mal una palabra técnica («estimulaflación» en F2-C2); si pasa, escuchar el clip y, si es de la voz, regenerar con «con dicción clara» en la descripción de audio.
+**Pronunciación:** Omni puede pronunciar mal una palabra técnica: en F2-C2 v1 la voz dijo «estimulaflación» (Whisper lo detectó y Eduardo lo confirmó al oírlo). Whisper sirve como alarma; ante una transcripción rara, escuchar el clip y regenerar añadiendo «con dicción clara» a la descripción de audio (la v2 con esa frase salió bien).
 
 ## 1.7 Generar y esperar
 1. Enviar con la flecha. Aparece una tarjeta con porcentaje en la cuadrícula.
