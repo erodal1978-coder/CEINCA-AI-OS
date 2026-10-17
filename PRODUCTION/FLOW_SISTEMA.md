@@ -491,6 +491,14 @@ Activación: abrir proyecto → activar Agent mode (toggle en la barra de prompt
 Prompt tipo (fundido en párrafo, con las reglas de §3):
 > "Escena vertical 9:16 de 8 segundos: el sujeto —hombre venezolano con lentes grandes translúcidos rosé/marrón tipo aviador con detalle dorado, cabello corto sal y pimienta y chivera corta canosa, blazer oscuro profesional— de pie con seguridad frente a 1 SE 3rd Ave, Miami, FL, en el distrito financiero de Brickell, con la escena real de Street View como fondo; mira a cámara con autoridad serena, plano medio cerrado con equivalente 85 mm, sujeto nítido y edificios en bokeh, luz natural de mediodía de Miami con relleno cálido lateral desde la derecha, grade cinematográfico suave con negros levantados, ambiente urbano ligero y tráfico lejano generados por Veo 3.1, cierre con fundido a negro; calidad cinematográfica profesional, sin deformaciones ni artefactos de IA."
 
+### 13.5 Operación, costos y automatización (medido 17-10-2026)
+Manual completo en nivel básico y avanzado: `PRODUCTION/FLOW_MANUAL_BASICO_AVANZADO.md`; catálogo de funciones, Omni vs Veo y cuenta gratuita vs PRO: `PRODUCTION/FLOW_CATALOGO_FUNCIONES.md`; skill borrador para la extensión de Chrome: `.claude/skills/flow-chrome/`. Resumen operativo:
+- **x1…x4 = número de generaciones por envío; el costo se multiplica.** Omni 1.1 Flash (Ingredientes y Fotogramas cuestan igual): 720p 8 s x1 = 12 créditos (4 s = 7, 6 s = 10, 10 s = 15); 360p 8 s = 6. Veo 3.1 Lite 10 · Fast 20 · Quality 100. Edición de video por prompt = 40. Confirmar siempre modelo y «La generación usará N créditos» antes de enviar.
+- **Palabras reales en 8 s:** 14-15 terminan hacia los 7 s; 16 llega a 7,5-7,98 s y puede cortar la última palabra. Para 8 s no pasar de 15 (la tabla de §4.1 sigue como referencia general).
+- **Encadenar escenas:** «Guardar fotograma» (sobre el reproductor) en el último segundo → modo Fotogramas → ranura Iniciar. **Unir clips:** `+` → Agregar clip → crea una Escena; descargarla da un solo MP4. **Extender (+8 s):** solo clips Veo.
+- **Extensión de Chrome:** escribir el prompt con `document.execCommand('insertText')` y verificar igualdad exacta; el teclado (`type`) corrompe el inicio y el final. Abrir clips con doble clic. Descargar desde el editor (270p GIF · 720p original · 1080p reescalado · 4K con plan superior).
+- **Cuenta gratuita:** 50 créditos/día no acumulables; sin reescalado 1080p/4K; horas pico 14:00-17:00 UTC pueden bloquear video.
+
 ---
 
 ## 14. POST-PRODUCCIÓN EN META EDITS

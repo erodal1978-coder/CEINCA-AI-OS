@@ -4,6 +4,11 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🎬 17-10-2026 — Flow: manual, catálogo de funciones y skill de Chrome (rama `docs/flow-manual-operativo`)
+- Nuevos: `PRODUCTION/FLOW_MANUAL_BASICO_AVANZADO.md` (manual nivel básico/avanzado + estructura de 2 cursos), `PRODUCTION/FLOW_CATALOGO_FUNCIONES.md` (funciones, Omni vs Veo oficial, costos, cuenta gratuita vs PRO) y `.claude/skills/flow-chrome/SKILL.md` (**borrador v0.1**, medido en cuenta PRO). `FLOW_SISTEMA.md` ganó §13.5.
+- Capturas y archivos de prueba viven en `CEINCA-WORKSPACE/03 FORMACION/CURSO FLOW/` (no van al repo por la política de assets). Los ejemplos de cliente están anonimizados en este repo público.
+- **Pendiente:** probar la skill y el flujo en una cuenta **gratuita** (sesión programada 18-10); medir costo de extender, Type Overlays, Stringout Creator y reescalados; escribir los dos cursos y el curso de Claude + video. §13.4 (reglas de UI de Flow) sigue en el PR #32.
+
 ## 🧩 08-10-2026 — Proyecto "CEINCA · Carruseles" unificado (repo = Drive = proyecto de IA)
 - Nuevo `MARKETING/PROYECTO_CARRUSELES/` con `1_INSTRUCCIONES` v2.4, `2_BANCO` v1.1 (10 estructuras de Academia Meraki adaptadas + Alerta Noticiosa) y un README con el mapa de los 4 archivos.
 - `CTB_PALABRAS_DISRUPTIVAS.md` v2.4: numeración corregida (105 entradas), registro completo (BURDA, PAPELÓN, CHIPICHIPI, GUARAPO, ZAPEROCO, PISCA, TURPIAL) y regla de **reciclaje** (mismo tema y recurso con otro ángulo = misma palabra, sin automatización nueva).
