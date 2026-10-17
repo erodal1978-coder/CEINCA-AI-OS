@@ -491,6 +491,14 @@ Activación: abrir proyecto → activar Agent mode (toggle en la barra de prompt
 Prompt tipo (fundido en párrafo, con las reglas de §3):
 > "Escena vertical 9:16 de 8 segundos: el sujeto —hombre venezolano con lentes grandes translúcidos rosé/marrón tipo aviador con detalle dorado, cabello corto sal y pimienta y chivera corta canosa, blazer oscuro profesional— de pie con seguridad frente a 1 SE 3rd Ave, Miami, FL, en el distrito financiero de Brickell, con la escena real de Street View como fondo; mira a cámara con autoridad serena, plano medio cerrado con equivalente 85 mm, sujeto nítido y edificios en bokeh, luz natural de mediodía de Miami con relleno cálido lateral desde la derecha, grade cinematográfico suave con negros levantados, ambiente urbano ligero y tráfico lejano generados por Veo 3.1, cierre con fundido a negro; calidad cinematográfica profesional, sin deformaciones ni artefactos de IA."
 
+### 13.5 Operación, costos y automatización (medido 17-10-2026)
+Manual completo en nivel básico y avanzado: `PRODUCTION/FLOW_MANUAL_BASICO_AVANZADO.md`. Resumen operativo:
+- **x1…x4 = número de generaciones por envío; el costo se multiplica.** Medido en Omni 1.1 Flash (Ingredientes y Fotogramas cuestan igual): 720p 8 s x1 = 12 créditos (4 s = 7, 6 s = 10, 10 s = 15); 360p 8 s = 6. Veo 3.1 Lite 10 · Fast 20 · Quality 100 (8 s fijos). Confirmar siempre el modelo y «La generación usará N créditos» antes de enviar.
+- **Palabras reales en 8 s:** 14-15 terminan hacia los 7 s; 16 llega a 7,5-7,98 s y puede cortar la última palabra. Para 8 s no pasar de 15 (la tabla de §4.1 sigue como referencia general; con 16 pasar a 10 s).
+- **Extensión de Chrome:** escribir el prompt con `document.execCommand('insertText')` y verificar igualdad exacta; el teclado (`type`) corrompe el inicio y el final. Abrir clips con doble clic. Descargar desde el editor del clip (menú: 270p GIF · 720p original · 1080p reescalado · 4K con plan superior).
+- **Descargas:** si Chrome tiene «Preguntar dónde guardar cada archivo», el diálogo nativo exige un clic humano; desactivarlo en `chrome://settings/downloads`.
+- **Evaluación de clips:** ffmpeg (audio 16 kHz) + Whisper con marcas por palabra + hoja de contacto de fotogramas; margen de voz ≥ 0,3 s al final.
+
 ---
 
 ## 14. POST-PRODUCCIÓN EN META EDITS
