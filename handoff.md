@@ -4,6 +4,12 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🎬 17-10-2026 — Flow: manual, catálogo de funciones y skill de Chrome (rama `docs/flow-manual-operativo-17-10`, sin push)
+- Nuevos: `PRODUCTION/FLOW_MANUAL_BASICO_AVANZADO.md` (manual nivel básico/avanzado + estructura de 2 cursos), `PRODUCTION/FLOW_CATALOGO_FUNCIONES.md` (todas las funciones vistas, Omni vs Veo oficial, costos, cuenta gratuita vs PRO) y `.claude/skills/flow-chrome/SKILL.md` (**borrador v0.1**, medido en cuenta PRO). `FLOW_SISTEMA.md` ganó §13.5 (costos medidos, palabras reales en 8 s, automatización con Chrome).
+- Hallazgos clave: x1-x4 multiplican el costo; Omni 720p 8 s = 12 créditos, Veo Lite 10 / Fast 20 / Quality 100; edición de video por prompt = 40; «Guardar fotograma» + modo Fotogramas encadena escenas; «Agregar clip» crea una Escena y su descarga entrega un solo MP4 (hoy 720p); Extender solo en clips Veo; gratis = 50 créditos/día no acumulables, sin 1080p/4K, horas pico 14-17 UTC.
+- Capturas (35) y el MP4 de prueba viven en `CEINCA-WORKSPACE/03 FORMACION/CURSO FLOW/CAPTURAS/` (no van al repo por la política de assets).
+- **Pendiente:** push/PR (esperar OK de Eduardo; §13.4 sigue en PR #32); probar la skill y el flujo en una cuenta **gratuita**; medir costo de extender, Type Overlays, Stringout Creator y reescalados; Eduardo captura Personajes/Escenas/Cargas/avatar; escribir los dos cursos y el curso de Claude + video.
+
 ## 🔑 10-10-2026 — Banco de palabras v2.5 y keywords del postevento IA ULA Táchira
 - `MARKETING/CTB_PALABRAS_DISRUPTIVAS.md` **v2.5**: repo estaba en v2.3; ahora incluye PLATANAZO (de v2.4) y la regla 2 reescrita ("la automatización ya está activa para cualquier publicación; no se toca"). Registrada **GOLFEADO** (Notaría en línea SAREN, guía PDF de copias; uso previo no registrado) y **8 palabras 🟡 Reservadas** para el postevento: ÑAPA (P1), HALLACA (P2), AVISPAO (P3), VAINA (P4), CHAMBA (P5), PERINOLA (P6), FLOJERA (P7), CORONAR (P8). Reemplazan a las 8 inventadas fuera del banco (GOLFEADO, COCOLISO, AREPAZO, CATALINA, HALLAQUITA, CHIRULÍ, CHAGUARAMO, TEQUICHE).
 - Copias sincronizadas (md5 igual): repo, `Descargas/CARROUSEL CEINCA PROYECTO/3_CTB_PALABRAS_CEINCA.md`, `CEINCA-WORKSPACE/06 TECNOLOGIA/CEINCA-AI-OS/MARKETING/`, y Drive (v2.4 renombrada a `OBSOLETO_v2.4_...`).
