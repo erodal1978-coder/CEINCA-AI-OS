@@ -1,9 +1,9 @@
 ---
 name: flow-chrome
-description: Operar Google Flow desde la extensión de Chrome de Claude (flow.google.com) para generar, descargar, evaluar, encadenar y unir clips de video e imagen controlando los créditos. Usar cuando se pida generar videos o imágenes en Flow, descargar clips, unir escenas, continuar una escena con el último fotograma o evaluar clips de Flow. Borrador v0.1 (17-10-2026), medido en cuenta PRO; falta probar en cuenta gratuita.
+description: Operar Google Flow desde la extensión de Chrome de Claude (flow.google.com) para generar, descargar, evaluar, encadenar y unir clips de video e imagen controlando los créditos. Usar cuando se pida generar videos o imágenes en Flow, descargar clips, unir escenas, continuar una escena con el último fotograma o evaluar clips de Flow. v0.2 (18-10-2026): medido en cuenta PRO y en cuenta gratuita.
 ---
 
-# Flow desde la extensión de Chrome (CEINCA) — v0.1
+# Flow desde la extensión de Chrome (CEINCA) — v0.2
 
 Fuente completa: `PRODUCTION/FLOW_MANUAL_BASICO_AVANZADO.md` y el catálogo `03 FORMACION/CURSO FLOW/CATALOGO_FUNCIONES_FLOW.md` (CEINCA-WORKSPACE). Reglas de prompt: `PRODUCTION/FLOW_SISTEMA.md`.
 
@@ -53,15 +53,28 @@ Fuente completa: `PRODUCTION/FLOW_MANUAL_BASICO_AVANZADO.md` y el catálogo `03 
 Editor del primer clip → `+` al final → **Agregar clip** → elegir clip (barra de recorte para cortar) → «Agregar contenido multimedia» → esperar «Creando escena…» (≈ 20 s) → **Listo**. Descargar la **escena** entrega un solo MP4 (hoy a 720p). Para 1080p: descargar cada clip a 1080p y unir con ffmpeg.
 
 ## 8. Extender
-Solo clips generados con **Veo**: `+` → Extender (Veo 3.1 - Lite) → agrega +8 s. En clips Omni el botón está gris. Medir costo antes de usar.
+Solo clips generados con **Veo Lite** de 8 s: abrir el clip (doble clic) → `+` al final de la línea de tiempo → «Extender (Veo 3.1 - Lite)» → escribir la instrucción en «¿Qué sucederá ahora?» → enviar. **Cuesta 10 créditos** (pasar el cursor por el botón de enviar para verlo), tarda ≈ 1 min y agrega ≈ 7 s con continuidad exacta; el clip queda dentro de una escena nueva. En clips **Omni, Extender sale en gris**. No cerrar el modo con la X del chip: cancela la extensión.
 
-## 9. Herramientas útiles (probar antes de prometer)
-Herramientas → Plantillas: Type Overlays (texto animado), Stringout Creator (unir clips), Transition Machine, Video Resizer, Storyboard Studio. Crear herramienta no cuesta créditos.
+## 9. Herramientas (plantillas)
+Herramientas → Plantillas: Type Overlays (texto animado), Stringout Creator (unir clips con tarjetas de texto), Transition Machine, Video Resizer, Storyboard Studio, etc. Al abrir una plantilla Flow crea una copia «Remix of …». **Type Overlays renderiza en el navegador sin gastar créditos** (≈ 2 min por 8 s; no cambiar de pestaña; sale a 1280×2274 con audio). Su campo de texto está en un iframe: escribir con la acción `type` de la extensión (`execCommand` no entra) y bajar el tamaño de letra en video vertical (84 px por defecto se recorta). **Crear una herramienta propia exige plan de pago.**
 
-## 10. Modo cuenta gratuita (pendiente de comprobar en otra sesión)
-50 créditos/día no acumulables (el reinicio lo dispara la primera generación del día); imágenes y Agente gratis; sin reescalado 1080p/4K; horas pico 14:00-17:00 UTC pueden bloquear video. Estrategia: imágenes primero (gratis), animar solo lo aprobado, Omni 360p solo para pruebas, x1, una pieza al día.
+## 10. Modo cuenta gratuita (medido 18-10-2026)
+- 50 créditos/día, no acumulables. El menú de la cuenta (avatar) muestra el saldo y la hora de reinicio (en la prueba: 11:25 a. m. hora de Venezuela; la ayuda oficial dice «desde la primera generación»: verificar). Botón «Actualizar» = plan.
+- Todos los modelos se ven sin candado. Costos iguales a Pro; **imágenes (Nano Banana) = 0**; unir clips en escena = 0; extender = 10; Veo Quality (100) no alcanza (botón rojo «No tienes suficientes créditos»).
+- **Descargas:** imagen 1K y 2K sí, 4K no. Video: 720p original sí; **reescalar 360p→720p, 1080p y 4K bloqueados** (por eso el final se genera directo en 720p; Veo Lite 10 < Omni 12). Escena = un MP4 sin menú de calidad. Sin marca de agua visible.
+- **Políticas:** copyright de terceros → bloqueo y «No se te cobró»; «personas destacadas» en video → bloqueo con reembolso (en imagen sí las genera, no usarlas). Validar el prompt primero en imagen (0 créditos).
+- Estrategia: imágenes primero (0), animar solo lo aprobado, x1, una pieza al día, planear el gasto (ejemplo de 50 créditos: 1 prueba 360p de 8 s = 6, 2 Veo Lite 720p = 20, 1 extensión = 10, 1 Omni 720p de 8 s = 12).
+- Horas pico oficiales 14:00-17:00 UTC: en la prueba se generó video dentro de esa ventana sin bloqueo.
 
-## 11. Pendiente de esta skill
-- Probar en cuenta gratuita y completar la sección 10.
-- Medir costos de extender, edición, Type Overlays, Stringout Creator y reescalado.
+## 11. Trucos de operación de la extensión (medidos)
+- Cerrar paneles **haciendo clic de nuevo** en la píldora de ajustes; evitar Escape (una vez un elemento pasó a la papelera: aparece aviso con «Deshacer»).
+- Hacer clic en una tarjeta de la biblioteca la agrega como ingrediente (cambia el costo): verificar con captura antes de enviar.
+- Leer el costo: `document.body.innerText.match(/usará\s*\d+/)` esperando ≈ 1 s tras el clic. Leer el saldo: abrir el menú de la cuenta y `match(/\d+ créditos de Google Flow/)`.
+- `wait` de la extensión: máximo 10 s por llamada. Si el grupo de pestañas se pierde (se cerró la pestaña), `tabs_context_mcp` con `createIfEmpty: true` y volver a la URL del proyecto.
+- Mover a la papelera es reversible; **no usar «Descartar»** en los avisos sin confirmar con el usuario.
+- Un mensaje de error en una tarjeta indica si se cobró o no; leerlo antes de reintentar.
+
+## 12. Pendiente de esta skill
+- Medir Fotogramas Inicio+Fin, Video Resizer y Stringout renderizado; costo de la edición Omni (oficial: 40).
+- Confirmar la hora real de reinicio de créditos y el reembolso tardío de los fallos.
 - Automatizar el flujo completo (prompt → enviar → esperar → descargar → renombrar → evaluar → informe).

@@ -145,7 +145,9 @@ Receta técnica (terminal): extraer audio a 16 kHz, correr Whisper (`small`) con
 
 ## 2.5 Herramientas y «Crear herramienta» [POR CAPTURAR]
 - Herramientas → pestañas **Mis herramientas · Comunidad · Plantillas**; hay envío semanal de herramientas de la comunidad.
-- «Crear herramienta» / «Crear nueva»: constructor de herramientas propias. Pendiente: pasos, campos, ejemplo útil (herramienta «Reel CEINCA» existe en [REPO] §13.2).
+- «Crear herramienta» / «Crear nueva»: constructor de herramientas propias. **En cuenta gratuita exige plan** («Actualizar para crear herramientas»); las plantillas sí se pueden usar (copia «Remix of …»). Pendiente: pasos, campos, ejemplo útil (herramienta «Reel CEINCA» existe en [REPO] §13.2).
+- **Type Overlays (medido 18-10-2026):** importa un video de la biblioteca, escribe el texto (Design/Animate, tipografía y tamaño; 84 px por defecto se recorta en vertical) y «Render Video»: se renderiza **en el navegador, sin créditos**, ≈ 2 min para 8 s, y el resultado queda en Cargas (1280×2274 con audio).
+- **Stringout Creator:** une clips con tarjetas de texto, relación de aspecto única, Fit/Fill y duración completa o uniforme (sin renderizar aún).
 
 ## 2.6 Flow Agent y Street View [REPO]
 - Agente como paso 0, brief tipo y variaciones: §13.1.

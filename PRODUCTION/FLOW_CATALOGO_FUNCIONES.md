@@ -19,7 +19,7 @@ Flow cambia seguido; los propios textos de Google dicen «los límites pueden ca
 
 ### 1.2 Cuenta (clic en la foto) [#25] [MEDIDO]
 - **Créditos de Google Flow restantes** (ejemplo: 910), botón **Actualizar** (plan), **Administrar avatar**, **Administrar suscripción**, **Salir de todas las cuentas**.
-- Interruptor **«Marca de agua visible»** (apagado en la cuenta PRO). [POR VERIFICAR: si en cuenta gratuita es obligatoria].
+- Interruptor **«Marca de agua visible»** (apagado en la cuenta PRO **y en la gratuita**: no es obligatoria; medido 18-10-2026).
 - Dónde ver el saldo: foto de perfil arriba a la derecha [OFICIAL].
 
 ### 1.3 Ajustes (engranaje) [#26] [MEDIDO]
@@ -117,7 +117,7 @@ Silenciar · tiempo actual · clip anterior · **Reproducir** · clip siguiente 
 ### 4.5 Extender [#02, #16-17] [MEDIDO + OFICIAL]
 - Solo se activa en clips generados con **Veo** (en clips de Omni aparece gris).
 - Al elegirlo, la línea de tiempo muestra un bloque gris **«Instrucción para extender»** y la duración total pasa a 00:16:00 (**+8 s**); la caja pregunta «¿Qué sucederá ahora?» y el modo queda como «Extender (Veo 3.1 - Lite)» con una X para cancelar.
-- Costo de extender: [POR VERIFICAR] (no se envió).
+- Costo de extender (Veo Lite): **10 créditos** [MEDIDO 18-10-2026]; tarda ≈ 1 min, agrega ≈ 7 s y deja una escena nueva con original + extensión. En clips Omni el botón sale en gris.
 
 ### 4.6 Guardar fotograma y encadenar escenas [#05-12] [MEDIDO]
 **Receta para empezar la escena siguiente con el último fotograma:**
@@ -170,7 +170,7 @@ Caja «Describe cómo quieres editar este video…» con el modelo fijo **Omni 1
   - **Instrucciones:** Character X-Ray · Style Writer · **Storyboard Studio** (guion, elenco y storyboard) · Prompt Tree · Story Sketch.
   - **Experimental:** Frame Deconstructor · Blob Tracking · DepthWarp 4D · Webcam Set · Datamosh · 3D Model Visualizer · Scout360 · Ribbit · Whisk · Pose Text · 3D Face Swap.
 - **Comunidad (ejemplos):** Mondo Sónico (diseño de sonido), SwissFlow Studio (tipografía animada), Surface (materiales arquitectónicos), entre otras.
-- **Crear herramienta:** «Comienza a crear cualquier herramienta creativa que puedas imaginar; para ello, descríbela más abajo.» Plantillas de arranque: **Estirador de tiempo** (cambia la velocidad de fotogramas), **Voz en off** (graba tu voz sobre un video), **Transformación de estilo**. «Por el momento, la creación de herramientas no cuesta créditos.»
+- **Crear herramienta:** «Comienza a crear cualquier herramienta creativa que puedas imaginar; para ello, descríbela más abajo.» Plantillas de arranque: **Estirador de tiempo** (cambia la velocidad de fotogramas), **Voz en off** (graba tu voz sobre un video), **Transformación de estilo**. «Por el momento, la creación de herramientas no cuesta créditos.» **En cuenta GRATUITA (medido 18-10-2026) el botón dice «Actualizar para crear herramientas»: crear una herramienta propia exige plan; usar las plantillas sí funciona** (al abrirlas Flow crea una copia «Remix of …» en Mis herramientas). **Type Overlays renderiza en el navegador sin gastar créditos** (≈ 2 min para 8 s; salida 1280×2274 con audio).
 - **Pendiente de probar (alto valor para un proyecto de cliente de salud):** Type Overlays (palabra en pantalla), Stringout Creator (unir F1 y F2), Voz en off (grabar la voz del profesional), Video Resizer (cortes 1:1 y 4:5). [POR VERIFICAR costo, calidad y salida.]
 
 ---
@@ -193,7 +193,7 @@ Caja «Describe cómo quieres editar este video…» con el modelo fijo **Omni 1
 # CUENTA GRATUITA vs PRO — qué cambia y cómo exprimir lo gratis
 
 ## A. Hechos oficiales [OFICIAL — Centro de ayuda de Flow]
-- **Gratis:** **50 créditos de Flow por día**; no hay monto mensual. Los créditos diarios **no se acumulan**; el reinicio **lo dispara tu primera generación del día** (si generas el 12, los próximos 50 llegan el 13).
+- **Gratis:** **50 créditos de Flow por día**; no hay monto mensual. Los créditos diarios **no se acumulan**; la ayuda oficial dice que el reinicio **lo dispara tu primera generación del día** (si generas el 12, los próximos 50 llegan el 13). **Medido 18-10-2026:** el menú de la cuenta (avatar) mostraba «los créditos se actualizan todos los días a las 11:25 a. m.» *antes* de generar, y la primera generación del día fue a las 11:36. [POR VERIFICAR el 19-10: reinicio fijo o desde la primera generación.]
 - **De pago (mensual, además de los 50 diarios):** Google AI Plus **200** · AI Pro **1.000** · AI Ultra (USD 100) **10.000** · AI Ultra (USD 200) **25.000**. Los créditos mensuales sin usar **no se acumulan** al mes siguiente.
 - **Horas pico:** aprox. **14:00-17:00 UTC** (10:00 a 13:00 hora de Venezuela) las cuentas sin suscripción **pueden no poder generar videos**.
 - **Sin suscripción:** pueden generar **imágenes** y usar el **Agente**; **no** hay reescalado a 1080p ni 4K; la edición de video cuesta 40 para todos.
@@ -212,23 +212,27 @@ Un video de 32 s (4 clips) = 48 créditos en Omni 720p: **un video corto por dí
 1. **Generar en la mañana de Venezuela antes de las 10:00 o después de las 13:00** para evitar las horas pico.
 2. **Rutina diaria:** gastar los 50 cada día aunque sea poco; lo no usado se pierde. Programar 1 pieza al día.
 3. **Imágenes primero (gratis):** diseñar y aprobar los fotogramas en imagen (Nano Banana 2 Lite) y **animar solo lo aprobado** con Fotogramas. Una imagen mala no cuesta créditos; un video malo cuesta 12.
-4. **Borradores en 360p (6 créditos)** solo para probar encuadre y movimiento; la ayuda oficial solo da el reescalado gratis de 360p a 720p a Pro y Ultra, así que, salvo que la prueba con cuenta gratuita demuestre lo contrario [POR VERIFICAR], el final se genera directamente en 720p.
+4. **Borradores en 360p (6 créditos)** solo para probar encuadre y movimiento; **Confirmado en cuenta gratuita:** el reescalado 360p → 720p aparece **bloqueado** («Actualizar»), así que el final se genera directamente en 720p (Veo Lite 10 es más barato que Omni 12).
 5. **Prompts cortos de voz (12-15 palabras) y una idea por clip** para no repetir (cada repetición son 12 créditos).
 6. **x1 siempre.** x2-x4 gastan el cupo del día en un solo envío.
 7. **Escena + descarga:** unir clips dentro de Flow (escena) evita herramientas externas; descarga a 720p.
-8. **Usar el Agente** (gratis) para planear la escena antes de gastar créditos; y **las herramientas** (crear herramienta no cuesta créditos).
+8. **Usar el Agente** (gratis) para planear la escena antes de gastar créditos; y **las plantillas de herramientas** (Type Overlays rinde gratis; **crear herramienta propia exige plan**).
 9. **Dividir el trabajo en días:** escena 1 hoy, escena 2 mañana usando el fotograma final de la escena 1 como inicio (continuidad entre días).
 10. **Sin sonido** (ajuste «Generar videos sin sonido») cuando vayas a poner tu propia voz o música: el costo es el mismo, pero evitas voces que no usarás.
 11. **Montaje fuera de Flow** (CapCut, DaVinci, ffmpeg) para texto, subtítulos y música: no gasta créditos.
 12. **Cuentas con plan de estudiante o promociones** de Google AI: revisar «Administrar suscripción» (varía por país).
 
-## D. A verificar en una sesión con cuenta gratuita (otra cuenta + extensión de Chrome)
-- Saldo inicial y cómo se muestra (¿50?); hora exacta de reinicio.
-- ¿Marca de agua obligatoria? ¿Qué modelos aparecen y cuáles están bloqueados?
-- ¿Se puede descargar 720p? ¿Cuánto tarda en cola? ¿Aviso de horas pico?
-- ¿Los fotogramas guardados, escenas y herramientas funcionan igual?
-- ¿Las generaciones fallidas devuelven créditos? (la ayuda general dice que no se cobran; confirmar).
-- Costo real de extender, de Type Overlays/Stringout Creator, y de los reescalados.
+## D. VERIFICADO en cuenta gratuita (18-10-2026) [MEDIDO]
+Detalle, capturas y archivos: `SESION_CUENTA_GRATIS_2026-10-18.md` y `CAPTURAS/sesion_cuenta_gratis/`.
+- **Saldo:** 50 créditos; se ve en el menú de la cuenta, junto a la hora de reinicio (11:25 a. m. VE) y el botón «Actualizar». Interruptor «Marca de agua visible»: apagado por defecto.
+- **Modelos:** los cuatro de video (Omni 1.1 Flash, Veo Lite, Fast, Quality) y los tres de imagen (Nano Banana Pro, 2 Lite, 2.1) aparecen **sin candado**; Quality (100) no alcanza: el botón de enviar se pone rojo y avisa «No tienes suficientes créditos…».
+- **Costos:** idénticos a Pro (tabla de la sección de créditos). Imágenes = 0. Unir clips en escena = 0. Extender (Veo Lite) = 10. Veo Lite en Fotogramas sigue fijo en 720p/8 s.
+- **Marca de agua:** ninguna visible en imagen ni video descargados.
+- **Descargas:** imagen 1K y 2K sí (4K bloqueado); video 720p original sí (en un clip 360p el «720p reescalado» y el 1080p/4K están bloqueados); escena exportada = un MP4 sin menú de calidad (360×640 si era Omni 360p; 720×1280 con Veo).
+- **Horas pico:** se generó video a las 15:36-15:50 UTC (dentro de 14-17 UTC) sin bloqueo.
+- **Tiempos:** imagen ≈ 15-20 s; Omni 360p 4 s ≈ 1 min; Veo Lite 8 s ≈ 1 min 20 s; extender ≈ 1 min; render de Type Overlays ≈ 2 min.
+- **Fallos:** copyright de terceros → «No se te cobró»; «personas destacadas» en video → «Se te reembolsará» (el saldo no se movió). Ver políticas en la sesión.
+- **Pendiente:** hora real del próximo reinicio (19-10), fallos que sí cobran y su reembolso tardío, Fotogramas Inicio+Fin, Stringout/Video Resizer renderizados, cola con varias generaciones.
 
 ---
 
