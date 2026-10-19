@@ -1,0 +1,18 @@
+/* GENERADO por scripts/sync-brand.mjs — no editar a mano. Tema: ceinca-guias */
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 800; font-display: block; src: url('../vendor/fonts/manrope-latin-800-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 400; font-display: block; src: url('../vendor/fonts/manrope-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 600; font-display: block; src: url('../vendor/fonts/manrope-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 700; font-display: block; src: url('../vendor/fonts/manrope-latin-700-normal.woff2') format('woff2'); }
+:root {
+  --fx-bg: #EAF0FF; --fx-bg-2: #FFFFFF; --fx-surface: #FFFFFF; --fx-surface-2: #E8EAF1;
+  --fx-text: #22252A; --fx-text-muted: #666B76;
+  --fx-accent: #1E3A8A; --fx-accent-2: #2D4FA8; --fx-accent-dark: #122A63;
+  --fx-on-accent: #FFFFFF; --fx-line: #E8EAF1; --fx-danger: #D64545; --fx-ok: #00A86B;
+  --fx-bg-rgb: 234, 240, 255; --fx-surface-rgb: 255, 255, 255; --fx-text-rgb: 34, 37, 42;
+  --fx-accent-rgb: 30, 58, 138; --fx-line-rgb: 232, 234, 241;
+  --fx-font-display: 'Manrope', sans-serif; --fx-font-body: 'Manrope', sans-serif;
+  --fx-fw-display: 800; --fx-fw-strong: 600; --fx-fw-body: 400;
+  --fx-grad-accent: linear-gradient(135deg, #1E3A8A 0%, #2D4FA8 100%); --fx-grad-bg: linear-gradient(180deg, #EAF0FF 0%, #FFFFFF 100%);
+  --fx-radius: 12px; --fx-radius-lg: 20px;
+  --fx-shadow-card: 0 4px 24px rgba(34, 37, 42, 0.18); --fx-shadow-accent: 0 4px 20px rgba(30, 58, 138, 0.30);
+}

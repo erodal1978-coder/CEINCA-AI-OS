@@ -1,0 +1,20 @@
+{
+  "name": "ceinca-video-fx",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Efectos de motion graphics CEINCA como plantillas HTML parametrizables → MP4 vertical",
+  "type": "module",
+  "scripts": {
+    "sync-brand": "node scripts/sync-brand.mjs",
+    "vendor:gsap": "mkdir -p vendor/gsap && cp node_modules/gsap/dist/gsap.min.js vendor/gsap/",
+    "check": "bash scripts/check.sh estatico",
+    "zip": "bash scripts/build-zip.sh",
+    "assets": "node scripts/make-assets.mjs"
+  },
+  "devDependencies": {
+    "@fontsource/manrope": "5.3.0",
+    "gsap": "3.15.0",
+    "hyperframes": "0.8.173",
+    "playwright-core": "1.64.1"
+  }
+}
