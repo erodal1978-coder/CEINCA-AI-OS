@@ -12,7 +12,7 @@
 - **Archivos:** `scripts/clip.mjs`, `examples/clip-zoom-digital.json`, `clip-zoom-corte.json`, `clip-zoom-atras.json`, `scripts/make-assets.mjs` (3 clips lavfi con audio), `scripts/check.sh` (modo `clip`), `SKILL.md` (frontmatter y catálogo Bloque 2), `CLAUDE.md`.
 - **Zip:** `bash scripts/build-zip.sh` genera `dist/ceinca-video-fx.zip` (~203 KB, 93 archivos), verificado sin mp4 ni node_modules.
 - **Limitaciones documentadas:** Overlays contador NN/TT y título fijo de `reel.mjs` no se aplican a clips mp4 (capa HTML); bloques siguientes cubren rompe marco, corta y pega, pantalla verde y subtítulos karaoke.
-- **Pendiente:** push de la rama `feature/ceinca-video-fx-bloque2` y apertura del PR en GitHub.
+- **Pendiente:** PR #34 abierto (sin mergear); Eduardo revisa los 3 zooms sobre clips reales; Bloque 3 (rompe el marco, corta y pega, pantalla verde, karaoke con Whisper).
 
 ## 🎬 19-10-2026 — Skill `ceinca-video-fx` Bloque 1 (11 efectos de solo código) — rama `feature/ceinca-video-fx-bloque1`
 - **Objetivo:** skill propia `.claude/skills/ceinca-video-fx` (mismo patrón que `ceinca-design`: carpeta con `SKILL.md` + recursos; Claude Code la detecta por ruta, no hay registro aparte). Plantillas HTML + GSAP parametrizables por `params.json` → MP4 1080×1920, 30 fps, H.264, yuv420p; 4 s por efecto (configurable). La ruta pedida `SKILLS/` no existe: las skills del repo viven en `.claude/skills/`.
