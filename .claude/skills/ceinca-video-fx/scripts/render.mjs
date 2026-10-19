@@ -104,6 +104,11 @@ function stage(params, opts) {
 
   let html = fs.readFileSync(path.join(srcDir, 'index.html'), 'utf8');
   html = html.replace(/(data-composition-id="root"[^>]*?data-duration=")[^"]*(")/, `$1${opts.duracion}$2`);
+  // fondoClave: pinta el fondo de un color liso (p. ej. 0x00FF00) para quitarlo luego con chromakey y usar el efecto como overlay.
+  if (params.fondoClave) {
+    const key = '#' + String(params.fondoClave).replace(/^(0x|#)/i, '');
+    html = html.replace('</head>', `<style>#root{background:${key}!important}.fx-bgfill{display:none!important}</style></head>`);
+  }
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   fs.writeFileSync(path.join(dir, 'params.js'), `window.__FX_PARAMS__ = ${JSON.stringify(resolved)};\n`);
 
