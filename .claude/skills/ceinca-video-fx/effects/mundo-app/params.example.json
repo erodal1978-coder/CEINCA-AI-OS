@@ -1,0 +1,34 @@
+{
+  "efecto": "mundo-app",
+  "centro": "CEINCA",
+  "elementos": [
+    {
+      "titulo": "Actas",
+      "icono": "doc",
+      "valor": "24"
+    },
+    {
+      "titulo": "Alertas",
+      "icono": "bell",
+      "valor": "3"
+    },
+    {
+      "titulo": "Blindaje",
+      "icono": "shield"
+    },
+    {
+      "titulo": "Capital",
+      "icono": "chart",
+      "valor": "+18%"
+    },
+    {
+      "titulo": "Consultas",
+      "icono": "chat",
+      "valor": "12"
+    },
+    {
+      "titulo": "Plazos",
+      "icono": "clock"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>orbita</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .orb-wrap { position:absolute; inset:0; }
+  .ring-e { position:absolute; border-radius:50%; border:3px solid var(--fx-line); left:50%; top:50%; }
+  .ring-e.a { width:840px; height:460px; margin:-230px 0 0 -420px; }
+  .ring-e.b { width:560px; height:300px; margin:-150px 0 0 -280px; opacity:.55; }
+  .center { position:absolute; left:50%; top:50%; width:300px; height:300px; margin:-150px 0 0 -150px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; text-align:center; background:var(--fx-grad-accent); color:var(--fx-on-accent); font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:52px; line-height:1.05; text-transform:uppercase; box-shadow:var(--fx-shadow-accent), 0 0 0 24px rgba(var(--fx-accent-rgb),.18); z-index:5; padding:24px; }
+  .center img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .sat { position:absolute; left:50%; top:50%; width:170px; margin:-85px 0 0 -85px; display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .sat .dot { width:170px; height:170px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:var(--fx-surface); border:5px solid var(--fx-accent); box-shadow:var(--fx-shadow-card); color:var(--fx-accent); font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:34px; text-align:center; line-height:1.05; }
+  .sat .dot img { width:100%; height:100%; object-fit:cover; }
+  .sat .dot svg { width:80px; height:80px; }
+  .sat .lb { font-size:30px; font-weight:var(--fx-fw-strong); background:rgba(var(--fx-bg-rgb),.72); color:var(--fx-text); padding:4px 16px; border-radius:999px; white-space:nowrap; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="area" class="fx-area fx-free"><div class="orb-wrap" id="wrap"><div class="ring-e a"></div><div class="ring-e b"></div><div class="center" id="center"></div></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({ centro: 'CEINCA', satelites: ['Actas', 'Capital', 'Socios', 'Registro', 'Libros'], vueltas: 1 });
+const { P, tl, D } = ctx;
+const c = document.getElementById('center');
+if (FX.isImg(P.centro)) { const im = FX.el('img', '', c); im.src = P.centro; } else c.textContent = P.centro;
+const wrap = document.getElementById('wrap');
+const sats = P.satelites.map((s) => {
+  const o = typeof s === 'string' ? { texto: s } : s;
+  const n = FX.el('div', 'sat', wrap); const dot = FX.el('div', 'dot', n);
+  if (o.imagen) { const im = FX.el('img', '', dot); im.src = o.imagen; }
+  else if (o.icono) dot.appendChild(FX.icon(o.icono));
+  else dot.textContent = (o.texto || '').slice(0, 9);
+  if (o.etiqueta) FX.el('div', 'lb', n, o.etiqueta);
+  return n;
+});
+const RX = 420, RY = 230, N = sats.length, TURNS = Number(P.vueltas ?? 1);
+const place = (a) => sats.forEach((n, i) => {
+  const ang = a + (Math.PI * 2 * i) / N;
+  const dep = Math.sin(ang);                       // -1 lejos … 1 cerca
+  const sc = 0.82 + 0.28 * ((dep + 1) / 2);
+  n.style.transform = `translate(${(Math.cos(ang) * RX).toFixed(2)}px, ${(dep * RY).toFixed(2)}px) scale(${sc.toFixed(4)})`;
+  n.style.zIndex = dep > 0 ? 8 : 1;
+  n.style.opacity = (0.72 + 0.28 * ((dep + 1) / 2)).toFixed(3);
+});
+FX.drive(tl, 0, Math.PI * 2 * TURNS, { duration: D, ease: 'power1.inOut' }, place, 0);
+tl.from('#center', { scale: 0, duration: 0.7, ease: 'back.out(1.7)' }, 0);
+tl.from('.ring-e', { scale: 0.6, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12 }, 0);
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>
