@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>checklist</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .titulo { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:92px; line-height:1.02; letter-spacing:-.03em; text-transform:uppercase; margin:0 0 44px; }
+  .items { display:flex; flex-direction:column; gap:24px; flex:1; padding-bottom:20px; }
+  .item { display:flex; align-items:center; gap:34px; padding:26px 40px; flex:1; max-height:200px; min-height:128px; }
+  .item .txt { font-size:52px; line-height:1.15; font-weight:var(--fx-fw-strong); flex:1; }
+  .box { flex:none; width:92px; height:92px; }
+  .box rect { fill:none; stroke:var(--fx-line); stroke-width:5; }
+  .box path { fill:none; stroke:var(--fx-accent); stroke-width:9; stroke-linecap:round; stroke-linejoin:round; }
+  .accent-rule { width:180px; height:12px; border-radius:999px; background:var(--fx-grad-accent); margin-bottom:38px; transform-origin:left center; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="area" class="fx-area" style="display:flex;flex-direction:column"><div class="accent-rule" id="rule"></div><h1 class="titulo" id="titulo"></h1><div class="items" id="items"></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({ titulo: 'Checklist **mercantil**', items: ['Acta firmada', 'Registro vigente', 'Capital adecuado', 'Libros al día'] });
+const { P, tl, D } = ctx;
+FX.setRich(document.getElementById('titulo'), P.titulo);
+const wrap = document.getElementById('items');
+const NS = 'http://www.w3.org/2000/svg';
+const n = P.items.length;
+const checks = [];
+P.items.forEach((t) => {
+  const row = FX.el('div', 'item fx-card', wrap);
+  const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'box'); svg.setAttribute('viewBox', '0 0 76 76');
+  const r = document.createElementNS(NS, 'rect'); [['x', 6], ['y', 6], ['width', 64], ['height', 64], ['rx', 16]].forEach(([k, v]) => r.setAttribute(k, v));
+  const p = document.createElementNS(NS, 'path'); p.setAttribute('d', 'M20 40 L33 53 L58 22');
+  svg.append(r, p); row.appendChild(svg);
+  FX.el('div', 'txt', row, t);
+  checks.push({ row, p, len: FX.drawable(p) });
+});
+tl.from('#rule', { scaleX: 0, duration: 0.6, ease: 'power3.inOut' }, 0.1);
+tl.from('#titulo', { y: 40, opacity: 0, duration: 0.6, ease: 'power3.out' }, 0.2);
+const t0 = 0.7, span = Math.max(0.5, (D - 1.9) / n);
+checks.forEach((c, i) => {
+  const at = t0 + i * span;
+  tl.from(c.row, { x: -80, opacity: 0, duration: 0.45, ease: 'power3.out' }, at);
+  tl.to(c.p, { strokeDashoffset: 0, duration: 0.4, ease: 'power2.inOut' }, at + 0.3);
+  tl.fromTo(c.row, { scale: 1 }, { scale: 1.03, duration: 0.12, yoyo: true, repeat: 1, ease: 'power1.inOut' }, at + 0.62);
+});
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

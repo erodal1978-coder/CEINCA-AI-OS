@@ -1,0 +1,9 @@
+{
+  "efecto": "grafica-crece",
+  "tipo": "barras",
+  "titulo": "Constituciones registradas",
+  "datos": [12, 19, 28, 41, 57, 76],
+  "etiquetas": ["Ene", "Feb", "Mar", "Abr", "May", "Jun"],
+  "prefijo": "",
+  "sufijo": ""
+}
