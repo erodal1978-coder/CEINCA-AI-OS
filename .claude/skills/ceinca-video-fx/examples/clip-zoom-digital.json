@@ -1,0 +1,11 @@
+{
+  "efecto": "zoom-digital",
+  "clip": "../examples/assets/clips/clip-bloque2-v.mp4",
+  "recorte": { "desde": 0, "hasta": 5 },
+  "escala": 1.35,
+  "inicio": 0.5,
+  "fin": 4.0,
+  "curva": "suave",
+  "foco": { "x": 0.5, "y": 0.4 },
+  "audio": true
+}

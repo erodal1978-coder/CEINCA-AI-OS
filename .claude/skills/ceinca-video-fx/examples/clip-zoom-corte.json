@@ -1,0 +1,11 @@
+{
+  "efecto": "zoom-corte",
+  "clip": "../examples/assets/clips/clip-bloque2-v.mp4",
+  "cortes": [
+    { "t": 1.5, "escala": 1.5, "foco": { "x": 0.5, "y": 0.35 } },
+    { "t": 3.0, "escala": 1.0 },
+    { "t": 4.0, "escala": 1.8, "foco": { "x": 0.45, "y": 0.4 } }
+  ],
+  "foco": { "x": 0.5, "y": 0.5 },
+  "audio": true
+}
