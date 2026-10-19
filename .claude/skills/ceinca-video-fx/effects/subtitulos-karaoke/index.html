@@ -13,6 +13,9 @@
   .word.is-active { color:var(--fx-accent); opacity:1; transform:scale(1.12); text-shadow:0 0 35px rgba(var(--fx-accent-rgb),.85); }
   .word.is-done { color:var(--fx-text); opacity:.95; }
   .fx-area { background:none; }
+  /* modo clave (overlay sobre video): caja sólida, sin blur ni sombras que se mezclen con el color clave */
+  .clave .caption-box { background:rgb(var(--fx-bg-rgb)); backdrop-filter:none; box-shadow:none; border-color:rgb(var(--fx-accent-rgb)); }
+  .clave .word.is-active { text-shadow:none; }
 </style></head>
 <body>
 <div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">

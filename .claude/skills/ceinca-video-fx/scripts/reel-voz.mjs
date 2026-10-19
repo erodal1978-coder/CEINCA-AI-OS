@@ -88,14 +88,14 @@ for (const [i, e] of reel.escenas.entries()) {
     const resolved = JSON.parse(fs.readFileSync(pj, 'utf8'));
     for (const k of ['sujeto', 'fondo', 'pantalla']) if (typeof resolved[k] === 'string' && !path.isAbsolute(resolved[k])) resolved[k] = abs(resolved[k]);
     fs.writeFileSync(pj, JSON.stringify(resolved));
-    await render(pj, { salida: o, motor: opt('--motor'), tema, duracion: dur, override: ov });
+    await render(pj, { salida: o, motor: opt('--motor'), tema, duracion: dur, override: ov, sinAuditoria: !!e.sinAuditoria });
     vid = o;
   } else if (e.overlay) { // efecto HTML con fondo clave pegado sobre el clip
     const pj = writeJson(`${id}_ov.json`, { ...e.overlay, fondoClave: KEY });
     const o = path.join(tmp, `${id}_ov.mp4`);
     await render(pj, { salida: o, motor: opt('--motor'), tema, duracion: dur, override: {} });
     const comp = path.join(tmp, `${id}_comp.mp4`);
-    ff('-i', seg, '-i', o, '-filter_complex', `[1:v]fps=30,scale=1080:1920,chromakey=color=${KEY}:similarity=0.14:blend=0.04[ov];[0:v][ov]overlay=0:0,format=yuv420p[v]`, '-map', '[v]', '-an', '-c:v', 'libx264', '-crf', '14', '-preset', 'fast', comp);
+    ff('-i', seg, '-i', o, '-filter_complex', `[1:v]fps=30,scale=1080:1920,chromakey=color=${KEY}:similarity=0.14:blend=0.04,format=rgba,colorchannelmixer=aa=${e.overlay.opacidad ?? 0.9}[ov];[0:v][ov]overlay=0:0,format=yuv420p[v]`, '-map', '[v]', '-an', '-c:v', 'libx264', '-crf', '14', '-preset', 'fast', comp);
     vid = comp;
   }
   if ((e.fx || e.overlay) && e.badge) { // badge NN/TT sobre escenas que no lo dibujan solas

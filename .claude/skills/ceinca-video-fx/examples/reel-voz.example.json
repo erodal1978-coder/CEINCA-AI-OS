@@ -1,0 +1,244 @@
+{
+ "tema": "ceinca-social",
+ "tituloFijo": "7 efectos de video con Claude",
+ "total": 7,
+ "escenas": [
+  {
+   "fuente": "assets/flow_A.mp4",
+   "desde": 0.7,
+   "hasta": 5.8,
+   "fx": {
+    "efecto": "zoom-digital",
+    "escala": 1.15,
+    "inicio": 0,
+    "fin": 5.1,
+    "curva": "suave",
+    "foco": {
+     "x": 0.5,
+     "y": 0.35
+    }
+   }
+  },
+  {
+   "fuente": "assets/flow_B.mp4",
+   "desde": 0.7,
+   "hasta": 3.1
+  },
+  {
+   "fuente": "assets/flow_B.mp4",
+   "desde": 3.1,
+   "hasta": 5.0,
+   "badge": 1,
+   "html": {
+    "efecto": "muro-titulares",
+    "destacado": 0,
+    "titulares": [
+     {
+      "fuente": "Registro",
+      "titulo": "Nuevo criterio del Registro Mercantil sobre capital social"
+     },
+     {
+      "fuente": "SAREN",
+      "titulo": "SAREN actualiza los requisitos de actas"
+     },
+     {
+      "fuente": "Economía",
+      "titulo": "Reconversión: qué cambia para tu empresa"
+     },
+     {
+      "fuente": "Plazos",
+      "titulo": "Inscripción: lo que nadie te dijo"
+     },
+     {
+      "fuente": "Libros",
+      "titulo": "Multa por no sellar los libros a tiempo"
+     },
+     {
+      "fuente": "Blindaje",
+      "titulo": "Cómo blindar tu empresa antes de fin de año"
+     }
+    ]
+   },
+   "sinAuditoria": true
+  },
+  {
+   "fuente": "assets/flow_B.mp4",
+   "desde": 5.0,
+   "hasta": 6.4,
+   "badge": 2,
+   "html": {
+    "efecto": "grafica-crece",
+    "tipo": "barras",
+    "titulo": "Alcance semanal (ejemplo)",
+    "datos": [
+     1200,
+     3400,
+     9800,
+     21500,
+     48000
+    ],
+    "etiquetas": [
+     "L",
+     "M",
+     "X",
+     "J",
+     "V"
+    ]
+   }
+  },
+  {
+   "fuente": "assets/flow_B.mp4",
+   "desde": 6.4,
+   "hasta": 7.7,
+   "badge": 3,
+   "fx": {
+    "efecto": "zoom-corte",
+    "cortes": [
+     {
+      "t": 0.35,
+      "escala": 1.5,
+      "foco": {
+       "x": 0.5,
+       "y": 0.3
+      }
+     },
+     {
+      "t": 0.8,
+      "escala": 1.0
+     }
+    ]
+   }
+  },
+  {
+   "fuente": "assets/flow_C.mp4",
+   "desde": 0.0,
+   "hasta": 1.2,
+   "badge": 4,
+   "fx": {
+    "efecto": "pantalla-verde",
+    "color": "0x329152",
+    "fondo": {
+     "tipo": "color",
+     "valor": "0x122A63"
+    },
+    "metodo": "verde-dominante"
+   }
+  },
+  {
+   "fuente": "assets/flow_C.mp4",
+   "desde": 1.2,
+   "hasta": 3.7,
+   "badge": 5,
+   "html": {
+    "efecto": "rompe-marco",
+    "sujeto": "assets/eduardo-recorte.png",
+    "titular": "PROFUNDIDAD **2.5D**",
+    "subtitulo": "El sujeto rompe el marco",
+    "etiqueta": "CEINCA™ FX"
+   }
+  },
+  {
+   "fuente": "assets/flow_C.mp4",
+   "desde": 3.7,
+   "hasta": 6.9,
+   "badge": 6,
+   "html": {
+    "efecto": "corta-pega",
+    "sujeto": "assets/eduardo-recorte.png",
+    "titular": "RECORTES TIPO **STICKER**",
+    "subtitulo": "Corta y pega",
+    "etiquetas": [
+     "SIN AFTER EFFECTS",
+     "100% CÓDIGO"
+    ]
+   }
+  },
+  {
+   "fuente": "assets/flow_D.mp4",
+   "desde": 0.0,
+   "hasta": 4.9,
+   "badge": 7,
+   "overlay": {
+    "efecto": "subtitulos-karaoke",
+    "posicion": "abajo",
+    "palabras": [
+     {
+      "texto": "TODO",
+      "t": 0.0
+     },
+     {
+      "texto": "EN",
+      "t": 0.94
+     },
+     {
+      "texto": "CÓDIGO",
+      "t": 1.14
+     },
+     {
+      "texto": "HTML",
+      "t": 1.46
+     },
+     {
+      "texto": "Y",
+      "t": 2.1
+     },
+     {
+      "texto": "FFMPEG",
+      "t": 3.0
+     }
+    ]
+   }
+  },
+  {
+   "fuente": "assets/flow_D.mp4",
+   "desde": 4.9,
+   "hasta": 7.4,
+   "badge": 7,
+   "overlay": {
+    "efecto": "subtitulos-karaoke",
+    "posicion": "abajo",
+    "palabras": [
+     {
+      "texto": "Y",
+      "t": 0.16
+     },
+     {
+      "texto": "HOY",
+      "t": 0.38
+     },
+     {
+      "texto": "TE",
+      "t": 0.54
+     },
+     {
+      "texto": "REGALO",
+      "t": 0.72
+     },
+     {
+      "texto": "LA",
+      "t": 1.2
+     },
+     {
+      "texto": "SKILL",
+      "t": 1.52
+     },
+     {
+      "texto": "COMPLETA",
+      "t": 1.82
+     }
+    ]
+   }
+  },
+  {
+   "fuente": "assets/flow_E.mp4",
+   "desde": 1.0,
+   "hasta": 6.0,
+   "ctb": {
+    "palabra": "FIEBRU'O",
+    "linea": "TE ENVÍO EL ZIP CON LOS EFECTOS",
+    "handle": "@ceinca.mercantil",
+    "entra": 0.8
+   }
+  }
+ ]
+}
