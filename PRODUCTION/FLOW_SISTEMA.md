@@ -23,7 +23,7 @@
 10. Audio y diseño sonoro
 11. Narrativa: hook, retención, B-roll y CTB
 12. Construcción del prompt: checklists, andamiaje y formato de salida
-13. Herramientas de Flow: Flow Agent, Flow Tools y Street View
+13. Herramientas de Flow: Flow Agent, Flow Tools, Street View y modos/variaciones de generación
 14. Post-producción en Meta Edits
 15. Modo de trabajo del Director e instrucción maestra
 16. Checklist de producción por Reel
@@ -490,6 +490,16 @@ Activación: abrir proyecto → activar Agent mode (toggle en la barra de prompt
 
 Prompt tipo (fundido en párrafo, con las reglas de §3):
 > "Escena vertical 9:16 de 8 segundos: el sujeto —hombre venezolano con lentes grandes translúcidos rosé/marrón tipo aviador con detalle dorado, cabello corto sal y pimienta y chivera corta canosa, blazer oscuro profesional— de pie con seguridad frente a 1 SE 3rd Ave, Miami, FL, en el distrito financiero de Brickell, con la escena real de Street View como fondo; mira a cámara con autoridad serena, plano medio cerrado con equivalente 85 mm, sujeto nítido y edificios en bokeh, luz natural de mediodía de Miami con relleno cálido lateral desde la derecha, grade cinematográfico suave con negros levantados, ambiente urbano ligero y tráfico lejano generados por Veo 3.1, cierre con fundido a negro; calidad cinematográfica profesional, sin deformaciones ni artefactos de IA."
+
+### 13.4 Interfaz de generación de video: modos, duración y variaciones (validado 16-10-2026)
+Panel de Vídeo en Flow: modo **[Fotogramas | Ingredientes]**, formato 9:16 / 16:9, modelo (p. ej. Omni 1.1 Flash — verificar en cada sesión), calidad 360p / **720p**, duración 4 / 6 / 8 / **10 s** y selector **x1–x4**.
+
+1. **Fotogramas e Ingredientes son modos excluyentes: nunca se mezclan en una misma generación.** Elegir uno por pieza y mantenerlo en todas las escenas.
+   - **Fotogramas:** casillas *Inicio* y *Fin* (el *Fin* es opcional). La imagen aprobada (keyframe de avatar o foto real del producto/lugar) va en *Inicio*. El prompt describe lo que ocurre **a partir de ese fotograma** («el sujeto del fotograma inicial…», «el fotograma inicial muestra…»); no escribir «la imagen de referencia adjunta».
+   - **Ingredientes:** referencias de personaje/objeto/lugar (§8.3, §8.4); el prompt las describe físicamente.
+2. **x1 / x2 / x3 / x4 = número de variaciones (resultados distintos) por envío del mismo prompt; no es velocidad.** Cada variación consume puntos (referencia: 10 puntos por clip de 6 s, 720p, x1). Usar **x1 por defecto** para ahorrar puntos y subir a x2–x4 solo en tomas críticas (p. ej. la primera toma hablada, donde se valida la voz). Elegir la variante por voz y rostro, no solo por imagen.
+3. **Resolución:** 720p es el máximo disponible en el plan; el escalado a 1080×1920 se hace en post (ffmpeg).
+4. **Sin nombre propio (§3 regla 5):** también para personas reales de referencia, incluidos menores. Describir físicamente y usar «el sujeto» / «la niña del fotograma inicial».
 
 ---
 
