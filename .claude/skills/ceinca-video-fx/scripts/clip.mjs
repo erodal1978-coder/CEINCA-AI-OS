@@ -245,7 +245,10 @@ function buildPantallaVerde(p, meta) {
   const suavizado  = Number(p.suavizado  ?? 0.05);
   const foco       = p.foco ?? { x: 0.5, y: 0.5 };
   validateFoco(foco);
-  return { colorKey, tolerancia, suavizado, fondo: p.fondo, foco };
+  // metodo 'verde-dominante': alfa por exceso de verde sobre rojo/azul (no motea prendas azul claro como el chromakey por distancia)
+  const metodo = p.metodo ?? 'chromakey';
+  const umbral = Number(p.umbral ?? 18), rango = Number(p.rango ?? 40);
+  return { colorKey, tolerancia, suavizado, fondo: p.fondo, foco, metodo, umbral, rango };
 }
 
 // ── render principal ──────────────────────────────────────────────────────────
@@ -357,7 +360,7 @@ function renderZoomCorte(clipPath, params, meta, outPath, cortesData) {
 }
 
 function renderPantallaVerde(clipPath, params, meta, outPath, chromaData) {
-  const { colorKey, tolerancia, suavizado, fondo, foco } = chromaData;
+  const { colorKey, tolerancia, suavizado, fondo, foco, metodo, umbral, rango } = chromaData;
   const audio = params.audio !== false;
 
   const encuadre = buildEncuadreFilter(meta.width, meta.height, foco);
@@ -382,7 +385,9 @@ function renderPantallaVerde(clipPath, params, meta, outPath, chromaData) {
   }
 
   const fc = [
-    `[0:v]${encuadre},fps=30,setsar=1,chromakey=color=${colorKey}:similarity=${tolerancia}:blend=${suavizado}[fg]`,
+    metodo === 'verde-dominante'
+      ? `[0:v]${encuadre},fps=30,setsar=1,format=rgba,geq=r='r(X,Y)':g='min(g(X,Y),max(r(X,Y),b(X,Y))+8)':b='b(X,Y)':a='255*clip(1-(g(X,Y)-max(r(X,Y),b(X,Y))-${umbral})/${rango},0,1)',gblur=sigma=1[fg]`
+      : `[0:v]${encuadre},fps=30,setsar=1,chromakey=color=${colorKey}:similarity=${tolerancia}:blend=${suavizado}[fg]`,
     bgFilter,
     `[bg][fg]overlay=0:0[v]`
   ].join(';');
@@ -402,7 +407,7 @@ function renderPantallaVerde(clipPath, params, meta, outPath, chromaData) {
   const r = spawnSync('ffmpeg', args, { stdio: ['ignore', 'pipe', 'pipe'] });
   if (r.status !== 0) die(`ffmpeg falló en pantalla-verde:\n${r.stderr.toString().trim()}`);
 
-  return { escalaMax: 1, aviso: null, metodo: 'ffmpeg-chromakey' };
+  return { escalaMax: 1, aviso: null, metodo: metodo === 'verde-dominante' ? 'ffmpeg-verde-dominante' : 'ffmpeg-chromakey' };
 }
 
 // ── ffprobe de la salida ──────────────────────────────────────────────────────

@@ -107,7 +107,7 @@ function stage(params, opts) {
   // fondoClave: pinta el fondo de un color liso (p. ej. 0x00FF00) para quitarlo luego con chromakey y usar el efecto como overlay.
   if (params.fondoClave) {
     const key = '#' + String(params.fondoClave).replace(/^(0x|#)/i, '');
-    html = html.replace('</head>', `<style>#root{background:${key}!important}.fx-bgfill{display:none!important}</style></head>`);
+    html = html.replace('</head>', `<style>#root{background:${key}!important}.fx-bgfill{display:none!important}</style></head>`).replace('<body>', '<body class="clave">');
   }
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   fs.writeFileSync(path.join(dir, 'params.js'), `window.__FX_PARAMS__ = ${JSON.stringify(resolved)};\n`);

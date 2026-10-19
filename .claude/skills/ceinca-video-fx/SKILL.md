@@ -1,7 +1,7 @@
 ---
 name: ceinca-video-fx
 description: >
-  Efectos de video CEINCA™ en tres bloques que completan los 17 efectos de video
+  Efectos de video CEINCA™ en tres bloques que completan los 18 efectos de video
   para Reels/TikTok: Bloque 1 (11 efectos de solo código HTML/GSAP: muro de
   titulares, checklist, gráfica que crece, texto cristal, portada, teléfono,
   mundo-app 3D, órbita, garabato vivo, muro de videos, vértigo simulado); Bloque 2
@@ -15,7 +15,9 @@ description: >
   Marca desacoplada vía sync-brand; disponible en Claude Code, terminal y chat/cowork.
 ---
 
-# ceinca-video-fx — Bloque 1 (11 efectos de solo código)
+# ceinca-video-fx — 18 efectos de video (Bloques 1-3)
+
+Bloque 1 = 11 efectos HTML/GSAP (esta sección). Bloque 2 = zooms y Bloque 3 = chroma/rompe-marco/corta-pega/karaoke más `reel-voz.mjs` (secciones siguientes). **Para un reel de demostración elige ~7 de los 18, los más vistosos; no los 18.**
 
 Cada efecto es una plantilla HTML + GSAP (`effects/<id>/index.html`) que recibe un `params.json` y se renderiza a MP4.
 Sin CDN, sin APIs ni servicios pagos: GSAP, fuentes y plantillas viajan dentro de la skill.
@@ -192,7 +194,7 @@ Los `clip-<efecto>.json` de `examples/` apuntan a estos clips. Para probar con u
 
 ## Bloque 3 — Chroma Key, Siluetas 2.5D, Cutout y Subtítulos Karaoke
 
-Completa los 17 efectos de video con técnicas avanzadas de composición, soporte de chroma key y capas sobrepuestas.
+Completa los 18 efectos de video con técnicas avanzadas de composición, soporte de chroma key y capas sobrepuestas.
 
 ### 1. `pantalla-verde` (Chroma Key nativo con FFmpeg)
 Elimina el fondo verde (`0x00FF00` o personalizado) y lo reemplaza por un color de marca (`--fx-bg`), una imagen o un video de fondo.
@@ -225,3 +227,40 @@ Resuelve la limitación de superponer gráficos, títulos o subtítulos sobre vi
 node scripts/overlay.mjs --base mi-clip.mp4 --overlay examples/subtitulos-karaoke.json --key 0x122A63 -o out/final.mp4
 ```
 
+
+
+## Reel con voz grabada (`scripts/reel-voz.mjs`)
+
+Monta un reel donde la **voz viene de clips grabados** (p. ej. Flow con el avatar del usuario) y cada escena lleva un efecto encima. Ejemplo completo: `examples/reel-voz.example.json` (los clips no se versionan; apunta a `assets/`).
+
+```bash
+node scripts/reel-voz.mjs examples/reel-voz.example.json -o out/reel.mp4
+```
+
+Cada escena toma la **voz del tramo `[desde, hasta]` de su `fuente`** (ganancia pareja entre clips, fundidos de 40 ms solo en los empalmes, `loudnorm` a −16 LUFS al final) y puede ser:
+
+| Campo | Qué hace |
+|---|---|
+| (ninguno) | clip liso, encuadre cover 1080×1920 a 30 fps |
+| `fx` | efecto de `clip.mjs` (zoom, `pantalla-verde`); los tiempos son relativos al inicio de la escena |
+| `html` | efecto HTML a pantalla completa (`muro-titulares`, `grafica-crece`, `rompe-marco`, `corta-pega`…); el contador sale del propio efecto |
+| `overlay` | efecto HTML con `fondoClave` pegado sobre el clip (karaoke) |
+| `ctb` | caja de llamado a la acción (`{palabra, linea, handle}`) dentro de la zona segura |
+| `badge: N` | contador `N/total` + título fijo (PNG de `badge.mjs`) |
+| `sinAuditoria` | omite la auditoría de zonas seguras (solo si el efecto se corta a mitad de animación) |
+
+**Flujo recomendado:** (1) graba/genera las escenas con la voz; (2) Whisper `small` con `word_timestamps` por clip → tiempos reales de cada palabra; (3) reparte los efectos según la palabra que se dice; (4) render; (5) contact sheet 1 fps + Whisper del master para comprobar.
+
+**Piezas auxiliares nuevas**
+- `scripts/recorte-verde.mjs <video> --t 2 -o recorte.png`: fotograma con **alfa** a partir de un fondo verde (solo FFmpeg). Úsalo como `sujeto` de `rompe-marco` y `corta-pega`.
+- `pantalla-verde` acepta `"metodo": "verde-dominante"` (alfa por exceso de verde sobre rojo/azul, `umbral` 18, `rango` 40). Con prendas azul claro el `chromakey` por distancia sale moteado; este método no.
+- `scripts/badge.mjs`: PNG transparente del contador o del CTB con la marca del tema.
+- Parámetro `fondoClave` (p. ej. `0x00FF00`) en cualquier efecto: pinta el fondo liso para quitarlo con `chromakey` (overlay sobre clip). Añade la clase `clave` al `<body>`; `subtitulos-karaoke` la usa para pasar a caja sólida.
+
+**Reglas aprendidas (reel FIEBRU'O, 19-10-2026)**
+1. Un efecto HTML necesita **≥ 1,4 s** para leerse (`muro-titulares` ≥ 1,9 s). Si la palabra dura menos, empieza el efecto antes de decirla.
+2. `subtitulos-karaoke` con `posicion: "abajo"` ya respeta la zona segura; **máx. ~6 palabras por escena** (2 líneas): parte la frase en varias escenas.
+3. El badge `NN/total` debe ser **consecutivo y mostrar el efecto que dice**: no pongas un badge sobre una toma que no sea ese efecto.
+4. El texto del CTB va **exacto** (`FIEBRU'O`, con apóstrofe) y dentro de la zona segura (no bajo 350 px del borde inferior).
+5. Una escena de cada efecto con **la cara del usuario** (recorte real), nunca la silueta de demo (`frente-figura.png` es solo para pruebas del skill).
+6. Para Flow (avatar, continuidad con último fotograma, descargas 720p/1080p) ver la skill `flow-chrome` (borrador en `CEINCA-WORKSPACE/03 FORMACION/CURSO FLOW/SKILL_flow-chrome_BORRADOR_v0.1.md`, sección 12).
