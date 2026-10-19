@@ -1,0 +1,6 @@
+{
+  "efecto": "vertigo-simulado",
+  "fondo": "assets/fondo-ciudad.svg",
+  "frente": "assets/frente-figura.png",
+  "intensidad": 1
+}

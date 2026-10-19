@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>mundo-app</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .scene { position:absolute; inset:0; perspective:1700px; perspective-origin:50% 42%; }
+  .ring { position:absolute; left:0; top:0; width:0; height:0; transform-style:preserve-3d; }
+  #tilt { left:50%; top:46%; }
+  .slot { position:absolute; left:0; top:0; width:0; height:0; transform-style:preserve-3d; }
+  .pivot { position:absolute; left:0; top:0; width:0; height:0; transform-style:preserve-3d; }
+  .tile { position:absolute; left:-150px; top:-85px; width:300px; height:170px; padding:22px 24px; display:flex; flex-direction:column; justify-content:space-between; }
+  .tile .ic { width:54px; height:54px; border-radius:16px; background:var(--fx-accent); color:var(--fx-on-accent); display:flex; align-items:center; justify-content:center; }
+  .tile .ic svg { width:32px; height:32px; }
+  .tile .nm { font-size:34px; font-weight:var(--fx-fw-strong); line-height:1.1; }
+  .tile .vl { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:40px; color:var(--fx-accent); position:absolute; right:24px; top:20px; }
+  .hubwrap { position:absolute; left:0; top:0; width:0; height:0; transform-style:preserve-3d; }
+  .hub { position:absolute; left:-130px; top:-130px; width:260px; height:260px; border-radius:50%; display:flex; align-items:center; justify-content:center; text-align:center; background:var(--fx-grad-accent); box-shadow:var(--fx-shadow-accent), 0 0 0 26px rgba(var(--fx-accent-rgb),.18); color:var(--fx-on-accent); font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:46px; line-height:1.05; text-transform:uppercase; overflow:hidden; padding:30px; }
+  .hub img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .fx-area { overflow:visible; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="area" class="fx-area fx-free"><div class="scene"><div class="ring" id="tilt"><div class="ring" id="ring"></div><div class="hubwrap" id="hubwrap"><div class="hub" id="hub"></div></div></div></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({ centro: 'App', elementos: [
+  { titulo: 'Facturas', icono: 'doc', valor: '24' }, { titulo: 'Alertas', icono: 'bell', valor: '3' }, { titulo: 'Equipo', icono: 'user', valor: '8' },
+  { titulo: 'Seguridad', icono: 'shield' }, { titulo: 'Ventas', icono: 'chart', valor: '+18%' }, { titulo: 'Mensajes', icono: 'chat', valor: '12' },
+  { titulo: 'Pagos', icono: 'coin' }, { titulo: 'Agenda', icono: 'clock' } ] });
+const { P, tl, D } = ctx;
+const hub = document.getElementById('hub');
+if (FX.isImg(P.centro)) { const im = FX.el('img', '', hub); im.src = P.centro; } else hub.textContent = P.centro;
+const ring = document.getElementById('ring');
+const els = P.elementos, n = els.length, R = 340;
+const pivots = [];
+els.forEach((e, i) => {
+  const a = (360 / n) * i;
+  const slot = FX.el('div', 'slot', ring); const piv = FX.el('div', 'pivot', slot);
+  const tile = FX.el('div', 'tile fx-card', piv);
+  const ic = FX.el('div', 'ic', tile); ic.appendChild(FX.icon(e.icono || 'star'));
+  FX.el('div', 'nm', tile, e.titulo);
+  if (e.valor) FX.el('div', 'vl', tile, e.valor);
+  gsap.set(slot, { rotationY: a });
+  gsap.set(piv, { z: R });
+  pivots.push({ piv, a, tile });
+});
+const SPIN = 120, TILT = -40;
+gsap.set('#tilt', { rotationX: TILT });
+gsap.set('#hubwrap', { rotationX: -TILT });
+tl.fromTo(ring, { rotationY: -SPIN * 0.2 }, { rotationY: SPIN * 0.8, duration: D, ease: 'sine.inOut' }, 0);
+// cada tarjeta contrarresta la rotación del anillo y la inclinación para mirar siempre a cámara
+pivots.forEach(({ piv, a, tile }, i) => {
+  gsap.set(piv, { rotationX: -TILT });
+  tl.fromTo(piv, { rotationY: -(a - SPIN * 0.2) }, { rotationY: -(a + SPIN * 0.8), duration: D, ease: 'sine.inOut' }, 0);
+  tl.from(tile, { opacity: 0, scale: 0.4, duration: 0.5, ease: 'back.out(2)' }, 0.1 + i * 0.07);
+});
+tl.from('#hub', { scale: 0, duration: 0.7, ease: 'back.out(1.8)' }, 0);
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

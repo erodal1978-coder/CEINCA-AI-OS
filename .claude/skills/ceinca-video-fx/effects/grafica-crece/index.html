@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>grafica-crece</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .head { display:flex; flex-direction:column; align-items:flex-start; gap:6px; margin-bottom:18px; }
+  .ttl { font-size:44px; font-weight:var(--fx-fw-strong); color:var(--fx-text-muted); line-height:1.15; }
+  .num { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:210px; line-height:1; letter-spacing:-.04em; color:var(--fx-accent); font-variant-numeric:tabular-nums; }
+  .chart { width:100%; height:800px; display:block; }
+  .chart text { font-family:var(--fx-font-body); font-weight:var(--fx-fw-strong); font-size:30px; fill:var(--fx-text-muted); }
+  .chart .grid { stroke:var(--fx-line); stroke-width:2; }
+  .chart .bar { fill:var(--fx-accent); }
+  .chart .bar.last { fill:var(--fx-accent-2); }
+  .chart .ln { fill:none; stroke:var(--fx-accent); stroke-width:12; stroke-linecap:round; stroke-linejoin:round; }
+  .chart .dot { fill:var(--fx-bg); stroke:var(--fx-accent); stroke-width:8; }
+  .chart .vtxt { fill:var(--fx-text); font-size:34px; font-weight:var(--fx-fw-display); }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="area" class="fx-area"><div class="head"><div class="ttl" id="ttl"></div><div class="num" id="num">0</div></div>
+  <svg class="chart" id="chart" viewBox="0 0 960 800"></svg></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({ tipo: 'barras', titulo: 'Constituciones registradas', datos: [12, 19, 28, 41, 57, 76], etiquetas: ['E', 'F', 'M', 'A', 'M', 'J'], prefijo: '', sufijo: '', contadorDe: 'ultimo' });
+const { P, tl, D } = ctx;
+document.getElementById('ttl').textContent = P.titulo || '';
+const NS = 'http://www.w3.org/2000/svg';
+const svg = document.getElementById('chart');
+const mk = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; };
+const d = P.datos.map(Number), n = d.length, max = Math.max(...d) * 1.08;
+const L = 10, R = 950, T = 40, B = 720, ph = B - T, pw = R - L;
+for (let i = 0; i <= 4; i++) mk('line', { class: 'grid', x1: L, x2: R, y1: B - (ph * i) / 4, y2: B - (ph * i) / 4 });
+const target = P.contadorDe === 'maximo' ? Math.max(...d) : P.contadorDe === 'total' ? d.reduce((a, b) => a + b, 0) : d[n - 1];
+const GD = Math.min(2.2, D - 1.2), G0 = 0.5;
+const slot = pw / n;
+P.etiquetas.forEach((lb, i) => { mk('text', { x: L + slot * (i + 0.5), y: 774, 'text-anchor': 'middle' }).textContent = lb; });
+const numEl = document.getElementById('num');
+const render = (v) => { numEl.textContent = (P.prefijo || '') + FX.fmt(Math.round(v)) + (P.sufijo || ''); };
+render(0);
+if (P.tipo === 'linea') {
+  const xs = d.map((_, i) => L + slot * (i + 0.5)), ys = d.map((v) => B - (v / max) * ph);
+  const path = xs.map((x, i) => (i ? 'L' : 'M') + x.toFixed(1) + ' ' + ys[i].toFixed(1)).join(' ');
+  const defs = mk('defs', {}); const cp = mk('clipPath', { id: 'cl' }, defs); const cr = mk('rect', { x: 0, y: 0, width: 0, height: 800 }, cp);
+  mk('path', { d: path + ` L${xs[n - 1]} ${B} L${xs[0]} ${B} Z`, fill: 'var(--fx-accent)', opacity: 0.18, 'clip-path': 'url(#cl)' });
+  mk('path', { class: 'ln', d: path, 'clip-path': 'url(#cl)' });
+  const dots = xs.map((x, i) => mk('circle', { class: 'dot', cx: x, cy: ys[i], r: 0 }));
+  tl.to(cr, { attr: { width: R + 20 }, duration: GD, ease: 'none' }, G0);
+  FX.drive(tl, 0, target, { duration: GD, ease: 'none' }, render, G0);
+  dots.forEach((c, i) => tl.to(c, { attr: { r: 14 }, duration: 0.25, ease: 'back.out(3)' }, G0 + GD * ((xs[i] - L) / pw)));
+} else {
+  const bw = slot * 0.62;
+  d.forEach((v, i) => {
+    const h = (v / max) * ph, x = L + slot * i + (slot - bw) / 2;
+    const b = mk('rect', { class: 'bar' + (i === n - 1 ? ' last' : ''), x, y: B, width: bw, height: 0, rx: 14 });
+    const t = mk('text', { class: 'vtxt', x: x + bw / 2, y: B, 'text-anchor': 'middle', opacity: 0 }); t.textContent = (P.prefijo || '') + FX.fmt(v) + (P.sufijo || '');
+    const at = G0 + (GD * 0.55 * i) / Math.max(1, n - 1), dur = GD * 0.55;
+    tl.to(b, { attr: { y: B - h, height: h }, duration: dur, ease: 'power3.out' }, at);
+    tl.to(t, { attr: { y: B - h - 18 }, opacity: 1, duration: dur, ease: 'power3.out' }, at + 0.1);
+  });
+  FX.drive(tl, 0, target, { duration: GD, ease: 'power2.out' }, render, G0);
+}
+tl.from('#ttl', { y: 20, opacity: 0, duration: 0.5, ease: 'power2.out' }, 0.05);
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

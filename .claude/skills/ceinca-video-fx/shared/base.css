@@ -1,0 +1,19 @@
+/* base.css — SOLO variables --fx-* (generadas por sync-brand). Nada de colores ni familias literales. */
+html, body { margin: 0; padding: 0; background: var(--fx-bg); }
+* { box-sizing: border-box; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--fx-grad-bg);
+  font-family: var(--fx-font-body); font-weight: var(--fx-fw-body); color: var(--fx-text);
+  --safe-top: 250px; --safe-bottom: 350px; --content-top: 250px; }
+.fx-bgfill { position: absolute; inset: 0; }
+/* Área de contenido = dentro de las zonas seguras (y bajo el overlay superior si existe). */
+.fx-area { position: absolute; left: 60px; right: 60px; top: var(--content-top); bottom: var(--safe-bottom); overflow: hidden; }
+.fx-area.fx-free { overflow: visible; }
+.fx-display { font-family: var(--fx-font-display); font-weight: var(--fx-fw-display); letter-spacing: -0.02em; }
+.fx-strong { font-weight: var(--fx-fw-strong); }
+.fx-hl { color: var(--fx-accent); }
+.fx-card { background: var(--fx-surface); border-radius: var(--fx-radius); box-shadow: var(--fx-shadow-card); border: 2px solid rgba(var(--fx-line-rgb), 0.9); }
+/* Overlays globales opcionales (contador NN/TT + título fijo superior) */
+.fx-overlay { position: absolute; left: 60px; right: 60px; top: var(--safe-top); height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 24px; z-index: 50; pointer-events: none; }
+.fx-fixed-title { font-family: var(--fx-font-display); font-weight: var(--fx-fw-display); font-size: 38px; text-transform: uppercase; letter-spacing: 0.02em; color: var(--fx-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fx-fixed-title::before { content: ''; display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--fx-accent); margin-right: 16px; vertical-align: middle; }
+.fx-counter { font-family: var(--fx-font-display); font-weight: var(--fx-fw-display); font-size: 36px; padding: 10px 26px; border-radius: 999px; background: var(--fx-accent); color: var(--fx-on-accent); letter-spacing: 0.04em; }

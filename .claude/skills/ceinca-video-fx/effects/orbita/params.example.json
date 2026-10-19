@@ -1,0 +1,12 @@
+{
+  "efecto": "orbita",
+  "centro": "../../examples/assets/logo-demo.svg",
+  "satelites": [
+    { "imagen": "../../examples/assets/icono-1.svg", "etiqueta": "Socios" },
+    { "imagen": "../../examples/assets/icono-2.svg", "etiqueta": "Actas" },
+    { "imagen": "../../examples/assets/icono-3.svg", "etiqueta": "Sede" },
+    { "imagen": "../../examples/assets/icono-4.svg", "etiqueta": "Registro" },
+    { "imagen": "../../examples/assets/icono-5.svg", "etiqueta": "Capital" }
+  ],
+  "vueltas": 1
+}

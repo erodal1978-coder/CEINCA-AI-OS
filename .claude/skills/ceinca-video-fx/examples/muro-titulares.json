@@ -1,0 +1,30 @@
+{
+  "efecto": "muro-titulares",
+  "titulares": [
+    {
+      "fuente": "Registro",
+      "titulo": "Nuevo criterio del Registro Mercantil sobre capital social"
+    },
+    {
+      "fuente": "SAREN",
+      "titulo": "SAREN actualiza los requisitos de actas"
+    },
+    {
+      "fuente": "Economía",
+      "titulo": "Reconversión: qué cambia para tu empresa"
+    },
+    {
+      "fuente": "Plazos",
+      "titulo": "Inscripción: lo que nadie te dijo"
+    },
+    {
+      "fuente": "Libros",
+      "titulo": "Multa por no sellar los libros a tiempo"
+    },
+    {
+      "fuente": "Blindaje",
+      "titulo": "Cómo blindar tu empresa antes de fin de año"
+    }
+  ],
+  "destacado": 0
+}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>telefono</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .glow { position:absolute; left:50%; top:50%; width:760px; height:760px; margin:-380px 0 0 -380px; border-radius:50%; background:var(--fx-grad-accent); opacity:.28; filter:blur(60px); }
+  .stage3d { position:absolute; inset:0; perspective:2200px; display:flex; align-items:center; justify-content:center; }
+  .phone { position:relative; width:560px; height:1130px; border-radius:92px; padding:24px; background:var(--fx-surface-2); border:4px solid rgba(var(--fx-line-rgb),1); box-shadow:var(--fx-shadow-card), 0 50px 120px rgba(var(--fx-bg-rgb),.55); transform-style:preserve-3d; }
+  .screen { position:relative; width:100%; height:100%; border-radius:70px; overflow:hidden; background:var(--fx-surface); }
+  .screen img { position:absolute; left:0; top:0; width:100%; display:block; }
+  .gloss { position:absolute; inset:0; border-radius:70px; background:linear-gradient(115deg, rgba(var(--fx-text-rgb),.0) 38%, rgba(var(--fx-text-rgb),.10) 50%, rgba(var(--fx-text-rgb),0) 62%); pointer-events:none; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div class="glow" id="glow"></div>
+  <div id="area" class="fx-area fx-free"><div class="stage3d"><div class="phone" id="phone"><div class="screen" id="screen"><img id="pantalla" alt=""><div class="gloss"></div></div></div></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({ pantalla: null, scroll: 1 });
+const { P, tl, D } = ctx;
+const area = document.getElementById('area');
+const ah = area.clientHeight;
+const ph = Math.min(1130, ah - 40); const phone = document.getElementById('phone');
+phone.style.height = ph + 'px'; phone.style.width = Math.round(ph * 0.496) + 'px';
+const img = document.getElementById('pantalla');
+const scr = document.getElementById('screen');
+if (P.pantalla) {
+  img.src = P.pantalla;
+  const dm = FX.dim(P.pantalla);
+  const sw = Math.round(ph * 0.496) - 48, sh = ph - 48;      // pantalla interior (restando el bisel)
+  const over = dm ? Math.max(0, sw * (dm[1] / dm[0]) - sh) : 0;
+  if (over > 0) tl.to(img, { y: -over * Math.max(0, Math.min(1, Number(P.scroll ?? 1))), duration: D - 1.0, ease: 'power1.inOut' }, 0.8);
+}
+tl.from('#phone', { y: 220, opacity: 0, scale: 0.86, duration: 0.9, ease: 'power4.out' }, 0);
+tl.fromTo('#phone', { rotationY: -24, rotationX: 10, rotationZ: -4 }, { rotationY: 16, rotationX: -6, rotationZ: 3, duration: D, ease: 'sine.inOut' }, 0);
+tl.fromTo('#glow', { scale: 0.8 }, { scale: 1.15, duration: D, ease: 'sine.inOut' }, 0);
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

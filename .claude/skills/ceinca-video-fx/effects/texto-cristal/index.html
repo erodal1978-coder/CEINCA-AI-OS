@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>texto-cristal</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .bg { position:absolute; inset:-60px; width:calc(100% + 120px); height:calc(100% + 120px); object-fit:cover; }
+  .bg-fallback { position:absolute; inset:0; background:var(--fx-grad-accent); }
+  .shade { position:absolute; inset:0; background:linear-gradient(180deg, rgba(var(--fx-bg-rgb),.15) 0%, rgba(var(--fx-bg-rgb),.55) 100%); }
+  .gwrap { position:absolute; inset:0; display:flex; align-items:center; }
+  .glass { position:relative; width:100%; padding:70px 64px 74px; border-radius:var(--fx-radius-lg);
+    background:rgba(var(--fx-surface-rgb),.34); -webkit-backdrop-filter:blur(34px) saturate(1.5); backdrop-filter:blur(34px) saturate(1.5);
+    border:2px solid rgba(var(--fx-text-rgb),.28); box-shadow:var(--fx-shadow-card); }
+  .glass::before { content:''; position:absolute; left:64px; top:-2px; width:150px; height:10px; border-radius:0 0 8px 8px; background:var(--fx-accent); }
+  .glass .t { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:84px; line-height:1.08; letter-spacing:-.025em; color:var(--fx-text); text-shadow:0 2px 24px rgba(var(--fx-bg-rgb),.55); }
+  .fx-area { overflow:visible; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="bgwrap" class="fx-bgfill" style="overflow:hidden"></div><div class="shade"></div>
+  <div id="area" class="fx-area"><div class="gwrap"><div class="glass" id="glass"><div class="t" id="t"></div></div></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({ texto: 'Tu empresa **vale más** cuando está en regla', fondo: null });
+const { P, tl, D } = ctx;
+const wrap = document.getElementById('bgwrap');
+if (P.fondo && FX.isImg(P.fondo)) { const im = FX.el('img', 'bg', wrap); im.src = P.fondo; im.id = 'bgimg'; tl.fromTo('#bgimg', { scale: 1.02 }, { scale: 1.14, duration: D, ease: 'none' }, 0); }
+else { FX.el('div', 'bg-fallback', wrap); }
+FX.setRich(document.getElementById('t'), P.texto);
+const len = String(P.texto).replace(/\*\*/g, '').length;
+document.getElementById('t').style.fontSize = (len <= 40 ? 92 : len <= 80 ? 78 : 64) + 'px';
+tl.from('#glass', { x: 360, opacity: 0, duration: 0.9, ease: 'power4.out' }, 0.2);
+tl.from('#t', { x: 60, opacity: 0, duration: 0.7, ease: 'power3.out' }, 0.55);
+tl.to('#glass', { y: -14, duration: D - 1.2, ease: 'sine.inOut' }, 1.1);
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

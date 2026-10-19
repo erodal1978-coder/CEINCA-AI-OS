@@ -1,0 +1,8 @@
+node_modules/
+.cache/
+.build/
+out/
+examples/assets/clips/
+examples/*.mp4
+examples/frames/
+dist/*.zip

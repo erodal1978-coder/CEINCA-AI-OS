@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>vertigo-simulado</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .layer { position:absolute; inset:0; overflow:hidden; }
+  .layer img { position:absolute; left:50%; top:50%; width:1080px; height:1920px; margin:-960px 0 0 -540px; object-fit:cover; transform-origin:50% 50%; }
+  #edge { -webkit-mask-image:radial-gradient(ellipse 52% 40% at 50% 50%, transparent 0%, transparent 55%, var(--fx-bg) 100%); mask-image:radial-gradient(ellipse 52% 40% at 50% 50%, transparent 0%, transparent 55%, var(--fx-bg) 100%); }
+  .bgfall { position:absolute; inset:0; background:var(--fx-grad-bg); }
+  .vig { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 50%, rgba(var(--fx-bg-rgb),0) 38%, rgba(var(--fx-bg-rgb),.62) 100%); }
+  .front { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center; }
+  .front img { max-width:820px; max-height:1000px; display:block; filter:drop-shadow(0 30px 50px rgba(var(--fx-bg-rgb),.55)); }
+  .front .ft { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:150px; line-height:1; letter-spacing:-.03em; text-transform:uppercase; color:var(--fx-text); text-shadow:0 8px 40px rgba(var(--fx-bg-rgb),.7); }
+  .fx-area { background:none; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div class="layer" id="L0"></div><div class="layer" id="L1"><div id="edge" class="layer"></div></div><div class="vig"></div>
+  <div id="area" class="fx-area fx-free"><div class="front" id="front"></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({ fondo: null, frente: 'Mismo tamaño', intensidad: 1 });
+const { P, tl, D } = ctx;
+const I = Math.max(0, Number(P.intensidad ?? 1));
+const L0 = document.getElementById('L0'), edge = document.getElementById('edge');
+if (P.fondo && FX.isImg(P.fondo)) { [L0, edge].forEach((l) => { const im = FX.el('img', '', l); im.src = P.fondo; }); }
+else { FX.el('div', 'bgfall', L0); FX.el('div', 'bgfall', edge); }
+const fr = document.getElementById('front');
+if (FX.isImg(P.frente)) { const im = FX.el('img', '', fr); im.src = P.frente; } else FX.setRich(FX.el('div', 'ft', fr), P.frente);
+// Dolly zoom: el primer plano NO cambia de tamaño; el fondo se expande y la periferia se estira más que el centro (cambio de perspectiva).
+tl.fromTo('#L0 img, #L0 .bgfall', { scale: 1 }, { scale: 1 + 0.55 * I, duration: D, ease: 'power2.inOut' }, 0);
+tl.fromTo('#edge img, #edge .bgfall', { scale: 1.0 }, { scale: 1 + 1.05 * I, duration: D, ease: 'power2.inOut' }, 0);
+tl.fromTo('.vig', { opacity: 0.4 }, { opacity: 1, duration: D, ease: 'none' }, 0);
+tl.from('#front', { opacity: 0, y: 30, duration: 0.5, ease: 'power2.out' }, 0);
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

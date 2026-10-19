@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>muro-videos</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .viewport { position:absolute; inset:0; overflow:hidden; border-radius:var(--fx-radius-lg); }
+  .mosaic { position:absolute; left:0; top:0; }
+  .tile { position:absolute; overflow:hidden; border-radius:var(--fx-radius); background:var(--fx-surface); box-shadow:var(--fx-shadow-card); border:3px solid rgba(var(--fx-line-rgb),1); }
+  .tile img { position:absolute; left:0; top:0; width:100%; height:100%; display:none; object-fit:cover; }
+  .tile.star { border-color:var(--fx-accent); }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="area" class="fx-area"><div class="viewport" id="vp"><div class="mosaic" id="mosaic"></div></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({ clips: [], destacado: 0 });
+const { P, tl, D } = ctx;
+const FR = P.__frames; if (!FR) throw new Error('muro-videos necesita prepare.mjs (render.mjs lo ejecuta)');
+const vp = document.getElementById('vp'), mosaic = document.getElementById('mosaic');
+const n = FR.dirs.length, cols = Math.min(3, n), rows = Math.ceil(n / cols), VW = 960, VH = vp.clientHeight || 1210, GAP = 20;
+let cw = (VW - GAP * (cols - 1)) / cols, ch = cw * 16 / 9;
+if (rows * ch + GAP * (rows - 1) > VH) { ch = (VH - GAP * (rows - 1)) / rows; cw = ch * 9 / 16; }
+const totW = cols * cw + GAP * (cols - 1), totH = rows * ch + GAP * (rows - 1), ox = (VW - totW) / 2, oy = (VH - totH) / 2;
+const tiles = FR.dirs.map((d, i) => {
+  const t = FX.el('div', 'tile' + (i === FR.destacado ? ' star' : ''), mosaic);
+  const c = i % cols, r = Math.floor(i / cols);
+  Object.assign(t.style, { left: (ox + c * (cw + GAP)) + 'px', top: (oy + r * (ch + GAP)) + 'px', width: cw + 'px', height: ch + 'px' });
+  const imgs = [];
+  for (let f = 1; f <= FR.n; f++) { const im = document.createElement('img'); im.decoding = 'sync'; im.src = `${d}/${String(f).padStart(4, '0')}.jpg`; t.appendChild(im); imgs.push(im); }
+  return { t, imgs, cur: -1, i };
+});
+const setFrame = (sec) => {
+  const f = Math.max(0, Math.min(FR.n - 1, Math.round(sec * FR.fps)));
+  tiles.forEach((k) => { if (k.cur === f) return; if (k.cur >= 0) k.imgs[k.cur].style.display = 'none'; k.imgs[f].style.display = 'block'; k.cur = f; });
+};
+FX.drive(tl, 0, D, { duration: D, ease: 'none' }, setFrame, 0);
+// entrada escalonada y zoom final al destacado
+tl.from(tiles.map((k) => k.t), { y: 70, opacity: 0, scale: 0.88, duration: 0.5, ease: 'back.out(1.4)', stagger: 0.1 }, 0.05);
+const hi = FR.destacado, k = tiles[hi];
+const cx = parseFloat(k.t.style.left) + cw / 2, cy = parseFloat(k.t.style.top) + ch / 2;
+const s = Math.min(VH / ch, VW / cw);
+const T = Math.max(1.5, D * 0.5);
+gsap.set(mosaic, { transformOrigin: `${cx}px ${cy}px` });
+tl.to(mosaic, { scale: s, x: VW / 2 - cx, y: VH / 2 - cy, duration: Math.min(1.4, D - T - 0.2), ease: 'power3.inOut' }, T);
+tiles.forEach((o) => { if (o.i !== hi) tl.to(o.t, { opacity: 0, duration: 0.6, ease: 'power2.inOut' }, T); });
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

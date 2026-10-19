@@ -1,0 +1,18 @@
+/* GENERADO por scripts/sync-brand.mjs — no editar a mano. Tema: ceinca-social */
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 800; font-display: block; src: url('../vendor/fonts/manrope-latin-800-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 400; font-display: block; src: url('../vendor/fonts/manrope-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 600; font-display: block; src: url('../vendor/fonts/manrope-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 700; font-display: block; src: url('../vendor/fonts/manrope-latin-700-normal.woff2') format('woff2'); }
+:root {
+  --fx-bg: #122A63; --fx-bg-2: #1E3A8A; --fx-surface: #1E3A8A; --fx-surface-2: #2D4FA8;
+  --fx-text: #FFFFFF; --fx-text-muted: #94A3B8;
+  --fx-accent: #C8A951; --fx-accent-2: #DDB96A; --fx-accent-dark: #A8892E;
+  --fx-on-accent: #122A63; --fx-line: #2D4FA8; --fx-danger: #D64545; --fx-ok: #C8A951;
+  --fx-bg-rgb: 18, 42, 99; --fx-surface-rgb: 30, 58, 138; --fx-text-rgb: 255, 255, 255;
+  --fx-accent-rgb: 200, 169, 81; --fx-line-rgb: 45, 79, 168;
+  --fx-font-display: 'Manrope', sans-serif; --fx-font-body: 'Manrope', sans-serif;
+  --fx-fw-display: 800; --fx-fw-strong: 600; --fx-fw-body: 400;
+  --fx-grad-accent: linear-gradient(135deg, #C8A951 0%, #DDB96A 50%, #A8892E 100%); --fx-grad-bg: linear-gradient(180deg, #122A63 0%, #1E3A8A 100%);
+  --fx-radius: 12px; --fx-radius-lg: 20px;
+  --fx-shadow-card: 0 4px 24px rgba(0,0,0,0.18); --fx-shadow-accent: 0 4px 20px rgba(200,169,81,0.30);
+}
