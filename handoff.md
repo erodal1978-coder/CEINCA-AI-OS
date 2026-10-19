@@ -14,6 +14,10 @@
   - `overlay.mjs`: probado componiendo subtítulos karaoke sobre clip real del usuario en `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/08-overlay-karaoke-sobre-video.mp4`.
 - **Zip:** `dist/ceinca-video-fx.zip` (216 KB, 107 archivos), sin mp4 ni node_modules.
 - **PR:** [#35](https://github.com/erodal1978-coder/CEINCA-AI-OS/pull/35) abierto (sin mergear). Entregable listo para revisión y merge.
+- **Producción Audiovisual Campaña `FIEBRU'O`:**
+  - Reel viral final montado y renderizado: `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/REEL_FINAL_FIEBRUO_17_EFECTOS.mp4` (24.36s, 1080×1920 vertical, 30 fps, H.264/AAC, 6.9 MB).
+  - Estructura híbrida: Escena 1 (Gancho auditorio + zoom digital) → Escena 2 (B-roll evento real Valera 2026 desde `gdrive:` + zoom-corte + 01/17) → Escena 3 (2.5D rompe-marco) → Escena 4 (Sticker corta-pega + demo) → Escena 5 (Cierre cámara Eduardo + zoom-atrás + CTB COMENTA FIEBRU'O).
+  - Entregable público: `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/ceinca-video-fx.zip` (211 KB, listo para subir a Google Drive).
 
 
 ## 🎬 19-10-2026 — Skill `ceinca-video-fx` Bloque 2 (3 zooms sobre clip grabado, solo FFmpeg) — rama `feature/ceinca-video-fx-bloque2`
