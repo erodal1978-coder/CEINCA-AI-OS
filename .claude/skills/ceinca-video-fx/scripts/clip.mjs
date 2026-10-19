@@ -233,6 +233,21 @@ function buildZoomCorte(p, meta, clipPath, outPath, audio) {
   return { segs };
 }
 
+/**
+ * pantalla-verde: chroma key en FFmpeg.
+ * Sustituye el color de fondo (por defecto 0x00FF00) por un fondo especificado.
+ */
+function buildPantallaVerde(p, meta) {
+  let colorKey = p.color ?? '0x00FF00';
+  if (colorKey === 'verde') colorKey = '0x00FF00';
+  if (colorKey.startsWith('#')) colorKey = '0x' + colorKey.slice(1);
+  const tolerancia = Number(p.tolerancia ?? 0.25);
+  const suavizado  = Number(p.suavizado  ?? 0.05);
+  const foco       = p.foco ?? { x: 0.5, y: 0.5 };
+  validateFoco(foco);
+  return { colorKey, tolerancia, suavizado, fondo: p.fondo, foco };
+}
+
 // ── render principal ──────────────────────────────────────────────────────────
 
 function renderZoomContinuo(clipPath, params, meta, outPath, zoomData) {
@@ -341,6 +356,55 @@ function renderZoomCorte(clipPath, params, meta, outPath, cortesData) {
   return { escalaMax, aviso: avisoResolucion(escalaMax, meta.width, meta.height) };
 }
 
+function renderPantallaVerde(clipPath, params, meta, outPath, chromaData) {
+  const { colorKey, tolerancia, suavizado, fondo, foco } = chromaData;
+  const audio = params.audio !== false;
+
+  const encuadre = buildEncuadreFilter(meta.width, meta.height, foco);
+  const recorte = params.recorte;
+  const duracion = recorte ? (recorte.hasta - recorte.desde) : meta.duracion;
+  const ssArgs = recorte ? ['-ss', String(recorte.desde)] : [];
+  const tArgs  = recorte ? ['-t',  String(duracion)] : [];
+
+  let bgInputArgs = [];
+  let bgFilter = '[1:v]scale=1080:1920:flags=lanczos,setsar=1[bg]';
+
+  if (!fondo || (typeof fondo === 'string' && (fondo.startsWith('#') || fondo.startsWith('0x'))) || fondo.tipo === 'color') {
+    let col = typeof fondo === 'string' ? fondo : (fondo?.valor ?? '0x122A63');
+    if (col.startsWith('#')) col = '0x' + col.slice(1);
+    bgInputArgs = ['-f', 'lavfi', '-i', `color=c=${col}:s=1080x1920:d=${duracion}:r=30`];
+    bgFilter = '[1:v]fps=30,setsar=1[bg]';
+  } else {
+    const rawFondo = typeof fondo === 'string' ? fondo : (fondo.valor || fondo.clip || fondo.imagen);
+    const resolvedFondo = resolveClip(rawFondo, path.dirname(params.__jsonPath || process.cwd()));
+    bgInputArgs = ['-i', resolvedFondo];
+    bgFilter = '[1:v]scale=1080:1920:flags=lanczos,fps=30,setsar=1[bg]';
+  }
+
+  const fc = [
+    `[0:v]${encuadre},fps=30,setsar=1,chromakey=color=${colorKey}:similarity=${tolerancia}:blend=${suavizado}[fg]`,
+    bgFilter,
+    `[bg][fg]overlay=0:0[v]`
+  ].join(';');
+
+  const args = [
+    '-y', '-loglevel', 'error',
+    ...ssArgs, '-i', clipPath, ...tArgs,
+    ...bgInputArgs,
+    '-filter_complex', fc,
+    '-map', '[v]',
+    ...(audio ? ['-map', '0:a?'] : []),
+    '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', '-preset', 'fast',
+    ...(audio ? ['-c:a', 'aac', '-b:a', '128k'] : ['-an']),
+    outPath
+  ];
+
+  const r = spawnSync('ffmpeg', args, { stdio: ['ignore', 'pipe', 'pipe'] });
+  if (r.status !== 0) die(`ffmpeg falló en pantalla-verde:\n${r.stderr.toString().trim()}`);
+
+  return { escalaMax: 1, aviso: null, metodo: 'ffmpeg-chromakey' };
+}
+
 // ── ffprobe de la salida ──────────────────────────────────────────────────────
 
 function probeOut(outPath) {
@@ -372,6 +436,7 @@ if (!argv[0]) die('uso: node scripts/clip.mjs <params.json> [-o <salida.mp4>]');
 const jsonPath = path.resolve(argv[0]);
 if (!fs.existsSync(jsonPath)) die(`no existe: ${jsonPath}`);
 const params = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+params.__jsonPath = jsonPath;
 
 // Parámetro -o
 const oIdx = argv.indexOf('-o');
@@ -381,7 +446,7 @@ fs.mkdirSync(path.dirname(outPath), { recursive: true });
 // Validaciones globales
 if (!params.efecto) die('falta "efecto" en params.json');
 if (!params.clip)   die('falta "clip" en params.json (ruta al mp4/mov)');
-const efectosValidos = ['zoom-digital', 'zoom-corte', 'zoom-atras'];
+const efectosValidos = ['zoom-digital', 'zoom-corte', 'zoom-atras', 'pantalla-verde'];
 if (!efectosValidos.includes(params.efecto)) die(`"efecto" debe ser uno de: ${efectosValidos.join(', ')}`);
 
 const jsonDir  = path.dirname(jsonPath);
@@ -416,6 +481,9 @@ if (params.efecto === 'zoom-digital') {
 } else if (params.efecto === 'zoom-corte') {
   const cortesData = buildZoomCorte(params, { ...meta, duracion }, clipPath, outPath, audio);
   zoomResult = renderZoomCorte(clipPath, params, meta, outPath, cortesData);
+} else if (params.efecto === 'pantalla-verde') {
+  const chromaData = buildPantallaVerde(params, { ...meta, duracion });
+  zoomResult = renderPantallaVerde(clipPath, params, meta, outPath, chromaData);
 }
 
 if (audio) checkAudioDuration(outPath, duracion);
@@ -424,7 +492,7 @@ if (audio) checkAudioDuration(outPath, duracion);
 const out = probeOut(outPath);
 const resumen = {
   efecto: params.efecto,
-  metodo: 'ffmpeg-zoompan-x2',    // supersampleo ×2 lanczos verificado
+  metodo: zoomResult?.metodo ?? 'ffmpeg-zoompan-x2',
   ancho:  out.ancho  ?? 1080,
   alto:   out.alto   ?? 1920,
   fps:    out.fps    ?? '30/1',
@@ -436,3 +504,4 @@ const resumen = {
   ...(zoomResult?.aviso ? { aviso: zoomResult.aviso } : {}),
 };
 console.log(JSON.stringify(resumen, null, 2));
+
