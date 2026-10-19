@@ -1,0 +1,17 @@
+{
+  "efecto": "subtitulos-karaoke",
+  "tema": "ceinca-social",
+  "duracion": 4,
+  "posicion": "centro",
+  "palabras": [
+    { "texto": "Estos", "t": 0.2 },
+    { "texto": "son", "t": 0.5 },
+    { "texto": "diecisiete", "t": 0.8 },
+    { "texto": "efectos", "t": 1.4 },
+    { "texto": "de", "t": 1.9 },
+    { "texto": "video", "t": 2.2 },
+    { "texto": "que", "t": 2.6 },
+    { "texto": "Claude", "t": 2.9 },
+    { "texto": "crea", "t": 3.3 }
+  ]
+}

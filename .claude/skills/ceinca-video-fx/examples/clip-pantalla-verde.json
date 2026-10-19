@@ -1,0 +1,13 @@
+{
+  "efecto": "pantalla-verde",
+  "clip": "../examples/assets/clips/clip-bloque3-verde.mp4",
+  "color": "0x00FF00",
+  "tolerancia": 0.25,
+  "suavizado": 0.05,
+  "fondo": {
+    "tipo": "color",
+    "valor": "0x122A63"
+  },
+  "foco": { "x": 0.5, "y": 0.5 },
+  "audio": true
+}

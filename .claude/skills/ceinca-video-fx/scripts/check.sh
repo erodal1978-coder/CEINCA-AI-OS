@@ -78,7 +78,7 @@ clip_check() {
   local efecto clip
   efecto=$(node -e "const j=JSON.parse(require('fs').readFileSync('$json','utf8'));process.stdout.write(j.efecto||'')")
   clip=$(node   -e "const j=JSON.parse(require('fs').readFileSync('$json','utf8'));process.stdout.write(j.clip||'')")
-  local validos="zoom-digital zoom-corte zoom-atras"
+  local validos="zoom-digital zoom-corte zoom-atras pantalla-verde"
   [[ " $validos " == *" $efecto "* ]] || bad "$json: efecto='$efecto' no es uno de: $validos"
   [ -n "$clip" ] || bad "$json: falta el campo 'clip'"
   # Validaciones adicionales por tipo

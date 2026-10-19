@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>rompe-marco</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>
+  .wrap { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .scene { position:relative; width:860px; height:1100px; display:flex; align-items:flex-end; justify-content:center; }
+  /* Marco base con sombra */
+  .frame-box { position:relative; width:100%; height:860px; background:var(--fx-surface); border-radius:var(--fx-radius-lg, 36px); border:3px solid var(--fx-line); box-shadow:0 40px 100px rgba(var(--fx-bg-rgb),.6); overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; padding:48px; z-index:1; }
+  .frame-header { position:absolute; top:36px; left:48px; right:48px; display:flex; align-items:center; justify-content:space-between; z-index:5; }
+  .badge { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:26px; letter-spacing:.08em; text-transform:uppercase; color:var(--fx-accent); background:rgba(var(--fx-bg-rgb),.4); padding:8px 22px; border-radius:999px; border:1px solid rgba(var(--fx-accent-rgb),.3); }
+  /* Fondo decorativo interno */
+  .frame-bg-glow { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 30%, rgba(var(--fx-accent-rgb),.15), transparent 70%); }
+  /* Sujeto que rompe el marco: sobresale por arriba */
+  .subject-wrap { position:absolute; bottom:220px; left:50%; transform:translateX(-50%); width:760px; height:1060px; z-index:2; pointer-events:none; display:flex; align-items:flex-end; justify-content:center; }
+  .subject-img { max-width:100%; max-height:100%; object-fit:contain; filter:drop-shadow(0 20px 40px rgba(var(--fx-bg-rgb),.6)); }
+  /* Textos al pie del marco */
+  .info { position:relative; z-index:10; }
+  .titular { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:62px; line-height:1.08; letter-spacing:-.02em; color:var(--fx-text); margin-bottom:12px; }
+  .subtitulo { font-family:var(--fx-font-body); font-weight:var(--fx-fw-body); font-size:32px; color:var(--fx-text-muted); }
+  .fx-area { background:none; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+  <div class="fx-bgfill"></div>
+  <div id="area" class="fx-area fx-free wrap">
+    <div class="scene" id="scene">
+      <div class="subject-wrap" id="subjectWrap"></div>
+      <div class="frame-box" id="frameBox">
+        <div class="frame-bg-glow"></div>
+        <div class="frame-header"><div class="badge" id="badge"></div></div>
+        <div class="info">
+          <div class="titular" id="titular"></div>
+          <div class="subtitulo" id="subtitulo"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({
+  sujeto: null,
+  titular: 'ROMPE EL **MARCO**',
+  subtitulo: 'Profundidad visual 2.5D',
+  etiqueta: 'CEINCA™ FX'
+});
+const { P, tl, D } = ctx;
+
+const badge = document.getElementById('badge');
+badge.textContent = P.etiqueta || 'CEINCA™';
+
+const tit = document.getElementById('titular');
+FX.setRich(tit, P.titular);
+
+const sub = document.getElementById('subtitulo');
+sub.textContent = P.subtitulo || '';
+
+const sw = document.getElementById('subjectWrap');
+if (P.sujeto && FX.isMedia(P.sujeto)) {
+  const im = FX.el('img', 'subject-img', sw);
+  im.src = P.sujeto;
+}
+
+// Animación:
+// 1. El marco sube con rotación sutil en 3D
+tl.from('#frameBox', { y: 120, opacity: 0, scale: 0.94, duration: 0.8, ease: 'power3.out' }, 0.2);
+// 2. El sujeto hace pop-out hacia arriba saliendo del marco
+tl.from('#subjectWrap', { y: 200, opacity: 0, scale: 0.88, duration: 0.95, ease: 'back.out(1.4)' }, 0.35);
+// 3. Textos y badge aparecen escalonados
+tl.from('#badge', { opacity: 0, scale: 0.8, duration: 0.5, ease: 'power2.out' }, 0.6);
+tl.from('#titular', { y: 30, opacity: 0, duration: 0.6, ease: 'power3.out' }, 0.7);
+tl.from('#subtitulo', { y: 20, opacity: 0, duration: 0.6, ease: 'power3.out' }, 0.85);
+// 4. Respiración lenta continua durante el resto del clip
+tl.to('#subjectWrap', { y: -18, scale: 1.02, duration: D - 1.2, ease: 'sine.inOut' }, 1.2);
+tl.to('#frameBox', { scale: 1.01, duration: D - 1.2, ease: 'sine.inOut' }, 1.2);
+
+window.__timelines = window.__timelines || {};
+window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

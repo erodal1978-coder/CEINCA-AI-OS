@@ -90,5 +90,26 @@ clipsB2.forEach(({ name, v }) => {
   ]);
   if (r.status !== 0) { console.error(`✗ ${name}: ${r.stderr.toString().trim()}`); process.exit(1); }
 });
+// Clips de prueba para Bloque 3 (pantalla verde con audio)
+const clipsB3 = [
+  {
+    name: 'clip-bloque3-verde.mp4',
+    v: 'color=c=0x00FF00:s=1080x1920:d=5:r=30,drawbox=x=340:y=600:w=400:h=600:color=white@1:t=fill'
+  }
+];
+clipsB3.forEach(({ name, v }) => {
+  const out = path.join(A, 'clips', name);
+  const r = spawnSync('ffmpeg', [
+    '-y', '-loglevel', 'error',
+    '-f', 'lavfi', '-i', v,
+    '-f', 'lavfi', '-i', 'sine=frequency=440:duration=5',
+    '-map', '0:v', '-map', '1:a',
+    '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-g', '15', '-crf', '28',
+    '-c:a', 'aac', '-b:a', '128k', '-t', '5',
+    out
+  ]);
+  if (r.status !== 0) { console.error(`✗ ${name}: ${r.stderr.toString().trim()}`); process.exit(1); }
+});
+
 console.log('✓ assets de prueba en examples/assets/');
 

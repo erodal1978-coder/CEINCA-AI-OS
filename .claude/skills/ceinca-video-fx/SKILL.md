@@ -1,21 +1,18 @@
 ---
 name: ceinca-video-fx
 description: >
-  Efectos de video CEINCA™ en dos bloques. Bloque 1 — 11 efectos de motion
-  graphics como plantillas HTML + GSAP que se renderizan a MP4 vertical
-  (1080×1920, 30 fps, H.264): muro de titulares, checklist, gráfica que crece,
-  texto cristal, portada, teléfono, mundo-app 3D, órbita, garabato vivo, muro
-  de videos y vértigo simulado (dolly zoom). Bloque 2 — 3 efectos de zoom FFmpeg
-  sobre un clip grabado por el usuario: zoom digital (acercamiento continuo),
-  zoom de corte (saltos instantáneos entre planos) y zoom hacia atrás (pull-back).
+  Efectos de video CEINCA™ en tres bloques que completan los 17 efectos de video
+  para Reels/TikTok: Bloque 1 (11 efectos de solo código HTML/GSAP: muro de
+  titulares, checklist, gráfica que crece, texto cristal, portada, teléfono,
+  mundo-app 3D, órbita, garabato vivo, muro de videos, vértigo simulado); Bloque 2
+  (3 efectos de zoom FFmpeg: zoom digital, zoom de corte, zoom hacia atrás); Bloque 3
+  (pantalla verde chroma key con FFmpeg, rompe el marco 2.5D, corta y pega sticker
+  stop-motion, subtítulos karaoke dinámicos palabra por palabra, y composición con overlay.mjs).
   Activa cuando el usuario pida "efecto de video", "motion graphics",
-  "animación para Reel/Story", "que se dibuje el check", "gráfica animada",
-  "titulares que aparecen", "mockup de teléfono animado", "zoom vértigo",
-  "garabato/flecha dibujada", "reel de efectos", "video-fx",
-  "zoom digital", "zoom de corte", "punch-in", "zoom hacia atrás",
-  "acercamiento suave a mi clip", o mencione cualquiera de los ids de efecto.
-  Los colores y tipografías del Bloque 1 salen del manual de marca (ceinca-design)
-  vía sync-brand. Los efectos del Bloque 2 no dependen de la marca.
+  "animación para Reel/Story", "pantalla verde", "chroma key", "rompe el marco",
+  "corta y pega", "subtítulos karaoke", "subtítulos dinámicos", "overlay",
+  "zoom digital", "zoom de corte", "punch-in", "zoom hacia atrás", o cualquiera de los ids.
+  Marca desacoplada vía sync-brand; disponible en Claude Code, terminal y chat/cowork.
 ---
 
 # ceinca-video-fx — Bloque 1 (11 efectos de solo código)
@@ -65,6 +62,9 @@ El texto admite `**acento**` para resaltar con el color de acento del tema.
 | `garabato-vivo` | Trazos a mano alzada (flecha, círculo, subrayado, tachado) dibujados con `stroke-dashoffset` | `base` (imagen o texto), `trazos[]` (`{tipo,x,y,w,h,color,inicio,duracion}`; x,y,w,h en % de la base; color: `accent`\|`text`\|`danger`\|`ok`) |
 | `muro-videos` | Cuadrícula de clips y zoom final a uno | `clips[]` (mp4), `destacado`, `inicio[]` (segundo inicial por clip) |
 | `vertigo-simulado` | Dolly zoom: el fondo se expande (la periferia más que el centro) mientras el primer plano mantiene su tamaño | `fondo`, `frente` (PNG/SVG con alfa o texto), `intensidad` |
+| `rompe-marco` | Sujeto que sobrepasa el borde superior de una tarjeta UI (profundidad 2.5D) | `sujeto`, `titular`, `subtitulo`, `etiqueta` |
+| `corta-pega` | Efecto collage / sticker stop-motion con borde blanco y movimiento discontinuo | `sujeto`, `titular`, `subtitulo`, `etiquetas[]` |
+| `subtitulos-karaoke` | Subtítulos dinámicos con resaltado sincronizado palabra por palabra | `palabras[]` (`{texto, t}`), `posicion` (`centro`\|`abajo`) |
 
 Íconos disponibles para `mundo-app`/`orbita`: `doc check shield chart bell chat user lock star coin clock mail pin building`.
 Un `params.example.json` por efecto vive en `effects/<id>/`; versiones listas para correr en `examples/<id>.json`.
@@ -159,6 +159,7 @@ bash scripts/check.sh video out/zoom-digital.mp4 5 out/frames/dig-mid.png
 | `zoom-digital` | Acercamiento continuo hacia `foco` | `escala` (default 1.3), `inicio`, `fin` (s), `curva` (`lineal`\|`suave`\|`salida`; default `suave`). Tras `fin` mantiene la escala final. |
 | `zoom-corte` | Saltos instantáneos entre plano abierto y cerrado; simula dos cámaras | `cortes[]` con `{ "t": s, "escala": n, "foco"?: {x,y} }`. Cada corte se mantiene hasta el siguiente. Sin interpolación: el cambio ocurre en un solo frame. `escala: 1` = plano abierto. |
 | `zoom-atras` | Empieza cerrado, se abre hasta escala 1 (pull-back) | `escalaInicial` (default 1.4), `inicio`, `fin` (s), `curva` (igual que zoom-digital). Tras `fin` queda en escala 1. |
+| `pantalla-verde` | Chroma key nativo FFmpeg: elimina fondo verde y reemplaza por color/imagen/video | `color` (default `0x00FF00`), `tolerancia`, `suavizado`, `fondo` (`{tipo,valor}`) |
 
 Un `clip-<efecto>.json` de ejemplo vive en `examples/`.
 
@@ -183,10 +184,44 @@ Un `clip-<efecto>.json` de ejemplo vive en `examples/`.
 | `clip-bloque2-v.mp4` | 1080×1920, 30 fps, 5s, con audio (caso nominal) |
 | `clip-bloque2-h.mp4` | 1920×1080, 30 fps, 5s, con audio (prueba encuadre cover) |
 | `clip-bloque2-25.mp4` | 1080×1920, **25 fps**, 5s, con audio (prueba normalización de fps) |
+| `clip-bloque3-verde.mp4` | 1080×1920, 30 fps, 5s, con fondo verde y audio (prueba chroma key) |
 
-Los `clip-<efecto>.json` de `examples/` apuntan a `clip-bloque2-v.mp4`. Para probar con un clip real del usuario, pasa la ruta absoluta en el campo `"clip"` — el clip **no** se copia al repo.
+Los `clip-<efecto>.json` de `examples/` apuntan a estos clips. Para probar con un clip real del usuario, pasa la ruta absoluta en el campo `"clip"` — el clip **no** se copia al repo.
 
-### Limitaciones conocidas (bloques siguientes)
+---
 
-- **Overlays contador NN/TT y título fijo sobre el clip:** los overlays de `reel.mjs` viven en la capa HTML del Bloque 1 y no se aplican directamente a un mp4 existente sin un pipeline adicional (ffmpeg `drawtext` o composición con `overlay`). No implementado en Bloque 2.
-- Rompe el marco, corta y pega, pantalla verde (recorte de silueta) y subtítulos karaoke con Whisper: reservados para bloques siguientes.
+## Bloque 3 — Chroma Key, Siluetas 2.5D, Cutout y Subtítulos Karaoke
+
+Completa los 17 efectos de video con técnicas avanzadas de composición, soporte de chroma key y capas sobrepuestas.
+
+### 1. `pantalla-verde` (Chroma Key nativo con FFmpeg)
+Elimina el fondo verde (`0x00FF00` o personalizado) y lo reemplaza por un color de marca (`--fx-bg`), una imagen o un video de fondo.
+```bash
+node scripts/clip.mjs examples/clip-pantalla-verde.json -o out/pantalla-verde.mp4
+```
+
+### 2. `rompe-marco` (Profundidad 2.5D)
+Efecto donde el sujeto sobresale por encima del borde superior de una tarjeta o marco UI, mientras la parte inferior se mantiene contenida.
+```bash
+node scripts/render.mjs examples/rompe-marco.json -o out/rompe-marco.mp4
+```
+
+### 3. `corta-pega` (Paper Cutout / Sticker Stop-Motion)
+Efecto collage donde el sujeto o elemento adquiere un contorno blanco tipo pegatina y animaciones en saltos discretos (steps estilo stop-motion).
+```bash
+node scripts/render.mjs examples/corta-pega.json -o out/corta-pega.mp4
+```
+
+### 4. `subtitulos-karaoke` (Subtítulos dinámicos sincronizados)
+Subtítulos tipográficos de alto impacto donde cada palabra cambia a color de acento (`--fx-accent`) al alcanzar su tiempo `t`.
+```bash
+node scripts/render.mjs examples/subtitulos-karaoke.json -o out/karaoke.mp4
+```
+
+### 5. Composición de Overlays sobre Video (`scripts/overlay.mjs`)
+Resuelve la limitación de superponer gráficos, títulos o subtítulos sobre videos grabados del usuario:
+```bash
+# Superponer subtítulos karaoke sobre un video grabado
+node scripts/overlay.mjs --base mi-clip.mp4 --overlay examples/subtitulos-karaoke.json --key 0x122A63 -o out/final.mp4
+```
+
