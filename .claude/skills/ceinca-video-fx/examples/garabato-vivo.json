@@ -1,0 +1,37 @@
+{
+  "efecto": "garabato-vivo",
+  "base": "assets/base-garabato.svg",
+  "trazos": [
+    {
+      "tipo": "circulo",
+      "x": 81,
+      "y": 26,
+      "w": 22,
+      "h": 22,
+      "color": "accent"
+    },
+    {
+      "tipo": "subrayado",
+      "x": 6,
+      "y": 17,
+      "w": 55,
+      "color": "danger"
+    },
+    {
+      "tipo": "flecha",
+      "x": 78,
+      "y": 62,
+      "w": -30,
+      "h": -22,
+      "color": "accent"
+    },
+    {
+      "tipo": "tachado",
+      "x": 6,
+      "y": 79,
+      "w": 40,
+      "h": 3,
+      "color": "danger"
+    }
+  ]
+}

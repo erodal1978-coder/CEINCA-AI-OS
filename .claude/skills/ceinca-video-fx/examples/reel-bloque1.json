@@ -1,0 +1,18 @@
+{
+  "tituloFijo": "11 efectos de video",
+  "tema": "ceinca-social",
+  "duracion": 4,
+  "efectos": [
+    "portada.json",
+    "checklist.json",
+    "grafica-crece.json",
+    "texto-cristal.json",
+    "telefono.json",
+    "mundo-app.json",
+    "orbita.json",
+    "garabato-vivo.json",
+    "muro-titulares.json",
+    "muro-videos.json",
+    "vertigo-simulado.json"
+  ]
+}
