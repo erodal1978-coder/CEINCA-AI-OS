@@ -5,7 +5,7 @@
 <style>
   .wrap { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; }
   .pos-centro { justify-content:center; }
-  .pos-abajo { justify-content:flex-end; padding-bottom:120px; }
+  .pos-abajo { justify-content:flex-end; padding-bottom:calc(var(--safe-bottom) + 24px); }
   /* Contenedor del bloque de subtítulo */
   .caption-box { position:relative; max-width:920px; width:90%; padding:32px 40px; background:rgba(var(--fx-bg-rgb),.82); backdrop-filter:blur(16px); border:2px solid rgba(var(--fx-accent-rgb),.4); border-radius:28px; box-shadow:0 25px 60px rgba(var(--fx-bg-rgb),.8); display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:16px 22px; text-align:center; }
   /* Cada palabra del karaoke */
