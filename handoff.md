@@ -13,7 +13,8 @@
   - `check.sh video`: ✓ Pasan los 14 efectos a 120/150 frames exactos, h264 yuv420p.
   - `overlay.mjs`: probado componiendo subtítulos karaoke sobre clip real del usuario en `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/08-overlay-karaoke-sobre-video.mp4`.
 - **Zip:** `dist/ceinca-video-fx.zip` (216 KB, 107 archivos), sin mp4 ni node_modules.
-- **Pendiente:** push de la rama `feature/ceinca-video-fx-bloque3` y apertura del PR en GitHub.
+- **PR:** [#35](https://github.com/erodal1978-coder/CEINCA-AI-OS/pull/35) abierto (sin mergear). Entregable listo para revisión y merge.
+
 
 ## 🎬 19-10-2026 — Skill `ceinca-video-fx` Bloque 2 (3 zooms sobre clip grabado, solo FFmpeg) — rama `feature/ceinca-video-fx-bloque2`
 - **Objetivo:** extensión de la skill `.claude/skills/ceinca-video-fx` con 3 efectos de zoom aplicados a clips de video grabados por el usuario: `zoom-digital` (acercamiento continuo hacia `foco`), `zoom-corte` (cortes instantáneos simulando multicámara) y `zoom-atras` (pull-back desde plano cerrado).
