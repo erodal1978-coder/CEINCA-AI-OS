@@ -5,7 +5,8 @@
 <style>  .bg { position:absolute; inset:-60px; width:calc(100% + 120px); height:calc(100% + 120px); object-fit:cover; }
   .bg-fallback { position:absolute; inset:0; background:var(--fx-grad-accent); }
   .shade { position:absolute; inset:0; background:linear-gradient(180deg, rgba(var(--fx-bg-rgb),.15) 0%, rgba(var(--fx-bg-rgb),.55) 100%); }
-  .glass { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); padding:70px 64px 74px; border-radius:var(--fx-radius-lg);
+  .gwrap { position:absolute; inset:0; display:flex; align-items:center; }
+  .glass { position:relative; width:100%; padding:70px 64px 74px; border-radius:var(--fx-radius-lg);
     background:rgba(var(--fx-surface-rgb),.34); -webkit-backdrop-filter:blur(34px) saturate(1.5); backdrop-filter:blur(34px) saturate(1.5);
     border:2px solid rgba(var(--fx-text-rgb),.28); box-shadow:var(--fx-shadow-card); }
   .glass::before { content:''; position:absolute; left:64px; top:-2px; width:150px; height:10px; border-radius:0 0 8px 8px; background:var(--fx-accent); }
@@ -15,7 +16,7 @@
 <body>
 <div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
 <div id="bgwrap" class="fx-bgfill" style="overflow:hidden"></div><div class="shade"></div>
-  <div id="area" class="fx-area"><div class="glass" id="glass"><div class="t" id="t"></div></div></div>
+  <div id="area" class="fx-area"><div class="gwrap"><div class="glass" id="glass"><div class="t" id="t"></div></div></div></div>
 </div>
 <script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
 <script>

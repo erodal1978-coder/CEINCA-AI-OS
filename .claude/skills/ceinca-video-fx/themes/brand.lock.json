@@ -1,12 +1,12 @@
 {
   "aviso": "GENERADO por sync-brand. Si cambia el manual de marca: npm run sync-brand, commitear y regenerar el zip.",
-  "fecha": "2026-10-19T02:09:22.775Z",
+  "fecha": "2026-10-19T02:45:01.401Z",
   "tokens": {
-    "archivo": "skills/ceinca-design/references/tokens.md",
+    "archivo": "../ceinca-design/references/tokens.md",
     "sha256": "1366138a905d051fd5593411fcede7b6c9fbf1adacec7ecc3fe9390f532707bf"
   },
   "guias": {
-    "archivo": "skills/ceinca-design/references/editorial-guides.md",
+    "archivo": "../ceinca-design/references/editorial-guides.md",
     "sha256": "47b92d3c9150750ffabe52881f1e33dc07c30ed7a1330040a0bc71585c2640ea"
   },
   "familias": {
