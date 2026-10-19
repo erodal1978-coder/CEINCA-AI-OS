@@ -1,0 +1,10 @@
+{
+  "efecto": "zoom-atras",
+  "clip": "../examples/assets/clips/clip-bloque2-v.mp4",
+  "escalaInicial": 1.5,
+  "inicio": 0.0,
+  "fin": 3.5,
+  "curva": "suave",
+  "foco": { "x": 0.5, "y": 0.4 },
+  "audio": true
+}

@@ -67,4 +67,28 @@ src.forEach((s, i) => {
   const r = spawnSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'lavfi', '-i', s, '-t', '5', '-an', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-g', '15', '-crf', '28', '-r', '30', path.join(A, 'clips', `clip-${i + 1}.mp4`)]);
   if (r.status !== 0) { console.error(`✗ clip ${i + 1}: ${r.stderr}`); process.exit(1); }
 });
+
+// Clips de prueba para Bloque 2 (efectos sobre clip grabado).
+// clip-bloque2-v.mp4  → vertical 1080×1920 + audio (caso nominal)
+// clip-bloque2-h.mp4  → horizontal 1920×1080 + audio (prueba encuadre cover 9:16)
+// clip-bloque2-25.mp4 → vertical 1080×1920 a 25 fps + audio (prueba normalización de fps)
+const clipsB2 = [
+  { name: 'clip-bloque2-v.mp4',  v: 'testsrc2=s=1080x1920:r=30:d=5' },
+  { name: 'clip-bloque2-h.mp4',  v: 'testsrc2=s=1920x1080:r=30:d=5' },
+  { name: 'clip-bloque2-25.mp4', v: 'testsrc2=s=1080x1920:r=25:d=5' },
+];
+clipsB2.forEach(({ name, v }) => {
+  const out = path.join(A, 'clips', name);
+  const r = spawnSync('ffmpeg', [
+    '-y', '-loglevel', 'error',
+    '-f', 'lavfi', '-i', v,
+    '-f', 'lavfi', '-i', 'sine=frequency=440:duration=5',
+    '-map', '0:v', '-map', '1:a',
+    '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-g', '15', '-crf', '28',
+    '-c:a', 'aac', '-b:a', '128k', '-t', '5',
+    out
+  ]);
+  if (r.status !== 0) { console.error(`✗ ${name}: ${r.stderr.toString().trim()}`); process.exit(1); }
+});
 console.log('✓ assets de prueba en examples/assets/');
+

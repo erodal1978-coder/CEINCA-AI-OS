@@ -71,9 +71,51 @@ video() {
   fi
 }
 
+clip_check() {
+  local json="${1:-}" mp4="${2:-}"
+  [ -f "$json" ] || { bad "no existe $json"; return; }
+  # Campos obligatorios y tipo mínimo
+  local efecto clip
+  efecto=$(node -e "const j=JSON.parse(require('fs').readFileSync('$json','utf8'));process.stdout.write(j.efecto||'')")
+  clip=$(node   -e "const j=JSON.parse(require('fs').readFileSync('$json','utf8'));process.stdout.write(j.clip||'')")
+  local validos="zoom-digital zoom-corte zoom-atras"
+  [[ " $validos " == *" $efecto "* ]] || bad "$json: efecto='$efecto' no es uno de: $validos"
+  [ -n "$clip" ] || bad "$json: falta el campo 'clip'"
+  # Validaciones adicionales por tipo
+  if [ "$efecto" = "zoom-corte" ]; then
+    node -e "
+      const j=JSON.parse(require('fs').readFileSync('$json','utf8'));
+      if (!Array.isArray(j.cortes)||j.cortes.length===0) { process.stderr.write('cortes[] falta o está vacío\n'); process.exit(1); }
+      for(let i=0;i<j.cortes.length;i++){
+        const c=j.cortes[i];
+        if(typeof c.t!=='number')  { process.stderr.write('cortes['+i+'].t no es número\n'); process.exit(1); }
+        if(typeof c.escala!=='number'||c.escala<1) { process.stderr.write('cortes['+i+'].escala debe ser ≥ 1\n'); process.exit(1); }
+        if(i>0&&c.t<=j.cortes[i-1].t) { process.stderr.write('cortes[] no está en orden ascendente en ['+i+']\n'); process.exit(1); }
+      }
+    " 2>&1 | while IFS= read -r l; do bad "$json: $l"; done
+  fi
+  ok "$(basename "$json"): estructura válida (efecto=$efecto)"
+  # Verificación de audio si se provee MP4
+  if [ -n "$mp4" ] && [ -f "$mp4" ]; then
+    local dur_v dur_a
+    dur_v=$(ffprobe -v error -select_streams v:0 -show_entries stream=duration -of csv=p=0 "$mp4" | head -1)
+    dur_a=$(ffprobe -v error -select_streams a:0 -show_entries stream=duration -of csv=p=0 "$mp4" | head -1)
+    if [ -z "$dur_a" ] || [ "$dur_a" = "N/A" ]; then
+      ok "$(basename "$mp4"): sin audio (ok si audio=false)"
+    else
+      local diff ok_tol
+      diff=$(node -e "process.stdout.write(Math.abs(${dur_v}-${dur_a}).toFixed(4))")
+      ok_tol=$(node -e "process.stdout.write(${diff}<=0.05?'1':'0')")
+      [ "$ok_tol" = "1" ] && ok "$(basename "$mp4"): audio=${dur_a}s video=${dur_v}s (diff=${diff}s ≤ 0.05s)" \
+                           || bad "$(basename "$mp4"): audio=${dur_a}s vs video=${dur_v}s (diff=${diff}s > 0.05s)"
+    fi
+  fi
+}
+
 case "${1:-estatico}" in
   estatico) estatico ;;
-  video) shift; video "$@" ;;
-  *) echo "uso: check.sh [estatico] | video <mp4> [dur] [png]"; exit 2 ;;
+  video)    shift; video "$@" ;;
+  clip)     shift; clip_check "$@" ;;
+  *) echo "uso: check.sh [estatico] | video <mp4> [dur] [png] | clip <json> [mp4]"; exit 2 ;;
 esac
 exit $fail

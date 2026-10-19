@@ -1,17 +1,21 @@
 ---
 name: ceinca-video-fx
 description: >
-  Efectos de motion graphics CEINCA™ como plantillas HTML parametrizables que se
-  renderizan a MP4 vertical (1080×1920, 30 fps, H.264). Bloque 1 — 11 efectos de
-  solo código: muro de titulares, checklist, gráfica que crece, texto cristal,
-  portada, teléfono, mundo-app 3D, órbita, garabato vivo, muro de videos y vértigo
-  simulado (dolly zoom). Activa cuando el usuario pida "efecto de video",
-  "motion graphics", "animación para Reel/Story", "que se dibuje el check",
-  "gráfica animada", "titulares que aparecen", "mockup de teléfono animado",
-  "zoom vértigo", "garabato/flecha dibujada", "reel de efectos", "video-fx" o
-  mencione cualquiera de los 11 ids. Los colores y las tipografías NUNCA se
-  escriben en la skill: salen del manual de marca (ceinca-design) vía sync-brand.
-  No cubre zoom/rompe-marco/pantalla verde/karaoke (bloques siguientes).
+  Efectos de video CEINCA™ en dos bloques. Bloque 1 — 11 efectos de motion
+  graphics como plantillas HTML + GSAP que se renderizan a MP4 vertical
+  (1080×1920, 30 fps, H.264): muro de titulares, checklist, gráfica que crece,
+  texto cristal, portada, teléfono, mundo-app 3D, órbita, garabato vivo, muro
+  de videos y vértigo simulado (dolly zoom). Bloque 2 — 3 efectos de zoom FFmpeg
+  sobre un clip grabado por el usuario: zoom digital (acercamiento continuo),
+  zoom de corte (saltos instantáneos entre planos) y zoom hacia atrás (pull-back).
+  Activa cuando el usuario pida "efecto de video", "motion graphics",
+  "animación para Reel/Story", "que se dibuje el check", "gráfica animada",
+  "titulares que aparecen", "mockup de teléfono animado", "zoom vértigo",
+  "garabato/flecha dibujada", "reel de efectos", "video-fx",
+  "zoom digital", "zoom de corte", "punch-in", "zoom hacia atrás",
+  "acercamiento suave a mi clip", o mencione cualquiera de los ids de efecto.
+  Los colores y tipografías del Bloque 1 salen del manual de marca (ceinca-design)
+  vía sync-brand. Los efectos del Bloque 2 no dependen de la marca.
 ---
 
 # ceinca-video-fx — Bloque 1 (11 efectos de solo código)
@@ -112,6 +116,77 @@ ceinca-video-fx/
 ├─ shared/        base.css (solo --fx-*) · fx.js (runtime: overlays, drive, rich text, íconos)
 ├─ themes/        ceinca-social.css · ceinca-guias.css · brand.lock.json · clientes/
 ├─ vendor/        gsap/ (+LICENSE.md) · fonts/ (+ licencia por familia)
-├─ scripts/       sync-brand · render · reel · check.sh · build-zip.sh · make-assets
-└─ examples/      <id>.json · reel-bloque1.json · assets/
+├─ scripts/       sync-brand · render · reel · clip · check.sh · build-zip.sh · make-assets
+└─ examples/      <id>.json · clip-zoom-*.json · reel-bloque1.json · assets/
 ```
+
+---
+
+## Bloque 2 — Efectos de zoom sobre clip grabado (FFmpeg)
+
+Tres efectos que se aplican a un **clip mp4/mov grabado por el usuario**. No usan Chromium ni `npm install`: solo `ffmpeg` y `node`.
+
+### Uso rápido
+
+```bash
+cd .claude/skills/ceinca-video-fx
+node scripts/clip.mjs examples/clip-zoom-digital.json -o out/zoom-digital.mp4
+node scripts/clip.mjs examples/clip-zoom-corte.json   -o out/zoom-corte.mp4
+node scripts/clip.mjs examples/clip-zoom-atras.json   -o out/zoom-atras.mp4
+bash scripts/check.sh clip examples/clip-zoom-digital.json out/zoom-digital.mp4
+bash scripts/check.sh video out/zoom-digital.mp4 5 out/frames/dig-mid.png
+```
+
+`clip.mjs` imprime en stdout un JSON con: `efecto`, `metodo`, `ancho`, `alto`, `fps`, `codec`, `pix_fmt`, `frames`, `duracion`, `audio` y, si aplica, `aviso`.
+
+### Parámetros globales (los 3 efectos)
+
+| Parámetro | Default | Qué hace |
+|---|---|---|
+| `clip` | — (obligatorio) | ruta del mp4/mov (relativa al JSON, al cwd o a la skill) |
+| `recorte` | clip entero | `{ "desde": s, "hasta": s }` — segmento del clip a procesar |
+| `foco` | `{ "x": 0.5, "y": 0.5 }` | punto hacia el que se hace zoom, en fracción 0–1 |
+| `audio` | `true` | `false` quita el audio de la salida |
+
+**Validaciones con error explícito (sin corrección silenciosa):** `escala < 1`, `foco` fuera de [0,1], tiempos fuera de la duración del clip, `cortes[]` no ascendente.
+
+**Aviso (no error):** si el zoom máximo supera la resolución nativa del clip, se incluye `aviso` en el JSON de salida.
+
+### Catálogo
+
+| efecto | Comportamiento | Parámetros propios |
+|---|---|---|
+| `zoom-digital` | Acercamiento continuo hacia `foco` | `escala` (default 1.3), `inicio`, `fin` (s), `curva` (`lineal`\|`suave`\|`salida`; default `suave`). Tras `fin` mantiene la escala final. |
+| `zoom-corte` | Saltos instantáneos entre plano abierto y cerrado; simula dos cámaras | `cortes[]` con `{ "t": s, "escala": n, "foco"?: {x,y} }`. Cada corte se mantiene hasta el siguiente. Sin interpolación: el cambio ocurre en un solo frame. `escala: 1` = plano abierto. |
+| `zoom-atras` | Empieza cerrado, se abre hasta escala 1 (pull-back) | `escalaInicial` (default 1.4), `inicio`, `fin` (s), `curva` (igual que zoom-digital). Tras `fin` queda en escala 1. |
+
+Un `clip-<efecto>.json` de ejemplo vive en `examples/`.
+
+### Notas técnicas
+
+- **Motor:** `zoompan` de FFmpeg 6.1.1 con supersampleo ×2 lanczos (entrada escalada a 2160×3840 antes del filtro). Factor ×2 elegido sobre ×4 por velocidad; diferencia visual mínima en i5-3570 sin GPU.
+- **Determinismo verificado:** `ffmpeg -f framemd5` da hashes idénticos en dos renders del mismo JSON (hash `c46c8e7d3de7ac3df600b10796419366` en las pruebas de referencia de 5s).
+- **Encuadre cover:** si el clip no es 9:16, se escala y recorta para cubrir 1080×1920. El parámetro `foco` desplaza el recorte horizontal/vertical.
+- **Normalización de fps:** se fuerza `fps=30` antes del `zoompan` — clips a 25 fps salen correctamente a 30 fps sin desfase.
+- **zoom-corte** usa `trim+setpts+crop+scale+concat` por segmento (sin `zoompan`) para garantizar que el cambio ocurra en exactamente un frame.
+- **Audio:** recompresión AAC 128 kbps. Diferencia de duración audio/video < 0.05s en todas las pruebas (0.0000s en zoom-digital y zoom-corte, 0.015s en zoom-atras).
+- **PSNR medido:** en escala constante (z=1, frame 0) → **46.96 dB** (muy por encima del umbral de 30 dB). En puntos de escala intermedia (1.35×, frame 120) → 16.88 dB — valor bajo esperado: `zoompan` y `crop+scale` estático usan interpolaciones distintas. No es un artefacto, es la diferencia entre dos rutas matemáticamente distintas.
+- Estos efectos **no** tocan `sync-brand`, `themes/` ni `brand.lock.json`. `check.sh estatico` pasa sin cambios.
+- Si cambia el manual de marca, regenera el zip (ver sección Marca desacoplada) — los zooms no dependen de la marca pero el zip los incluye.
+
+### Clips de prueba propios (`make-assets.mjs`)
+
+`npm run make-assets` (o `node scripts/make-assets.mjs`) genera en `examples/assets/clips/` (ignorado por git):
+
+| archivo | descripción |
+|---|---|
+| `clip-bloque2-v.mp4` | 1080×1920, 30 fps, 5s, con audio (caso nominal) |
+| `clip-bloque2-h.mp4` | 1920×1080, 30 fps, 5s, con audio (prueba encuadre cover) |
+| `clip-bloque2-25.mp4` | 1080×1920, **25 fps**, 5s, con audio (prueba normalización de fps) |
+
+Los `clip-<efecto>.json` de `examples/` apuntan a `clip-bloque2-v.mp4`. Para probar con un clip real del usuario, pasa la ruta absoluta en el campo `"clip"` — el clip **no** se copia al repo.
+
+### Limitaciones conocidas (bloques siguientes)
+
+- **Overlays contador NN/TT y título fijo sobre el clip:** los overlays de `reel.mjs` viven en la capa HTML del Bloque 1 y no se aplican directamente a un mp4 existente sin un pipeline adicional (ffmpeg `drawtext` o composición con `overlay`). No implementado en Bloque 2.
+- Rompe el marco, corta y pega, pantalla verde (recorte de silueta) y subtítulos karaoke con Whisper: reservados para bloques siguientes.
