@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>muro-titulares</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .viewport { position:absolute; inset:0; overflow:hidden; border-radius:var(--fx-radius-lg); }
+  .wall { position:absolute; left:0; top:0; display:grid; grid-template-columns:1fr 1fr; gap:24px; will-change:transform; }
+  .hl-card { position:relative; padding:28px 30px; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; }
+  .hl-card .src { font-size:24px; font-weight:var(--fx-fw-strong); letter-spacing:.12em; text-transform:uppercase; color:var(--fx-accent); display:flex; align-items:center; gap:12px; position:relative; z-index:2; }
+  .hl-card .src::before { content:''; width:12px; height:12px; border-radius:50%; background:var(--fx-accent); }
+  .hl-card .tt { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:36px; line-height:1.12; letter-spacing:-.02em; position:relative; z-index:2; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+  .hl-card .on { position:absolute; inset:0; background:var(--fx-grad-accent); opacity:0; z-index:1; }
+  .hl-card.star .src, .hl-card.star .tt { color:inherit; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="area" class="fx-area"><div class="viewport" id="vp"><div class="wall" id="wall"></div></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({ titulares: [
+  'Nuevo criterio del Registro Mercantil sobre capital social', 'SAREN actualiza requisitos de actas', 'Reconversión: qué cambia para tu empresa', 'Plazos de inscripción: lo que nadie te dijo',
+  'Libros legales: multa por no sellarlos a tiempo', 'Cómo blindar tu empresa antes de fin de año' ], destacado: 0 });
+const { P, tl, D } = ctx;
+const vp = document.getElementById('vp'), wall = document.getElementById('wall');
+const tit = P.titulares.map((t) => (typeof t === 'string' ? { titulo: t } : t));
+const n = tit.length, rows = Math.ceil(n / 2), VW = 960, VH = vp.clientHeight || 1210, GAP = 24;
+const cw = (VW - GAP) / 2, ch = Math.min(300, (VH - GAP * (rows - 1)) / rows);
+wall.style.width = VW + 'px'; wall.style.gridAutoRows = ch + 'px';
+const hi = typeof P.destacado === 'string' ? Math.max(0, tit.findIndex((t) => t.titulo === P.destacado)) : Math.min(n - 1, Number(P.destacado || 0));
+const cards = tit.map((t, i) => { const c = FX.el('div', 'hl-card fx-card' + (i === hi ? ' star' : ''), wall);
+  const on = FX.el('div', 'on', c); FX.el('div', 'src', c, t.fuente || 'Última hora'); FX.el('div', 'tt', c, t.titulo); return { c, on, i }; });
+wall.style.height = (rows * ch + (rows - 1) * GAP) + 'px';
+wall.style.top = Math.max(0, (VH - (rows * ch + (rows - 1) * GAP)) / 2) + 'px';
+// entrada escalonada
+tl.from(cards.map((k) => k.c), { y: 90, opacity: 0, scale: 0.9, duration: 0.55, ease: 'back.out(1.5)', stagger: { each: Math.min(0.14, 1.3 / n), from: 'start' } }, 0.1);
+// cámara: empuja hacia la destacada
+const col = hi % 2, row = Math.floor(hi / 2);
+const cx = col * (cw + GAP) + cw / 2, cy = parseFloat(wall.style.top) + row * (ch + GAP) + ch / 2;
+const s = Math.min(VW * 0.94 / cw, (VH * 0.6) / ch);
+const T = Math.max(1.5, D * 0.5);
+gsap.set(wall, { transformOrigin: `${cx}px ${cy - parseFloat(wall.style.top)}px` });
+tl.to(wall, { scale: s, x: VW / 2 - cx, y: VH / 2 - cy, duration: Math.min(1.4, D - T - 0.2), ease: 'power3.inOut' }, T);
+cards.forEach((k) => { if (k.i === hi) tl.to(k.on, { opacity: 1, duration: 0.5, ease: 'power2.out' }, T + 0.3); else tl.to(k.c, { opacity: 0.12, duration: 0.7, ease: 'power2.inOut' }, T); });
+tl.to(cards[hi].c.querySelector('.tt'), { color: 'var(--fx-on-accent)', duration: 0.4 }, T + 0.3);
+tl.to(cards[hi].c.querySelector('.src'), { color: 'var(--fx-on-accent)', duration: 0.4 }, T + 0.3);
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

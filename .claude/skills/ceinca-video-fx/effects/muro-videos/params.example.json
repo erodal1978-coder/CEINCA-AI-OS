@@ -1,0 +1,12 @@
+{
+  "efecto": "muro-videos",
+  "clips": [
+    "../../examples/assets/clips/clip-1.mp4",
+    "../../examples/assets/clips/clip-2.mp4",
+    "../../examples/assets/clips/clip-3.mp4",
+    "../../examples/assets/clips/clip-4.mp4",
+    "../../examples/assets/clips/clip-5.mp4",
+    "../../examples/assets/clips/clip-6.mp4"
+  ],
+  "destacado": 3
+}
