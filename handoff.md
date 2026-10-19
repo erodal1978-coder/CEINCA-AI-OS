@@ -4,6 +4,17 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🎬 19-10-2026 — Skill `ceinca-video-fx` Bloque 3 (17 efectos completados: Chroma, Rompe-Marco, Corta-Pega, Karaoke y Overlay) — rama `feature/ceinca-video-fx-bloque3`
+- **Objetivo:** culminar la totalidad de los 17 efectos de video analizados en la transcripción de referencia. El Bloque 3 añade: (1) `pantalla-verde` (chroma key nativo FFmpeg), (2) `rompe-marco` (profundidad 2.5D con sujeto sobresaliendo de tarjeta UI), (3) `corta-pega` (paper cutout / sticker stop-motion con contorno blanco y saltos discretos), (4) `subtitulos-karaoke` (resaltado tipográfico sincronizado palabra por palabra), y (5) `scripts/overlay.mjs` (composición de capas y subtítulos sobre cualquier video base con FFmpeg).
+- **Reglas y compatibilidad:** Sin dependencias pesadas de Python (sin rembg ni torch inestables en CPU/sandbox). 100% compatible con Claude Code, terminal y chat web / cowork (claude.ai). Marca desacoplada: cero colores literales en HTML/CSS, todo anclado a variables semánticas `--fx-*`.
+- **Verificación:**
+  - `check.sh estatico`: ✓ 14/14 efectos HTML pasan todas las reglas de marca, familias de fuentes y URLs.
+  - `check.sh clip`: ✓ `clip-pantalla-verde.json` procesado con `ffmpeg-chromakey` en 1080×1920 30fps con audio sincronizado (diff ≤ 0.015s).
+  - `check.sh video`: ✓ Pasan los 14 efectos a 120/150 frames exactos, h264 yuv420p.
+  - `overlay.mjs`: probado componiendo subtítulos karaoke sobre clip real del usuario en `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/08-overlay-karaoke-sobre-video.mp4`.
+- **Zip:** `dist/ceinca-video-fx.zip` (216 KB, 107 archivos), sin mp4 ni node_modules.
+- **Pendiente:** push de la rama `feature/ceinca-video-fx-bloque3` y apertura del PR en GitHub.
+
 ## 🎬 19-10-2026 — Skill `ceinca-video-fx` Bloque 2 (3 zooms sobre clip grabado, solo FFmpeg) — rama `feature/ceinca-video-fx-bloque2`
 - **Objetivo:** extensión de la skill `.claude/skills/ceinca-video-fx` con 3 efectos de zoom aplicados a clips de video grabados por el usuario: `zoom-digital` (acercamiento continuo hacia `foco`), `zoom-corte` (cortes instantáneos simulando multicámara) y `zoom-atras` (pull-back desde plano cerrado).
 - **Reglas cumplidas:** solo FFmpeg 6.1.1 + Node (sin Chromium, sin HyperFrames, sin dependencias npm nuevas, sin CDN/APIs). Salida estándar vertical 1080×1920, 30 fps, H.264, yuv420p, audio AAC preservado sin desfase (`check.sh clip` reporta diff ≤ 0.015s en pruebas vs tolerancia 0.05s). Sin colores ni tipografías de marca (no toca `sync-brand`, `themes/` ni `brand.lock.json`).
