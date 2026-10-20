@@ -248,6 +248,8 @@ Cada escena toma la **voz del tramo `[desde, hasta]` de su `fuente`** (ganancia 
 | `ctb` | caja de llamado a la acción (`{palabra, linea, handle}`) dentro de la zona segura |
 | `badge: N` | contador `N/total` + título fijo (PNG de `badge.mjs`) |
 | `sinAuditoria` | omite la auditoría de zonas seguras (solo si el efecto se corta a mitad de animación) |
+| `ventana` + `contenido` | **locutor persistente** (desplazado 400 px) con el efecto en una ventana 1080×850 arriba; `contenido` = `{ html }` o `{ fx }` (con `clip` propio, p. ej. el clip verde) y `velocidad`; `badge` + `nombre` dibujan `NN/07 · NOMBRE`; `ventana.banda` elige qué franja del efecto se ve |
+| `texto` (alias `ctb`) | caja dorada grande: `{ palabra, prefijo ("COMENTA " por defecto), linea, handle, y, entra }`; úsala para hook, dato y CTB |
 
 **Flujo recomendado:** (1) graba/genera las escenas con la voz; (2) Whisper `small` con `word_timestamps` por clip → tiempos reales de cada palabra; (3) reparte los efectos según la palabra que se dice; (4) render; (5) contact sheet 1 fps + Whisper del master para comprobar.
 
@@ -264,3 +266,13 @@ Cada escena toma la **voz del tramo `[desde, hasta]` de su `fuente`** (ganancia 
 4. El texto del CTB va **exacto** (`FIEBRU'O`, con apóstrofe) y dentro de la zona segura (no bajo 350 px del borde inferior).
 5. Una escena de cada efecto con **la cara del usuario** (recorte real), nunca la silueta de demo (`frente-figura.png` es solo para pruebas del skill).
 6. Para Flow (avatar, continuidad con último fotograma, descargas 720p/1080p) ver la skill `flow-chrome` (borrador en `CEINCA-WORKSPACE/03 FORMACION/CURSO FLOW/SKILL_flow-chrome_BORRADOR_v0.1.md`, sección 12).
+
+
+### Receta "reel NEAPS-AIDA con ventana" (reel v4, 20-10-2026)
+Estructura de los reels virales de CEINCA (TOTUMA, GUARAPO; `MARKETING/SISTEMA_VIRAL.md` §1.2, Mecanismo A) aplicada a un reel de efectos: **hook de urgencia** (texto grande dorado) → **contraste antes/después** → **"Guarda este video" temprano** → **checklist de efectos** (cada uno en ventana, etiqueta `NN/07 nombre`) → **dato** ("7 de 18") → **CTB en texto dorado + voz** → pedido de follow con razón de valor. Subtítulos continuos y logo fijos.
+1. Genera los clips con voz (Flow + avatar), frases ≤ 13 palabras, **encuadre bajo** (sujeto en el tercio inferior); no deletrees siglas ni nombres difíciles en el prompt (FFmpeg, CEINCA): reescribe la frase.
+2. **Mide la voz por energía, no por Whisper:** `node scripts/voz-ventanas.mjs clip.mp4` → `1.15-2,2.9-4.8,…`. Whisper adelanta la voz hasta ~1 s con la sala en silencio y reordena a veces las palabras del prompt: coloca los efectos según lo que de verdad se oye.
+3. Corta cada clip en tramos que contengan voz (varias escenas con la misma `fuente` = jump-cut): sin pausas > 0,5 s y sin silencio inicial (`check.sh reel` lo exige).
+4. `reel-voz.mjs … --guardar-base base.mp4` → Whisper sobre `base.mp4` → `subtitulos-whisper.mjs palabras.json -o karaoke.json --max 4 --ventanas "$(node scripts/voz-ventanas.mjs base.mp4)" --reemplazos '{"cloud":"Claude"}'` → añade `"subtitulos": "karaoke.json"` y `"logo": true` al JSON → `reel-voz.mjs … --desde-base base.mp4` (solo aplica las capas, sin re-renderizar escenas).
+5. `bash scripts/check.sh reel reel.mp4 reel-voz.json`: formato, A/V, −16 LUFS, sin silencios, badges 1..N, keyword exacta.
+Ejemplo: `examples/reel-voz.example.json`. Logo: `vendor/brand/insignia-principal.svg` (copia del manual de marca).

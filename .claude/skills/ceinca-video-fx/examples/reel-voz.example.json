@@ -2,235 +2,330 @@
  "tema": "ceinca-social",
  "tituloFijo": "7 efectos de video con Claude",
  "total": 7,
+ "logo": true,
  "escenas": [
   {
-   "fuente": "assets/flow_A.mp4",
-   "desde": 0.85,
-   "hasta": 5.6,
-   "fx": {
-    "efecto": "zoom-digital",
-    "escala": 1.15,
-    "inicio": 0,
-    "fin": 4.7,
-    "curva": "suave",
-    "foco": {
-     "x": 0.5,
-     "y": 0.35
+   "fuente": "assets/v4_1_hook.mp4",
+   "desde": 1.05,
+   "hasta": 2.1,
+   "texto": {
+    "palabra": "¡ÚLTIMA HORA!",
+    "prefijo": "",
+    "linea": "",
+    "handle": "",
+    "entra": 0.1
+   }
+  },
+  {
+   "fuente": "assets/v4_1_hook.mp4",
+   "desde": 2.8,
+   "hasta": 4.9,
+   "texto": {
+    "palabra": "CLAUDE YA EDITA TUS REELS",
+    "prefijo": "",
+    "linea": "",
+    "handle": "",
+    "entra": 0.2
+   }
+  },
+  {
+   "fuente": "assets/v4_1_hook.mp4",
+   "desde": 5.35,
+   "hasta": 6.9,
+   "texto": {
+    "palabra": "SIN PAGARLE A UN EDITOR",
+    "prefijo": "",
+    "linea": "",
+    "handle": "",
+    "entra": 0.1
+   }
+  },
+  {
+   "fuente": "assets/v4_2_contraste.mp4",
+   "desde": 0.2,
+   "hasta": 1.97,
+   "texto": {
+    "palabra": "ANTES: HORAS EDITANDO",
+    "prefijo": "",
+    "linea": "",
+    "handle": "",
+    "entra": 0.1
+   }
+  },
+  {
+   "fuente": "assets/v4_2_contraste.mp4",
+   "desde": 2.5,
+   "hasta": 4.5,
+   "texto": {
+    "palabra": "AHORA: PURO CÓDIGO",
+    "prefijo": "",
+    "linea": "",
+    "handle": "",
+    "entra": 0.1
+   }
+  },
+  {
+   "fuente": "assets/v4_2_contraste.mp4",
+   "desde": 4.95,
+   "hasta": 6.1,
+   "texto": {
+    "palabra": "GUARDA ESTE VIDEO",
+    "prefijo": "",
+    "linea": "",
+    "handle": "",
+    "entra": 0.1
+   }
+  },
+  {
+   "fuente": "assets/v4_3b_efectos1.mp4",
+   "desde": 1.15,
+   "hasta": 2.55,
+   "badge": 1,
+   "nombre": "Muro de titulares",
+   "sinAuditoria": true,
+   "ventana": {
+    "banda": 535
+   },
+   "contenido": {
+    "html": {
+     "efecto": "muro-titulares",
+     "destacado": 0,
+     "titulares": [
+      {
+       "fuente": "Registro",
+       "titulo": "Nuevo criterio del Registro Mercantil sobre capital social"
+      },
+      {
+       "fuente": "SAREN",
+       "titulo": "SAREN actualiza los requisitos de actas"
+      },
+      {
+       "fuente": "Economía",
+       "titulo": "Reconversión: qué cambia para tu empresa"
+      },
+      {
+       "fuente": "Plazos",
+       "titulo": "Inscripción: lo que nadie te dijo"
+      },
+      {
+       "fuente": "Libros",
+       "titulo": "Multa por no sellar los libros a tiempo"
+      },
+      {
+       "fuente": "Blindaje",
+       "titulo": "Cómo blindar tu empresa antes de fin de año"
+      }
+     ]
     }
    }
   },
   {
-   "fuente": "assets/flow_B.mp4",
-   "desde": 0.88,
-   "hasta": 3.1
-  },
-  {
-   "fuente": "assets/flow_B.mp4",
-   "desde": 3.1,
-   "hasta": 5.0,
-   "badge": 1,
-   "html": {
-    "efecto": "muro-titulares",
-    "destacado": 0,
-    "titulares": [
-     {
-      "fuente": "Registro",
-      "titulo": "Nuevo criterio del Registro Mercantil sobre capital social"
-     },
-     {
-      "fuente": "SAREN",
-      "titulo": "SAREN actualiza los requisitos de actas"
-     },
-     {
-      "fuente": "Economía",
-      "titulo": "Reconversión: qué cambia para tu empresa"
-     },
-     {
-      "fuente": "Plazos",
-      "titulo": "Inscripción: lo que nadie te dijo"
-     },
-     {
-      "fuente": "Libros",
-      "titulo": "Multa por no sellar los libros a tiempo"
-     },
-     {
-      "fuente": "Blindaje",
-      "titulo": "Cómo blindar tu empresa antes de fin de año"
-     }
-    ]
-   },
-   "sinAuditoria": true
-  },
-  {
-   "fuente": "assets/flow_B.mp4",
-   "desde": 5.0,
-   "hasta": 6.4,
+   "fuente": "assets/v4_3b_efectos1.mp4",
+   "desde": 2.55,
+   "hasta": 4.15,
    "badge": 2,
-   "html": {
-    "efecto": "grafica-crece",
-    "tipo": "barras",
-    "titulo": "Alcance semanal (ejemplo)",
-    "datos": [
-     1200,
-     3400,
-     9800,
-     21500,
-     48000
-    ],
-    "etiquetas": [
-     "L",
-     "M",
-     "X",
-     "J",
-     "V"
-    ]
+   "nombre": "Rompe el marco",
+   "sinAuditoria": true,
+   "ventana": {
+    "banda": 535
+   },
+   "contenido": {
+    "html": {
+     "efecto": "rompe-marco",
+     "sujeto": "assets/eduardo-recorte.png",
+     "titular": "PROFUNDIDAD **2.5D**",
+     "subtitulo": "El sujeto rompe el marco",
+     "etiqueta": "CEINCA™ FX"
+    }
    }
   },
   {
-   "fuente": "assets/flow_B.mp4",
-   "desde": 6.4,
-   "hasta": 7.7,
+   "fuente": "assets/v4_3b_efectos1.mp4",
+   "desde": 4.15,
+   "hasta": 5.3,
    "badge": 3,
-   "fx": {
-    "efecto": "zoom-corte",
-    "cortes": [
-     {
-      "t": 0.35,
-      "escala": 1.5,
-      "foco": {
-       "x": 0.5,
-       "y": 0.3
-      }
+   "nombre": "Pantalla verde",
+   "sinAuditoria": true,
+   "ventana": {
+    "banda": 400
+   },
+   "contenido": {
+    "fx": {
+     "efecto": "pantalla-verde",
+     "clip": "assets/flow_C_verde.mp4",
+     "metodo": "verde-dominante",
+     "color": "0x329152",
+     "fondo": {
+      "tipo": "color",
+      "valor": "0x122A63"
      },
-     {
-      "t": 0.8,
-      "escala": 1.0
+     "recorte": {
+      "desde": 0,
+      "hasta": 1.2
      }
-    ]
+    }
    }
   },
   {
-   "fuente": "assets/flow_C.mp4",
-   "desde": 0.0,
-   "hasta": 1.2,
+   "fuente": "assets/v4_3b_efectos1.mp4",
+   "desde": 5.3,
+   "hasta": 6.8,
    "badge": 4,
-   "fx": {
-    "efecto": "pantalla-verde",
-    "color": "0x329152",
-    "fondo": {
-     "tipo": "color",
-     "valor": "0x122A63"
-    },
-    "metodo": "verde-dominante"
+   "nombre": "Gráfica que crece",
+   "sinAuditoria": true,
+   "ventana": {
+    "banda": 535
+   },
+   "contenido": {
+    "html": {
+     "efecto": "grafica-crece",
+     "tipo": "barras",
+     "titulo": "Alcance semanal (ejemplo)",
+     "datos": [
+      1200,
+      3400,
+      9800,
+      21500,
+      48000
+     ],
+     "etiquetas": [
+      "L",
+      "M",
+      "X",
+      "J",
+      "V"
+     ]
+    }
    }
   },
   {
-   "fuente": "assets/flow_C.mp4",
-   "desde": 1.2,
-   "hasta": 3.7,
+   "fuente": "assets/v4_4_efectos2.mp4",
+   "desde": 0.65,
+   "hasta": 2.0,
    "badge": 5,
-   "html": {
-    "efecto": "rompe-marco",
-    "sujeto": "assets/eduardo-recorte.png",
-    "titular": "PROFUNDIDAD **2.5D**",
-    "subtitulo": "El sujeto rompe el marco",
-    "etiqueta": "CEINCA™ FX"
+   "nombre": "Corta y pega",
+   "sinAuditoria": true,
+   "ventana": {
+    "banda": 535
+   },
+   "contenido": {
+    "html": {
+     "efecto": "corta-pega",
+     "sujeto": "assets/eduardo-recorte.png",
+     "titular": "RECORTES TIPO **STICKER**",
+     "subtitulo": "Corta y pega",
+     "etiquetas": [
+      "SIN AFTER EFFECTS",
+      "100% CÓDIGO"
+     ]
+    }
    }
   },
   {
-   "fuente": "assets/flow_C.mp4",
-   "desde": 3.7,
-   "hasta": 6.9,
+   "fuente": "assets/v4_4_efectos2.mp4",
+   "desde": 2.0,
+   "hasta": 3.3,
    "badge": 6,
-   "html": {
-    "efecto": "corta-pega",
-    "sujeto": "assets/eduardo-recorte.png",
-    "titular": "RECORTES TIPO **STICKER**",
-    "subtitulo": "Corta y pega",
-    "etiquetas": [
-     "SIN AFTER EFFECTS",
-     "100% CÓDIGO"
-    ]
+   "nombre": "Zoom de corte",
+   "sinAuditoria": true,
+   "ventana": {
+    "banda": 455
+   },
+   "contenido": {
+    "fx": {
+     "efecto": "zoom-corte",
+     "cortes": [
+      {
+       "t": 0.4,
+       "escala": 1.5,
+       "foco": {
+        "x": 0.5,
+        "y": 0.4
+       }
+      },
+      {
+       "t": 0.9,
+       "escala": 1.0
+      }
+     ]
+    }
    }
   },
   {
-   "fuente": "assets/flow_D2.mp4",
-   "desde": 1.3,
-   "hasta": 3.2,
+   "fuente": "assets/v4_4_efectos2.mp4",
+   "desde": 3.3,
+   "hasta": 4.95,
    "badge": 7,
-   "overlay": {
-    "efecto": "subtitulos-karaoke",
-    "posicion": "abajo",
-    "palabras": [
-     {
-      "texto": "TODO",
-      "t": 0.13
-     },
-     {
-      "texto": "CON",
-      "t": 0.32
-     },
-     {
-      "texto": "PURO",
-      "t": 0.6
-     },
-     {
-      "texto": "CÓDIGO",
-      "t": 0.98
-     },
-     {
-      "texto": "Y",
-      "t": 1.4
-     }
-    ]
+   "nombre": "Subtítulos karaoke",
+   "sinAuditoria": true,
+   "ventana": {
+    "banda": 535
+   },
+   "contenido": {
+    "html": {
+     "efecto": "subtitulos-karaoke",
+     "posicion": "centro",
+     "palabras": [
+      {
+       "texto": "SUBTÍTULOS",
+       "t": 0.1
+      },
+      {
+       "texto": "KARAOKE",
+       "t": 0.8
+      }
+     ]
+    }
    }
   },
   {
-   "fuente": "assets/flow_D2.mp4",
-   "desde": 3.2,
-   "hasta": 6.0,
-   "badge": 7,
-   "overlay": {
-    "efecto": "subtitulos-karaoke",
-    "posicion": "abajo",
-    "palabras": [
-     {
-      "texto": "HOY",
-      "t": 0.16
-     },
-     {
-      "texto": "TE",
-      "t": 0.4
-     },
-     {
-      "texto": "REGALO",
-      "t": 0.9
-     },
-     {
-      "texto": "LA",
-      "t": 1.36
-     },
-     {
-      "texto": "SKILL",
-      "t": 1.66
-     },
-     {
-      "texto": "COMPLETA",
-      "t": 1.92
-     }
-    ]
+   "fuente": "assets/v4_5b_prueba.mp4",
+   "desde": 1.4,
+   "hasta": 4.7,
+   "texto": {
+    "palabra": "7 DE 18 EFECTOS",
+    "prefijo": "",
+    "linea": "DE LA SKILL DE CEINCA",
+    "handle": "",
+    "entra": 0.1
    }
   },
   {
-   "fuente": "assets/flow_E.mp4",
-   "desde": 1.0,
-   "hasta": 6.0,
-   "ctb": {
+   "fuente": "assets/v4_5b_prueba.mp4",
+   "desde": 5.2,
+   "hasta": 6.85,
+   "texto": {
+    "palabra": "7 DE 18 EFECTOS",
+    "prefijo": "",
+    "linea": "DE LA SKILL DE CEINCA",
+    "handle": "",
+    "entra": 0
+   }
+  },
+  {
+   "fuente": "assets/v4_6_cierre.mp4",
+   "desde": 1.05,
+   "hasta": 3.5,
+   "texto": {
     "palabra": "FIEBRU'O",
-    "linea": "TE ENVÍO EL ZIP CON LOS EFECTOS",
+    "prefijo": "COMENTA ",
+    "linea": "Y TE LO ENVÍO POR PRIVADO",
     "handle": "@ceinca.mercantil",
-    "entra": 0.8
+    "entra": 0.4
+   }
+  },
+  {
+   "fuente": "assets/v4_6_cierre.mp4",
+   "desde": 4.15,
+   "hasta": 6.4,
+   "texto": {
+    "palabra": "SÍGUEME PARA MÁS TIPS DE IA",
+    "prefijo": "",
+    "linea": "",
+    "handle": "@ceinca.mercantil",
+    "entra": 0.2
    }
   }
- ]
+ ],
+ "subtitulos": "karaoke_v4.json"
 }
