@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// render.mjs — params.json → MP4 (1080×1920, 30 fps, H.264, yuv420p).
+// render.mjs — params.json → MP4 (30 fps, H.264, yuv420p): 1080×1920 (reel) o 1080×1350 ("formato": "carrusel", slide 4:5 de Instagram).
 // Ruta 1: HyperFrames CLI (composición HTML con timeline GSAP pausado en window.__timelines).
 // Ruta 2 (respaldo): mismo timeline, seek frame a frame + captura Playwright + unión con FFmpeg.
 import fs from 'node:fs';
@@ -10,7 +10,10 @@ import { spawnSync, spawn } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 export const SKILL = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const FPS = 30, W = 1080, H = 1920;
+const FPS = 30;
+// Formatos: reel 9:16 (zonas seguras por la UI de Reels) y carrusel 4:5 (slide de video; sin UI encima, solo margen).
+export const FORMATOS = { reel: { W: 1080, H: 1920, arriba: 250, abajo: 350 }, carrusel: { W: 1080, H: 1350, arriba: 90, abajo: 90 } };
+let W = 1080, H = 1920;
 const argv = process.argv.slice(2);
 
 function usage() {
@@ -20,7 +23,8 @@ function usage() {
   --duracion <seg>          sobreescribe la duración (default 4)
   --tema <nombre>           sobreescribe el tema (default: params.tema o ceinca-social)
   --marca-dir <dir>         raíz alterna con themes/ y vendor/fonts/ (pruebas de cambio de marca)
-  --zona-arriba <px> --zona-abajo <px>   zonas seguras (default 250 / 350)
+  --formato <reel|carrusel> 1080×1920 (default) o 1080×1350; solo efectos con <meta name="fx-formatos"> que lo declaren
+  --zona-arriba <px> --zona-abajo <px>   zonas seguras (default 250 / 350 en reel, 90 / 90 en carrusel)
   --sin-auditoria           no auditar texto fuera de zonas seguras
   --ignorar-lock            renderiza aunque brand.lock.json no coincida con el manual
   --conservar               no borra el directorio temporal de composición`);
@@ -103,7 +107,10 @@ function stage(params, opts) {
   resolved.__dims = Object.fromEntries([...assets].map(([abs, rel]) => [rel, probeAsset(abs)])); // [ancho, alto, duración] conocidos sin esperar a la carga
 
   let html = fs.readFileSync(path.join(srcDir, 'index.html'), 'utf8');
-  html = html.replace(/(data-composition-id="root"[^>]*?data-duration=")[^"]*(")/, `$1${opts.duracion}$2`);
+  const formatos = (/<meta name="fx-formatos" content="([^"]+)"/.exec(html)?.[1] || 'reel').split(',').map((x) => x.trim());
+  if (!formatos.includes(opts.formato)) die(2, `el efecto "${efecto}" no soporta formato ${opts.formato} (soporta: ${formatos.join(', ')}). Para carrusel: slide-interfaz, slide-cinetica`);
+  html = html.replace(/(data-composition-id="root"[^>]*?data-duration=")[^"]*(")/, `$1${opts.duracion}$2`)
+    .replace(/(data-composition-id="root"[^>]*?data-height=")[^"]*(")/, `$1${H}$2`).replace(/content="width=1080, height=\d+"/, `content="width=1080, height=${H}"`);
   // fondoClave: pinta el fondo de un color liso (p. ej. 0x00FF00) para quitarlo luego con chromakey y usar el efecto como overlay.
   if (params.fondoClave) {
     const key = '#' + String(params.fondoClave).replace(/^(0x|#)/i, '');
@@ -169,7 +176,7 @@ async function auditar(dir, zona, duracion, pw) {
   try {
     for (const frac of [0.5, 0.97]) {
       await seek(page, duracion * frac);
-      const r = await page.evaluate(({ top, bottom }) => {
+      const r = await page.evaluate(({ top, bottom, H }) => {
         const out = [];
         const walker = document.createTreeWalker(document.getElementById('root'), NodeFilter.SHOW_TEXT);
         let n;
@@ -182,12 +189,12 @@ async function auditar(dir, zona, duracion, pw) {
           const rg = document.createRange(); rg.selectNodeContents(n);
           for (const b of rg.getClientRects()) {
             if (b.width < 1) continue;
-            if (b.top < top - 14 || b.bottom > 1920 - bottom + 14 || b.left < 20 || b.right > 1060)
+            if (b.top < top - 14 || b.bottom > H - bottom + 14 || b.left < 20 || b.right > 1060)
               out.push(`"${txt.slice(0, 40)}" y=${Math.round(b.top)}..${Math.round(b.bottom)} x=${Math.round(b.left)}..${Math.round(b.right)}`);
           }
         }
         return out;
-      }, { top: zona.arriba, bottom: zona.abajo });
+      }, { top: zona.arriba, bottom: zona.abajo, H });
       fallas.push(...r);
     }
   } finally { await browser.close(); }
@@ -240,13 +247,16 @@ export async function render(paramsFile, o = {}) {
   const params = Object.assign(JSON.parse(fs.readFileSync(paramsFile, 'utf8')), o.override || {});
   if (!params.efecto) die(2, 'params.json necesita el campo "efecto"');
   const tema = o.tema ?? params.tema ?? 'ceinca-social';
+  const formato = o.formato ?? params.formato ?? 'reel';
+  const F = FORMATOS[formato]; if (!F) die(2, `formato desconocido: "${formato}" (reel | carrusel)`);
+  W = F.W; H = F.H;
   const duracion = Number(o.duracion ?? params.duracion ?? 4);
-  const zona = { arriba: Number(o.zonaArriba ?? params.zonaSegura?.arriba ?? 250), abajo: Number(o.zonaAbajo ?? params.zonaSegura?.abajo ?? 350) };
-  params.tema = tema; params.duracion = duracion; params.zonaSegura = zona;
+  const zona = { arriba: Number(o.zonaArriba ?? params.zonaSegura?.arriba ?? F.arriba), abajo: Number(o.zonaAbajo ?? params.zonaSegura?.abajo ?? F.abajo) };
+  params.tema = tema; params.duracion = duracion; params.zonaSegura = zona; params.formato = formato; params.alto = H;
   checkLock(o.marcaDir);
   const out = path.resolve(o.salida ?? path.join(SKILL, 'out', `${params.efecto}-${tema}.mp4`));
   fs.mkdirSync(path.dirname(out), { recursive: true });
-  const st = stage(params, { tema, duracion, marcaDir: o.marcaDir, paramsDir: path.dirname(path.resolve(paramsFile)) });
+  const st = stage(params, { tema, duracion, formato, marcaDir: o.marcaDir, paramsDir: path.dirname(path.resolve(paramsFile)) });
   const pw = await loadPlaywright();
   if (st.prep) {
     const extra = await (await import(pathToFileURL(st.prep).href)).default({ dir: st.dir, params: st.resolved, duracion, fps: FPS, log });
@@ -283,7 +293,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const file = argv.find((a) => !a.startsWith('-') && a.endsWith('.json'));
   if (!file || flag('--help')) { usage(); process.exit(file ? 0 : 1); }
   await render(file, {
-    salida: opt(['-o', '--salida']), motor: opt(['--motor']), duracion: opt(['--duracion']), tema: opt(['--tema']), marcaDir: opt(['--marca-dir']),
+    salida: opt(['-o', '--salida']), motor: opt(['--motor']), formato: opt(['--formato']), duracion: opt(['--duracion']), tema: opt(['--tema']), marcaDir: opt(['--marca-dir']),
     zonaArriba: opt(['--zona-arriba']), zonaAbajo: opt(['--zona-abajo']), sinAuditoria: flag('--sin-auditoria'), conservar: flag('--conservar'),
   });
 }
