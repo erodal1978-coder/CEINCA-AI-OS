@@ -4,6 +4,20 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🧪 20-10-2026 (tarde) — Marca @soyeduardo.ia: logo, tema, destacadas, foto y banco de keywords
+- **Decidido por Eduardo:** @soyeduardo.ia, con cara, archivar los 12 posts, posicionamiento "constructor, no gurú" (sin "abogado" ni "+180 empresas" en el perfil). Nombre `Eduardo Rodríguez | Claude e IA`; bio de 147 car. en `DIGITAL_MENTOR/02_MANUAL_DE_MARCA.md`. La cuenta NO se ha tocado: **Eduardo hará los cambios de perfil desde el celular** (sin sesión en la PC); yo nunca manejo contraseñas.
+- **Workspace (fuera de Git), respaldado en Drive `CEINCA RESPALDO/Digital mentor ` (20 archivos verificados con `rclone check`):** manuales 01/02, `tablero_marca` v0.2, logo `{ER}` (7 PNG, Sora 800, llave de cierre lima), 5 portadas de destacadas 1080×1920, `foto_perfil_final.png` (revisada 8,5/10 por mí; el parecido lo juzga Eduardo), y `Eduardo Vasquez IA.mp4` (Reel de referencia, 90,6 s, 720×1280, 29,97 fps; aún sin analizar). Copia del banco de keywords en `.../Digital mentor /repo-borradores/`.
+- **Skill `ceinca-video-fx`:** tema nuevo `cliente-eduardo-ia` (`themes/clientes/eduardo-ia.json` + CSS generado, fuente Sora 800 vendorizada). `check.sh estatico` pasa; render de `portada.json` con el tema OK.
+- **Nuevo en el repo:** `MARKETING/SOYEDUARDO_IA/CTB_KEYWORDS_SOYEDUARDO_IA.md` v0.1 (borrador): 36 palabras de taller (GOLEM, TALADRO, SOLDADURA…), filtro anti-falso-disparo porque la automatización usa "contiene" ("ia" está dentro de "gracias"). Puntajes = juicio mío. **Decisión de repo:** misma repo, carpeta `MARKETING/SOYEDUARDO_IA/`; repo aparte solo si se publica algo.
+- **Commits:** `c596e42` (checkpoint con el tema) y `2ca51bc` (keywords). `git diff --stat c596e42~3..HEAD`: 7 archivos, +217/−4.
+- **Pendiente (en este orden):**
+  1. Eduardo: perfil desde el celular (foto, @, nombre, bio, categoría), archivar 12 posts, 5 destacadas.
+  2. Análisis del Reel de referencia `Eduardo Vasquez IA.mp4` (prompt de 5 fases que Eduardo pegó: medición ffmpeg → verificar resumen de Gemini → auditoría → qué sirve para CEINCA → `MARKETING/DIGITAL_MENTOR_ESTILO.md`). La carpeta de salida del estudio de caso va en `MARKETING/` sin video ni frames. Antes de commitear, mostrar resumen a Eduardo.
+  3. Manual de copy de @soyeduardo.ia (adaptar `MANUAL_COPY_META_TIKTOK.md`): redactar tras ver el perfil montado.
+  4. Automatización de keywords en Meta Business Suite (PC, requiere sesión de la cuenta de IA).
+  5. Verificar: límite de caracteres del nombre en IG; disponibilidad de `soyeduardo.ia`; que "lo uso a diario en @ceinca.mercantil" sea cierto.
+- **Whisper:** recordar el parche de python3.10 (entrada del mediodía) si hay que transcribir.
+
 ## 🎬 20-10-2026 (mediodía) — Reel v6 (gancho "¿editores en peligro?") + copies FIEBRU'O
 - **Entregable:** `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/reel-v6/REEL_DEMO_FIEBRUO_v6.mp4` (29,3 s; `check.sh reel` pasa, −16,3 LUFS). = v5 con: ráfaga de 1 s (muro/rompe/gráfica + placa "¿EDITORES DE VIDEO EN PELIGRO?") + gancho nuevo de Flow (toma A) + mismo cuerpo. Comandos: `reel-v6/rehacer.sh`; prompt usado: `reel-v6/PROMPT_FLOW_GANCHO.md`.
 - **Copies:** `reel-v5/COPIES_FIEBRUO_v5.md` (4 textos Meta + TikTok + variante v6). Falta el enlace del zip para el DM y crear/probar la automatización FIEBRU'O.
