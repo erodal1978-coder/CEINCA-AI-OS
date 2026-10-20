@@ -4,6 +4,12 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🎬 20-10-2026 (mediodía) — Reel v6 (gancho "¿editores en peligro?") + copies FIEBRU'O
+- **Entregable:** `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/reel-v6/REEL_DEMO_FIEBRUO_v6.mp4` (29,3 s; `check.sh reel` pasa, −16,3 LUFS). = v5 con: ráfaga de 1 s (muro/rompe/gráfica + placa "¿EDITORES DE VIDEO EN PELIGRO?") + gancho nuevo de Flow (toma A) + mismo cuerpo. Comandos: `reel-v6/rehacer.sh`; prompt usado: `reel-v6/PROMPT_FLOW_GANCHO.md`.
+- **Copies:** `reel-v5/COPIES_FIEBRUO_v5.md` (4 textos Meta + TikTok + variante v6). Falta el enlace del zip para el DM y crear/probar la automatización FIEBRU'O.
+- **Entorno:** Whisper roto (venv apunta a python3.10 inexistente) → usar `PYTHONPATH=~/.local/venvs/whisper/lib/python3.10/site-packages $(uv python find 3.10) -m whisper`. Chrome Default descarga en la carpeta del cliente del Dr.
+- **Aclarado:** el módulo de carruseles cinéticos NO está construido (solo recomendado, pendiente de aprobación).
+
 ## 🎬 20-10-2026 (mañana) — Reel v5 (versión D: B-roll a pantalla completa + rostro libre + música)
 - **Por qué:** en el celular, la v4 seguía tapando la cara. Medido con `scripts/rostro.py` (YuNet): a pantalla completa la barbilla llega a y=1212-1347 y el dorado arrancaba en 1250; en modo ventana la cara ocupa y=1114-1662 y los subtítulos (≤1560) caen siempre sobre la boca. Se evaluaron 4 versiones; Eduardo eligió la D (9,2).
 - **Entregable:** `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/reel-v5/REEL_DEMO_FIEBRUO_v5.mp4` (29,4 s). `check.sh reel` pasa (−16,3 LUFS). Música: `PRUEBA_VIDEO_FX/musica/Midday_Meridian.mp3`, desde 5,43 s para que su caída (15,05 s) coincida con el primer efecto (9,62 s); 8 whoosh en los cortes. Música subida tras escucharla Eduardo: la cama estaba 24 LU bajo la voz (no se oía); ahora `musica.mjs --bajo 9` la deja 9 LU bajo la voz, medido solo. Base sin música: `REEL_DEMO_FIEBRUO_v5_sinmusica.mp4`.
