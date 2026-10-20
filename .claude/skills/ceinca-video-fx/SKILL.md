@@ -248,6 +248,7 @@ Cada escena toma la **voz del tramo `[desde, hasta]` de su `fuente`** (ganancia 
 | `ctb` | caja de llamado a la acción (`{palabra, linea, handle}`) dentro de la zona segura |
 | `badge: N` | contador `N/total` + título fijo (PNG de `badge.mjs`) |
 | `sinAuditoria` | omite la auditoría de zonas seguras (solo si el efecto se corta a mitad de animación) |
+| `contenido` (sin `ventana`) | **B-roll a pantalla completa** con la voz del clip en off (recomendado para mostrar efectos): `contenido` = `{ html }` o `{ fx }` y `velocidad`; `badge` + `nombre` dibujan `NN/07 · NOMBRE` en y=`badgeY` (1450 por defecto); `"sinTituloFijo": true` quita el título fijo de arriba si choca con el del efecto (p. ej. el contador grande de grafica-crece). Los subtítulos globales se apagan solos en estas escenas: el badge hace de subtítulo |
 | `ventana` + `contenido` | **locutor persistente** (desplazado 400 px) con el efecto en una ventana 1080×850 arriba; `contenido` = `{ html }` o `{ fx }` (con `clip` propio, p. ej. el clip verde) y `velocidad`; `badge` + `nombre` dibujan `NN/07 · NOMBRE`; `ventana.banda` elige qué franja del efecto se ve |
 | `texto` (alias `ctb`) | caja dorada grande: `{ palabra, prefijo ("COMENTA " por defecto), linea, handle, y, entra }`; úsala para hook, dato y CTB |
 
@@ -276,3 +277,11 @@ Estructura de los reels virales de CEINCA (TOTUMA, GUARAPO; `MARKETING/SISTEMA_V
 4. `reel-voz.mjs … --guardar-base base.mp4` → Whisper sobre `base.mp4` → `subtitulos-whisper.mjs palabras.json -o karaoke.json --max 4 --ventanas "$(node scripts/voz-ventanas.mjs base.mp4)" --reemplazos '{"cloud":"Claude"}'` → añade `"subtitulos": "karaoke.json"` y `"logo": true` al JSON → `reel-voz.mjs … --desde-base base.mp4` (solo aplica las capas, sin re-renderizar escenas).
 5. `bash scripts/check.sh reel reel.mp4 reel-voz.json`: formato, A/V, −16 LUFS, sin silencios, badges 1..N, keyword exacta.
 Ejemplo: `examples/reel-voz.example.json`. Logo: `vendor/brand/insignia-principal.svg` (copia del manual de marca).
+
+### Receta "reel v5: B-roll a pantalla completa + rostro libre" (20-10-2026, reemplaza la ventana)
+Visto en el celular, el modo `ventana` deja la cara del locutor (y≈1114-1662) justo donde caen los subtítulos (≤1560): no hay hueco. Por eso:
+1. **Efectos = B-roll a pantalla completa** (`contenido` sin `ventana`), voz en off, badge `NN/07 · nombre` como único texto. Si el efecto trae su propio título o franja y choca con el badge, vacíalo (`"titulo": ""`, `"subtitulo": ""`) o sube el badge con `badgeY` (máx. 1490).
+2. **Escenas de cara: una sola capa de texto** (los subtítulos). Nada de texto dorado que repita la voz; el dorado solo para el CTB.
+3. **Rostro medido, no adivinado:** `python3 scripts/rostro.py clip.mp4 desde hasta` (YuNet, `vendor/modelos/`, necesita `opencv-python` ≥4.8) da la barbilla en coordenadas 1080×1920. `reel-voz.mjs` lo usa solo: el CTB baja a barbilla + 40 px y los subtítulos se apagan en la escena si la cara invade su caja (y≥1440). Sin OpenCV sigue con las posiciones fijas.
+4. **Música:** `node scripts/musica.mjs reel.mp4 pista.mp3 -o final.mp4 --caida-musica <s de la caída en la pista> --caida-reel <s del primer efecto> --sfx <cortes>`. Agacha la música con la voz (sidechain), fundido final, whoosh sintetizado en cada corte, −16 LUFS. La caída se busca con el RMS cada 0,05 s (en Midday_Meridian: silencio 14,90-15,00 s y golpe en 15,05 s).
+
