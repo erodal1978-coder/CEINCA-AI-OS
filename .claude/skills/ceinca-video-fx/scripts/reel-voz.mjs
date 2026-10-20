@@ -50,6 +50,13 @@ const gainOf = (src) => {
   return gain[src];
 };
 
+const themeVar = (name) => { // lee un color #RRGGBB de themes/<tema>.css → 0xRRGGBB (la marca vive solo en el tema)
+  const css = fs.readFileSync(path.join(SKILL, 'themes', `${tema}.css`), 'utf8');
+  const m = new RegExp(`${name}:\\s*#([0-9A-Fa-f]{6})`).exec(css);
+  if (!m) die(`no encontré ${name} en themes/${tema}.css`);
+  return '0x' + m[1];
+};
+
 const parts = [];
 for (const [i, e] of reel.escenas.entries()) {
   const id = String(i + 1).padStart(2, '0');
@@ -72,10 +79,30 @@ for (const [i, e] of reel.escenas.entries()) {
   let vid = seg;
   const badgePng = () => {
     const png = path.join(tmp, `${id}_badge.png`);
-    run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--n', String(e.badge), '--total', String(total), '--titulo', reel.tituloFijo || '', '--tema', tema, '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
+    run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--n', String(e.badge), '--total', String(total), '--titulo', reel.tituloFijo || '', '--tema', tema, ...(e.ventana ? ['--nombre', e.nombre || '', '--top', '110'] : []), '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
     return png;
   };
-  if (e.fx) { // efecto FFmpeg sobre el segmento (tiempos relativos al inicio de la escena)
+  if (e.ventana) { // locutor persistente abajo + efecto recortado en una ventana superior (look de la referencia)
+    const V = { x: 0, y: 250, w: 1080, h: 650, desplazar: 300, ...e.ventana };
+    const c = e.contenido || {};
+    const vel = Number(c.velocidad || 1);
+    const durC = +(dur * vel).toFixed(3);
+    const cvid = path.join(tmp, `${id}_cv.mp4`);
+    if (c.html) {
+      const res = { ...c.html };
+      for (const k of ['sujeto', 'fondo', 'pantalla']) if (typeof res[k] === 'string' && !path.isAbsolute(res[k])) res[k] = abs(res[k]);
+      await render(writeJson(`${id}_cv.json`, res), { salida: cvid, motor: opt('--motor'), tema, duracion: durC, override: {}, sinAuditoria: !!e.sinAuditoria });
+    } else if (c.fx) {
+      const fxp = { ...c.fx, clip: c.fx.clip ? abs(c.fx.clip) : seg, audio: false };
+      run('node', [path.join(SKILL, 'scripts/clip.mjs'), writeJson(`${id}_cv.json`, fxp), '-o', cvid], { stdio: ['ignore', 'ignore', 'inherit'] });
+    } else die(`escena ${id}: "ventana" necesita contenido.html o contenido.fx`);
+    const band = V.banda ?? Math.round((1920 - V.h) / 2);
+    const comp = path.join(tmp, `${id}_vent.mp4`);
+    ff('-f', 'lavfi', '-i', `color=c=${themeVar('--fx-bg')}:s=1080x1920:r=30:d=${dur}`, '-i', seg, '-i', cvid, '-filter_complex',
+      `[1:v]setsar=1[sp];[2:v]setpts=PTS/${vel},fps=30,scale=1080:1920,setsar=1,crop=${V.w}:${V.h}:${V.x}:${band},drawbox=x=0:y=0:w=iw:h=ih:color=${themeVar('--fx-accent')}:t=6[w];[0:v][sp]overlay=0:${V.desplazar}[b];[b][w]overlay=${V.x}:${V.y},format=yuv420p[v]`,
+      '-map', '[v]', '-an', '-t', String(dur), '-c:v', 'libx264', '-crf', '14', '-preset', 'fast', comp);
+    vid = comp;
+  } else if (e.fx) { // efecto FFmpeg sobre el segmento (tiempos relativos al inicio de la escena)
     const pj = writeJson(`${id}_fx.json`, { ...e.fx, clip: seg, audio: false });
     const o = path.join(tmp, `${id}_fx.mp4`);
     run('node', [path.join(SKILL, 'scripts/clip.mjs'), pj, '-o', o], { stdio: ['ignore', 'ignore', 'inherit'] });
@@ -98,7 +125,7 @@ for (const [i, e] of reel.escenas.entries()) {
     ff('-i', seg, '-i', o, '-filter_complex', `[1:v]fps=30,scale=1080:1920,chromakey=color=${KEY}:similarity=0.14:blend=0.04,format=rgba,colorchannelmixer=aa=${e.overlay.opacidad ?? 0.9}[ov];[0:v][ov]overlay=0:0,format=yuv420p[v]`, '-map', '[v]', '-an', '-c:v', 'libx264', '-crf', '14', '-preset', 'fast', comp);
     vid = comp;
   }
-  if ((e.fx || e.overlay) && e.badge) { // badge NN/TT sobre escenas que no lo dibujan solas
+  if ((e.fx || e.overlay || e.ventana) && e.badge) { // badge NN/TT sobre escenas que no lo dibujan solas
     const o = path.join(tmp, `${id}_b.mp4`);
     ff('-i', vid, '-i', badgePng(), '-filter_complex', '[0:v][1:v]overlay=0:0,format=yuv420p[v]', '-map', '[v]', '-an', '-c:v', 'libx264', '-crf', '14', '-preset', 'fast', o);
     vid = o;
@@ -118,7 +145,27 @@ for (const [i, e] of reel.escenas.entries()) {
 }
 
 fs.writeFileSync(path.join(tmp, 'list.txt'), parts.map((p) => `file '${p}'`).join('\n'));
-ff('-f', 'concat', '-safe', '0', '-i', path.join(tmp, 'list.txt'), '-c:v', 'libx264', '-crf', '17', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
+const base0 = path.join(tmp, 'base.mp4');
+ff('-f', 'concat', '-safe', '0', '-i', path.join(tmp, 'list.txt'), '-c:v', 'libx264', '-crf', '15', '-preset', 'fast', '-pix_fmt', 'yuv420p', '-r', '30', '-c:a', 'aac', '-b:a', '192k', base0);
+const totalDur = Number(spawnSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', base0], { encoding: 'utf8' }).stdout);
+// capas globales sobre todo el reel: subtítulos karaoke continuos (reel.subtitulos = params del efecto con "paginas") y logo fijo (reel.logo)
+const layers = [];
+if (reel.subtitulos) {
+  const sp = { ...JSON.parse(fs.readFileSync(abs(reel.subtitulos), 'utf8')), fondoClave: KEY };
+  const o = path.join(tmp, 'subs.mp4');
+  console.error('▶ subtítulos continuos');
+  await render(writeJson('subs.json', sp), { salida: o, motor: opt('--motor'), tema, duracion: +totalDur.toFixed(3), override: {}, sinAuditoria: false });
+  layers.push({ file: o, key: true });
+}
+if (reel.logo) {
+  const png = path.join(tmp, 'logo.png');
+  run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--solo-logo', '--tema', tema, '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
+  layers.push({ file: png, loop: true });
+}
+const ins = ['-i', base0]; let fc = '[0:v]null[v0]'; let last = 'v0';
+layers.forEach((l, i) => { ins.push(...(l.loop ? ['-loop', '1'] : []), '-i', l.file);
+  fc += `;[${i + 1}:v]${l.key ? `fps=30,scale=1080:1920,chromakey=color=${KEY}:similarity=0.14:blend=0.04,format=rgba,colorchannelmixer=aa=0.92` : 'format=rgba'}[l${i}];[${last}][l${i}]overlay=0:0:shortest=1[v${i + 1}]`; last = `v${i + 1}`; });
+ff(...ins, '-filter_complex', fc, '-map', `[${last}]`, '-map', '0:a', '-t', String(totalDur), '-c:v', 'libx264', '-crf', '17', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', '30',
   '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', out);
 fs.rmSync(tmp, { recursive: true, force: true });
 const p = spawnSync('ffprobe', ['-v', 'error', '-show_entries', 'stream=codec_type,width,height,duration', '-of', 'compact', out], { encoding: 'utf8' });
