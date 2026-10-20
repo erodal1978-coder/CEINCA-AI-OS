@@ -8,14 +8,17 @@ description: >
   (3 efectos de zoom FFmpeg: zoom digital, zoom de corte, zoom hacia atrás); Bloque 3
   (pantalla verde chroma key con FFmpeg, rompe el marco 2.5D, corta y pega sticker
   stop-motion, subtítulos karaoke dinámicos palabra por palabra, y composición con overlay.mjs).
+  Módulo Carrusel: carruseles de Instagram con SLIDES DE VIDEO interactivos/animados (1080×1350,
+  4:5) en dos estilos, interfaz (UI con encuesta, chat y cursor) y cinética (tipografía animada).
   Activa cuando el usuario pida "efecto de video", "motion graphics",
   "animación para Reel/Story", "pantalla verde", "chroma key", "rompe el marco",
   "corta y pega", "subtítulos karaoke", "subtítulos dinámicos", "overlay",
-  "zoom digital", "zoom de corte", "punch-in", "zoom hacia atrás", o cualquiera de los ids.
+  "zoom digital", "zoom de corte", "punch-in", "zoom hacia atrás", "carrusel animado",
+  "carrusel en movimiento", "slides de video", "slides interactivos", "tipografía cinética", o cualquiera de los ids.
   Marca desacoplada vía sync-brand; disponible en Claude Code, terminal y chat/cowork.
 ---
 
-# ceinca-video-fx — 18 efectos de video (Bloques 1-3)
+# ceinca-video-fx — 18 efectos de video (Bloques 1-3) + módulo Carrusel (slides de video)
 
 Bloque 1 = 11 efectos HTML/GSAP (esta sección). Bloque 2 = zooms y Bloque 3 = chroma/rompe-marco/corta-pega/karaoke más `reel-voz.mjs` (secciones siguientes). **Para un reel de demostración elige ~7 de los 18, los más vistosos; no los 18.**
 
@@ -301,3 +304,21 @@ Verificado por Eduardo el 20-10-2026 en el sandbox de claude.ai: Node 22.22.0, F
 1. `cd` a la skill y `npm install` (npm está permitido): trae `playwright-core` y `hyperframes`. Si HyperFrames falla, `render.mjs` cae solo a la ruta de respaldo (Playwright + FFmpeg).
 2. `rostro.py` necesita `pip install opencv-python-headless` (PyPI está permitido); sin él, el reel sale con posiciones fijas.
 3. Aún no se ha renderizado un reel completo allí (CPU y tiempo por comando desconocidos). Prueba primero un efecto suelto (`node scripts/render.mjs examples/checklist.json --motor respaldo`) y, si se corta, renderiza el reel por escenas.
+
+## Módulo Carrusel — slides interactivos tipo video para carruseles de Instagram (20-10-2026)
+Es para **carruseles** (no reels): cada slide es un **video corto en 1080×1350 (4:5)** que se mueve al deslizar, inspirado en el formato "este carrusel se mueve" (referencia analizada: Drive `CEINCA RESPALDO/Carrousel animación cinética`, 4 estilos). Aquí están los dos que encajan con la marca y el nicho; **sketch** (dibujo a mano) queda fuera por el nicho legal y **collage** (recortes de foto) queda para una fase 2.
+
+| Efecto | Estilo | Parámetros |
+|---|---|---|
+| `slide-interfaz` | Interfaz de app: ventana con barra, encuesta que un cursor marca, chips, chat que "escribe" con avatar y botón "Desliza" que el cursor pulsa. | `titulo` (con `**acento**`), `etiqueta`, `pregunta`, `opciones[]` + `elegida`, `chips[]`, `inicial`, `mensaje` (con `**acento**`, se escribe letra a letra), `boton`, `tamTitulo` (104) |
+| `slide-cinetica` | Tipografía cinética: el texto es el protagonista. Líneas que entran palabra a palabra; la `**palabra acento**` cae letra a letra, se estira y queda subrayada con un trazo dorado; destellos y garabatos se dibujan en filas propias (nunca pisan el texto). | `lineas[]` (con `**acento**`), `chica[]` (índices de líneas en tamaño secundario), `boton`, `tamTitulo` (136), `decoraciones` (true) |
+
+```bash
+node scripts/carrusel.mjs examples/carrusel.example.json -o out/carrusel        # slide_NN.mp4 + portada_NN.jpg + vista_previa.jpg
+node scripts/render.mjs effects/slide-cinetica/params.example.json -o out/s.mp4  # un slide suelto ("formato": "carrusel" en el JSON)
+```
+- **Formato:** `render.mjs` acepta `"formato": "carrusel"` (o `--formato carrusel`): 1080×1350, zonas seguras 90/90 (en carrusel la UI de Instagram no tapa el slide). Solo renderizan en carrusel los efectos que lo declaran con `<meta name="fx-formatos" content="carrusel,…">`; los demás se rechazan con un mensaje claro. Los dos slides también sirven en reel (9:16).
+- **`carrusel.mjs`:** contador `NN/TT` automático (`"contador": false` lo quita), el último slide va sin "Desliza", máximo 20 slides y 60 s por slide (límites de Instagram), duración por defecto 5 s. Los slides salen **sin audio**: la música se elige al publicar en Instagram.
+- **Frame 0 = portada:** Instagram muestra el primer frame antes de reproducir, así que ambas plantillas arrancan con el título ya legible (cinética: primera línea; interfaz: título + ventana) y animan el resto. `portada_NN.jpg` es ese frame (sirve también como slide fijo).
+- **Copy:** un carrusel animado sigue el Mecanismo A/B de `MARKETING/SISTEMA_VIRAL.md` (slide 1 = gancho, último = CTB con keyword). La keyword va en el `mensaje` del último `slide-interfaz`.
+

@@ -1,0 +1,13 @@
+{
+  "efecto": "slide-interfaz",
+  "formato": "carrusel",
+  "duracion": 5,
+  "contador": { "n": 7, "total": 7 },
+  "titulo": "¿Quieres animar con **Claude**?",
+  "etiqueta": "encuesta",
+  "pregunta": "¿Cuál te gustó más?",
+  "opciones": ["Cinética", "Interfaz", "Pantalla verde"],
+  "elegida": 0,
+  "mensaje": "Comenta **FIEBRU'O** y te lo envío",
+  "boton": "Desliza"
+}
