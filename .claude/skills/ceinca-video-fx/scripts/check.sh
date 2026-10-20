@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # check.sh — validaciones de la skill.
 #   check.sh [estatico]                         → marca desacoplada, sin URLs externas, estructura de efectos
+#   check.sh reel <mp4> [reel-voz.json]          → reel final: 1080×1920/30 fps/H.264, A/V ≤ 0,1 s, −16±1,5 LUFS, sin silencios > 0,6 s; con el JSON: badges 1..N consecutivos
 #   check.sh video <mp4> [duracion=4] [png-mitad] → ffprobe (1080×1920, 30 fps, H.264, yuv420p, frames ±1) + PNG del frame central
 set -uo pipefail
 SKILL="$(cd "$(dirname "$0")/.." && pwd)"
@@ -112,10 +113,35 @@ clip_check() {
   fi
 }
 
+reel_check() {
+  local mp4="$1" json="${2:-}"
+  [ -f "$mp4" ] || { bad "no existe $mp4"; return; }
+  local v a w h fps pix cod
+  IFS=, read -r cod w h pix fps < <(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name,width,height,pix_fmt,r_frame_rate -of csv=p=0 "$mp4")
+  [ "$w" = 1080 ] && [ "$h" = 1920 ] && [ "$fps" = 30/1 ] && [ "$cod" = h264 ] && [ "$pix" = yuv420p ] && ok "formato $cod ${w}×${h} $fps $pix" || bad "formato: $cod ${w}x${h} $fps $pix (esperado h264 1080x1920 30/1 yuv420p)"
+  v=$(ffprobe -v error -select_streams v:0 -show_entries stream=duration -of csv=p=0 "$mp4"); a=$(ffprobe -v error -select_streams a:0 -show_entries stream=duration -of csv=p=0 "$mp4")
+  awk -v v="$v" -v a="$a" 'BEGIN{d=v-a; if(d<0)d=-d; exit !(d<=0.1)}' && ok "A/V alineados (video ${v}s, audio ${a}s)" || bad "A/V desfasados: video ${v}s, audio ${a}s"
+  local lufs; lufs=$(ffmpeg -hide_banner -i "$mp4" -af ebur128 -f null - 2>&1 | grep -E '^\s+I:' | tail -1 | awk '{print $2}')
+  awk -v l="${lufs:--99}" 'BEGIN{exit !(l>=-17.5 && l<=-14.5)}' && ok "volumen ${lufs} LUFS" || bad "volumen fuera de −16±1,5 LUFS: ${lufs:-?}"
+  local sil; sil=$(ffmpeg -hide_banner -i "$mp4" -af silencedetect=n=-35dB:d=0.6 -f null - 2>&1 | grep -c silence_start)
+  [ "$sil" = 0 ] && ok "sin silencios > 0,6 s" || bad "$sil silencio(s) > 0,6 s (recorta con escenas del mismo clip)"
+  if [ -n "$json" ]; then
+    node -e "
+      const j=JSON.parse(require('fs').readFileSync('$json','utf8'));
+      const b=j.escenas.map(e=>e.badge).filter(Boolean);
+      const uniq=[...new Set(b)]; const okSeq=uniq.every((n,i)=>n===i+1);
+      const ctb=j.escenas.filter(e=>(e.ctb||e.texto)&&/FIEBRU/.test((e.ctb||e.texto).palabra||'')).every(e=>/FIEBRU'O/.test((e.ctb||e.texto).palabra));
+      console.log(okSeq?'✓ badges consecutivos 1..'+uniq.length+(j.total&&j.total!==uniq.length?' (OJO: total='+j.total+')':''):'✗ badges no consecutivos: '+uniq.join(','));
+      console.log(ctb?'✓ keyword exacta con apóstrofe':'✗ keyword mal escrita (FIEBRU\'O)');
+      process.exit(okSeq&&ctb&&(!j.total||j.total===uniq.length)?0:1)" || fail=1
+  fi
+}
+
 case "${1:-estatico}" in
   estatico) estatico ;;
   video)    shift; video "$@" ;;
   clip)     shift; clip_check "$@" ;;
+  reel)     shift; reel_check "$@" ;;
   *) echo "uso: check.sh [estatico] | video <mp4> [dur] [png] | clip <json> [mp4]"; exit 2 ;;
 esac
 exit $fail
