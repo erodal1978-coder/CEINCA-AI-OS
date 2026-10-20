@@ -23,7 +23,7 @@ if (argv.includes('--solo-logo')) {
   body = '';
 } else if (opt('--ctb')) {
   const handle = opt('--handle', '');
-  body = `<div class="ctb"><div class="k">COMENTA ${esc(opt('--ctb'))}</div><div class="l">${esc(opt('--linea', ''))}</div>${handle ? `<div class="h">${esc(handle)}</div>` : ''}</div>`;
+  body = `<div class="ctb" style="top:${Number(opt('--y', 1090))}px"><div class="k">${esc(opt('--prefijo', 'COMENTA '))}${esc(opt('--ctb'))}</div><div class="l">${esc(opt('--linea', ''))}</div>${handle ? `<div class="h">${esc(handle)}</div>` : ''}</div>`;
 } else {
   const n = Number(opt('--n')), total = Number(opt('--total'));
   if (!n || !total) { console.error('✗ indica --n y --total, o --ctb'); process.exit(1); }
@@ -41,9 +41,9 @@ html,body{background:transparent!important} #root{background:transparent!importa
 .fx-fixed-title{background:rgba(var(--fx-bg-rgb),.78);padding:10px 24px;border-radius:999px;max-width:760px}
 .lbl{position:absolute;left:60px;right:60px;display:flex;align-items:center;gap:18px;font-family:var(--fx-font-display);font-weight:var(--fx-fw-display)}
 .lbl .n{font-size:34px;padding:8px 22px;border-radius:999px;background:var(--fx-accent);color:var(--fx-on-accent)}
-.lbl .t{font-size:56px;text-transform:uppercase;color:var(--fx-accent);letter-spacing:.01em;text-shadow:0 2px 12px rgba(var(--fx-bg-rgb),.9)}
-.logo{position:absolute;left:50%;transform:translateX(-50%);top:1450px;width:120px;height:120px}
-.ctb{position:absolute;left:60px;right:60px;top:1230px;display:flex;flex-direction:column;gap:14px;align-items:stretch;text-align:center}
+.lbl .t{font-size:52px;text-transform:uppercase;color:var(--fx-accent);letter-spacing:.01em;background:rgba(var(--fx-bg-rgb),.88);padding:6px 22px;border-radius:12px}
+.logo{position:absolute;right:50px;top:1430px;width:110px;height:110px}
+.ctb{position:absolute;left:60px;right:60px;display:flex;flex-direction:column;gap:14px;align-items:stretch;text-align:center}
 .k{font-family:var(--fx-font-display);font-weight:var(--fx-fw-display);font-size:58px;letter-spacing:.02em;padding:22px 20px;border-radius:var(--fx-radius);background:var(--fx-accent);color:var(--fx-on-accent)}
 .l{font-family:var(--fx-font-display);font-weight:var(--fx-fw-strong);font-size:32px;padding:18px 20px;border-radius:var(--fx-radius);background:rgba(var(--fx-bg-rgb),.88);color:var(--fx-text)}
 .h{font-family:var(--fx-font-body);font-weight:var(--fx-fw-strong);font-size:28px;color:var(--fx-text)}

@@ -2,7 +2,8 @@
 // reel-voz.mjs — monta un reel donde la VOZ viene de clips grabados (p. ej. Flow con el avatar) y cada escena
 // puede llevar un efecto encima: clip liso, efecto FFmpeg (zoom/chroma), efecto HTML a pantalla completa
 // u overlay HTML con fondo clave (karaoke) pegado sobre el clip. Reutiliza render.mjs, clip.mjs, badge.mjs.
-// Uso: node scripts/reel-voz.mjs <reel-voz.json> [-o salida.mp4] [--motor auto|hyperframes|respaldo]
+// Uso: node scripts/reel-voz.mjs <reel-voz.json> [-o salida.mp4] [--motor auto|hyperframes|respaldo] [--guardar-base base.mp4] [--desde-base base.mp4]
+//   --guardar-base guarda el montaje antes de las capas globales (subtítulos/logo); --desde-base las aplica sobre una base ya montada (sin re-renderizar escenas).
 //
 // reel-voz.json (rutas relativas al JSON):
 // { "tema": "ceinca-social", "tituloFijo": "7 efectos de video con Claude", "total": 7,
@@ -57,13 +58,15 @@ const themeVar = (name) => { // lee un color #RRGGBB de themes/<tema>.css → 0x
   return '0x' + m[1];
 };
 
+const fromBase = opt('--desde-base');
 const parts = [];
-for (const [i, e] of reel.escenas.entries()) {
+for (const [i, e] of (fromBase ? [] : reel.escenas).entries()) {
   const id = String(i + 1).padStart(2, '0');
   const src = abs(e.fuente);
   if (!fs.existsSync(src)) die(`escena ${id}: no existe ${src}`);
   const dur = +(e.hasta - e.desde).toFixed(3);
   if (!(dur > 0.2)) die(`escena ${id}: "hasta" debe superar a "desde"`);
+  e.ctb = e.ctb || e.texto;
   const prev = reel.escenas[i - 1], next = reel.escenas[i + 1];
   const fin = !prev || prev.fuente !== e.fuente, fout = !next || next.fuente !== e.fuente;
   console.error(`▶ ${id}/${String(reel.escenas.length).padStart(2, '0')} ${path.basename(src)} ${e.desde}–${e.hasta}s ${e.fx ? e.fx.efecto : e.html ? e.html.efecto : e.overlay ? 'overlay ' + e.overlay.efecto : e.ctb ? 'CTB' : 'liso'}`);
@@ -79,11 +82,11 @@ for (const [i, e] of reel.escenas.entries()) {
   let vid = seg;
   const badgePng = () => {
     const png = path.join(tmp, `${id}_badge.png`);
-    run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--n', String(e.badge), '--total', String(total), '--titulo', reel.tituloFijo || '', '--tema', tema, ...(e.ventana ? ['--nombre', e.nombre || '', '--top', '110'] : []), '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
+    run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--n', String(e.badge), '--total', String(total), '--titulo', reel.tituloFijo || '', '--tema', tema, ...(e.ventana ? ['--nombre', e.nombre || '', '--top', '140', '--y', String((e.ventana.y ?? 250) + (e.ventana.h ?? 850) - 110)] : []), '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
     return png;
   };
   if (e.ventana) { // locutor persistente abajo + efecto recortado en una ventana superior (look de la referencia)
-    const V = { x: 0, y: 250, w: 1080, h: 650, desplazar: 300, ...e.ventana };
+    const V = { x: 0, y: 250, w: 1080, h: 850, desplazar: 400, ...e.ventana }; // ventana 1080×850 sobre el locutor desplazado 400 px (rostro bajo la ventana)
     const c = e.contenido || {};
     const vel = Number(c.velocidad || 1);
     const durC = +(dur * vel).toFixed(3);
@@ -132,7 +135,7 @@ for (const [i, e] of reel.escenas.entries()) {
   }
   if (e.ctb) { // llamado a la acción con entrada suave
     const png = path.join(tmp, `${id}_ctb.png`);
-    run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--ctb', e.ctb.palabra, '--linea', e.ctb.linea || '', '--handle', e.ctb.handle || '', '--tema', tema, '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
+    run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--ctb', e.ctb.palabra, '--prefijo', e.ctb.prefijo ?? 'COMENTA ', '--y', String(e.ctb.y ?? 1090), '--linea', e.ctb.linea || '', '--handle', e.ctb.handle || '', '--tema', tema, '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
     const o = path.join(tmp, `${id}_c.mp4`);
     ff('-i', vid, '-loop', '1', '-i', png, '-filter_complex', `[1:v]format=rgba,fade=t=in:st=${e.ctb.entra ?? 0.4}:d=0.4:alpha=1[c];[0:v][c]overlay=0:0:shortest=1,format=yuv420p[v]`, '-map', '[v]', '-an', '-t', String(dur), '-c:v', 'libx264', '-crf', '14', '-preset', 'fast', o);
     vid = o;
@@ -144,9 +147,10 @@ for (const [i, e] of reel.escenas.entries()) {
   parts.push(scene);
 }
 
-fs.writeFileSync(path.join(tmp, 'list.txt'), parts.map((p) => `file '${p}'`).join('\n'));
-const base0 = path.join(tmp, 'base.mp4');
-ff('-f', 'concat', '-safe', '0', '-i', path.join(tmp, 'list.txt'), '-c:v', 'libx264', '-crf', '15', '-preset', 'fast', '-pix_fmt', 'yuv420p', '-r', '30', '-c:a', 'aac', '-b:a', '192k', base0);
+if (!fromBase) fs.writeFileSync(path.join(tmp, 'list.txt'), parts.map((p) => `file '${p}'`).join('\n'));
+const base0 = fromBase ? path.resolve(fromBase) : path.join(tmp, 'base.mp4');
+if (!fromBase) ff('-f', 'concat', '-safe', '0', '-i', path.join(tmp, 'list.txt'), '-c:v', 'libx264', '-crf', '15', '-preset', 'fast', '-pix_fmt', 'yuv420p', '-r', '30', '-c:a', 'aac', '-b:a', '192k', base0);
+if (opt('--guardar-base') && !fromBase) fs.copyFileSync(base0, path.resolve(opt('--guardar-base')));
 const totalDur = Number(spawnSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', base0], { encoding: 'utf8' }).stdout);
 // capas globales sobre todo el reel: subtítulos karaoke continuos (reel.subtitulos = params del efecto con "paginas") y logo fijo (reel.logo)
 const layers = [];
