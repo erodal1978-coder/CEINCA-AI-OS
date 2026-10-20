@@ -82,11 +82,11 @@ for (const [i, e] of (fromBase ? [] : reel.escenas).entries()) {
   let vid = seg;
   const badgePng = () => {
     const png = path.join(tmp, `${id}_badge.png`);
-    run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--n', String(e.badge), '--total', String(total), '--titulo', reel.tituloFijo || '', '--tema', tema, ...(e.ventana ? ['--nombre', e.nombre || '', '--top', '140', '--y', String((e.ventana.y ?? 250) + (e.ventana.h ?? 850) - 110)] : []), '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
+    run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--n', String(e.badge), '--total', String(total), '--titulo', reel.tituloFijo || '', '--tema', tema, ...(e.ventana ? ['--nombre', e.nombre || '', '--top', '140', '--y', String((e.ventana.y ?? 250) + (e.ventana.h ?? 830) - 110)] : []), '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
     return png;
   };
   if (e.ventana) { // locutor persistente abajo + efecto recortado en una ventana superior (look de la referencia)
-    const V = { x: 0, y: 250, w: 1080, h: 850, desplazar: 400, ...e.ventana }; // ventana 1080×850 sobre el locutor desplazado 400 px (rostro bajo la ventana)
+    const V = { x: 0, y: 250, w: 1080, h: 830, desplazar: 380, ...e.ventana }; // ventana 1080×830 sobre el locutor desplazado 380 px (rostro bajo la ventana)
     const c = e.contenido || {};
     const vel = Number(c.velocidad || 1);
     const durC = +(dur * vel).toFixed(3);
@@ -135,7 +135,7 @@ for (const [i, e] of (fromBase ? [] : reel.escenas).entries()) {
   }
   if (e.ctb) { // llamado a la acción con entrada suave
     const png = path.join(tmp, `${id}_ctb.png`);
-    run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--ctb', e.ctb.palabra, '--prefijo', e.ctb.prefijo ?? 'COMENTA ', '--y', String(e.ctb.y ?? 1090), '--linea', e.ctb.linea || '', '--handle', e.ctb.handle || '', '--tema', tema, '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
+    run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--ctb', e.ctb.palabra, '--prefijo', e.ctb.prefijo ?? 'COMENTA ', '--y', String(e.ctb.y ?? 1250), '--linea', e.ctb.linea || '', '--handle', e.ctb.handle || '', '--tema', tema, '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
     const o = path.join(tmp, `${id}_c.mp4`);
     ff('-i', vid, '-loop', '1', '-i', png, '-filter_complex', `[1:v]format=rgba,fade=t=in:st=${e.ctb.entra ?? 0.4}:d=0.4:alpha=1[c];[0:v][c]overlay=0:0:shortest=1,format=yuv420p[v]`, '-map', '[v]', '-an', '-t', String(dur), '-c:v', 'libx264', '-crf', '14', '-preset', 'fast', o);
     vid = o;
