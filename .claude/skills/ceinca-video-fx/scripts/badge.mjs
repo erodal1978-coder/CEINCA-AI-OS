@@ -19,20 +19,30 @@ const themeCss = path.join(SKILL, 'themes', `${tema}.css`);
 if (!fs.existsSync(themeCss)) { console.error(`✗ tema inexistente: ${tema}`); process.exit(1); }
 
 let body;
-if (opt('--ctb')) {
+if (argv.includes('--solo-logo')) {
+  body = '';
+} else if (opt('--ctb')) {
   const handle = opt('--handle', '');
   body = `<div class="ctb"><div class="k">COMENTA ${esc(opt('--ctb'))}</div><div class="l">${esc(opt('--linea', ''))}</div>${handle ? `<div class="h">${esc(handle)}</div>` : ''}</div>`;
 } else {
   const n = Number(opt('--n')), total = Number(opt('--total'));
   if (!n || !total) { console.error('✗ indica --n y --total, o --ctb'); process.exit(1); }
   const c = String(n).padStart(2, '0') + '/' + String(total).padStart(2, '0');
-  body = `<div class="fx-overlay"><div class="fx-fixed-title">${esc(opt('--titulo', ''))}</div><div class="fx-counter">${c}</div></div>`;
+  const top = opt('--top', '');
+  body = `<div class="fx-overlay"${top ? ` style="top:${Number(top)}px"` : ''}><div class="fx-fixed-title">${esc(opt('--titulo', ''))}</div><div class="fx-counter">${c}</div></div>`;
+  // etiqueta inferior NN/TT · NOMBRE (como la referencia); --y la ubica (default 930, justo bajo una ventana de efecto)
+  if (opt('--nombre')) body += `<div class="lbl" style="top:${Number(opt('--y', 930))}px"><span class="n">${c}</span><span class="t">${esc(opt('--nombre'))}</span></div>`;
 }
+if (argv.includes('--logo') || argv.includes('--solo-logo')) body += `<img class="logo" src="${pathToFileURL(path.join(SKILL, 'vendor/brand/insignia-principal.svg')).href}">`;
 const html = `<!doctype html><html><head><meta charset="utf-8">
 <link rel="stylesheet" href="${pathToFileURL(themeCss).href}"><link rel="stylesheet" href="${pathToFileURL(path.join(SKILL, 'shared/base.css')).href}">
 <style>
 html,body{background:transparent!important} #root{background:transparent!important}
 .fx-fixed-title{background:rgba(var(--fx-bg-rgb),.78);padding:10px 24px;border-radius:999px;max-width:760px}
+.lbl{position:absolute;left:60px;right:60px;display:flex;align-items:center;gap:18px;font-family:var(--fx-font-display);font-weight:var(--fx-fw-display)}
+.lbl .n{font-size:34px;padding:8px 22px;border-radius:999px;background:var(--fx-accent);color:var(--fx-on-accent)}
+.lbl .t{font-size:56px;text-transform:uppercase;color:var(--fx-accent);letter-spacing:.01em;text-shadow:0 2px 12px rgba(var(--fx-bg-rgb),.9)}
+.logo{position:absolute;left:50%;transform:translateX(-50%);top:1450px;width:120px;height:120px}
 .ctb{position:absolute;left:60px;right:60px;top:1230px;display:flex;flex-direction:column;gap:14px;align-items:stretch;text-align:center}
 .k{font-family:var(--fx-font-display);font-weight:var(--fx-fw-display);font-size:58px;letter-spacing:.02em;padding:22px 20px;border-radius:var(--fx-radius);background:var(--fx-accent);color:var(--fx-on-accent)}
 .l{font-family:var(--fx-font-display);font-weight:var(--fx-fw-strong);font-size:32px;padding:18px 20px;border-radius:var(--fx-radius);background:rgba(var(--fx-bg-rgb),.88);color:var(--fx-text)}

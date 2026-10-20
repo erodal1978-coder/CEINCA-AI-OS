@@ -50,6 +50,23 @@ if (P.posicion === 'abajo') {
 
 const box = document.getElementById('captionBox');
 const list = Array.isArray(P.palabras) ? P.palabras : [];
+// paginas: [{ desde, hasta, palabras:[{texto,t}] }] → solo se ve la frase vigente (subtítulos continuos de todo el reel)
+if (Array.isArray(P.paginas)) {
+  box.remove();
+  P.paginas.forEach((pg) => {
+    const b = FX.el('div', 'caption-box', area);
+    b.style.cssText = 'position:absolute;left:50%;transform:translateX(-50%);bottom:calc(var(--safe-bottom) + 24px)';
+    const els = pg.palabras.map((it) => ({ el: FX.el('span', 'word', b, it.texto), t: it.t }));
+    tl.set(b, { autoAlpha: 0 }, 0);
+    tl.set(b, { autoAlpha: 1 }, pg.desde);
+    els.forEach((w, i) => {
+      const next = i + 1 < els.length ? els[i + 1].t : pg.hasta;
+      tl.set(w.el, { className: 'word is-active' }, w.t);
+      tl.set(w.el, { className: 'word is-done' }, next);
+    });
+    tl.set(b, { autoAlpha: 0 }, pg.hasta);
+  });
+} else {
 
 // Renderizamos las palabras en el DOM
 const wordEls = list.map((item, idx) => {
@@ -68,6 +85,7 @@ wordEls.forEach((wObj, idx) => {
   // Al llegar a la siguiente palabra: pasa a is-done
   tl.set(wObj.el, { className: 'word is-done' }, nextT);
 });
+}
 
 window.__timelines = window.__timelines || {};
 window.__timelines['root'] = FX.finish(ctx);
