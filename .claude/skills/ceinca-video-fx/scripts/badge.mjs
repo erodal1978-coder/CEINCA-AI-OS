@@ -29,7 +29,7 @@ if (argv.includes('--solo-logo')) {
   if (!n || !total) { console.error('✗ indica --n y --total, o --ctb'); process.exit(1); }
   const c = String(n).padStart(2, '0') + '/' + String(total).padStart(2, '0');
   const top = opt('--top', '');
-  body = `<div class="fx-overlay"${top ? ` style="top:${Number(top)}px"` : ''}><div class="fx-fixed-title">${esc(opt('--titulo', ''))}</div><div class="fx-counter">${c}</div></div>`;
+  body = `<div class="fx-overlay"${top ? ` style="top:${Number(top)}px"` : ''}>${opt('--titulo', '') ? `<div class="fx-fixed-title">${esc(opt('--titulo', ''))}</div>` : '<div></div>'}<div class="fx-counter">${c}</div></div>`;
   // etiqueta inferior NN/TT · NOMBRE (como la referencia); --y la ubica (default 930, justo bajo una ventana de efecto)
   if (opt('--nombre')) body += `<div class="lbl" style="top:${Number(opt('--y', 930))}px"><span class="n">${c}</span><span class="t">${esc(opt('--nombre'))}</span></div>`;
 }
