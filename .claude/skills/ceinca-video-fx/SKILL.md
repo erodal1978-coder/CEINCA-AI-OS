@@ -1,21 +1,15 @@
 ---
 name: ceinca-video-fx
 description: >
-  Efectos de video CEINCA™ en tres bloques que completan los 18 efectos de video
-  para Reels/TikTok: Bloque 1 (11 efectos de solo código HTML/GSAP: muro de
-  titulares, checklist, gráfica que crece, texto cristal, portada, teléfono,
-  mundo-app 3D, órbita, garabato vivo, muro de videos, vértigo simulado); Bloque 2
-  (3 efectos de zoom FFmpeg: zoom digital, zoom de corte, zoom hacia atrás); Bloque 3
-  (pantalla verde chroma key con FFmpeg, rompe el marco 2.5D, corta y pega sticker
-  stop-motion, subtítulos karaoke dinámicos palabra por palabra, y composición con overlay.mjs).
-  Módulo Carrusel: carruseles de Instagram con SLIDES DE VIDEO interactivos/animados (1080×1350,
-  4:5) en dos estilos, interfaz (UI con encuesta, chat y cursor) y cinética (tipografía animada).
-  Activa cuando el usuario pida "efecto de video", "motion graphics",
-  "animación para Reel/Story", "pantalla verde", "chroma key", "rompe el marco",
-  "corta y pega", "subtítulos karaoke", "subtítulos dinámicos", "overlay",
-  "zoom digital", "zoom de corte", "punch-in", "zoom hacia atrás", "carrusel animado",
-  "carrusel en movimiento", "slides de video", "slides interactivos", "tipografía cinética", o cualquiera de los ids.
-  Marca desacoplada vía sync-brand; disponible en Claude Code, terminal y chat/cowork.
+  Efectos de video CEINCA™ para Reels/TikTok y carruseles de Instagram, renderizados con
+  código (HTML/GSAP + FFmpeg). 18 efectos: muro de titulares, checklist, gráfica que crece,
+  texto cristal, portada, teléfono, mundo-app 3D, órbita, garabato vivo, muro de videos,
+  vértigo, zoom digital/de corte/hacia atrás, pantalla verde, rompe el marco 2.5D, corta y
+  pega, subtítulos karaoke; reel-voz.mjs monta reels sobre voz grabada. Módulo Carrusel:
+  slides de video animados 1080×1350 (interfaz y tipografía cinética). Activa con "efecto de
+  video", "motion graphics", "reel", "pantalla verde", "chroma", "rompe el marco",
+  "subtítulos karaoke", "zoom", "carrusel animado", "slides de video", "tipografía cinética"
+  o cualquier id de efecto. Marca vía sync-brand.
 ---
 
 # ceinca-video-fx — 18 efectos de video (Bloques 1-3) + módulo Carrusel (slides de video)
