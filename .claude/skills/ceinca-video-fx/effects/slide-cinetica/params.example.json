@@ -1,0 +1,9 @@
+{
+  "efecto": "slide-cinetica",
+  "formato": "carrusel",
+  "duracion": 5,
+  "contador": { "n": 2, "total": 7 },
+  "lineas": ["Este reel", "**no lo editó**", "ningún editor.", "Lo hizo Claude con código, en minutos."],
+  "chica": [3],
+  "boton": "Desliza"
+}

@@ -16,4 +16,5 @@ html, body { margin: 0; padding: 0; background: var(--fx-bg); }
 .fx-overlay { position: absolute; left: 60px; right: 60px; top: var(--safe-top); height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 24px; z-index: 50; pointer-events: none; }
 .fx-fixed-title { font-family: var(--fx-font-display); font-weight: var(--fx-fw-display); font-size: 38px; text-transform: uppercase; letter-spacing: 0.02em; color: var(--fx-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fx-fixed-title::before { content: ''; display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--fx-accent); margin-right: 16px; vertical-align: middle; }
+.fx-fixed-title:empty::before { display: none; }
 .fx-counter { font-family: var(--fx-font-display); font-weight: var(--fx-fw-display); font-size: 36px; padding: 10px 26px; border-radius: 999px; background: var(--fx-accent); color: var(--fx-on-accent); letter-spacing: 0.04em; }
