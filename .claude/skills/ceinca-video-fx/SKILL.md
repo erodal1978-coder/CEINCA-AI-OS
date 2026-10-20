@@ -283,5 +283,21 @@ Visto en el celular, el modo `ventana` deja la cara del locutor (y≈1114-1662) 
 1. **Efectos = B-roll a pantalla completa** (`contenido` sin `ventana`), voz en off, badge `NN/07 · nombre` como único texto. Si el efecto trae su propio título o franja y choca con el badge, vacíalo (`"titulo": ""`, `"subtitulo": ""`) o sube el badge con `badgeY` (máx. 1490).
 2. **Escenas de cara: una sola capa de texto** (los subtítulos). Nada de texto dorado que repita la voz; el dorado solo para el CTB.
 3. **Rostro medido, no adivinado:** `python3 scripts/rostro.py clip.mp4 desde hasta` (YuNet, `vendor/modelos/`, necesita `opencv-python` ≥4.8) da la barbilla en coordenadas 1080×1920. `reel-voz.mjs` lo usa solo: el CTB baja a barbilla + 40 px y los subtítulos se apagan en la escena si la cara invade su caja (y≥1440). Sin OpenCV sigue con las posiciones fijas.
-4. **Música:** `node scripts/musica.mjs reel.mp4 pista.mp3 -o final.mp4 --caida-musica <s de la caída en la pista> --caida-reel <s del primer efecto> --sfx <cortes>`. Nivela la cama sola a `--bajo` LU bajo la voz (por defecto 10; 9 en la v5 — la v5 inicial quedó a 24 LU y no se oía), la agacha con la voz (sidechain), fundido final, whoosh sintetizado en cada corte, −16 LUFS. La caída se busca con el RMS cada 0,05 s (en Midday_Meridian: silencio 14,90-15,00 s y golpe en 15,05 s).
+4. **Música:** `node scripts/musica.mjs reel.mp4 pista.mp3 -o final.mp4 --caida-musica <s de la caída en la pista> --caida-reel <s del primer efecto> --sfx <cortes>`. Nivela la cama sola a `--bajo` LU bajo la voz (por defecto 9, aprobado; la v5 inicial quedó a 24 LU y no se oía), la agacha con la voz (sidechain), fundido final, whoosh sintetizado en cada corte, −16 LUFS. La caída se busca con el RMS cada 0,05 s (en Midday_Meridian: silencio 14,90-15,00 s y golpe en 15,05 s).
 
+**Parámetros aprobados (v5, Eduardo 20-10-2026: "está perfecto") — punto de partida de los siguientes reels:**
+| Pieza | Valor |
+|---|---|
+| Estructura (29,4 s) | gancho + contraste a cámara (6 tramos, 0-9,6 s) → 7 efectos B-roll de 1,2-1,7 s (9,6-20,6 s) → prueba a cámara → 2 CTB (palabra clave + seguir) |
+| Texto en cara | solo subtítulos karaoke (`--max 4`); dorado únicamente en los CTB; CTB a barbilla + 40 px (rostro.py) |
+| B-roll | `contenido` sin `ventana`, badge `NN/07 · nombre` en y=1450; gráfica con `velocidad: 2`, `titulo: ""` y `sinTituloFijo: true`; corta y pega con `subtitulo: ""` y `badgeY: 1500` |
+| Música | Midday_Meridian.mp3; `--caida-musica 15.05 --caida-reel 9.62` (el golpe cae en el primer efecto); `--bajo 9` (voz −16,1 / cama ≈ −25 LUFS); fundido 1,2 s; master −16 LUFS |
+| SFX | un whoosh en el arranque de cada efecto y en la vuelta a cámara: `--sfx 9.62,11.02,12.62,13.77,15.27,16.62,17.92,19.57` |
+| Logo y título | `logo: true`, `tituloFijo` en el badge (vacío donde el efecto ya tiene título) |
+Comandos exactos: `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/reel-v5/rehacer.sh`.
+
+### En claude.ai (chat / proyecto, skill subida como zip)
+Verificado por Eduardo el 20-10-2026 en el sandbox de claude.ai: Node 22.22.0, FFmpeg 6.1.1 (libx264, libass, librsvg) y Chromium 141 preinstalado en `/opt/pw-browsers/` (`chromium-1194/chrome-linux/chrome` y `chromium_headless_shell-1194/chrome-linux/headless_shell`). `findChrome()` ya busca en `/opt/pw-browsers`; si eligiera otro binario, fija `FX_CHROME=/opt/pw-browsers/chromium-1194/chrome-linux/chrome`.
+1. `cd` a la skill y `npm install` (npm está permitido): trae `playwright-core` y `hyperframes`. Si HyperFrames falla, `render.mjs` cae solo a la ruta de respaldo (Playwright + FFmpeg).
+2. `rostro.py` necesita `pip install opencv-python-headless` (PyPI está permitido); sin él, el reel sale con posiciones fijas.
+3. Aún no se ha renderizado un reel completo allí (CPU y tiempo por comando desconocidos). Prueba primero un efecto suelto (`node scripts/render.mjs examples/checklist.json --motor respaldo`) y, si se corta, renderiza el reel por escenas.

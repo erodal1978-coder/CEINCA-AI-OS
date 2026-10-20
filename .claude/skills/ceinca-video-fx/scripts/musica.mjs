@@ -2,8 +2,8 @@
 // musica.mjs — pone música y SFX bajo la voz de un reel ya montado (solo FFmpeg).
 // La música se alinea por su caída: --caida-musica (s en la pista) cae en --caida-reel (s en el reel). Se agacha sola cuando hay voz
 // (sidechaincompress con la voz como llave), cierra con fundido y el master queda en -16 LUFS. --sfx pone un whoosh sintetizado en cada tiempo.
-// Uso: node scripts/musica.mjs <reel.mp4> <pista.mp3> -o salida.mp4 --caida-musica 15.05 --caida-reel 9.62 [--sfx 9.62,11.02,...] [--bajo 10] [--fundido 1.2]
-// --bajo = LU que la cama (música ya agachada) queda por debajo de la voz; se mide y se ajusta solo. 8-10 se oye clara sin tapar la voz; 24 (v5 inicial) no se oye.
+// Uso: node scripts/musica.mjs <reel.mp4> <pista.mp3> -o salida.mp4 --caida-musica 15.05 --caida-reel 9.62 [--sfx 9.62,11.02,...] [--bajo 9] [--fundido 1.2]
+// --bajo = LU que la cama (música ya agachada) queda por debajo de la voz; se mide y se ajusta solo. 9 = aprobado por Eduardo en la v5 (20-10-2026); 24 (v5 inicial) no se oye.
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 
@@ -26,7 +26,7 @@ const lufs = (ins, fc) => { // loudness integrada (LUFS); con fc, de la salida [
 const duck = 'sidechaincompress=threshold=0.05:ratio=3:attack=20:release=300';
 const voz = lufs(['-i', reel]);
 const cama0 = lufs(['-i', reel, '-ss', inicio.toFixed(3), '-t', dur.toFixed(3), '-i', pista], `[0:a]aresample=48000[k];[1:a]aresample=48000[m];[m][k]${duck}[o]`);
-const nivel = opt('--nivel') !== undefined ? Number(opt('--nivel')) : +((voz - Number(opt('--bajo', 10))) - cama0).toFixed(1); // dB a aplicar a la pista
+const nivel = opt('--nivel') !== undefined ? Number(opt('--nivel')) : +((voz - Number(opt('--bajo', 9))) - cama0).toFixed(1); // dB a aplicar a la pista
 console.error(`· voz ${voz} LUFS · cama sin ajuste ${cama0} LUFS → música ${nivel} dB (cama ≈ ${(cama0 + nivel).toFixed(1)} LUFS)`);
 const fundido = Number(opt('--fundido', 1.2));
 const sfx = (opt('--sfx', '') || '').split(',').filter(Boolean).map(Number);
