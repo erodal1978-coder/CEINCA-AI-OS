@@ -8,7 +8,9 @@
 - **Entregable:** `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/reel-v6/REEL_DEMO_FIEBRUO_v6.mp4` (29,3 s; `check.sh reel` pasa, −16,3 LUFS). = v5 con: ráfaga de 1 s (muro/rompe/gráfica + placa "¿EDITORES DE VIDEO EN PELIGRO?") + gancho nuevo de Flow (toma A) + mismo cuerpo. Comandos: `reel-v6/rehacer.sh`; prompt usado: `reel-v6/PROMPT_FLOW_GANCHO.md`.
 - **Copies:** `reel-v5/COPIES_FIEBRUO_v5.md` (4 textos Meta + TikTok + variante v6). Falta el enlace del zip para el DM y crear/probar la automatización FIEBRU'O.
 - **Entorno:** Whisper roto (venv apunta a python3.10 inexistente) → usar `PYTHONPATH=~/.local/venvs/whisper/lib/python3.10/site-packages $(uv python find 3.10) -m whisper`. Chrome Default descarga en la carpeta del cliente del Dr.
-- **Aclarado:** el módulo de carruseles cinéticos NO está construido (solo recomendado, pendiente de aprobación).
+- **Módulo Carrusel CONSTRUIDO (aprobado por Eduardo):** `slide-interfaz` + `slide-cinetica` (1080×1350) + `scripts/carrusel.mjs`; `render.mjs` acepta `formato: carrusel` (solo efectos con `<meta name="fx-formatos">`). Demo: `PRUEBA_VIDEO_FX/carrusel-demo/`. Zip regenerado (`dist/` y copia en `PRUEBA_VIDEO_FX/ceinca-video-fx.zip`). Commit 707279b.
+- **Zip en Drive (privado):** `CEINCA RESPALDO/05 MARKETING Y CONTENIDO/RECURSOS KEYWORDS/FIEBRUO/ceinca-video-fx.zip`. Falta: OK de Eduardo para enlace público → automatización FIEBRU'O en Meta.
+- **Cuenta de IA:** candidata la página "Digital Mentor - Aprende IA y Canva" (Meta); falta que Eduardo confirme el @ de Instagram. Chrome: cambiar la carpeta de descargas a mano (la extensión no puede abrir chrome://settings).
 
 ## 🎬 20-10-2026 (mañana) — Reel v5 (versión D: B-roll a pantalla completa + rostro libre + música)
 - **Por qué:** en el celular, la v4 seguía tapando la cara. Medido con `scripts/rostro.py` (YuNet): a pantalla completa la barbilla llega a y=1212-1347 y el dorado arrancaba en 1250; en modo ventana la cara ocupa y=1114-1662 y los subtítulos (≤1560) caen siempre sobre la boca. Se evaluaron 4 versiones; Eduardo eligió la D (9,2).
