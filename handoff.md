@@ -4,6 +4,14 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🎬 20-10-2026 (mañana) — Diagnóstico v4 en celular + carrusel cinético + prompt de música
+- **Textos sobre la cara (medido con `scripts/rostro.py`, YuNet en `vendor/modelos/`):** en las escenas a pantalla completa la barbilla llega hasta y=1212-1347 y el texto dorado arranca en y=1250 → tapa en las escenas 1-3 y 14-17. En las escenas de ventana la cara ocupa y=1114-1662 (con el locutor desplazado 380 px), así que los subtítulos (≤1560) caen siempre sobre la boca: ahí no hay hueco.
+- **Bugs vistos en las capturas:** corta-pega se ve vacío en la ventana; en gráfica-crece no se ve el valor de la última barra y la "V" choca con el badge; hay texto repetido (dorado + subtítulo dicen lo mismo, badge + subtítulo también).
+- **Propuesta (pendiente de aprobación de Eduardo):** v5 con los efectos a pantalla completa y la voz en off (sin ventana); el badge con el nombre del efecto sirve de subtítulo; una sola capa de texto en las escenas de la cara, colocada por `rostro.py` (barbilla + 40 px); el dorado solo para el CTB.
+- **Carrusel de referencia** (Drive `CEINCA RESPALDO/Carrousel animación cinética /`, 7 mp4 de 720×960, @ggraphicsstudio): 4 estilos (interfaz, cinética, sketch, collage), portada "Este carrusel se mueve", CTA de encuesta "Escribe Anima". Copia local en el scratchpad de la sesión.
+- **Prompt de música:** `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/reel-v4/PROMPT_MUSICA_GEMINI.md` (128 BPM, 16 compases, caída en el compás 6 = 9,4 s).
+- **Sin commitear:** `scripts/rostro.py`, `vendor/modelos/face_detection_yunet_2023mar.onnx` (227 KB, sha256 8f2383e4…).
+
 ## 🎬 20-10-2026 — Reel v4 "7 efectos" con fórmula NEAPS-AIDA (rama `feature/ceinca-video-fx-bloque3`, PR #35)
 - **Qué se hizo:** analizados el reel de referencia (`Nino_Director_17 códigos secretos`, solo el look) y los dos virales de Eduardo (TOTUMA, GUARAPO; Drive "Reel virales ceinca_Eduardo Rodriguez") → plan aprobado → v4. Guion Mecanismo A: hook ¡ÚLTIMA HORA! → ANTES/AHORA → "Guarda este video" → 7 efectos en ventana → "7 de 18" → COMENTA FIEBRU'O + sígueme.
 - **Entregable:** `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/reel-v4/REEL_DEMO_FIEBRUO_v4.mp4` (29,4 s, 1080×1920, 30 fps, −16,1 LUFS). `check.sh reel` pasa. Clips de Flow (avatar, 8 clips; 2 regenerados por mala pronunciación) en `INPUT_EVENTOS/flow_reel/v4/`; guion de montaje `reel-v4/reel-voz.json`. Eduardo recibió el mp4 por `SendUserFile`.
