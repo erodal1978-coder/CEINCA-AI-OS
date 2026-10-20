@@ -120,7 +120,7 @@ for (const [i, e] of (fromBase ? [] : reel.escenas).entries()) {
   let vid = seg;
   const badgePng = () => {
     const png = path.join(tmp, `${id}_badge.png`);
-    run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--n', String(e.badge), '--total', String(total), '--titulo', reel.tituloFijo || '', '--tema', tema, ...(e.ventana ? ['--nombre', e.nombre || '', '--top', '140', '--y', String((e.ventana.y ?? 250) + (e.ventana.h ?? 830) - 110)] : broll ? ['--nombre', e.nombre || '', '--top', '250', '--y', String(e.badgeY ?? 1450)] : []), '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
+    run('node', [path.join(SKILL, 'scripts/badge.mjs'), '--n', String(e.badge), '--total', String(total), '--titulo', e.sinTituloFijo ? '' : reel.tituloFijo || '', '--tema', tema, ...(e.ventana ? ['--nombre', e.nombre || '', '--top', '140', '--y', String((e.ventana.y ?? 250) + (e.ventana.h ?? 830) - 110)] : broll ? ['--nombre', e.nombre || '', '--top', '250', '--y', String(e.badgeY ?? 1450)] : []), '-o', png], { stdio: ['ignore', 'ignore', 'inherit'] });
     return png;
   };
   if (e.ventana) { // locutor persistente abajo + efecto recortado en una ventana superior (look de la referencia)
