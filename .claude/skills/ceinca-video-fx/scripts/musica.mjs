@@ -2,7 +2,8 @@
 // musica.mjs — pone música y SFX bajo la voz de un reel ya montado (solo FFmpeg).
 // La música se alinea por su caída: --caida-musica (s en la pista) cae en --caida-reel (s en el reel). Se agacha sola cuando hay voz
 // (sidechaincompress con la voz como llave), cierra con fundido y el master queda en -16 LUFS. --sfx pone un whoosh sintetizado en cada tiempo.
-// Uso: node scripts/musica.mjs <reel.mp4> <pista.mp3> -o salida.mp4 --caida-musica 15.05 --caida-reel 9.62 [--sfx 9.62,11.02,...] [--nivel -17] [--fundido 1.2]
+// Uso: node scripts/musica.mjs <reel.mp4> <pista.mp3> -o salida.mp4 --caida-musica 15.05 --caida-reel 9.62 [--sfx 9.62,11.02,...] [--bajo 10] [--fundido 1.2]
+// --bajo = LU que la cama (música ya agachada) queda por debajo de la voz; se mide y se ajusta solo. 8-10 se oye clara sin tapar la voz; 24 (v5 inicial) no se oye.
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 
@@ -16,14 +17,24 @@ const dur = probe(reel);
 const inicio = Number(opt('--caida-musica', 0)) - Number(opt('--caida-reel', 0)); // segundo de la pista que suena en t=0 del reel
 if (inicio < 0) { console.error('✗ la caída de la pista llega antes que la del reel: la pista empezaría antes de su inicio'); process.exit(1); }
 if (inicio + dur > probe(pista)) { console.error('✗ la pista no alcanza a cubrir el reel desde ese punto'); process.exit(1); }
-const nivel = Number(opt('--nivel', -17)); // dB de la música respecto a 0 antes del agachado
+const lufs = (ins, fc) => { // loudness integrada (LUFS); con fc, de la salida [o] de ese filter_complex
+  const af = fc ? ['-filter_complex', `${fc};[o]ebur128[e]`, '-map', '[e]'] : ['-af', 'ebur128'];
+  const r = spawnSync('ffmpeg', ['-hide_banner', '-nostats', ...ins, ...af, '-f', 'null', '-'], { encoding: 'utf8' });
+  const m = /I:\s*(-?[\d.]+) LUFS\s*\n\s*Threshold/.exec(r.stderr || '');
+  return m ? Number(m[1]) : NaN;
+};
+const duck = 'sidechaincompress=threshold=0.05:ratio=3:attack=20:release=300';
+const voz = lufs(['-i', reel]);
+const cama0 = lufs(['-i', reel, '-ss', inicio.toFixed(3), '-t', dur.toFixed(3), '-i', pista], `[0:a]aresample=48000[k];[1:a]aresample=48000[m];[m][k]${duck}[o]`);
+const nivel = opt('--nivel') !== undefined ? Number(opt('--nivel')) : +((voz - Number(opt('--bajo', 10))) - cama0).toFixed(1); // dB a aplicar a la pista
+console.error(`· voz ${voz} LUFS · cama sin ajuste ${cama0} LUFS → música ${nivel} dB (cama ≈ ${(cama0 + nivel).toFixed(1)} LUFS)`);
 const fundido = Number(opt('--fundido', 1.2));
 const sfx = (opt('--sfx', '') || '').split(',').filter(Boolean).map(Number);
 
 const ins = ['-i', reel, '-ss', inicio.toFixed(3), '-t', dur.toFixed(3), '-i', pista];
 let fc = `[0:a]aresample=48000,asplit=2[voz][llave];` +
   `[1:a]aresample=48000,volume=${nivel}dB,afade=t=in:d=0.3,afade=t=out:st=${(dur - fundido).toFixed(3)}:d=${fundido}[m];` +
-  `[m][llave]sidechaincompress=threshold=0.03:ratio=6:attack=15:release=350[mus]`;
+  `[m][llave]${duck}[mus]`;
 const mezcla = ['[voz]', '[mus]'];
 sfx.forEach((t, i) => { // whoosh: ruido rosa filtrado con subida y caída cortas, centrado en el corte
   ins.push('-f', 'lavfi', '-i', `anoisesrc=d=0.45:c=pink:r=48000:a=0.5`);
