@@ -4,6 +4,13 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🎬 20-10-2026 — Reel v4 "7 efectos" con fórmula NEAPS-AIDA (rama `feature/ceinca-video-fx-bloque3`, PR #35)
+- **Qué se hizo:** analizados el reel de referencia (`Nino_Director_17 códigos secretos`, solo el look) y los dos virales de Eduardo (TOTUMA, GUARAPO; Drive "Reel virales ceinca_Eduardo Rodriguez") → plan aprobado → v4. Guion Mecanismo A: hook ¡ÚLTIMA HORA! → ANTES/AHORA → "Guarda este video" → 7 efectos en ventana → "7 de 18" → COMENTA FIEBRU'O + sígueme.
+- **Entregable:** `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/reel-v4/REEL_DEMO_FIEBRUO_v4.mp4` (29,4 s, 1080×1920, 30 fps, −16,1 LUFS). `check.sh reel` pasa. Clips de Flow (avatar, 8 clips; 2 regenerados por mala pronunciación) en `INPUT_EVENTOS/flow_reel/v4/`; guion de montaje `reel-v4/reel-voz.json`. Eduardo recibió el mp4 por `SendUserFile`.
+- **Skill (nuevo):** `reel-voz.mjs` modo `ventana` (+`velocidad`, `texto`, `--guardar-base/--desde-base`, capas `subtitulos` y `logo`), `voz-ventanas.mjs`, `subtitulos-whisper.mjs`, `badge.mjs` (--nombre/--top/--logo/--prefijo), `subtitulos-karaoke` con `paginas`, `check.sh reel`, `vendor/brand/insignia-principal.svg`. Receta en `SKILL.md`.
+- **Lecciones:** Whisper da la voz hasta ~1 s antes de lo real (la sala en silencio) → medir con RMS; el avatar a veces reordena las palabras del prompt (se reordenaron los efectos para coincidir con la voz); no deletrear siglas (FFmpeg) ni escribir CEINCA en el prompt si sale "ese Inca"; en Flow el selector de ingredientes está virtualizado (buscar por texto "Yo"/"fotograma").
+- **Pendiente:** Eduardo revisa v4; la voz dice "Cloud" por Claude (los subtítulos lo corrigen); los efectos con recorte usan un solo fotograma; sin música; la skill `flow-chrome` sigue en borrador (rama `docs/flow-manual-operativo-17-10`); borrar `PRUEBA_VIDEO_FX/_obsoletos/` y `reel-v3/` cuando se apruebe; subir a Drive (falta carpeta).
+
 ## 🎬 19-10-2026 (tarde) — Reel demo FIEBRU'O v3 con avatar de Flow + skill `ceinca-video-fx` (rama `feature/ceinca-video-fx-bloque3`, PR #35)
 - **Qué pasó:** el reel anterior ("17 efectos") solo mostraba 3 efectos, con silueta de demo, tomas del Salón Simón Bolívar, CTB sin apóstrofe y fuera de zona segura. Se rehízo completo: 5 escenas generadas en Flow (cuenta erodal1978, PRO) con el avatar "Yo" y su voz (Omni 1.1 Flash 720p 8 s, 12 créditos c/u; A regenerada porque repetía "por ti"; C reenviada porque la primera desapareció) y montadas con `scripts/reel-voz.mjs`.
 - **Entregable:** `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/REEL_DEMO_FIEBRUO_v3.mp4` (31,4 s, 1080×1920, 30 fps, −16,4 LUFS; Whisper del master transcribe la locución completa). 7 efectos con badge consecutivo 01/07…07/07. Clips fuente en `~/CEINCA-WORKSPACE/INPUT_EVENTOS/flow_reel/`. Los reels viejos están en `PRUEBA_VIDEO_FX/_obsoletos/`.
@@ -95,7 +102,7 @@ Decisión de Eduardo: GitHub = solo conocimiento reutilizable (manuales, reglas,
 Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agentes, marketing y producción digital de CEINCA. El núcleo actual prioriza conocimiento/estrategia, agentes y skills de Claude Code, producción audiovisual, exportación de carruseles y workflows reproducibles. Los experimentos obsoletos deben retirarse en lugar de mantenerse por inercia.
 
 ## 2. Estado actual
-> Última sesión (19-10-2026 tarde): reel demo FIEBRU'O v3 + `reel-voz.mjs` en `ceinca-video-fx` — ver el bloque dominante al inicio de este archivo.
+> Última sesión (20-10-2026): reel v4 NEAPS-AIDA + modo ventana en `ceinca-video-fx` — ver el bloque dominante al inicio de este archivo.
 - Limpieza de repositorio completada y mergeada a `main` mediante PR #16, commit `d9d75a871b96721c187ca44680a1dac312392187`.
 - Eliminado `ig-viral-tracker/` completo: era un MVP/artefacto de aprendizaje y ya no forma parte del sistema.
 - Eliminados vídeos, audios y assets multimedia pesados que estaban almacenados temporalmente en GitHub.
