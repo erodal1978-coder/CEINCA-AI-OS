@@ -117,7 +117,7 @@ DESPUÉS DE PUBLICAR
 **Ficha de la pieza**
 - Pilar: Lo hizo la IA + Te lo regalo. Formato: reel, mismo video en Instagram y TikTok.
 - Recurso: el prompt que Eduardo usa, en 4 pasos (10 ideas con el problema que resuelve → el usuario elige 3 → guion de reel de 30 s, carrusel de 7 láminas y llamada a la acción por idea → calendario de 7 días). Se completa con 3 datos entre corchetes: a qué se dedica, qué vende, a quién se lo vende. Es literalmente gratis: «te lo regalo» es cierto.
-- Afirmación sobre una herramienta: «Salió Opus 5.5» → fuente y fecha de lanzamiento: **[verificar]**; verificada el: **[día de publicar]**.
+- Afirmación sobre una herramienta: «Salió Opus 5.5» → **verificada por Eduardo el 21-10-2026** (según Eduardo, el lanzamiento fue hace tiempo, no es noticia reciente). Fecha exacta de lanzamiento: sin registrar; la ficha de cada pieza debe anotar la fecha de verificación del día de publicar.
 - Afirmaciones propias de Eduardo ("así creo contenido para CEINCA sin equipo de marketing"): se mantienen como dichas en el video; no se añade ninguna cifra.
 
 ### 7.1 Copy principal (Instagram)
