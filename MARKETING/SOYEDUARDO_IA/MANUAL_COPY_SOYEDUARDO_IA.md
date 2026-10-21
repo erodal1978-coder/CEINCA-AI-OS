@@ -4,7 +4,7 @@ Este manual **no repite** las reglas de CEINCA: remite a ellas y solo documenta 
 - Reglas y plantillas de base: `MARKETING/MANUAL_COPY_META_TIKTOK.md` (v2.0; en adelante, **el manual CEINCA**).
 - Palabras clave y candado de uso: `MARKETING/SOYEDUARDO_IA/CTB_KEYWORDS_SOYEDUARDO_IA.md` (en adelante, **el banco**).
 - Voz y marca: `CEINCA-WORKSPACE/DIGITAL_MENTOR/02_MANUAL_DE_MARCA.md` §8 (fuera del repo). Redacción en tuteo, nunca voseo: `RULES/ESTILO_REDACCION.md`. Datos y afirmaciones: `RULES/POLITICA_EVIDENCIA_Y_HERRAMIENTAS.md`.
-- Marcadores de este documento: `[…]` = dato que falta; `PENDIENTE` = texto que no se ha recibido. Ninguno se inventa.
+- Marcadores de este documento: `[…]` = dato que falta (hoy: el handle de TikTok y los campos de la plantilla de §6); `PENDIENTE` = texto que no se ha recibido (hoy: ninguno). Ninguno se inventa.
 
 ## 1. Heredado (se remite, no se copia)
 | Regla | Dónde está |
@@ -25,7 +25,7 @@ Este manual **no repite** las reglas de CEINCA: remite a ellas y solo documenta 
 | Quién habla | La marca ("nosotros", "CEINCA dice") | **Una persona, en singular:** "yo", "te lo regalo", "lo probé". Nada de "nosotros" ni "CEINCA dice". |
 | Tono | Institucional-cercano; alerta 🚨 | **Constructor, no gurú.** Sin tono institucional ni alarmista. Emoji por defecto **🛠️**, no 🚨. |
 | "Sígueme" | "Síguenos" | **"Sígueme"** siempre con **razón de valor** (framing 1 del manual CEINCA §02), nunca antes del beneficio ni como condición de la entrega. |
-| Firma del DM | Institucional | **"Eduardo — @soyeduardo.ia"**. CEINCA solo como respaldo: "Lo uso en @ceinca.mercantil" (si es cierto para ese recurso). |
+| Firma del DM | Institucional | **Personal.** En el DM del reel 1 es «— Eduardo»; el banco §7 propone «Eduardo — @soyeduardo.ia» (**a decidir**, ver §7.4). Sin firma institucional. CEINCA solo como respaldo: "Lo uso en @ceinca.mercantil" (si es cierto para ese recurso). |
 | Afirmaciones sobre herramientas | Verificadas al redactar | **Cada afirmación sobre una herramienta lleva fecha y se verifica el día de publicar** (se anota en la ficha, §6). |
 | "Te lo regalo" | — | Solo si es literalmente cierto para ese recurso; si no, "lo probé y esto pasó" (banco §7). |
 | TikTok | Redirige a Instagram | **La keyword también se usa en TikTok, con entrega manual por Eduardo** (§4). |
@@ -164,20 +164,20 @@ Se puede hacer con IA, y te enseño cómo lo hago yo.
 ```
 
 ### 7.3 Respuesta pública (A / B / C)
-<!-- largo: id=ig_resp_A max=500 -->
+<!-- largo: id=ig_resp_A max=500 declared=255 -->
 ```
 👋 ¡Hola! Gracias por comentar GOLEM. 🎉
 📩 Ya te envié por DM el prompt que uso para armar mi semana de contenido: ideas, guiones, carruseles y calendario.
 🔔 Sígueme 👉 @soyeduardo.ia: aquí publico lo que voy probando con IA.
 ✅ Revisa tu bandeja de mensajes.
 ```
-<!-- largo: id=ig_resp_B max=500 -->
+<!-- largo: id=ig_resp_B max=500 declared=171 -->
 ```
 ✅ Recibido tu GOLEM.
 📩 El prompt va en camino a tu DM: ideas, guiones, carruseles y calendario en 4 pasos.
 📲 Sígueme 👉 @soyeduardo.ia, aquí publico lo que pruebo con IA. 🚀
 ```
-<!-- largo: id=ig_resp_C max=500 -->
+<!-- largo: id=ig_resp_C max=500 declared=188 -->
 ```
 🙌 ¡Listo! Te acabo de enviar por privado el prompt que uso.
 ⚠️ Ojo con el paso 2: ahí eliges tú las 3 ideas y pones el criterio.
@@ -187,7 +187,7 @@ Texto de las tres: decidido por Eduardo.
 
 ### 7.4 DM automático (texto decidido por Eduardo, versión C)
 Mapa contra el manual CEINCA §4.4: (1) saludo + keyword · (2) **entrega arriba** (el prompt, en texto) · (3) qué hacer con los corchetes · (4) **aclaratoria** («Revisa cifras y datos antes de publicar: la IA puede equivocarse») · (5) pregunta abierta · (6) sígueme con razón de valor · (7) firma.
-<!-- largo: id=ig_dm max=1000 allow_brackets=1 -->
+<!-- largo: id=ig_dm max=1000 allow_brackets=1 declared=937 -->
 ```
 👋 ¡Hola! Gracias por comentar GOLEM. 🎉
 Como prometí, aquí tienes el prompt que uso 👇
@@ -232,3 +232,15 @@ python3 MARKETING/SOYEDUARDO_IA/verificar_largos.py
 Resultado de la última corrida: ver abajo (se actualiza al cambiar un texto).
 
 <!-- RESULTADO_VERIFICACION -->
+| Texto | Caracteres | UTF-16 | Límite | Hashtags | Declarado por Eduardo | Estado |
+|---|---|---|---|---|---|---|
+| `ig_copy` | 863 | 869 | ≤ 2200 | 5 | — | OK |
+| `ig_fijado` | 633 | 639 | ≤ 2200 | 0 | — | OK |
+| `ig_resp_A` | 255 | 260 | ≤ 500 | 0 | 255 → coincide (code points) | OK |
+| `ig_resp_B` | 171 | 175 | ≤ 500 | 0 | 171 → coincide (code points) | OK |
+| `ig_resp_C` | 188 | 192 | ≤ 500 | 0 | 188 → coincide (code points) | OK |
+| `ig_dm` | 937 | 942 | ≤ 1000 | 0 | 937 → coincide (code points) | OK |
+| `tt_caption` | 171 | 172 | 80–200 | 5 | — | OK |
+| `tt_respuesta` | 161 | 163 | ≤ 300 | 0 | — | AVISO: marcador sin completar: [@handle de TikTok] |
+
+Caracteres = code points de Python; UTF-16 = medida estricta (emoji = 2). El veredicto usa el mayor.
