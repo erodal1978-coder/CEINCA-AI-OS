@@ -1,9 +1,9 @@
 # Estilo de reel de referencia — estudio de caso para @soyeduardo.ia
-**Versión 0.3 · 21-10-2026 · BORRADOR sin commit, pendiente de revisión final contra `MARKETING/SISTEMA_VIRAL.md` y `RULES/`**
+**Versión 0.4 · 21-10-2026 · BORRADOR sin commit, pendiente de revisión final contra `MARKETING/SISTEMA_VIRAL.md` y `RULES/`**
 Cuenta: @soyeduardo.ia (antes @digitalmentor.ia). Antecedente: `handoff.md`, pendiente 2 del bloque 20-10 (tarde).
 
 ## 0. Alcance y límites (leer primero)
-- **Muestra: n = 3** (§9): recap de evento, tutorial animado y demo de pantalla; tres formatos distintos de terceros. Son patrones observados, no reglas. Las §1–§8 se midieron sobre la Referencia 1.
+- **Muestra: n = 5** (§9 y §10): recap de evento, tutorial animado, demo de pantalla, hablante con rotulado y tutorial de pantalla; cinco piezas de terceros. Son patrones observados, no reglas. Las §1–§8 se midieron sobre la Referencia 1.
 - **Sin métricas de rendimiento** de ninguna referencia (alcance, guardados, retención; vistas y reacciones públicas **no capturadas**, ver §9.4). No sabemos si funcionó; ninguna decisión de §4 se apoya en que funcionara.
 - Medido en sesión de Claude Code el 21-10-2026 con `ffprobe`, `ffmpeg` (ebur128, scene detection, silencedetect) y Whisper `small`. Whisper se equivoca en algunas frases y puede adelantar la voz hasta ~1 s: se usa para ubicar tramos, **no como cita**.
 - Organizador, marca y autoría del reel: **NO CONFIRMADO**.
@@ -155,3 +155,51 @@ Medido con `ffprobe`, `ffmpeg` (ebur128, scene, silencedetect) y Whisper `small`
 | **A. Tutorial con cara** | Estructura de 4 pasos con contador y cierre que muestra el propio resultado; con Eduardo a cámara y su proceso real como prueba | **Decidir qué se entrega por DM** (¿zip de la skill, un prompt, una guía?). De eso depende la palabra clave. Si es la skill, avisar que exige Node, FFmpeg y Chromium. |
 | **B. Demo adaptada** | Gancho de curiosidad, "guarda esto" hacia el segundo 3, demo de un resultado propio y cierre a cámara, en tuteo; ~25–30 s | Contenido verificado; sin advertencia sin riesgo real. |
 | **Ritmo** | 2,2 s/plano de la Ref. 3 como guía para la parte de demo | Solo orientativo (n = 1 por formato). |
+
+## 10. Referencias 4 y 5 (añadidas en v0.4, 21-10-2026)
+Medido con `ffprobe`, `ffmpeg` (ebur128, scene > 0,3, silencedetect) y Whisper `small`; lectura visual por hoja de contactos (cada 2 s). Los cortes por detección de escena subestiman los cambios en un video de persona hablando con rótulos, así que son orientativos. Handles y archivos de origen: solo en `CEINCA-WORKSPACE/DIGITAL_MENTOR/REFERENCIAS_VIDEO.md`. Métricas públicas: **NO CAPTURADAS** (no hay enlaces).
+
+### 10.1 Comparativa
+| Dato | Ref. 4 (hablante + rotulado) | Ref. 5 (tutorial de pantalla) |
+|---|---|---|
+| Duración | 42,4 s | 37,3 s |
+| Formato | 720×1280, 30 fps | 720×1280, 30 fps |
+| Cortes detectados | 4 (casi todo en una toma con rótulos que entran) | 13 (capturas de la propia app) |
+| Voz | Sí, 167 palabras, ~3,9 palabras/s, **sin silencios ≥ 0,3 s** | Sí, 136 palabras, ~3,6 palabras/s |
+| Loudness / pico | −14,1 LUFS, LRA 1,1, −0,7 dBFS | −14,5 LUFS, LRA 3,3, **+2,1 dBFS** (sobre 0: recompresión) |
+| Gancho (0–3 s) | Orden de eliminar: "Elimina todas tus destacadas y deja solo estas tres" | Orden de dejar de hacer algo: "Deja de compartir tu reel en tus historias y haz esto" |
+| CTA | "Comenta [palabra genérica corta]" + herramienta "completamente gratis" | **Ninguno**: termina en "ya tienes una historia hecha para convertir" |
+
+### 10.2 Referencia 4 — hablante a cámara con rótulos acumulativos
+- **Estructura (tiempos de Whisper, ±1 s):** 0–3 s orden de eliminar y dejar tres; luego tres bloques numerados (historia, metodología, resultados), cada uno con 1) etiqueta del círculo de destacada, 2) tres preguntas que aparecen **una a una** en pantalla, 3) frase de "para qué"; ~30 s resumen "3 destacadas"; ~36 s CTA con la palabra y una captura de lista a un lado.
+- **Estilo observado:** título grande amarillo condensado con círculos vacíos que se llenan 1-2-3; palabra clave del subtítulo resaltada en amarillo; rótulos acumulativos (se suman líneas, no se reemplazan); una sola cámara fija; un plano de relleno (evento) justo antes del cierre.
+- **Regla de 7 s:** cumple las 3 (de qué trata, para quién, beneficio) y tiene cara.
+- **Reproducibilidad:** alta. Es el estilo `reel-voz` + `badge.mjs` + chip amarillo (nuestro lima) de `ceinca-video-fx`. Lo único que no existe aún es el rótulo acumulativo (líneas que se van sumando); sería un overlay nuevo.
+- **Coincidencia con nuestro trabajo:** su receta de tres destacadas (historia, metodología, resultados) es la que ya aplicamos al perfil. Para nosotros "resultados" no puede inventarse: la cuenta empieza en cero, y nada de testimonios o antes/después sin casos reales.
+- **No copiable:** la palabra de CTA es genérica y corta (excluida por `CTB_KEYWORDS_SOYEDUARDO_IA.md` §1); el "gratis" y el contenido de la herramienta no están verificados.
+
+### 10.3 Referencia 5 — tutorial de pantalla con gancho de curiosidad
+- **Estructura:** 0–5 s hablante con la orden "deja de… y haz esto" (con el rótulo "no compartas tus reels en las historias"); ~5–36 s grabación de pantalla paso a paso con el cursor señalado por un GIF de mano ("tap" de GIPHY): copiar enlace, captura, pegar en historia, texto de curiosidad, sticker de enlace, mano de dinamismo; cierre "historia hecha para convertir".
+- **Idea de contenido propia:** al publicar un reel, no lo reenviamos tal cual a historias: captura + frase que despierte curiosidad + sticker de enlace. Es la acción de distribución de nuestro reel 1. **Que mejore alcance es afirmación de la pieza, no verificada.**
+- **Tipografía/ritmo:** rótulo blanco sobre caja negra con borde, 2–3 líneas por paso; el "tap" aparece donde hay que pulsar.
+- **Reproducibilidad:** media. Requiere grabar la pantalla del teléfono (no lo hace Flow); el montaje, el rótulo y el cursor-mano sí salen con `ceinca-video-fx` + un GIF/PNG propio (no usar el GIF de GIPHY sin revisar licencia).
+- **Sin CTA de palabra clave:** el mejor ejemplo de "tutorial puro" para ver si funciona sin DM.
+
+### 10.4 Patrones que se repiten en n = 5 (observados, no reglas)
+1. **Gancho imperativo negativo** en 0–3 s en dos de las cinco ("Elimina", "Deja de"). Con la Ref. 2 ("esto lo hizo una IA") y la Ref. 3 ("úsala con responsabilidad") son ganchos de **orden o advertencia**, no de pregunta.
+2. **Numeración visible** (contador, círculos 1-2-3, pasos) en 3 de 5: da progreso y hace que el espectador espere hasta el final.
+3. **Loudness −14,1 a −14,5 LUFS en las cinco** (Ref. 3 y 4 en −14,1): sugiere recodificación de la plataforma; no hay forma de confirmarlo sin comparar con el archivo original (pendiente en `REFERENCIAS_VIDEO.md`). **No usar −14 como objetivo ciego**: nuestro reel 1 sale a −16,4 LUFS.
+4. **Picos sobre 0 dBFS** en la Ref. 2 (+2,8) y la Ref. 5 (+2,1): artefacto de recompresión, no modelo de calidad.
+
+### 10.5 Ideas para @soyeduardo.ia (ninguna se produce sin palabra aprobada y automatización probada: candado de §6)
+| Idea | Qué toma | Condición |
+|---|---|---|
+| **C. "Deja de… y haz esto" aplicado a prompts** | Gancho imperativo + 3 pasos numerados con círculos 1-2-3 que se llenan; título lima | Elegir recurso real, palabra nueva del banco (taladro, soldadura, tornillo…); contenido verificado |
+| **D. Historia de distribución del reel** | Captura del reel + texto de curiosidad + sticker de enlace; una tarjeta de historia por reel | Ya hay plantilla de tarjetas en `historias-destacadas/`; solo falta una tarjeta de "distribución". No afirmar que "sube el alcance" |
+| **E. Rótulo acumulativo** | Líneas que se suman una a una junto a un círculo de destacada; overlay nuevo en `ceinca-video-fx` | Hacerlo solo si C lo necesita; ~1 h de trabajo |
+| **F. Tutorial de pantalla sin CTA** | Grabar nuestra propia pantalla con la automatización de Meta (nuestro proceso real) y rotular | Prueba A/B contra un reel con palabra clave: sin métricas propias no hay conclusión |
+
+### 10.6 Lo que NO se sabe
+- Vistas, likes, comentarios y seguidores de las dos cuentas: NO CAPTURADOS.
+- Si el "gratis" de la Ref. 4 es literalmente cierto: no verificado.
+- Si el origen del −14 LUFS es la plataforma: sin confirmar.
