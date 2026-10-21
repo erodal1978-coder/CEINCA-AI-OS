@@ -76,7 +76,7 @@ Nota: `ceinca-video-fx` (reel-voz, musica, subtítulos) vive en la rama `feature
 | Subtítulos pequeños sin caja | **No adoptar** | Los subtítulos de `reel-voz` con zona segura fueron aprobados por Eduardo en la v5 (20-10, `handoff.md`); el código está en el PR #35 sin mergear. |
 | 90 s y 2,4 s/plano | **No adoptar tal cual** | Es de resumen de evento; nuestros reels van a 15–30 s. |
 | Estética globo y neón | **No adoptar** | Es de otra marca. |
-| −14 LUFS | **Probar** | Comparar con −16 en una pieza antes de tocar `musica.mjs`. |
+| −14 LUFS | **Sin respaldo como práctica de los referentes** | El origen del −14,1 es **NO CONFIRMADO**: puede ser normalización de la plataforma, y una pieza propia de CEINCA también se entregó a −14,1 (ver §3), así que no es un valor ajeno a nuestro flujo. Prueba para cerrarlo: medir un reel propio ya publicado (descargado) contra su archivo original. No tocar `musica.mjs` hasta entonces. |
 
 **Dependencia técnica:** sin tema propio, los efectos salen con la marca CEINCA (navy, Manrope). @soyeduardo.ia es una **marca propia** de Eduardo Rodríguez, no un cliente: su tema es `marca-soyeduardo-ia` (`.claude/skills/ceinca-video-fx/themes/marcas/soyeduardo-ia.json` → `themes/marca-soyeduardo-ia.css`, tinta/lima + Sora 800 y Manrope). Uso: `--tema marca-soyeduardo-ia`. **Estado:** commit local en la rama `feature/ceinca-video-fx-bloque3`, **sin push al 21-10-2026** (otra sesión o persona no lo encontraría en el remoto).
 
@@ -113,5 +113,5 @@ Tabla suministrada en la revisión del 21-10-2026. No se leyó el texto original
 
 ## 8. Pendientes antes de commit
 - Revisión final contra `SISTEMA_VIRAL.md` y `RULES/`; commit en rama propia (no en `main`).
-- Probar −14 vs −16 LUFS en una pieza.
+- Cerrar el origen del −14,1: medir un reel propio publicado contra su original.
 - Sonido: si interesa, analizar música/BPM/SFX en una pasada aparte.
