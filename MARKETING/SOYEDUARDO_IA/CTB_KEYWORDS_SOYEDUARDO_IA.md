@@ -12,7 +12,7 @@ Submarca personal de Eduardo Rodríguez (construye con Claude e IA, "constructor
 | Registro vivo de uso (tabla 1). | Datos de resultados: los de esta cuenta empiezan en cero. No se importan métricas de CEINCA como prueba. |
 
 ## 1. Por qué NO "claude / gemini / ia"
-1. **Falso disparo por subcadena (verificado).** La automatización usa coincidencia "contiene". "ia" está dentro de "gracias", "magia" y "familia"; cualquier comentario con esas palabras activaría el DM. Comprobado contra el diccionario español: "ia" aparece dentro de miles de palabras.
+1. **Falso disparo por subcadena (verificado).** La automatización usa coincidencia "contiene". "ia" está dentro de "gracias", "magia" y "familia"; cualquier comentario con esas palabras activaría el DM. Comprobado contra el diccionario español local (86.016 entradas): "ia" aparece dentro de 5.032 de ellas.
 2. **Palabras genéricas = ruido.** No distingues quién comenta por el recurso de quién comenta por casualidad, y no hay trazabilidad por pieza.
 3. **No suenan a ti.** Son los nombres de las herramientas, no una seña de identidad. Eso es exactamente lo que CEINCA evita con palabras raras.
 4. **Marcas ajenas.** Poner "Claude" o "Gemini" como palabra de pedido pone marcas de terceros en el CTA de la cuenta. Es una inferencia, no un asesoramiento legal; evitarlas lo elimina.
@@ -40,7 +40,7 @@ Criterio de selección (juicio editorial, no medición): que sea una **imagen f�
 |---|---|---|
 | — | (vacío: ninguna palabra usada aún) | — |
 
-## 5. Banco: 29 candidatas (14 utilizables, 15 en reserva) + 12 excluidas
+## 5. Banco: 29 candidatas (13 utilizables, 16 en reserva) + 12 excluidas
 Puntuaciones **1–10 = criterio editorial** sobre memorabilidad + facilidad de teclear + encaje de marca. No son datos medidos. El filtro de subcadena (reglas 2a/2b) se aplicó contra el diccionario español (86.016 entradas; ver §8); las marcadas "riesgo derivado" cumplen 2b, no 2a. Las tachadas se usarán cuando se asignen.
 
 ### A. Prioridad (usar primero)
@@ -50,7 +50,6 @@ Puntuaciones **1–10 = criterio editorial** sobre memorabilidad + facilidad de 
 | TALADRO | Pack de prompts / plantilla que "perfora" un problema | Concreta y masculina de taller; fácil de teclear | 8.5 |
 | SOLDADURA | Flujo que une dos herramientas (Claude + otra) | Memorable; 9 letras | 8 |
 | TORNILLO | Paso a paso corto, "una pieza a la vez" | Muy teclable. Riesgo ortográfico bajo (ll/y); riesgo derivado mínimo ("atornillo") | 8 |
-| MAQUETA | Prototipo rápido de algo (web, app, reel) | **Riesgo derivado alto** (2b): "maquetación" y "maquetar" son frecuentes en comentarios de web | 7 |
 | ANDAMIO | Estructura base para empezar un proyecto | Ortografía clara | 7.5 |
 | SOPLETE | Truco rápido que "calienta" un resultado | Corta, visual | 7.5 |
 | REMACHE | Checklist de cierre / revisión final | Rara; poco usada | 7.5 |
@@ -58,11 +57,12 @@ Puntuaciones **1–10 = criterio editorial** sobre memorabilidad + facilidad de 
 
 ### B. Disponibles
 CABLEADO · TUERCA · CINCEL · YUNQUE · FRAGUA
-(**Riesgo derivado** (2b) en CINCEL ("cincelar") y FRAGUA ("fraguar"): solo disparan con derivados de su misma raíz, de uso poco frecuente en comentarios. Riesgo bajo, no nulo.)
+(**Riesgo derivado** (2b) en CINCEL ("cincelar"), FRAGUA ("fraguar") y YUNQUE ("ayunque", variante de la misma palabra según criterio editorial; el diccionario local no trae definiciones): solo disparan con derivados o variantes de su misma raíz, de uso poco frecuente en comentarios. Riesgo bajo, no nulo.)
 
 ### C. Reserva (verificar antes de usar)
 - **Por ortografía (regla 5):** ENGRANAJE (j/g) · RELOJERO (j/g) · MORDAZA (s/z) · BISAGRA (b/v, g/j).
 - **Por ser vocabulario habitual del nicho (regla 8):** ALUCINAR (término corriente al hablar de fallos de IA; antes estaba en prioridad) · PROTOTIPO · MECANISMO · ARTEFACTO · BOCETO.
+- **Por riesgo derivado alto (regla 2b):** MAQUETA ("maquetación" y "maquetar" son frecuentes en comentarios de web; antes estaba en prioridad con 7).
 - **Otras:** CORTOCIRCUITO (13 letras: solo post estrella) · TRANSISTOR · SANDBOX (anglicismo) · AUTOMATA (tilde de uso común: "autómata") · CIRCUITO ("cortacircuitos" lo contiene) · AGENTE (contenida en "coagente", y demasiado genérica del nicho).
 - **Solapamiento interno (regla 3):** CIRCUITO está contenida en CORTOCIRCUITO. Ambas están en reserva; si se promueven, solo una de las dos.
 
@@ -86,7 +86,7 @@ IA, BOT, CLAUDE, GEMINI, GPT, PROMPT, CHATGPT, TOKEN, PLANO, TORNO, BANCO, CHISP
 
 ## 8. Notas de método y límites
 - Prueba de subcadena: coincidencia de cada candidata contra `/usr/share/dict/spanish` (86.016 entradas, formas base, sin conjugaciones) y `american-english`. **No cubre** conjugaciones, jerga, nombres propios ni vocabulario corriente que no esté en el diccionario como derivado (por eso existe la regla 8). La prueba definitiva es publicar y monitorear los primeros 20 comentarios.
-- Resultado de la prueba 2a/2b sobre las 14 utilizables (21-10-2026): sin coincidencias en el diccionario salvo CINCEL ("cincelar"…), FRAGUA ("fraguar"…) y YUNQUE ("ayunque"). El diccionario no trae derivados como "maquetación", por eso MAQUETA se marca "riesgo derivado alto" a mano.
+- Resultado de la prueba 2a/2b sobre las 13 utilizables (21-10-2026): sin coincidencias en el diccionario salvo CINCEL ("cincelar"…), FRAGUA ("fraguar"…) y YUNQUE ("ayunque"), las tres de su misma raíz (2b). El diccionario no trae derivados como "maquetación" (se detectó a mano), por eso MAQUETA pasó a reserva.
 - Los puntajes son orientativos; el nicho "IA en español" cambia rápido y no se midió el uso real de palabras por la competencia.
 - Meta puede cambiar cómo funciona "contiene"; comprobar en Business Suite el día de crear cada automatización.
 - **No hay datos de rendimiento de esta cuenta todavía.** Los números de CEINCA (alcance, views) vienen de otra audiencia y no se trasladan.
