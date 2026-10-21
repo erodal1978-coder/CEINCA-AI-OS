@@ -112,7 +112,7 @@ DESPUÉS DE PUBLICAR
 ## 7. Ejemplo trabajado — Reel 1 (palabra GOLEM)
 **Estado:** palabra GOLEM aprobada por Eduardo (banco, tabla de uso). **Automatización de Instagram: NO creada.** DM y respuestas públicas A/B/C: **texto decidido por Eduardo** (7.3 y 7.4). Copy principal y comentario fijado: **redactados aquí, por aprobar**. Sin publicar.
 
-**Guion del reel** (diálogos confirmados por Eduardo): C1 «Salió Opus cinco punto cinco y así creo contenido para CEINCA sin equipo de marketing. Te lo muestro.» · C2 «Ideas, guiones, carruseles, calendario. Claude hace el trabajo pesado y yo pongo el criterio.» · C3 «Abogado, contador o emprendedor sin equipo de marketing: así creas contenido bueno sin pagar agencia.» · C4 «Te regalo el prompt que uso. Comenta golem y te lo envío. Lo hizo la IA.»
+**Guion del reel** (diálogos confirmados por Eduardo): C1 «Salió Opus cinco punto cinco y así creo contenido para CEINCA sin equipo de marketing. Te lo muestro.» · C2 «Ideas, guiones, carruseles, calendario. Claude hace el trabajo pesado y yo pongo el criterio.» · C3 «Dueño de negocio, freelancer o profesional sin equipo de marketing: así creas contenido bueno con IA.» (cambiada el 21-10 por decisión de Eduardo: público general, no el nicho de CEINCA) · C4 «Te regalo el prompt que uso. Comenta golem y te lo envío. Lo hizo la IA.»
 
 **Ficha de la pieza**
 - Pilar: Lo hizo la IA + Te lo regalo. Formato: reel, mismo video en Instagram y TikTok.
@@ -125,7 +125,7 @@ DESPUÉS DE PUBLICAR
 ```
 🛠️ SALIÓ OPUS 5.5 Y ASÍ CREO CONTENIDO PARA MI NEGOCIO SIN EQUIPO DE MARKETING
 
-¿Eres abogado, contador o emprendedor y no tienes equipo de marketing? Esto es para ti.
+¿Eres dueño de negocio, freelancer o profesional y no tienes equipo de marketing? Esto es para ti.
 _______
 Yo uso Claude para el trabajo pesado: ideas, guiones, carruseles y calendario. Yo pongo el criterio.
 
@@ -134,7 +134,7 @@ Yo uso Claude para el trabajo pesado: ideas, guiones, carruseles y calendario. Y
 ✅ Carruseles de 7 láminas
 ✅ Un calendario de 7 días
 
-Sin pagar agencia. Sin empezar de cero. Sin un equipo detrás.
+Sin agencia. Sin empezar de cero. Sin un equipo detrás.
 
 Guarda este reel 📌 para cuando te toque planear tu contenido. Compártelo 🔁 con alguien que emprende solo.
 
@@ -234,7 +234,7 @@ Resultado de la última corrida: ver abajo (se actualiza al cambiar un texto).
 <!-- RESULTADO_VERIFICACION -->
 | Texto | Caracteres | UTF-16 | Límite | Hashtags | Declarado por Eduardo | Estado |
 |---|---|---|---|---|---|---|
-| `ig_copy` | 863 | 869 | ≤ 2200 | 5 | — | OK |
+| `ig_copy` | 868 | 874 | ≤ 2200 | 5 | — | OK |
 | `ig_fijado` | 633 | 639 | ≤ 2200 | 0 | — | OK |
 | `ig_resp_A` | 255 | 260 | ≤ 500 | 0 | 255 → coincide (code points) | OK |
 | `ig_resp_B` | 171 | 175 | ≤ 500 | 0 | 171 → coincide (code points) | OK |

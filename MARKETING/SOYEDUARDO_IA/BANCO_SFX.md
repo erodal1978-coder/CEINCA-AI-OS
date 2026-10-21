@@ -30,7 +30,11 @@ Los audios **no viven en el repo** (política de assets): están en `CEINCA-WORK
 ## 2. Pista musical
 | Pista | Duración | Origen | Licencia |
 |---|---|---|---|
-| `PRUEBA_VIDEO_FX/musica/Midday_Meridian.mp3` | 57,9 s | Llegó tras un prompt escrito para Gemini (`reel-v4/PROMPT_MUSICA_GEMINI.md`). **Generador y archivo original: NO CONFIRMADOS** (el mp3 no trae etiquetas). | **NO CONFIRMADA.** Hay que registrar el generador y sus términos de uso. Hasta entonces, no usarla en piezas publicadas de esta cuenta. |
+| `PRUEBA_VIDEO_FX/musica/Midday_Meridian.mp3` | 57,9 s | Generada con la **cuenta PRO de Gemini** (dato de Eduardo, 21-10-2026); fecha del archivo: 20-10-2026. Prompt del generador: `reel-v4/PROMPT_MUSICA_GEMINI.md` (128 BPM, instrumental, tecnología/future-bass). El mp3 no trae etiquetas. | **Uso comercial NO CONFIRMADO**: los términos de uso del generador no están verificados. Decisión de Eduardo (21-10-2026): **música por defecto temporal de @soyeduardo.ia**; si no sirve para el nicho, se regenera otra en Gemini. |
+
+- **Medido (no escuchado):** −13,1 LUFS, ≈ 125 BPM (el prompt pedía 128), intro tenue de ~7 s y caída marcada a los 15,05 s. Música tecnológica instrumental, coherente con el nicho de IA.
+- **Uso en el reel 1 (GOLEM):** la pista suena desde 8,05 s para que su caída caiga en el segundo 7,0 del reel (entrada de C2); 9 LU por debajo de la voz; master −16 LUFS.
+- **SFX del banco usados en el reel 1:** 13 (sello, 0,2 s), 14 (ping lima, 22,65 s) y 15 (acorde de cierre, 24,6 s), más los whooshes de la skill en los cambios de escena.
 
 ## 3. Reglas de uso (propuesta)
 - Un SFX por evento visual; no apilar más de dos a la vez.
