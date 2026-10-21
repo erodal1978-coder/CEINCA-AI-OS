@@ -12,7 +12,7 @@
 - **Commits:** `c596e42` (checkpoint con el tema) y `2ca51bc` (keywords). `git diff --stat c596e42~3..HEAD`: 7 archivos, +217/−4.
 - **Pendiente (en este orden):**
   1. Eduardo: perfil desde el celular (foto, @, nombre, bio, categoría), archivar 12 posts, 5 destacadas.
-  2. Análisis del Reel de referencia `Eduardo Vasquez IA.mp4` (prompt de 5 fases que Eduardo pegó: medición ffmpeg → verificar resumen de Gemini → auditoría → qué sirve para CEINCA → `MARKETING/DIGITAL_MENTOR_ESTILO.md`). La carpeta de salida del estudio de caso va en `MARKETING/` sin video ni frames. Antes de commitear, mostrar resumen a Eduardo.
+  2. Análisis del Reel de referencia `Eduardo Vasquez IA.mp4` (prompt de 5 fases que Eduardo pegó: medición ffmpeg → verificar resumen de Gemini → auditoría → qué sirve para CEINCA → estudio de estilo). **21-10: borrador v0.2 en `MARKETING/SOYEDUARDO_IA/ESTILO_VIDEO_REFERENCIA.md` (sin commit, en revisión; ritmo oficial 2,4 s/plano), sin video ni frames.** Antes de commitear, aprobación de Eduardo y rama propia.
   3. Manual de copy de @soyeduardo.ia (adaptar `MANUAL_COPY_META_TIKTOK.md`): redactar tras ver el perfil montado.
   4. Automatización de keywords en Meta Business Suite (PC, requiere sesión de la cuenta de IA).
   5. Verificar: límite de caracteres del nombre en IG; disponibilidad de `soyeduardo.ia`; que "lo uso a diario en @ceinca.mercantil" sea cierto.

@@ -66,6 +66,7 @@ IA, BOT, CLAUDE, GEMINI, GPT, PROMPT, CHATGPT, TOKEN, PLANO, TORNO, BANCO, CHISP
 *Pendiente de revisar y completar hasta ~40 al aprobar el diseño.*
 
 ## 6. Cómo se usa
+**Candado:** ningún post, guion ni copy promete "comenta X" hasta que X esté aprobada en este banco y su automatización exista y esté probada.
 1. Elige UNA palabra de la sección A (sin tachar) cuyo tipo de recurso encaje con la pieza.
 2. Comprueba en la tabla 1 que no esté asignada a otro tema.
 3. Crea la automatización en Meta Business Suite **antes** de publicar (ver `SISTEMA_VIRAL.md` §8): trigger "comentario contiene", palabra en minúsculas, todas las publicaciones.
