@@ -38,7 +38,7 @@ Criterio de selección (juicio editorial, no medición): que sea una **imagen f�
 
 | Palabra | Tema / recurso | Estado |
 |---|---|---|
-| — | (vacío: ninguna palabra usada aún) | — |
+| GOLEM | Reel 1 (Instagram y TikTok): el prompt exacto del DM (recurso por confirmar) | **Palabra aprobada por Eduardo (21-10-2026).** Sin publicar. Automatización de Instagram: **NO creada**. TikTok: sin automatización, entrega **manual** por Eduardo. |
 
 ## 5. Banco: 29 candidatas (13 utilizables, 16 en reserva) + 12 excluidas
 Puntuaciones **1–10 = criterio editorial** sobre memorabilidad + facilidad de teclear + encaje de marca. No son datos medidos. El filtro de subcadena (reglas 2a/2b) se aplicó contra el diccionario español (86.016 entradas; ver §8); las marcadas "riesgo derivado" cumplen 2b, no 2a. Las tachadas se usarán cuando se asignen.
@@ -46,7 +46,7 @@ Puntuaciones **1–10 = criterio editorial** sobre memorabilidad + facilidad de 
 ### A. Prioridad (usar primero)
 | Palabra | Idea / tipo de recurso sugerido | Nota | Puntaje |
 |---|---|---|---|
-| GOLEM | Agente o automatización que "hace el trabajo" | Corta, rara, imagen potente; ortografía clara | 9 |
+| GOLEM | Agente o automatización que "hace el trabajo" | Corta, rara, imagen potente; ortografía clara. **ASIGNADA: reel 1** | 9 |
 | TALADRO | Pack de prompts / plantilla que "perfora" un problema | Concreta y masculina de taller; fácil de teclear | 8.5 |
 | SOLDADURA | Flujo que une dos herramientas (Claude + otra) | Memorable; 9 letras | 8 |
 | TORNILLO | Paso a paso corto, "una pieza a la vez" | Muy teclable. Riesgo ortográfico bajo (ll/y); riesgo derivado mínimo ("atornillo") | 8 |
@@ -71,10 +71,12 @@ IA, BOT, CLAUDE, GEMINI, GPT, PROMPT, CHATGPT, TOKEN, PLANO, TORNO, BANCO, CHISP
 *Pendiente de revisar y completar hasta ~40 al aprobar el diseño.*
 
 ## 6. Cómo se usa
-**Candado:** ningún post, guion ni copy promete "comenta X" hasta que X esté aprobada en este banco y su automatización exista y esté probada.
+**Candado (actualizado 21-10-2026):** ningún post, guion ni copy promete "comenta X" hasta que X esté aprobada en este banco.
+- **Instagram:** la automatización se crea **antes** de publicar y se **prueba justo después** de publicar (un comentario de prueba con la palabra; comprobar que llega el DM).
+- **TikTok:** no hay automatización ni comentario fijado (verificado por Eduardo): la entrega es **manual** por Eduardo y debe estar pendiente de los primeros comentarios al publicar. Cómo llega el recurso (respuesta o DM): **NO VERIFICADO**.
 1. Elige UNA palabra de la sección A (sin tachar) cuyo tipo de recurso encaje con la pieza.
 2. Comprueba en la tabla 1 que no esté asignada a otro tema.
-3. Crea la automatización en Meta Business Suite **antes** de publicar (ver `SISTEMA_VIRAL.md` §8): trigger "comentario contiene", palabra en minúsculas, todas las publicaciones.
+3. Instagram: crea la automatización en Meta Business Suite **antes** de publicar (ver `SISTEMA_VIRAL.md` §8): trigger "comentario contiene", palabra en minúsculas, todas las publicaciones, y pruébala justo después de publicar. TikTok: entrega manual.
 4. Al publicar, táchala en la sección 5 y registra la fila en la tabla 1.
 5. Sube la versión actualizada a repo + Drive (`CEINCA RESPALDO/Digital mentor`).
 
