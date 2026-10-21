@@ -1,5 +1,5 @@
 # Estilo de reel de referencia — estudio de caso para @soyeduardo.ia
-**Versión 0.2 · 21-10-2026 · BORRADOR sin commit, pendiente de revisión final contra `MARKETING/SISTEMA_VIRAL.md` y `RULES/`**
+**Versión 0.2 (rev. 21-10-2026) · BORRADOR sin commit, pendiente de revisión final contra `MARKETING/SISTEMA_VIRAL.md` y `RULES/`**
 Cuenta: @soyeduardo.ia (antes @digitalmentor.ia). Antecedente: `handoff.md`, pendiente 2 del bloque 20-10 (tarde).
 
 ## 0. Alcance y límites (leer primero)
@@ -62,7 +62,7 @@ Lectura: el montaje acelera hasta el minuto y **afloja en el último tercio** (p
 | Regla de 7 s (§1.4) | Los 7 primeros s muestran testimonios; no dice quién habla ni la promesa | §1.4 | **No cumple** el estándar de autoridad en el gancho. |
 | "Guarda este video" temprano (§1.3) | No aparece | §1.3 | No se copia. |
 | Palabra clave en comentarios | No hay; cierra a una reserva externa | §6, §8 | Otro modelo de conversión (evento). No aplica. |
-| Loudness | −14,1 LUFS | Pipeline de reel de `ceinca-video-fx`: master **−16 LUFS** (`.claude/skills/ceinca-video-fx/SKILL.md` L237, L275, L291; `scripts/musica.mjs` L4). Otra pieza de CEINCA se entregó a −14,1 LUFS (`handoff.md` L380) | Coexisten dos objetivos. El −14 es medida de esta referencia, no estándar nuestro. Probar antes de cambiar. |
+| Loudness | −14,1 LUFS | Pipeline de reel de `ceinca-video-fx`: master **−16 LUFS** (`.claude/skills/ceinca-video-fx/SKILL.md`, secciones "Reel con voz grabada" y receta "reel v5"; cabecera de `scripts/musica.mjs`). Otra pieza de CEINCA se entregó a −14,1 LUFS (`handoff.md`, sesión "Reel de testimonios Casa & Campo", 29-08-2026) | Coexisten dos objetivos. El −14 es medida de esta referencia, no estándar nuestro; otras referencias descargadas también miden −14,1, así que puede ser normalización de la plataforma sobre el archivo (NO CONFIRMADO). Probar antes de cambiar. |
 
 Nota: `ceinca-video-fx` (reel-voz, musica, subtítulos) vive en la rama `feature/ceinca-video-fx-bloque3`, **PR #35 abierto, sin mergear**.
 
@@ -78,7 +78,7 @@ Nota: `ceinca-video-fx` (reel-voz, musica, subtítulos) vive en la rama `feature
 | Estética globo y neón | **No adoptar** | Es de otra marca. |
 | −14 LUFS | **Probar** | Comparar con −16 en una pieza antes de tocar `musica.mjs`. |
 
-**Dependencia técnica:** sin tema propio, los efectos salen con la marca CEINCA (navy, Manrope). Para @soyeduardo.ia ya existe el tema `cliente-eduardo-ia` (`.claude/skills/ceinca-video-fx/themes/clientes/eduardo-ia.json` y `themes/cliente-eduardo-ia.css`, tinta/lima + Sora 800, commit c596e42): usar `--tema cliente-eduardo-ia`.
+**Dependencia técnica:** sin tema propio, los efectos salen con la marca CEINCA (navy, Manrope). @soyeduardo.ia es una **marca propia** de Eduardo Rodríguez, no un cliente: su tema es `marca-soyeduardo-ia` (`.claude/skills/ceinca-video-fx/themes/marcas/soyeduardo-ia.json` → `themes/marca-soyeduardo-ia.css`, tinta/lima + Sora 800 y Manrope). Uso: `--tema marca-soyeduardo-ia`. **Estado:** commit local en la rama `feature/ceinca-video-fx-bloque3`, **sin push al 21-10-2026** (otra sesión o persona no lo encontraría en el remoto).
 
 **"Lo dicen ellos":** tramo de la destacada "Lo hizo la IA" de la cuenta, separado por una tarjeta divisoria, para testimonios cuando los haya. Definido en el plan de destacadas (fuera del repo: `CEINCA-WORKSPACE/DIGITAL_MENTOR/`).
 
