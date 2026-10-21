@@ -38,7 +38,7 @@ Las rutas de imágenes/videos se resuelven relativas al `params.json` (también 
 ### Parámetros globales (todos los efectos)
 | Parámetro | Default | Qué hace |
 |---|---|---|
-| `tema` | `ceinca-social` | `ceinca-social`, `ceinca-guias` o `cliente-<nombre>` (ver Marca) |
+| `tema` | `ceinca-social` | `ceinca-social`, `ceinca-guias`, `cliente-<slug>` o `marca-<slug>` (ver Marca) |
 | `duracion` | `4` | segundos por efecto |
 | `zonaSegura` | `{ "arriba": 250, "abajo": 350 }` | px libres de texto clave arriba/abajo |
 | `contador` | — | overlay `NN/TT`: `{ "n": 3, "total": 11 }` o texto `"03/11"` |
@@ -75,7 +75,8 @@ Un `params.example.json` por efecto vive en `effects/<id>/`; versiones listas pa
 - `scripts/sync-brand.mjs` los lee y genera `themes/ceinca-social.css` y `themes/ceinca-guias.css` con variables semánticas `--fx-*` (`--fx-bg`, `--fx-surface`, `--fx-text`, `--fx-accent`, `--fx-font-display`, `--fx-font-body`…) y vendoriza las fuentes desde `@fontsource/<familia>` a `vendor/fonts/`. Si la familia no existe en fontsource (o no trae el peso pedido) **falla con error claro**: nunca sustituye en silencio.
 - `themes/brand.lock.json` guarda el hash del/los archivo(s) de tokens, la fecha y las familias. `render.mjs` compara el hash con el manual actual cuando el repo está presente y, si cambió, se detiene y pide correr `sync-brand`.
 - Las plantillas en `effects/` y `shared/` **solo** usan `var(--fx-*)`. `bash scripts/check.sh` falla si encuentra hex/rgb/hsl/nombres de color literales, `font-family` que no sea `var(--fx-font-*)`, el nombre de una familia del lock o cualquier URL externa.
-- **Clientes:** `themes/clientes/<cliente>.json` con el mismo esquema semántico (`colores.{bg,bg2,surface,surface2,text,textMuted,accent,accent2,accentDark,onAccent,line,danger,ok}`, `fuentes.{display,body}.{familia,pesos}`, `forma.{radius,radiusLg}`); `sync-brand` los procesa a `themes/cliente-<cliente>.css`. Uso: `"tema": "cliente-<cliente>"`.
+- **Clientes (clientes reales):** `themes/clientes/<cliente>.json` con el mismo esquema semántico (`colores.{bg,bg2,surface,surface2,text,textMuted,accent,accent2,accentDark,onAccent,line,danger,ok}`, `fuentes.{display,body}.{familia,pesos}`, `forma.{radius,radiusLg}`); `sync-brand` los procesa a `themes/cliente-<cliente>.css`. `sync-brand` los procesa a `themes/cliente-<cliente>.css`. Uso: `"tema": "cliente-<cliente>"`.
+- **Marcas propias (de Eduardo, no son clientes):** `themes/marcas/<slug>.json` con el mismo esquema; `sync-brand` (flag `--marcas <dir>`, default `themes/marcas`) los procesa a `themes/marca-<slug>.css`. Uso: `"tema": "marca-<slug>"` o `--tema marca-<slug>`. Hoy: `marca-soyeduardo-ia` (@soyeduardo.ia: tinta/lima, Sora 800 + Manrope). `themes/clientes/` queda solo para clientes reales.
 - Pruebas de marca alterna: `node scripts/sync-brand.mjs --tokens <md> --guias ninguno --out <dir>` genera un tema fuera de la skill (sin tocar el lock) y `render.mjs --marca-dir <dir>` lo usa.
 
 ### Cuando cambie el manual de marca
@@ -114,7 +115,7 @@ ceinca-video-fx/
 ├─ SKILL.md · package.json
 ├─ effects/<id>/index.html + params.example.json (+ prepare.mjs en muro-videos)
 ├─ shared/        base.css (solo --fx-*) · fx.js (runtime: overlays, drive, rich text, íconos)
-├─ themes/        ceinca-social.css · ceinca-guias.css · brand.lock.json · clientes/
+├─ themes/        ceinca-social.css · ceinca-guias.css · brand.lock.json · clientes/ (json de clientes reales) · marcas/ (json de marcas propias) · cliente-*.css / marca-*.css (generados)
 ├─ vendor/        gsap/ (+LICENSE.md) · fonts/ (+ licencia por familia)
 ├─ scripts/       sync-brand · render · reel · clip · check.sh · build-zip.sh · make-assets
 └─ examples/      <id>.json · clip-zoom-*.json · reel-bloque1.json · assets/

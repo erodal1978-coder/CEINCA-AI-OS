@@ -1,0 +1,18 @@
+/* GENERADO por scripts/sync-brand.mjs — no editar a mano. Tema: marca-soyeduardo-ia */
+@font-face { font-family: 'Sora'; font-style: normal; font-weight: 800; font-display: block; src: url('../vendor/fonts/sora-latin-800-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 400; font-display: block; src: url('../vendor/fonts/manrope-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 600; font-display: block; src: url('../vendor/fonts/manrope-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 700; font-display: block; src: url('../vendor/fonts/manrope-latin-700-normal.woff2') format('woff2'); }
+:root {
+  --fx-bg: #0B0D12; --fx-bg-2: #1A1E27; --fx-surface: #1A1E27; --fx-surface-2: #232834;
+  --fx-text: #F3F0E8; --fx-text-muted: #8B93A7;
+  --fx-accent: #C6FF3D; --fx-accent-2: #DBFF84; --fx-accent-dark: #9CCB1F;
+  --fx-on-accent: #0B0D12; --fx-line: #2A2F3B; --fx-danger: #FF6B4A; --fx-ok: #C6FF3D;
+  --fx-bg-rgb: 11, 13, 18; --fx-surface-rgb: 26, 30, 39; --fx-text-rgb: 243, 240, 232;
+  --fx-accent-rgb: 198, 255, 61; --fx-line-rgb: 42, 47, 59;
+  --fx-font-display: 'Sora', sans-serif; --fx-font-body: 'Manrope', sans-serif;
+  --fx-fw-display: 800; --fx-fw-strong: 600; --fx-fw-body: 400;
+  --fx-grad-accent: linear-gradient(135deg, #C6FF3D 0%, #DBFF84 100%); --fx-grad-bg: linear-gradient(180deg, #0B0D12 0%, #1A1E27 100%);
+  --fx-radius: 14px; --fx-radius-lg: 22px;
+  --fx-shadow-card: 0 4px 24px rgba(243, 240, 232, 0.18); --fx-shadow-accent: 0 4px 20px rgba(198, 255, 61, 0.30);
+}

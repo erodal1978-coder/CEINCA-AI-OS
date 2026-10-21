@@ -16,11 +16,13 @@ const REPO_GUIAS = path.resolve(SKILL, '../ceinca-design/references/editorial-gu
 const args = process.argv.slice(2);
 const opt = (n, d) => { const i = args.indexOf(`--${n}`); return i >= 0 ? args[i + 1] : d; };
 if (args.includes('--help')) {
-  console.log(`sync-brand [--tokens <md>] [--guias <md|ninguno>] [--out <dir>] [--clientes <dir>]
+  console.log(`sync-brand [--tokens <md>] [--guias <md|ninguno>] [--out <dir>] [--clientes <dir>] [--marcas <dir>]
   --tokens    tokens modo Social (default: ${path.relative(process.cwd(), REPO_TOKENS)})
   --guias     editorial-guides modo Guías, o "ninguno" (default: ${path.relative(process.cwd(), REPO_GUIAS)})
   --out       raíz de salida con themes/ y vendor/fonts/ (default: la skill). Con --out distinto
-              no se escribe brand.lock.json (es una corrida de prueba).`);
+              no se escribe brand.lock.json (es una corrida de prueba).
+  --clientes  carpeta de json de CLIENTES reales (default: themes/clientes) → tema cliente-<slug>
+  --marcas    carpeta de json de MARCAS PROPIAS de Eduardo (default: themes/marcas) → tema marca-<slug>`);
   process.exit(0);
 }
 const TOKENS = path.resolve(opt('tokens', REPO_TOKENS));
@@ -28,6 +30,7 @@ const GUIAS_ARG = opt('guias', REPO_GUIAS);
 const GUIAS = GUIAS_ARG === 'ninguno' ? null : path.resolve(GUIAS_ARG);
 const OUT = path.resolve(opt('out', SKILL));
 const CLIENTES = path.resolve(opt('clientes', path.join(SKILL, 'themes/clientes')));
+const MARCAS = path.resolve(opt('marcas', path.join(SKILL, 'themes/marcas')));
 const IS_DEFAULT_OUT = OUT === SKILL;
 
 const fail = (m) => { console.error(`✗ sync-brand: ${m}`); process.exit(1); };
@@ -104,15 +107,16 @@ function guiasTheme(md) {
   };
 }
 
-// ---------- clientes: json con el mismo esquema semántico ----------
-function clienteTheme(file) {
+// ---------- clientes y marcas propias: json con el mismo esquema semántico ----------
+// prefijo 'cliente' (themes/clientes/) o 'marca' (themes/marcas/: marcas propias de Eduardo, no clientes).
+function jsonTheme(file, prefijo) {
   const j = JSON.parse(fs.readFileSync(file, 'utf8'));
   for (const k of ['bg', 'bg2', 'surface', 'surface2', 'text', 'textMuted', 'accent', 'accent2', 'accentDark', 'onAccent', 'line', 'danger', 'ok'])
     if (!j.colores?.[k]) fail(`${path.basename(file)}: falta colores.${k}`);
   if (!j.fuentes?.display?.familia || !j.fuentes?.body?.familia) fail(`${path.basename(file)}: faltan fuentes.display/body`);
   const wd = Math.max(...j.fuentes.display.pesos), wb = Math.min(...j.fuentes.body.pesos);
   return {
-    nombre: `cliente-${path.basename(file, '.json')}`,
+    nombre: `${prefijo}-${path.basename(file, '.json')}`,
     colores: j.colores, fuentes: j.fuentes, derive: true,
     pesos: { display: wd, strong: j.fuentes.body.pesos.find((p) => p > wb) ?? wb, body: wb },
     radius: j.forma?.radius ?? '12px', radiusLg: j.forma?.radiusLg ?? '20px',
@@ -196,7 +200,8 @@ const tokensBuf = Buffer.from(read(TOKENS));
 const temas = [socialTheme(tokensBuf.toString('utf8'))];
 let guiasBuf = null;
 if (GUIAS) { guiasBuf = Buffer.from(read(GUIAS)); temas.push(guiasTheme(guiasBuf.toString('utf8'))); }
-if (fs.existsSync(CLIENTES)) for (const f of fs.readdirSync(CLIENTES).filter((x) => x.endsWith('.json')).sort()) temas.push(clienteTheme(path.join(CLIENTES, f)));
+for (const [dir, prefijo] of [[CLIENTES, 'cliente'], [MARCAS, 'marca']])
+  if (fs.existsSync(dir)) for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json')).sort()) temas.push(jsonTheme(path.join(dir, f), prefijo));
 temas.forEach(emit);
 
 if (IS_DEFAULT_OUT) {
