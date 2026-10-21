@@ -1,13 +1,13 @@
 # Estilo de reel de referencia — estudio de caso para @soyeduardo.ia
-**Versión 0.2 (rev. 21-10-2026) · BORRADOR sin commit, pendiente de revisión final contra `MARKETING/SISTEMA_VIRAL.md` y `RULES/`**
+**Versión 0.3 · 21-10-2026 · BORRADOR sin commit, pendiente de revisión final contra `MARKETING/SISTEMA_VIRAL.md` y `RULES/`**
 Cuenta: @soyeduardo.ia (antes @digitalmentor.ia). Antecedente: `handoff.md`, pendiente 2 del bloque 20-10 (tarde).
 
 ## 0. Alcance y límites (leer primero)
-- **Muestra: n = 1.** Un solo reel de un tercero (resumen de un evento de IA con testimonios). Es un patrón observado, no una regla.
-- **Sin métricas de rendimiento** del reel (alcance, guardados, retención). No sabemos si funcionó; ninguna decisión de §4 se apoya en que funcionara.
+- **Muestra: n = 3** (§9): recap de evento, tutorial animado y demo de pantalla; tres formatos distintos de terceros. Son patrones observados, no reglas. Las §1–§8 se midieron sobre la Referencia 1.
+- **Sin métricas de rendimiento** de ninguna referencia (alcance, guardados, retención; vistas y reacciones públicas **no capturadas**, ver §9.4). No sabemos si funcionó; ninguna decisión de §4 se apoya en que funcionara.
 - Medido en sesión de Claude Code el 21-10-2026 con `ffprobe`, `ffmpeg` (ebur128, scene detection, silencedetect) y Whisper `small`. Whisper se equivoca en algunas frases y puede adelantar la voz hasta ~1 s: se usa para ubicar tramos, **no como cita**.
 - Organizador, marca y autoría del reel: **NO CONFIRMADO**.
-- Sin video, frames, nombres de personas ni citas en el repo (política de assets).
+- Sin video, frames, nombres de personas, handles de cuentas ni citas en el repo (política de assets). Las referencias se llaman "Referencia 1/2/3"; los handles viven en `CEINCA-WORKSPACE/DIGITAL_MENTOR/REFERENCIAS_VIDEO.md`.
 
 ## 1. Ficha técnica (medida)
 | Dato | Valor | Método |
@@ -114,4 +114,44 @@ Tabla suministrada en la revisión del 21-10-2026. No se leyó el texto original
 ## 8. Pendientes antes de commit
 - Revisión final contra `SISTEMA_VIRAL.md` y `RULES/`; commit en rama propia (no en `main`).
 - Cerrar el origen del −14,1: medir un reel propio publicado contra su original.
+- Capturar las métricas públicas de las 3 referencias (§9.4) y decidir qué se entrega por DM (§9.5, idea A).
 - Sonido: si interesa, analizar música/BPM/SFX en una pasada aparte.
+
+## 9. Referencias 2 y 3 (añadidas en v0.3)
+Medido con `ffprobe`, `ffmpeg` (ebur128, scene, silencedetect) y Whisper `small`; lectura visual por hoja de contactos (cada 3 s en la 2, cada 1,5 s en la 3), de modo que puede faltar texto breve en pantalla.
+
+### 9.1 Comparativa
+| Dato | Ref. 1 (recap de evento) | Ref. 2 (tutorial animado) | Ref. 3 (demo de pantalla) |
+|---|---|---|---|
+| Duración | 90,6 s | 47,7 s | 26,7 s |
+| Formato | 720×1280, 29,97 fps | 720×1280, 30 fps | 720×1280, 30 fps |
+| Cortes / ritmo | 36 cortes, 2,4 s/plano | **0 detectados**: una composición animada continua | 11 cortes (12 planos), **2,2 s/plano** |
+| Voz | Testimonios | Sí: 128 palabras, 2,7 palabras/s | **Sin voz**: música y texto en pantalla (Whisper solo alucina sobre la música) |
+| Loudness | −14,1 LUFS, LRA 6,1 | −14,1 LUFS, LRA 1,7 | −14,1 LUFS, LRA 7,1 |
+| Pico real | −1,4 dBFS | **+2,8 dBTP** (sobre 0: defecto de limitado y recompresión, no modelo de calidad) | −1,7 dBTP |
+| CTA | Reserva externa | "Comenta [palabra de marca]" + "acceso gratis" a una masterclass | "Comenta [palabra genérica]" + biblioteca "gratis" |
+
+### 9.2 Referencia 2 — tutorial animado, sin persona en cámara
+- **Estructura (tiempos de Whisper, ±1 s):** 0–4 s afirma que el propio video lo hizo una IA; 4–7 s promete enseñar a hacer uno igual en 4 pasos; ~7–36 s los 4 pasos con contador "PASO N DE 4" y barra de progreso; ~36–41 s "esto que ves es el resultado" con la línea de tiempo del editor; 41–46 s CTA: seguir y comentar una palabra clave.
+- **Estilo:** fondo oscuro con naranja, tipografía condensada grande, chip naranja que resalta una palabra por subtítulo, mockup de comentario con la palabra tecleada y cierre "COMENTA [PALABRA]".
+- **Regla de 7 s (§1.4):** cumple 2 de 3 (de qué trata y beneficio); **no hay quién hable** (sin cara).
+- **Choque de marca:** su gancho es casi literal el concepto "Lo hizo la IA", y su CTA usa la palabra de marca que nuestro banco excluye (`CTB_KEYWORDS_SOYEDUARDO_IA.md` §1). Diferenciarse con la cara y el proceso reales.
+- **Reproducibilidad:** el contador y el estilo equivalen a `badge.mjs` y los efectos de `ceinca-video-fx`; pero esa skill requiere Node, FFmpeg y Chromium y está en el PR #35 sin mergear.
+
+### 9.3 Referencia 3 — demo de pantalla con gancho de curiosidad
+- **Estructura (lectura visual):** 0–~3 s gancho a cámara con advertencia ("úsala con responsabilidad"); ~3 s "guarda esto" (coincide con `SISTEMA_VIRAL` §1.3: "guarda" funciona mejor temprano); ~3–21 s demo: foto de un profesional trabajando → instrucción a una herramienta de IA → infografía; ~21–26,7 s cierre a cámara con CTA y recurso gratis.
+- **Duración:** 26,7 s, dentro del hook de §9.4 de `SISTEMA_VIRAL` (15–30 s).
+- **No copiable tal cual:** el texto va en voseo rioplatense (`RULES/ESTILO_REDACCION.md` exige tuteo) y su palabra clave es genérica (excluida en nuestro banco).
+- **Qué hace el ejemplo (observado):** convierte una foto en una infografía promocional de salud con recomendaciones y cifras generadas por la IA. Nada de lo visto sugiere falsificación, pero el contenido de salud sin verificar **no se replica sin contrastarlo** (`RULES/ANTI_HALLUCINATION.md`, `RULES/POLITICA_EVIDENCIA_Y_HERRAMIENTAS.md`). El gancho de advertencia solo se usa si hay un riesgo real que explicar.
+
+### 9.4 Lo que NO se sabe
+- **Métricas públicas** (vistas, me gusta, comentarios, seguidores a la fecha de captura): **NO CAPTURADAS**; requieren el enlace de cada publicación. Sin ellas no se puede decir cuál funciona, y aun con ellas no sería causal.
+- **Origen del −14,1 LUFS:** NO CONFIRMADO (ver §3 y §4).
+- Si el "acceso gratis" de la Ref. 2 y la "biblioteca gratis" de la Ref. 3 son literalmente ciertos: no verificado.
+
+### 9.5 Ideas para @soyeduardo.ia (ninguna se produce sin palabra aprobada y automatización probada: candado de §6)
+| Idea | Qué toma | Condición |
+|---|---|---|
+| **A. Tutorial con cara** | Estructura de 4 pasos con contador y cierre que muestra el propio resultado; con Eduardo a cámara y su proceso real como prueba | **Decidir qué se entrega por DM** (¿zip de la skill, un prompt, una guía?). De eso depende la palabra clave. Si es la skill, avisar que exige Node, FFmpeg y Chromium. |
+| **B. Demo adaptada** | Gancho de curiosidad, "guarda esto" hacia el segundo 3, demo de un resultado propio y cierre a cámara, en tuteo; ~25–30 s | Contenido verificado; sin advertencia sin riesgo real. |
+| **Ritmo** | 2,2 s/plano de la Ref. 3 como guía para la parte de demo | Solo orientativo (n = 1 por formato). |
