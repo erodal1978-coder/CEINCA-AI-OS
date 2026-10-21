@@ -38,7 +38,7 @@ Criterio de selección (juicio editorial, no medición): que sea una **imagen f�
 
 | Palabra | Tema / recurso | Estado |
 |---|---|---|
-| GOLEM | Reel 1 (Instagram y TikTok): el prompt exacto del DM (recurso por confirmar) | **Palabra aprobada por Eduardo (21-10-2026).** Sin publicar. Automatización de Instagram: **NO creada**. TikTok: sin automatización, entrega **manual** por Eduardo. |
+| GOLEM | Reel 1 (Instagram y TikTok): el prompt exacto del DM (recurso por confirmar) | **Palabra aprobada por Eduardo (21-10-2026).** Sin publicar. Automatización (Messenger + Instagram, nativa MBS, activa, DM con nombre del destinatario): **creada 21-10-2026, SIN PROBAR** (probar justo después de publicar). Ver skill `meta-automatizaciones-mbs`. TikTok: sin automatización, entrega **manual** por Eduardo. |
 
 ## 5. Banco: 29 candidatas (13 utilizables, 16 en reserva) + 12 excluidas
 Puntuaciones **1–10 = criterio editorial** sobre memorabilidad + facilidad de teclear + encaje de marca. No son datos medidos. El filtro de subcadena (reglas 2a/2b) se aplicó contra el diccionario español (86.016 entradas; ver §8); las marcadas "riesgo derivado" cumplen 2b, no 2a. Las tachadas se usarán cuando se asignen.
