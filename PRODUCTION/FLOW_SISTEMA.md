@@ -116,7 +116,7 @@ Validadas en producción real (campaña SAREN/TOTUMA). Mandan sobre cualquier pl
 
 1. **Autocontención total.** Cada escena se genera individualmente. El prompt nunca asume memoria de escenas anteriores ni la menciona.
 2. **Continuidad solo por coincidencia visual, nunca por referencia textual.** Antes de una escena nueva, analizar el último momento visual de la anterior y construir el primer fotograma de la nueva para que sea compatible. Prohibido escribir en el prompt "continúa el mismo hombre", "mismos rasgos de la escena anterior", "reconstruyendo el gesto final anterior", "las mismas manos... ahora", "same character", "same attorney". Cada escena repite su descripción física completa y describe su apertura como si fuera la primera vez.
-3. **Chaining Frames-to-Video** para las escenas 2, 3 y 4 de una misma pieza (§7.1).
+3. **Chaining Frames-to-Video** para las escenas 2, 3 y 4 de una misma pieza (§7.1). **Excepción — piezas con avatar sintético:** el encadenado es en modo **Ingredientes** (último fotograma + avatar), no en Fotogramas (§7.1, Método 1b).
 4. **Texto en pantalla: por defecto en post-producción** (Claude Code preferido, ver §6). Flow solo renderiza texto si se decide probarlo, en español, y se valida en el primer resultado; si sale deformado, pasa a post.
 5. **Nunca el nombre propio del sujeto dentro del prompt** — ni real ni ficticio, sin excepción para avatares sintéticos. Siempre "el sujeto" / "el hombre" / "el hombre venezolano" o una etiqueta interna neutral. Nombrar a una persona real activa el filtro de "persona real identificable". **Validado:** la Escena 1 de SAREN/TOTUMA fue rechazada por esto y aprobada al quitar el nombre.
 6. **Nunca "hiperrealismo", "hiperrealista", "fotorrealista" ni "ultra-realistic"** — usar "realista" / "calidad cinematográfica profesional". Pedir máximo realismo fotográfico de un rostro específico alimenta el mismo filtro. **Validado junto con la regla 5.**
@@ -194,6 +194,18 @@ ESCENA 1 → generar → capturar ÚLTIMO FRAME como imagen estática
                           ↓
               En Meta Edits: corte limpio natural sin truco editorial
 ```
+**Método 1b — Pieza con avatar sintético: Ingredientes + último fotograma (validado 19-10 y 20-10-2026, reel FIEBRU'O v3/v4):**
+```
+ESCENA 1 → modo INGREDIENTES: [fondo/lugar como imagen] + [avatar] → generar
+              ↓ guardar el último fotograma (≈ 7,2 s de un clip de 8 s)
+ESCENA N → modo INGREDIENTES: [último fotograma guardado] + [avatar] → prompt autocontenido
+           que describe el entorno con palabras (nunca "el mismo despacho" ni "la escena anterior")
+```
+- **Por qué no Fotogramas:** en modo Fotogramas no hay ranura para el avatar, y Fotogramas e Ingredientes son excluyentes en una misma generación (§13.4). Con Fotogramas se conserva la imagen del fotograma, pero no se adjunta el avatar configurado (con su voz, según el reel de 19-10-2026).
+- **Regla de pieza:** una pieza con avatar usa **Ingredientes en todas sus escenas** (no mezclar modos entre escenas). Una pieza sin avatar usa Fotogramas (Método 1).
+- Costo medido: Omni 1.1 Flash, 720p, 8 s, x1 = 12 créditos, también con 2 ingredientes (fotograma + avatar).
+- Fuente operativa: skill `flow-chrome` (extensión de Chrome), §12 y §13 (`CEINCA-WORKSPACE/03 FORMACION/CURSO FLOW/SKILL_flow-chrome_BORRADOR_v0.1.md`; su cabecera ya dice v0.2).
+
 **Método 2 — Cierre a negro (fallback):**
 ```
 ESCENA 1 → CIERRE: fade/zoom/cut a negro
@@ -494,7 +506,7 @@ Prompt tipo (fundido en párrafo, con las reglas de §3):
 ### 13.4 Interfaz de generación de video: modos, duración y variaciones (validado 16-10-2026)
 Panel de Vídeo en Flow: modo **[Fotogramas | Ingredientes]**, formato 9:16 / 16:9, modelo (p. ej. Omni 1.1 Flash — verificar en cada sesión), calidad 360p / **720p**, duración 4 / 6 / 8 / **10 s** y selector **x1–x4**.
 
-1. **Fotogramas e Ingredientes son modos excluyentes: nunca se mezclan en una misma generación.** Elegir uno por pieza y mantenerlo en todas las escenas.
+1. **Fotogramas e Ingredientes son modos excluyentes: nunca se mezclan en una misma generación.** Elegir uno por pieza y mantenerlo en todas las escenas. **Pieza con avatar → Ingredientes** (fotograma guardado + avatar; §7.1 Método 1b), porque Fotogramas no tiene ranura de avatar.
    - **Fotogramas:** casillas *Inicio* y *Fin* (el *Fin* es opcional). La imagen aprobada (keyframe de avatar o foto real del producto/lugar) va en *Inicio*. El prompt describe lo que ocurre **a partir de ese fotograma** («el sujeto del fotograma inicial…», «el fotograma inicial muestra…»); no escribir «la imagen de referencia adjunta».
    - **Ingredientes:** referencias de personaje/objeto/lugar (§8.3, §8.4); el prompt las describe físicamente.
 2. **x1 / x2 / x3 / x4 = número de variaciones (resultados distintos) por envío del mismo prompt; no es velocidad.** Cada variación consume puntos (referencia: 10 puntos por clip de 6 s, 720p, x1). Usar **x1 por defecto** para ahorrar puntos y subir a x2–x4 solo en tomas críticas (p. ej. la primera toma hablada, donde se valida la voz). Elegir la variante por voz y rostro, no solo por imagen.
