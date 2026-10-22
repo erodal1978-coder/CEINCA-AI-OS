@@ -42,6 +42,10 @@ Alcance v0.1: solo plantilla **Respuesta a comentario**. Se ampliará con: palab
 - La lista de automatizaciones tarda en mostrar la nueva: recargar la página para verla; "Guardada. Es posible que los cambios tarden en aplicarse".
 - Al re-editar una automatización guardada (botón Editar, URL con `automation_id=`), el botón Guardar solo se activa tras un cambio.
 
+- **(22-10, SOLDADURA)** Con la página lenta, `type` pierde letras al azar (y la «D» tras «P»). Para el **Nombre**, usar el setter nativo: `Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(i,'…'); i.dispatchEvent(new Event('input',{bubbles:true}))` y comprobar el contador «N/100».
+- **(22-10)** La lista antepone «Respuesta a comentario - » al nombre: no escribir ese prefijo en el Nombre.
+- **(22-10)** Si `Page.captureScreenshot` no responde (ventana minimizada), todo se puede hacer con `find` + clics por `ref` + `javascript_tool` leyendo `innerText` y los contadores. URL directa del formulario: `.../latest/inbox/automated_responses?business_id=…&asset_id=…&automation_template=comment_to_inbox_v2`.
+
 ## Personalización con nombre del destinatario
 - En **Mensaje privado**, el botón ✨ ("Personaliza tu mensaje") abre un diálogo con campos: Nombre / Apellido / Nombre completo del destinatario, Nombre y enlace de la página, teléfono, correo. Elegir "Nombre del destinatario" → **Agregar**: se inserta una etiqueta (chip) en el cursor.
 - Procedimiento: pegar el texto hasta el punto del nombre ("👋 ¡Hola, "), insertar el chip con ✨, y pegar el resto ("! Gracias por…"). El cursor queda después del chip.
