@@ -4,6 +4,11 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🔄 EN CURSO 22-10-2026 (13:30) — Reel 2 «me transformo con IA» (SOLDADURA)
+- **Decidido por Eduardo:** palabra **SOLDADURA** (registrada en el banco), personaje **alien**, producción en la **cuenta gratis de Flow** (`ceinca.ve@gmail.com`).
+- **Plan completo:** `CEINCA-WORKSPACE/SOY_EDUARDO_IA/REEL_2_SOLDADURA/PLAN_REEL_2.md` (estructura de ≈ 33 s: 2 tomas reales de Eduardo + 3 clips Fotogramas Veo 3.1 Lite = 30 de 50 créditos; prompts de imagen y video listos; índice de la guía PDF; candado antes de publicar).
+- **Siguiente paso:** Eduardo graba las tomas A y B (instrucciones en §2) → `REEL_2_SOLDADURA/CLIPS_REALES/` → extraer cuadros → generar imágenes y clips en Flow (Chrome, cuenta gratis; créditos se reinician ≈ 11:25 VE).
+
 ## ✅ 22-10-2026 (11:30) — Historias programadas, fanpage actualizada, manuales visuales y curso de Meta
 - **GOLEM probado por Eduardo** desde la cuenta de CEINCA: la automatización funciona.
 - **9 historias** (las de las destacadas, sin la divisoria "Lo dicen ellos") convertidas a video 1080×1920 con música (`RECURSOS_GENERALES/MUSICA`, ~−15 LUFS) en `SOY_EDUARDO_IA/HISTORIAS/2026-10-22_lanzamiento/` y **programadas en MBS para IG + FB a las 19:00**: 22-10 Empieza aquí (3) · 23-10 Lo hizo la IA (2) · 24-10 Herramientas (2) · 25-10 Claude (2). Verificado en el Planificador. El clic "Compartir ahora" lo bloqueó el clasificador de permisos; "Programar" pasó.
