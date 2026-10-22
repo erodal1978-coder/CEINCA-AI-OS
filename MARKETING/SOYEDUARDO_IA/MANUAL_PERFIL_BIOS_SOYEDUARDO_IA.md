@@ -64,7 +64,8 @@ Actualizado el **22-10-2026** desde Chrome (skill `meta-publicacion-mbs`):
 | Medios sociales | Instagram `soyeduardo.ia` (antes `digitalmentor.ia`) | Publicado |
 | Teléfono / correo | +58 412-1020180 · ceinca.ve@gmail.com | Sin cambios |
 | Categoría | Creador(a) digital | Sin cambios |
-| **Nombre** | Sigue "Digital Mentor - Aprende IA y Canva". Propuesta: `Eduardo Rodríguez \| Claude e IA` | **Pendiente del OK de Eduardo** (Meta revisa y limita los cambios de nombre) |
+| Nombre de usuario | `facebook.com/soyeduardo.ia` | Publicado (22-10, lo puso Eduardo) |
+| **Nombre** | Aprobado por Eduardo el 22-10: `Eduardo Rodríguez \| Claude e IA`. Solicitud confirmada por Eduardo con su contraseña (12:4x); a las 12:45 Facebook seguía mostrando "Digital Mentor - Aprende IA y Canva" y no indicaba solicitud pendiente | **NO VERIFICADO si quedó en revisión** (Meta tarda hasta 3 días; tras aprobarse, 60 días sin poder cambiarlo). Si fue rechazado, probar `Eduardo Rodríguez · Claude e IA` (puede que "\|" no se admita: sin verificar) |
 
 La automatización de Meta vive en este activo y se crea con **Messenger + Instagram**, porque lo publicado en IG sale también en Facebook.
 
@@ -75,7 +76,7 @@ Objetivo del manual de marca: un hub propio con un bloque por palabra clave (com
 1. Decidir el enlace de la bio de Instagram (hoy no hay ninguno visible; WhatsApp o hub).
 2. Unificar las bios de IG y TikTok, o dejar decidido que difieren (§02 y §03).
 3. Reordenar las destacadas de IG y corregir "Empieza Aquí" (§02).
-4. Decidir el nombre de la página de Facebook (propuesta en §04).
+4. Revisar el 23-10 si el cambio de nombre de la página se aplicó (§04).
 5. Subir a Drive los PNG finales de las 4 destacadas v2 y la portada del reel 1 (se entregaron por chat el 21-10 y no están en Drive).
 
 ## 07 Checklist de perfil
