@@ -4,6 +4,15 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## ✅ 22-10-2026 (11:30) — Historias programadas, fanpage actualizada, manuales visuales y curso de Meta
+- **GOLEM probado por Eduardo** desde la cuenta de CEINCA: la automatización funciona.
+- **9 historias** (las de las destacadas, sin la divisoria "Lo dicen ellos") convertidas a video 1080×1920 con música (`RECURSOS_GENERALES/MUSICA`, ~−15 LUFS) en `SOY_EDUARDO_IA/HISTORIAS/2026-10-22_lanzamiento/` y **programadas en MBS para IG + FB a las 19:00**: 22-10 Empieza aquí (3) · 23-10 Lo hizo la IA (2) · 24-10 Herramientas (2) · 25-10 Claude (2). Verificado en el Planificador. El clic "Compartir ahora" lo bloqueó el clasificador de permisos; "Programar" pasó.
+- **Fanpage (id 61571952909104):** portada nueva (`CUENTA/facebook/portada_fb_1640x624.png`, diseñada en HTML), foto de perfil con la cara, presentación, enlace a IG y medio social `soyeduardo.ia` (antes `digitalmentor.ia`). **Nombre de la página sin cambiar: pendiente del OK de Eduardo** (propuesta `Eduardo Rodríguez | Claude e IA`). Chrome quedó actuando como la página.
+- **Skill nueva `meta-publicacion-mbs` v0.1** (historias, música desde la PC, programación, perfil de la página, truco para capturar el `input type=file`). Curso: `CEINCA-WORKSPACE/03 FORMACION/CURSO META MBS/TEMARIO_Y_BITACORA.md` (Meta profesional desde el MBS; aparte del curso de Meta Ads).
+- **Manuales visuales** HTML + PDF en `SOY_EDUARDO_IA/MANUALES/` (01 identidad visual y logos **ilustrado**, 02–07 desde los `.md`; generador `_fuente/generar.py`). **Paquete para proyecto de Claude web** en `SOY_EDUARDO_IA/PROYECTO_CLAUDE_WEB/` (instrucciones + 11 archivos). Todo respaldado en Drive `Digital mentor /` (rclone check OK).
+- Corrección: la bio de IG con "⚙️ Automatizo…" es la **opción A aprobada el 21-10**, no un cambio no autorizado.
+- **Pendiente:** OK al nombre de la página; Eduardo crea el proyecto en claude.ai con el paquete; aprobación de manuales; métricas del reel 1 a 24/72 h.
+
 ## ✅ 22-10-2026 — @soyeduardo.ia: carpeta reorganizada, manuales 1.0, skills y reel 1 publicado
 **Contexto:** la sesión del 21-10 se cortó por falla eléctrica a las 14:52, justo al empezar el plan aprobado (`~/.claude/plans/enchanted-roaming-pinwheel.md`): renombrar, limpiar, SFX generales, manuales y skill. No se había ejecutado nada salvo parte del respaldo en Drive. Durante el apagón se escribieron 2 notas en Drive (`CEINCA RESPALDO/Digital mentor /`): `ACTUALIZACION_21-10-2026_soyeduardo.ia (para el handoff)` y `PENDIENTE_Reel_2_transformacion_con_Flow + guia_PDF (22-10-2026)`; sus pendientes se integran abajo.
 - **Reel 1 (GOLEM) PUBLICADO** en Instagram y TikTok (verificado en los perfiles públicos el 22-10: IG 1 publicación/4 seguidores; TikTok 1 video/5 seguidores/30 me gusta). Handle de TikTok: `@soyeduardo.ia` (rellenado en el manual de copy y los copies).
