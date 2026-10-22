@@ -16,20 +16,20 @@ Visto en el perfil público el **22-10-2026** (1 publicación, 4 seguidores, 10 
 | Usuario | `soyeduardo.ia` | Publicado |
 | Nombre (campo buscable) | `Eduardo Rodríguez \| Claude e IA` | Publicado (verificado 22-10) |
 | Foto | La cara de Eduardo (`CUENTA/fotos/foto_perfil_final.png`) | Publicada (verificado 22-10) |
-| Bio | Ver abajo | Publicada (verificado 22-10) |
+| Bio | Opción A (ver abajo) | Publicada (verificado 22-10) |
 | Enlace | No se ve enlace en el perfil público el 22-10 (antes: WhatsApp). Objetivo: hub propio con un bloque por palabra clave | **Pendiente de decidir** |
 | Destacadas | 4 publicadas. La app las muestra como `Claude` · `Herramientas` · `Lo hizo la IA` · `Empieza Aquí` (verificado 22-10) | Orden invertido respecto del plan, y "Aquí" con mayúscula |
 | Posts viejos | La cuenta muestra 1 publicación (reel 1) | Archivados (verificado 22-10) |
 
-**Bio publicada (22-10-2026)** — difiere de la aprobada el 20-10: Eduardo cambió la segunda línea a una promesa de servicio:
+**Bio vigente — opción A, aprobada por Eduardo y aplicada el 21-10-2026** (sustituyó a la del 20-10):
 ```
 🛠️ Construyo con Claude y te lo regalo
 ⚙️ Automatizo el trabajo de pymes y profesionales
 🏢 Lo uso en @ceinca.mercantil
 👇 Herramientas gratis
 ```
-Bio aprobada el 20-10 (referencia): `🛠️ Construyo con Claude, pruebo y te lo regalo / 🏢 Lo uso a diario en @ceinca.mercantil / 🎬 Reels · carruseles · automatizaciones / 👇 Herramientas gratis`.
-**Pendiente:** confirmar que la versión publicada es la definitiva. Ojo: "Automatizo el trabajo de pymes" acerca la cuenta a vender servicio; es coherente con el público del reel 1 (dueños de negocio), pero conviene decidirlo explícitamente.
+Bio anterior del 20-10 (sustituida): `🛠️ Construyo con Claude, pruebo y te lo regalo / 🏢 Lo uso a diario en @ceinca.mercantil / 🎬 Reels · carruseles · automatizaciones / 👇 Herramientas gratis`.
+El 21-10 también se apagó la etiqueta "generado con IA" del perfil (decisión de Eduardo).
 **Destacadas:** Instagram ordena las destacadas por la última actualización (la más reciente a la izquierda). Para que queden en el orden Empieza aquí → Lo hizo la IA → Herramientas → Claude, editar cada una en orden inverso (Claude primero, Empieza aquí al final). Corregir "Empieza Aquí" → "Empieza aquí".
 
 ## 03 TikTok (@soyeduardo.ia)
@@ -51,7 +51,7 @@ Visto en el perfil público el **22-10-2026** (1 video, 5 seguidores, 30 me gust
 🎬 Reels · carruseles · automatizaciones
 🎁 Herramientas gratis
 ```
-**Diferencias con Instagram:** TikTok conserva la bio aprobada el 20-10 y IG ya tiene la nueva (§02). Decidir si se unifican. Si TikTok no puede llevar enlace, "Herramientas gratis" no dice cómo conseguirlas: valorar una línea tipo "💬 Comenta la palabra del video".
+**Diferencias con Instagram:** TikTok conserva la bio del 20-10 y no la opción A de IG (§02). Decidir si se unifican. Si TikTok no puede llevar enlace, "Herramientas gratis" no dice cómo conseguirlas: valorar una línea tipo "💬 Comenta la palabra del video".
 
 ## 04 Facebook (página del activo "Digital Mentor")
 - La automatización de Meta vive en el activo **Digital Mentor** (Business Suite) y se crea con **Messenger + Instagram**, porque lo publicado en IG sale también en Facebook.
