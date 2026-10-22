@@ -53,9 +53,20 @@ Visto en el perfil público el **22-10-2026** (1 video, 5 seguidores, 30 me gust
 ```
 **Diferencias con Instagram:** TikTok conserva la bio del 20-10 y no la opción A de IG (§02). Decidir si se unifican. Si TikTok no puede llevar enlace, "Herramientas gratis" no dice cómo conseguirlas: valorar una línea tipo "💬 Comenta la palabra del video".
 
-## 04 Facebook (página del activo "Digital Mentor")
-- La automatización de Meta vive en el activo **Digital Mentor** (Business Suite) y se crea con **Messenger + Instagram**, porque lo publicado en IG sale también en Facebook.
-- Nombre visible de la página: sigue siendo "Digital Mentor - Aprende IA y Canva" según la auditoría del 20-10; **cambio de nombre NO VERIFICADO / pendiente de decidir** (Meta limita los cambios de nombre de página; revisar antes).
+## 04 Facebook (página del activo "Digital Mentor", id 61571952909104)
+Actualizado el **22-10-2026** desde Chrome (skill `meta-publicacion-mbs`):
+| Campo | Valor | Estado |
+|---|---|---|
+| Foto de perfil | La cara (`CUENTA/fotos/foto_perfil_final.png`) | Publicada |
+| Portada | `CUENTA/facebook/portada_fb_1640x624.png` (fuente: `portada_fb.html`) — "Construyo con Claude y te lo regalo" + `{ER}` | Publicada |
+| Presentación (≤ 255) | `🛠️ Construyo con Claude y te lo regalo · ⚙️ Automatizo el trabajo de pymes y profesionales · 🏢 Lo uso en CEINCA · 📲 Herramientas gratis en IG @soyeduardo.ia` (159) | Publicada |
+| Enlaces | Instagram @soyeduardo.ia → `https://www.instagram.com/soyeduardo.ia/` | Publicado |
+| Medios sociales | Instagram `soyeduardo.ia` (antes `digitalmentor.ia`) | Publicado |
+| Teléfono / correo | +58 412-1020180 · ceinca.ve@gmail.com | Sin cambios |
+| Categoría | Creador(a) digital | Sin cambios |
+| **Nombre** | Sigue "Digital Mentor - Aprende IA y Canva". Propuesta: `Eduardo Rodríguez \| Claude e IA` | **Pendiente del OK de Eduardo** (Meta revisa y limita los cambios de nombre) |
+
+La automatización de Meta vive en este activo y se crea con **Messenger + Instagram**, porque lo publicado en IG sale también en Facebook.
 
 ## 05 Hub de enlaces
 Objetivo del manual de marca: un hub propio con un bloque por palabra clave (como `beacons.ai/ceinca` en CEINCA). **No existe todavía.** Mientras tanto, la entrega del recurso va **solo en el DM** (Instagram) y nunca en el copy.
@@ -64,7 +75,7 @@ Objetivo del manual de marca: un hub propio con un bloque por palabra clave (com
 1. Decidir el enlace de la bio de Instagram (hoy no hay ninguno visible; WhatsApp o hub).
 2. Unificar las bios de IG y TikTok, o dejar decidido que difieren (§02 y §03).
 3. Reordenar las destacadas de IG y corregir "Empieza Aquí" (§02).
-4. Decidir el nombre visible de la página de Facebook.
+4. Decidir el nombre de la página de Facebook (propuesta en §04).
 5. Subir a Drive los PNG finales de las 4 destacadas v2 y la portada del reel 1 (se entregaron por chat el 21-10 y no están en Drive).
 
 ## 07 Checklist de perfil

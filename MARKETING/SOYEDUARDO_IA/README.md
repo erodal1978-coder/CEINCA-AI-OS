@@ -13,5 +13,6 @@ Marca personal de Eduardo Rodríguez (Claude e IA), submarca respaldada por CEIN
 | Estudio de referencias | `ESTILO_VIDEO_REFERENCIA.md` | 0.4 (n = 5) | — |
 | Banco de SFX y música | `BANCO_SFX.md` | 0.1 | — |
 | Automatizaciones de Meta | skill `.claude/skills/meta-automatizaciones-mbs/` | 0.2 | — (nuevo; base del curso de Meta) |
+| Historias, programación y perfil de la página | skill `.claude/skills/meta-publicacion-mbs/` | 0.1 | — (nuevo; curso de Meta) |
 
-**Estado:** los manuales 1.0 consolidan lo decidido por Eduardo el 20 y 21-10-2026 y **están pendientes de su aprobación**. Las versiones visuales (HTML/PDF) se hacen después de aprobar el contenido.
+**Estado:** los manuales 1.0 consolidan lo decidido por Eduardo el 20 y 21-10-2026 y **están pendientes de su aprobación**. **Versiones visuales (HTML y PDF), 22-10-2026:** `CEINCA-WORKSPACE/SOY_EDUARDO_IA/MANUALES/` (01 identidad visual y logos, ilustrado; 02–07 maquetados desde estos `.md` con `_fuente/generar.py`; regenerar tras cada cambio). Paquete para un proyecto de Claude web: `SOY_EDUARDO_IA/PROYECTO_CLAUDE_WEB/`.
