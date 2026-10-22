@@ -1,9 +1,9 @@
 # Banco de SFX y música — @soyeduardo.ia
 **Versión 0.1 · 21-10-2026 · borrador**
-Los audios **no viven en el repo** (política de assets): están en `CEINCA-WORKSPACE/DIGITAL_MENTOR/SFX/`. Aquí solo el índice, la procedencia y la licencia de cada sonido.
+Los audios **no viven en el repo** (política de assets): están en `CEINCA-WORKSPACE/RECURSOS_GENERALES/SFX/`. Aquí solo el índice, la procedencia y la licencia de cada sonido.
 
 ## 0. Procedencia y límites
-- **Fuente de los 15 SFX:** sintetizados en local con ffmpeg 6.1.1 (`aevalsrc`, `anoisesrc`, filtros), sin muestras de terceros ni servicios externos. Receta reproducible: `CEINCA-WORKSPACE/DIGITAL_MENTOR/SFX/make_sfx.sh` (se regenera con `bash make_sfx.sh`).
+- **Fuente de los 15 SFX:** sintetizados en local con ffmpeg 6.1.1 (`aevalsrc`, `anoisesrc`, filtros), sin muestras de terceros ni servicios externos. Receta reproducible: `CEINCA-WORKSPACE/RECURSOS_GENERALES/SFX/make_sfx.sh` (se regenera con `bash make_sfx.sh`).
 - **Licencia de los SFX:** propios del titular de la cuenta; no hay material de terceros. Sin restricciones conocidas de uso.
 - **Formato medido:** WAV 48 kHz estéreo 16-bit, pico a −3 dBFS en todos (medido con `astats`).
 - **Límite:** los sonidos se midieron (duración, pico) pero **no se escucharon**. Revisar de oído antes de usarlos en una pieza.

@@ -7,7 +7,7 @@ Cuenta: @soyeduardo.ia (antes @digitalmentor.ia). Antecedente: `handoff.md`, pen
 - **Sin métricas de rendimiento** de ninguna referencia (alcance, guardados, retención; vistas y reacciones públicas **no capturadas**, ver §9.4). No sabemos si funcionó; ninguna decisión de §4 se apoya en que funcionara.
 - Medido en sesión de Claude Code el 21-10-2026 con `ffprobe`, `ffmpeg` (ebur128, scene detection, silencedetect) y Whisper `small`. Whisper se equivoca en algunas frases y puede adelantar la voz hasta ~1 s: se usa para ubicar tramos, **no como cita**.
 - Organizador, marca y autoría del reel: **NO CONFIRMADO**.
-- Sin video, frames, nombres de personas, handles de cuentas ni citas en el repo (política de assets). Las referencias se llaman "Referencia 1/2/3"; los handles viven en `CEINCA-WORKSPACE/DIGITAL_MENTOR/REFERENCIAS_VIDEO.md`.
+- Sin video, frames, nombres de personas, handles de cuentas ni citas en el repo (política de assets). Las referencias se llaman "Referencia 1/2/3"; los handles viven en `CEINCA-WORKSPACE/SOY_EDUARDO_IA/REFERENCIAS/REFERENCIAS_VIDEO.md`.
 
 ## 1. Ficha técnica (medida)
 | Dato | Valor | Método |
@@ -80,12 +80,12 @@ Nota: el PR #35 (Bloques 1–3 de `ceinca-video-fx`) está **mergeado en `main` 
 
 **Dependencia técnica:** sin tema propio, los efectos salen con la marca CEINCA (navy, Manrope). @soyeduardo.ia es una **marca propia** de Eduardo Rodríguez, no un cliente: su tema es `marca-soyeduardo-ia` (`.claude/skills/ceinca-video-fx/themes/marcas/soyeduardo-ia.json` → `themes/marca-soyeduardo-ia.css`, tinta/lima + Sora 800 y Manrope). Uso: `--tema marca-soyeduardo-ia`. **Estado:** commit en la rama local `feature/ceinca-video-fx-marcas` (sobre `main`), **sin push al 21-10-2026**: otra sesión o persona no lo encontraría en el remoto.
 
-**"Lo dicen ellos":** tramo de la destacada "Lo hizo la IA" de la cuenta, separado por una tarjeta divisoria, para testimonios cuando los haya. Definido en el plan de destacadas (fuera del repo: `CEINCA-WORKSPACE/DIGITAL_MENTOR/`).
+**"Lo dicen ellos":** tramo de la destacada "Lo hizo la IA" de la cuenta, separado por una tarjeta divisoria, para testimonios cuando los haya. Definido en el plan de destacadas (fuera del repo: `CEINCA-WORKSPACE/SOY_EDUARDO_IA/CUENTA/`).
 
 ## 5. Reglas de estilo propuestas (propuesta, no medidas)
 1. Abrir con el resultado en el primer segundo y **una palabra grande**; decir quién habla y de qué trata antes del segundo 7 (§1.4).
 2. Montaje de prueba ("Lo hizo la IA"): planos de 2–3 s para el material de demostración. El plano a cámara no se corta por ritmo. Si ese plano es el **avatar de Flow** (video generado con IA con la cara y voz de Eduardo, no una grabación), marcar la pieza como contenido de IA **si la política vigente de Meta lo exige: NO CONFIRMADO, verificar antes de publicar**.
-3. Un solo elemento lima por pantalla; lima = palabra clave o sello. Fuente: `CEINCA-WORKSPACE/DIGITAL_MENTOR/02_MANUAL_DE_MARCA.md` (v0.1, fuera del repo; copia en Drive `CEINCA RESPALDO/Digital mentor `).
+3. Un solo elemento lima por pantalla; lima = palabra clave o sello. Fuente: `CEINCA-WORKSPACE/SOY_EDUARDO_IA/CUENTA/02_MANUAL_DE_MARCA.md` (v0.1, fuera del repo; copia en Drive `CEINCA RESPALDO/Digital mentor `).
 4. Cierre con una sola acción: **Comenta [PALABRA]**, **solo si la palabra está aprobada y su automatización existe** (§6).
 5. Nada de cifras, públicos ni resultados que no se puedan mostrar o comprobar (`RULES/POLITICA_EVIDENCIA_Y_HERRAMIENTAS.md`).
 
@@ -157,7 +157,7 @@ Medido con `ffprobe`, `ffmpeg` (ebur128, scene, silencedetect) y Whisper `small`
 | **Ritmo** | 2,2 s/plano de la Ref. 3 como guía para la parte de demo | Solo orientativo (n = 1 por formato). |
 
 ## 10. Referencias 4 y 5 (añadidas en v0.4, 21-10-2026)
-Medido con `ffprobe`, `ffmpeg` (ebur128, scene > 0,3, silencedetect) y Whisper `small`; lectura visual por hoja de contactos (cada 2 s). Los cortes por detección de escena subestiman los cambios en un video de persona hablando con rótulos, así que son orientativos. Handles y archivos de origen: solo en `CEINCA-WORKSPACE/DIGITAL_MENTOR/REFERENCIAS_VIDEO.md`. Métricas públicas: **NO CAPTURADAS** (no hay enlaces).
+Medido con `ffprobe`, `ffmpeg` (ebur128, scene > 0,3, silencedetect) y Whisper `small`; lectura visual por hoja de contactos (cada 2 s). Los cortes por detección de escena subestiman los cambios en un video de persona hablando con rótulos, así que son orientativos. Handles y archivos de origen: solo en `CEINCA-WORKSPACE/SOY_EDUARDO_IA/REFERENCIAS/REFERENCIAS_VIDEO.md`. Métricas públicas: **NO CAPTURADAS** (no hay enlaces).
 
 ### 10.1 Comparativa
 | Dato | Ref. 4 (hablante + rotulado) | Ref. 5 (tutorial de pantalla) |

@@ -1,11 +1,11 @@
 ---
 name: meta-automatizaciones-mbs
-description: Crear y editar automatizaciones nativas de Meta Business Suite (Bandeja de entrada → Automatizaciones) manejando Chrome. v0.1 cubre solo "Respuesta a comentario" (comentario con palabra clave → DM + respuesta pública). Usar cuando Eduardo pida crear la automatización de una keyword/CTB para Instagram y Facebook, o actualizar su texto.
+description: Crear y editar automatizaciones nativas de Meta Business Suite (Bandeja de entrada → Automatizaciones) manejando Chrome. v0.2 cubre solo "Respuesta a comentario" (comentario con palabra clave → DM + respuesta pública). Usar cuando Eduardo pida crear la automatización de una keyword/CTB para Instagram y Facebook, o actualizar su texto.
 ---
 
-# Meta Business Suite — Automatizaciones nativas (v0.1)
+# Meta Business Suite — Automatizaciones nativas (v0.2)
 
-**Estado: BORRADOR v0.1. Verificado el 21-10-2026 con una sola automatización (GOLEM, @soyeduardo.ia / activo Digital Mentor). La prueba end-to-end (comentario real → DM) está PENDIENTE; nada de lo que afirme "llega el DM" está verificado.**
+**Estado: BORRADOR v0.2 (22-10-2026). Construida con una sola automatización (GOLEM, @soyeduardo.ia / activo Digital Mentor, creada y editada el 21-10-2026). Eduardo indica que funciona; la prueba con un comentario real desde otra cuenta no está registrada. Lo que dependa de cómo llega el DM real (saltos de línea, carpeta de destino) sigue NO VERIFICADO.**
 
 Alcance v0.1: solo plantilla **Respuesta a comentario**. Se ampliará con: palabras clave personalizadas, información de contacto, mensajes sin responder, respuesta/mensaje automático.
 
@@ -37,13 +37,16 @@ Alcance v0.1: solo plantilla **Respuesta a comentario**. Se ampliará con: palab
   Índice 0 = Mensaje privado, 1 = Respuesta al comentario.
 - El paste **no reemplaza** la selección: para limpiar un campo, clic dentro → `ctrl+a` → `BackSpace` (teclas reales) y luego pegar. Nunca `execCommand('delete')` en bucle.
 - **No reintentar recargando** a cada fallo; esperar. Recargar vacía el formulario.
+- **Para cambiar un texto ya guardado:** no editar a trozos. Borrar el campo entero (clic → `ctrl+a` → `BackSpace`) y reconstruirlo **por bloques**: pegar hasta el punto del chip, insertar el chip, pegar el resto.
+- **Messenger:** marcarlo y **guardar**; confirmarlo después en la columna **Canal** de la lista (dos íconos). Un cambio sin guardar se pierde sin aviso (pasó el 21-10).
 - La lista de automatizaciones tarda en mostrar la nueva: recargar la página para verla; "Guardada. Es posible que los cambios tarden en aplicarse".
 - Al re-editar una automatización guardada (botón Editar, URL con `automation_id=`), el botón Guardar solo se activa tras un cambio.
 
 ## Personalización con nombre del destinatario
 - En **Mensaje privado**, el botón ✨ ("Personaliza tu mensaje") abre un diálogo con campos: Nombre / Apellido / Nombre completo del destinatario, Nombre y enlace de la página, teléfono, correo. Elegir "Nombre del destinatario" → **Agregar**: se inserta una etiqueta (chip) en el cursor.
 - Procedimiento: pegar el texto hasta el punto del nombre ("👋 ¡Hola, "), insertar el chip con ✨, y pegar el resto ("! Gracias por…"). El cursor queda después del chip.
-- La vista previa muestra "¡Hola, Eduardo !" (espacio antes del signo): **no verificado si el DM real lo conserva**; comprobarlo en la prueba.
+- **Meta mete un espacio después del chip** ("¡Hola, Eduardo !"). Solución aplicada: poner el chip **al final de una frase y antes de un emoji**: `👋 ¡Hola! Gracias por comentar GOLEM, [nombre] 🎉`.
+- Al reabrir un mensaje guardado, el editor muestra una **"{" pegada al chip**: es solo cómo Meta dibuja el campo, no sale en la vista previa. Si aparece una "{" suelta **en la vista previa**, sí es basura: reconstruir el campo.
 - **La Respuesta pública NO tiene botón de personalizar**: va con saludo genérico ("¡Hola!").
 - Las variantes B/C de respuesta pública no caben en la automatización (un solo texto): se usan a mano en la Golden Hour.
 
@@ -51,10 +54,13 @@ Alcance v0.1: solo plantilla **Respuesta a comentario**. Se ampliará con: palab
 1. Palabra aprobada en el banco CTB y textos aprobados (DM + respuesta A).
 2. Crear con la ruta de arriba; Messenger + Instagram; keyword en minúsculas.
 3. Pegar DM con chip de nombre; pegar respuesta pública; Nombre real.
-4. Verificar con captura: contadores (DM <1000, respuesta <500), vista previa, canales.
+4. Verificar con captura: contadores (DM <1000, respuesta <500), canales y **la vista previa del panel derecho**, que es la prueba antes de publicar (decisión de Eduardo: "avanzar es el lema"; no hace falta comentario de prueba para dar por buena la configuración). La vista previa junta los saltos de línea en un bloque: el texto guardado sí los conserva.
 5. Guardar; recargar la lista; confirmar Estado **activado** y columna Canal con ambos íconos.
 6. Registrar en `CTB_KEYWORDS_SOYEDUARDO_IA.md` (tabla de uso) y en `handoff.md`.
 7. Tras publicar: comentar la palabra desde otra cuenta; verificar DM (nombre, espacio antes de "!") y respuesta pública. Solo entonces subir la skill de v0.1 a v0.2 "verificada".
+
+## Textos que ya funcionan (reutilizables)
+- Cierre del DM con razón para seguir, honesto: `🔔 Sígueme en @soyeduardo.ia: si no, mis próximos recursos pueden caer en mensajes no deseados.` ("pueden": no está verificado a qué carpeta llega el DM de quien no sigue; "mensajes no deseados" porque la gente no entiende "solicitudes"). No afirmar "no te llegarán".
 
 ## Material para el curso de Meta (CEINCA)
 Punto de dolor a enseñar: "sin pagar ManyChat" → automatizador nativo del MBS. Esta skill es la base del módulo; documentar con capturas cada plantilla al ampliarla.

@@ -3,8 +3,8 @@
 Este manual **no repite** las reglas de CEINCA: remite a ellas y solo documenta lo que cambia para una cuenta personal de IA.
 - Reglas y plantillas de base: `MARKETING/MANUAL_COPY_META_TIKTOK.md` (v2.0; en adelante, **el manual CEINCA**).
 - Palabras clave y candado de uso: `MARKETING/SOYEDUARDO_IA/CTB_KEYWORDS_SOYEDUARDO_IA.md` (en adelante, **el banco**).
-- Voz y marca: `CEINCA-WORKSPACE/DIGITAL_MENTOR/02_MANUAL_DE_MARCA.md` §8 (fuera del repo). Redacción en tuteo, nunca voseo: `RULES/ESTILO_REDACCION.md`. Datos y afirmaciones: `RULES/POLITICA_EVIDENCIA_Y_HERRAMIENTAS.md`.
-- Marcadores de este documento: `[…]` = dato que falta (hoy: el handle de TikTok y los campos de la plantilla de §6); `PENDIENTE` = texto que no se ha recibido (hoy: ninguno). Ninguno se inventa.
+- Voz y marca: `CEINCA-WORKSPACE/SOY_EDUARDO_IA/CUENTA/02_MANUAL_DE_MARCA.md` §8 (fuera del repo). Redacción en tuteo, nunca voseo: `RULES/ESTILO_REDACCION.md`. Datos y afirmaciones: `RULES/POLITICA_EVIDENCIA_Y_HERRAMIENTAS.md`.
+- Marcadores de este documento: `[…]` = dato que falta (hoy: los campos de la plantilla de §6); `PENDIENTE` = texto que no se ha recibido (hoy: ninguno). Ninguno se inventa.
 
 ## 1. Heredado (se remite, no se copia)
 | Regla | Dónde está |
@@ -54,7 +54,7 @@ Tres variantes A / B / C (cálida, operativa, con gancho), ≤ 500 caracteres, s
 ≤ 1.000 caracteres. Bloques del manual CEINCA §4.4 con tres cambios: **la entrega es el prompt mismo** (texto, no enlace, salvo que el recurso lo requiera; el ejemplo de §7.4 va en texto), la firma es "Eduardo — @soyeduardo.ia" y el "sígueme" usa el framing 3 (continuidad). La pregunta abierta se mantiene.
 
 ## 4. TikTok
-Verificado por Eduardo: **esta cuenta no puede fijar comentario ni tiene automatización**. Se publica **el mismo video que en Instagram**. Cuenta: **[@handle de TikTok]** (pendiente de completar).
+Verificado por Eduardo: **esta cuenta no puede fijar comentario ni tiene automatización**. Se publica **el mismo video que en Instagram**. Cuenta: **@soyeduardo.ia** (pendiente de completar).
 - **Un mensaje base**, derivado en un caption corto: **Video** → caption de 80–200 caracteres (manual CEINCA §5.1); **Foto** → Título + caption (manual CEINCA §5.2; **verificar el límite del título en la app**).
 - **La keyword se usa también aquí** (p. ej. GOLEM). La entrega es **manual**, hecha por Eduardo. **Cómo llega el recurso (respuesta pública o mensaje privado): NO VERIFICADO**; por eso ningún caption lo promete.
 - **El enlace vive solo en la bio** (manual CEINCA §03).
@@ -110,7 +110,7 @@ DESPUÉS DE PUBLICAR
 ```
 
 ## 7. Ejemplo trabajado — Reel 1 (palabra GOLEM)
-**Estado:** palabra GOLEM aprobada por Eduardo (banco, tabla de uso). **Automatización de Instagram: NO creada.** DM y respuestas públicas A/B/C: **texto decidido por Eduardo** (7.3 y 7.4). Copy principal y comentario fijado: **redactados aquí, por aprobar**. Sin publicar.
+**Estado (22-10-2026):** palabra GOLEM aprobada. **Automatización de Instagram creada el 21-10** (activo Digital Mentor, Messenger + Instagram); prueba con un comentario real desde otra cuenta: pendiente de confirmar. DM y respuestas A/B/C decididos por Eduardo; copy principal y fijado redactados aquí y publicados. **Publicado en Instagram y TikTok** (verificado en los perfiles el 22-10).
 
 **Guion del reel** (diálogos confirmados por Eduardo): C1 «Salió Opus cinco punto cinco y así creo contenido para CEINCA sin equipo de marketing. Te lo muestro.» · C2 «Ideas, guiones, carruseles, calendario. Claude hace el trabajo pesado y yo pongo el criterio.» · C3 «Dueño de negocio, freelancer o profesional sin equipo de marketing: así creas contenido bueno con IA.» (cambiada el 21-10 por decisión de Eduardo: público general, no el nicho de CEINCA) · C4 «Te regalo el prompt que uso. Comenta golem y te lo envío. Lo hizo la IA.»
 
@@ -185,11 +185,12 @@ Se puede hacer con IA, y te enseño cómo lo hago yo.
 ```
 Texto de las tres: decidido por Eduardo.
 
-### 7.4 DM automático (texto decidido por Eduardo, versión C)
+### 7.4 DM automático (versión activa en Meta desde el 21-10-2026, 18:37)
+Cambios hechos en vivo sobre la versión C de Eduardo: (1) el saludo lleva el **chip «Nombre del destinatario»** (`[nombre]`) al final de la línea, para evitar el espacio que Meta mete antes de «!»; (2) el cierre pasó de «aquí publico lo que voy probando con IA» a un aviso honesto: «si no, mis próximos recursos **pueden** caer en mensajes no deseados» (puntuado 9,2/10 entre 6 versiones; «mensajes no deseados» por decisión de Eduardo, porque la gente no entiende «solicitudes»). Que el DM de quien no sigue la cuenta caiga ahí: NO VERIFICADO, por eso dice «pueden».
 Mapa contra el manual CEINCA §4.4: (1) saludo + keyword · (2) **entrega arriba** (el prompt, en texto) · (3) qué hacer con los corchetes · (4) **aclaratoria** («Revisa cifras y datos antes de publicar: la IA puede equivocarse») · (5) pregunta abierta · (6) sígueme con razón de valor · (7) firma.
-<!-- largo: id=ig_dm max=1000 allow_brackets=1 declared=937 -->
+<!-- largo: id=ig_dm max=1000 allow_brackets=1 -->
 ```
-👋 ¡Hola! Gracias por comentar GOLEM. 🎉
+👋 ¡Hola! Gracias por comentar GOLEM, [nombre] 🎉
 Como prometí, aquí tienes el prompt que uso 👇
 
 Actúa como mi director de contenido. Mi negocio o profesión: [a qué te dedicas]. Mi servicio o producto: [qué vendes]. Mi cliente ideal: [a quién se lo vendes]. No tengo equipo de marketing.
@@ -202,7 +203,7 @@ Habla en primera persona y sin tecnicismos. Si te falta información, pregúntam
 Cópialo en Claude y cambia lo que va entre corchetes.
 ⚠️ Revisa cifras y datos antes de publicar: la IA puede equivocarse.
 💬 ¿Para qué negocio o servicio lo vas a usar? Respóndeme por aquí.
-🔔 Sígueme en @soyeduardo.ia: aquí publico lo que voy probando con IA.
+🔔 Sígueme en @soyeduardo.ia: si no, mis próximos recursos pueden caer en mensajes no deseados.
 — Eduardo
 ```
 Diferencias con lo documentado, para que Eduardo decida: la firma es «— Eduardo» (el banco §7 propone «Eduardo — @soyeduardo.ia»; el @ ya aparece en la línea del «sígueme»), y el prompt incluye la instrucción «No inventes cifras ni casos», coherente con las reglas de evidencia.
@@ -214,7 +215,7 @@ Diferencias con lo documentado, para que Eduardo decida: la firma es «— Eduar
 ```
 <!-- largo: id=tt_respuesta max=300 -->
 ```
-¡Gracias por comentar! 🙌 Ya te paso el prompt de GOLEM. Sígueme aquí ([@handle de TikTok]) y en Instagram (@soyeduardo.ia) para ver cómo lo uso en mi negocio. 🛠️
+¡Gracias por comentar! 🙌 Ya te paso el prompt de GOLEM. Sígueme aquí y en Instagram (@soyeduardo.ia) para ver cómo lo uso en mi negocio. 🛠️
 ```
 Notas: el caption **no dice por dónde llega el recurso** (NO VERIFICADO, §4). Sin enlace: vive en la bio. Para una pieza **Foto**, usar Título + caption con la estructura del manual CEINCA §5.2.
 
@@ -241,6 +242,6 @@ Resultado de la última corrida: ver abajo (se actualiza al cambiar un texto).
 | `ig_resp_C` | 188 | 192 | ≤ 500 | 0 | 188 → coincide (code points) | OK |
 | `ig_dm` | 937 | 942 | ≤ 1000 | 0 | 937 → coincide (code points) | OK |
 | `tt_caption` | 171 | 172 | 80–200 | 5 | — | OK |
-| `tt_respuesta` | 161 | 163 | ≤ 300 | 0 | — | AVISO: marcador sin completar: [@handle de TikTok] |
+| `tt_respuesta` | 161 | 163 | ≤ 300 | 0 | — | AVISO: marcador sin completar: @soyeduardo.ia |
 
 Caracteres = code points de Python; UTF-16 = medida estricta (emoji = 2). El veredicto usa el mayor.
