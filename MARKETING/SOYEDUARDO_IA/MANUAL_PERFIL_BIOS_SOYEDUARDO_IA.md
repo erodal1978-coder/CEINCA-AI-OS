@@ -65,7 +65,7 @@ Actualizado el **22-10-2026** desde Chrome (skill `meta-publicacion-mbs`):
 | Teléfono / correo | +58 412-1020180 · ceinca.ve@gmail.com | Sin cambios |
 | Categoría | Creador(a) digital | Sin cambios |
 | Nombre de usuario | `facebook.com/soyeduardo.ia` | Publicado (22-10, lo puso Eduardo) |
-| **Nombre** | Sigue "Digital Mentor - Aprende IA y Canva". **Facebook rechazó (22-10) las 3 variantes con "Claude"**: con `\|`, con `·` y con ` - ` ("No se puede crear contenido con ese nombre. Prueba otro."). Como el guion sí se admite (lo usa el nombre actual), la causa probable es la palabra **"Claude"** (marca de terceros): deducción, Facebook no da el motivo | **Pendiente: elegir un nombre sin "Claude"** (opciones en §06) |
+| **Nombre** | Sigue "Digital Mentor - Aprende IA y Canva". **Facebook rechazó (22-10) las 3 variantes con "Claude"**: con `\|`, con `·` y con ` - ` ("No se puede crear contenido con ese nombre. Prueba otro."). Después Eduardo probó también variantes **sin "Claude" pero con "IA"** (p. ej. "Construyo con IA") y tampoco las aceptó. Lo común a todos los rechazos es la sigla **"IA"** (y en algunos "Claude"). Causa NO VERIFICADA: Facebook no da el motivo, y el nombre actual sí contiene "IA". | **Pendiente: 1 intento sin "IA" ni "Claude"** (recomendado: `Eduardo Rodríguez - Inteligencia Artificial`). Si falla, reportar a Meta (Ayuda → Reportar un problema → Páginas, con captura) |
 
 La automatización de Meta vive en este activo y se crea con **Messenger + Instagram**, porque lo publicado en IG sale también en Facebook.
 
@@ -76,7 +76,7 @@ Objetivo del manual de marca: un hub propio con un bloque por palabra clave (com
 1. Decidir el enlace de la bio de Instagram (hoy no hay ninguno visible; WhatsApp o hub).
 2. Unificar las bios de IG y TikTok, o dejar decidido que difieren (§02 y §03).
 3. Reordenar las destacadas de IG y corregir "Empieza Aquí" (§02).
-4. Elegir nombre de la página **sin "Claude"** y pedirlo (Eduardo confirma con su contraseña). Opciones: `Eduardo Rodríguez - IA para tu negocio` · `Eduardo Rodríguez - Construyo con IA` · `Soy Eduardo IA`.
+4. Nombre de la página: 1 intento con `Eduardo Rodríguez - Inteligencia Artificial` (sin la sigla "IA" ni "Claude"). Ojo: el truco de "poner primero solo el nombre y luego cambiarlo" no sirve, porque tras aprobarse un nombre hay 60 días de bloqueo.
 5. Subir a Drive los PNG finales de las 4 destacadas v2 y la portada del reel 1 (se entregaron por chat el 21-10 y no están en Drive).
 
 ## 07 Checklist de perfil
