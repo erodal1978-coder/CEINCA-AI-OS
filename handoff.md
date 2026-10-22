@@ -4,13 +4,28 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
-## 🔄 EN CURSO 22-10-2026 (15:15) — Reel 2 «me transformo con IA» (SOLDADURA) — EN MONTAJE
-**Carpeta:** `CEINCA-WORKSPACE/SOY_EDUARDO_IA/REEL_2_SOLDADURA/` (respaldada en Drive `Digital mentor /REEL_2_SOLDADURA`, rclone check OK 15:15). Plan y método: `PLAN_REEL_2.md` §8.
+## 🔄 EN CURSO 22-10-2026 (16:05) — Reel 2 «me transformo con IA» (SOLDADURA) — MONTAJE v1 LISTO (revisión de Eduardo)
+**Carpeta:** `CEINCA-WORKSPACE/SOY_EDUARDO_IA/REEL_2_SOLDADURA/` (video final en `FINAL/reel2_SOLDADURA_v1.mp4`, montaje en `MONTAJE/`). Plan y método: `PLAN_REEL_2.md` §8.
 **Decisiones de Eduardo:** palabra SOLDADURA; el alien HABLA con la voz de Eduardo; todo en la cuenta **Pro** (`erodal1978`, Chrome "Browser 2"); toma B regrabada SIN "gratis" ("Todo esto lo hice con Flow e inteligencia artificial. Comenta soldadura y te mando la guía paso a paso").
-**Método validado (por escena hablada):** video = Omni Ingredientes con SOLO la imagen del alien (prompt aprobado de Eduardo en `PROMPTS/H1_video_alien_APROBADO.txt`: "Mantén la identidad visual del alien…"); voz = Omni con SOLO el avatar «Yo» Pro, misma frase; sincronía por ventanas de energía (silencedetect) → `MONTAJE/H1_sync.mp4`, `H2_sync.mp4` (desfase ≈ 0,01 s). Con avatar + imagen juntos, Flow devuelve la cara de Eduardo pintada de verde (no sirve).
-**Hecho:** clips en `CLIPS_FLOW/` (H1 alien+voz, H2 Luna alien+voz, T1 transformación Veo 3.1 Fast, T2 regreso Veo 3.1 Fast, todos 1080p salvo voces 720p); tomas reales `CLIPS_REALES/` (A = VID_..._134703; B = B2_repeticion_144735); tramos preparados con color/nitidez/denoise y voz limpia a −16 LUFS: `MONTAJE/armar_tramos.sh` → `MONTAJE/tramos/1_A…7_B2.mp4`; unidos en `MONTAJE/base_sinsubs.mp4` (30,7 s); Whisper por palabra en `MONTAJE/palabras.json` (Whisper oye "Flow" como "fuego/con fuego": usar el texto real).
-**Problema resuelto:** Flow incrustó subtítulos en H1; acercamiento 10,5 % anclado arriba los deja en y=1445–1559, x=184–913, dentro de la barra del karaoke (y 1440–1570) → mantener la barra visible TODO H1 (7,1–12,9 s del base).
-**Falta (siguiente sesión):** (1) karaoke.json con el texto real y tiempos de `palabras.json` (páginas ≤4 palabras; H1 sin huecos); (2) reel-voz con el pipeline de la rama `work/soyeduardo-produccion` (worktree temporal en el scratchpad; si no existe, `git worktree add <ruta> work/soyeduardo-produccion` + symlink a node_modules) o ffmpeg directo: subtítulos, CTB "COMENTA SOLDADURA" ≥3 s al final (tramo 7_B2, 26,8–30,7 s), nombre en los primeros 3 s, sello LO HIZO LA IA en escenas Flow, placa de cierre (overlays del reel 1: `REEL_1_GOLEM/MONTAJE/overlays.mjs`); (3) música `RECURSOS_GENERALES/MUSICA/Midday_Meridian.mp3` con `musica.mjs` + SFX de chasquido/barrido; (4) `check.sh reel`; (5) Eduardo revisa; (6) guía PDF SOLDADURA, automatización SOLDADURA, copies.
+**Montaje v1 completado y validado:**
+1. `karaoke.json` generado con el texto real corregido ("con Flow" en vez de "con fuego", "¡Mira lo que hago con IA!") y tiempos alineados; en H1 la barra es continua sin huecos cubriendo los subtítulos que incrustó Flow.
+2. Render del overlay de subtítulos con `render.mjs` en el worktree `work/soyeduardo-produccion` usando chroma key verde (`0x00FF00`) y tema `marca-soyeduardo-ia` (30,68 s, 920 frames).
+3. Overlays gráficos generados en `MONTAJE/overlays/` (`overlays.mjs` con Playwright + fuentes Sora/Manrope):
+   - Nombre: `nombre.png` ("Eduardo Rodríguez @soyeduardo.ia") en los primeros 3 s (0,3–3,0 s).
+   - Sello: `sello.png` ("LO HIZO LA IA") en tramos Flow (3,4–22,86 s).
+   - CTB: `ctb.png` ("COMENTA SOLDADURA / Te mando la guía paso a paso") en tramo final 7_B2 (26,76–30,68 s, visible ≥ 3,9 s).
+   - Placa de cierre: `cierre.png` ("Lo hizo la IA. Lo dirigí yo.") generada para respaldo.
+4. Mezcla de audio con `musica.mjs`: pista `RECURSOS_GENERALES/MUSICA/Midday_Meridian.mp3` con caída sincronizada a los 3,40 s (`--caida-musica 15.05 --caida-reel 3.40 --bajo 9`), ducking de voz y 6 whooshes SFX en los cortes clave (3.40, 7.50, 13.19, 17.86, 22.86, 26.76).
+5. **`check.sh reel` PASÓ 100% en verde:**
+   - Formato h264 1080×1920 30 fps yuv420p ✓
+   - A/V perfectamente alineados (video 30.700000 s, audio 30.700000 s) ✓
+   - Volumen normalizado a −16.0 LUFS integrado ✓
+   - Cero silencios > 0,6 s ✓
+**Falta (próximos pasos):**
+1. **Eduardo revisa el video `FINAL/reel2_SOLDADURA_v1.mp4`.**
+2. **Guía PDF SOLDADURA:** Redactar documento paso a paso del embudo (recurso que se envía por DM).
+3. **Automatización SOLDADURA:** Configurar trigger y flujo de entrega en Meta Business Suite.
+4. **Copies:** Redactar y validar largos de copies para Instagram y TikTok (`verificar_largos.py`).
 **Créditos Pro usados hoy ≈ 120** (4 prueba + 12 H1 descartado + 12 H1 Eduardo + 12 H1 voz + 20 T1 + 12 H2 + 12 H2 voz + 20 T2 + intentos de Eduardo). Lección para el curso: Flow mete letras sueltas al inicio/final del prompt; verificar con JS antes de enviar.
 
 ## ✅ 22-10-2026 (11:30) — Historias programadas, fanpage actualizada, manuales visuales y curso de Meta
