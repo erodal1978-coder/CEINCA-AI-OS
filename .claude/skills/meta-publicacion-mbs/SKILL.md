@@ -51,6 +51,10 @@ Ruta: `https://business.facebook.com/latest/story_composer/?asset_id=…&busines
 5. **Enlaces** (hasta 10): Información → Enlaces → descripción + URL → Guardar.
 6. **Medios sociales:** el usuario de un enlace existente es de **solo lectura**: Eliminar la fila y "Agregar enlace de medio social" con el usuario nuevo → Guardar.
 7. Al terminar, volver al perfil personal si Eduardo lo necesita (menú de la foto arriba a la derecha).
+8. **Nombre de la página:** Configuración (`facebook.com/settings/?tab=profile`) → Nombre → Editar → "Revisar cambio" → **contraseña (la pone Eduardo)** → "Solicitar cambio". Aprobado = 60 días sin poder cambiarlo.
+   - Aprendido el 22-10-2026: "No se puede crear contenido con ese nombre. Prueba otro" salió con **todo nombre que reemplazaba por completo** "Digital Mentor - Aprende IA y Canva" (con o sin "IA"/"Claude", con `|`, `·` o `-`). Se aceptó **conservando la parte principal**: `Digital Mentor - Aprende IA + Claude`. Regla práctica (deducción, no documentada por Meta): cambios graduales que conserven el nombre base; un cambio total probablemente requiere soporte de Meta.
+   - El error aparece arriba del formulario después de enviar, no en el diálogo de revisión.
+   - El nombre de usuario (`facebook.com/<usuario>`) se cambia en la misma pantalla y no tuvo ese bloqueo.
 
 ## Material para el curso "Meta profesional desde el MBS" (CEINCA)
 Cada sección de esta skill es una lección grabable: historias con música sin el celular, programación por tandas, portada que no se recorta en móvil, perfil coherente IG ↔ Facebook. Bitácora y temario: `CEINCA-WORKSPACE/03 FORMACION/CURSO META MBS/`.
