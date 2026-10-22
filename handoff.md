@@ -4,7 +4,13 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
-## 🔄 EN CURSO 22-10-2026 (16:05) — Reel 2 «me transformo con IA» (SOLDADURA) — MONTAJE v1 LISTO (revisión de Eduardo)
+## 🔄 EN CURSO 22-10-2026 (18:02) — Reel 2 SOLDADURA — **v2 LISTA** (corrige el chasquido de la Luna)
+- **Video vigente:** `CEINCA-WORKSPACE/SOY_EDUARDO_IA/REEL_2_SOLDADURA/FINAL/reel2_SOLDADURA_v2.mp4` (30,7 s, 1080×1920, 30 fps, −16,0 LUFS, pico −1,5 dBFS, `check.sh reel` en verde). Subido a Drive `Digital mentor /REEL_2_SOLDADURA/FINAL/` (rclone check OK).
+- **Corrección pedida por Eduardo:** en la v1 el alien chasqueaba ya en la Luna (el fondo cambiaba antes). v2: clip nuevo `CLIPS_FLOW/T15_chasquido_oficina_1080p.mp4` (Veo 3.1 Fast, Fotogramas, inicio = cuadro de H1 a 6,35 s, 20 créditos Pro) insertado en 13,000–13,567 s del base (`MONTAJE/parche_chasquido.sh` → `base_overlays_v2.mp4`): el alien chasquea en la oficina y en ese cuadro corta a la Luna; el chasquido suena a 13,57 s. Música rehecha con `musica.mjs` (SFX en 3,40 / 7,50 / **13,57** / 17,86 / 22,86 / 26,76).
+- **Nota técnica:** `MONTAJE/montar_reel2.sh` (de Agy) NO refleja cómo se hicieron los overlays (dice drawtext; el video usa los PNG de `MONTAJE/overlays/`). La fuente fiable es `base_overlays.mp4` + `parche_chasquido.sh` + `musica.mjs`. Audio final en mono (salida de `musica.mjs`; también la v1).
+- **Pendiente:** revisión de Eduardo de la v2; guía PDF SOLDADURA; automatización SOLDADURA (Messenger + IG); copies (`verificar_largos.py`); publicar.
+
+## (histórico) 🔄 EN CURSO 22-10-2026 (16:05) — Reel 2 «me transformo con IA» (SOLDADURA) — MONTAJE v1 LISTO (revisión de Eduardo)
 **Carpeta:** `CEINCA-WORKSPACE/SOY_EDUARDO_IA/REEL_2_SOLDADURA/` (video final en `FINAL/reel2_SOLDADURA_v1.mp4`, montaje en `MONTAJE/`). Plan y método: `PLAN_REEL_2.md` §8.
 **Decisiones de Eduardo:** palabra SOLDADURA; el alien HABLA con la voz de Eduardo; todo en la cuenta **Pro** (`erodal1978`, Chrome "Browser 2"); toma B regrabada SIN "gratis" ("Todo esto lo hice con Flow e inteligencia artificial. Comenta soldadura y te mando la guía paso a paso").
 **Montaje v1 completado y validado:**
