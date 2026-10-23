@@ -44,6 +44,15 @@ function geo(t) {
   const ang = Math.atan2(ey - my, ex - mx), hl = 52;
   return [`M${f(x)} ${f(y)}Q${f(mx)} ${f(my)} ${f(ex)} ${f(ey)}`, `M${f(ex + Math.cos(ang + 2.6) * hl)} ${f(ey + Math.sin(ang + 2.6) * hl)}L${f(ex)} ${f(ey)}L${f(ex + Math.cos(ang - 2.6) * hl)} ${f(ey + Math.sin(ang - 2.6) * hl)}`];
 }
+// hervor (opcional): el trazo "hierve" como animación a mano — la semilla del filtro cambia cada 3 cuadros (10 veces/seg).
+if (P.hervor) {
+  const defs = document.createElementNS(NS, 'defs');
+  const flt = document.createElementNS(NS, 'filter'); flt.setAttribute('id', 'hervor'); flt.setAttribute('x', '-5%'); flt.setAttribute('y', '-5%'); flt.setAttribute('width', '110%'); flt.setAttribute('height', '110%');
+  const tur = document.createElementNS(NS, 'feTurbulence'); tur.setAttribute('type', 'fractalNoise'); tur.setAttribute('baseFrequency', '0.035'); tur.setAttribute('numOctaves', '2'); tur.setAttribute('seed', '1'); tur.setAttribute('result', 'n');
+  const dsp = document.createElementNS(NS, 'feDisplacementMap'); dsp.setAttribute('in', 'SourceGraphic'); dsp.setAttribute('in2', 'n'); dsp.setAttribute('scale', '9'); dsp.setAttribute('xChannelSelector', 'R'); dsp.setAttribute('yChannelSelector', 'G');
+  flt.append(tur, dsp); defs.appendChild(flt); svg.insertBefore(defs, svg.firstChild); svg.style.filter = 'url(#hervor)';
+  FX.drive(tl, 0, 1, { duration: D, ease: 'none' }, (v) => { tur.setAttribute('seed', String(1 + Math.floor(v * D * 10))); }, 0);
+}
 const n = P.trazos.length, span = (D - 1.0) / Math.max(1, n);
 P.trazos.forEach((t, i) => {
   const at = t.inicio ?? 0.5 + i * span, dur = t.duracion ?? Math.min(0.9, span * 0.9);

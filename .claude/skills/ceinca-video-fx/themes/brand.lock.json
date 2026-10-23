@@ -1,6 +1,6 @@
 {
   "aviso": "GENERADO por sync-brand. Si cambia el manual de marca: npm run sync-brand, commitear y regenerar el zip.",
-  "fecha": "2026-10-19T02:45:01.401Z",
+  "fecha": "2026-10-23T20:14:48.816Z",
   "tokens": {
     "archivo": "../ceinca-design/references/tokens.md",
     "sha256": "1366138a905d051fd5593411fcede7b6c9fbf1adacec7ecc3fe9390f532707bf"
@@ -15,10 +15,35 @@
       600,
       700,
       800
+    ],
+    "JetBrains Mono": [
+      400,
+      700
+    ],
+    "Anton": [
+      400
+    ],
+    "Poppins": [
+      400,
+      600,
+      700,
+      800
+    ],
+    "Playfair Display": [
+      400,
+      600
+    ],
+    "Noto Serif": [
+      400,
+      600,
+      800
     ]
   },
   "temas": [
     "ceinca-social",
-    "ceinca-guias"
+    "ceinca-guias",
+    "estilo-dark-tech",
+    "estilo-red-glow",
+    "estilo-ukiyo-e"
   ]
 }

@@ -83,11 +83,53 @@
     const tl = gsap.timeline({ paused: true });
     return { P, D, tl, root, area: document.getElementById('area'), rng: mulberry32(Number(P.semilla ?? 1)) };
   }
+  /* Orbe difuso que deriva por el fondo (opt-in con "orbe": true). Sólo transform → determinista. */
+  function orbe(ctx) {
+    if (!ctx.P.orbe) return null;
+    const o = document.createElement('div'); o.className = 'fx-orbe'; ctx.root.insertBefore(o, ctx.root.firstChild);
+    ctx.tl.fromTo(o, { x: 0, y: 0, scale: 1 }, { x: 420, y: 700, scale: 1.25, duration: ctx.D, ease: 'sine.inOut' }, 0);
+    return o;
+  }
+  /* Polígono de papel rasgado (clip-path). Sólo el ANCHO es fijo: las alturas van en % / calc(100% - Npx), así la forma no
+     depende de medir el texto (que cambia cuando carga la fuente real). Usa la semilla del contexto. */
+  function rasgado(rng, w, amp = 11, paso = 30, nV = 10) {
+    const pts = [];
+    const j = () => (rng() - 0.5) * 2 * amp;
+    const f = (n) => n.toFixed(1);
+    for (let x = 0; x <= w; x += paso) pts.push(f(x) + 'px ' + f(Math.max(0, j() + amp)) + 'px');
+    for (let k = 1; k < nV; k++) pts.push('calc(100% - ' + f(Math.max(0, j() + amp * 0.6)) + 'px) ' + f((k * 100) / nV) + '%');
+    for (let x = w; x >= 0; x -= paso) pts.push(f(x) + 'px calc(100% - ' + f(Math.max(0, j() + amp)) + 'px)');
+    for (let k = nV - 1; k >= 1; k--) pts.push(f(Math.max(0, j() + amp * 0.6)) + 'px ' + f((k * 100) / nV) + '%');
+    return 'polygon(' + pts.join(',') + ')';
+  }
+  /* Ejecuta fn cuando las fuentes REALES del tema ya cargaron. (document.fonts.ready no sirve solo: al correr el script todavía no
+     se ha pedido ninguna fuente y ya está resuelto; hay que forzar la carga con fonts.load de las familias/pesos del tema.) */
+  function afterFonts(fn) {
+    const cs = getComputedStyle(document.getElementById('root'));
+    const g = (k) => cs.getPropertyValue(k).trim();
+    const loads = [g('--fx-fw-display') + ' 40px ' + g('--fx-font-display'), g('--fx-fw-strong') + ' 32px ' + g('--fx-font-body'),
+      g('--fx-fw-body') + ' 32px ' + g('--fx-font-body'), '400 32px ' + g('--fx-font-mono')].map((f) => document.fonts.load(f).catch(() => null));
+    Promise.all(loads).then(() => document.fonts.ready).then(fn);
+  }
+  /* Elige, entre colores del tema, el de mayor contraste (WCAG) sobre un fondo del tema. Devuelve "var(--fx-...)".
+     Sirve para texto sobre piezas de color que cambian según el tema (p. ej. --fx-accent-2). Sólo lee variables del tema. */
+  function mejorTexto(fondoVar, cands) {
+    const cs = getComputedStyle(document.getElementById('root'));
+    const lum = (v) => { const m = /^#?([0-9a-f]{6})$/i.exec(cs.getPropertyValue(v).trim()); if (!m) return null; const n = parseInt(m[1], 16);
+      const c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((x) => { x /= 255; return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4); });
+      return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
+    const lb = lum(fondoVar); let best = null, bc = -1;
+    (cands || ['--fx-text', '--fx-bg', '--fx-on-accent']).forEach((v) => { const l = lum(v); if (l == null || lb == null) return;
+      const k = (Math.max(l, lb) + 0.05) / (Math.min(l, lb) + 0.05); if (k > bc) { bc = k; best = v; } });
+    return 'var(' + (best || '--fx-text') + ')';
+  }
+  /* Error de plantilla explícito: queda en window.__fxErrors (render.mjs lo lee aunque ocurra dentro de una promesa) y además lanza. */
+  function fail(msg) { (window.__fxErrors = window.__fxErrors || []).push(msg); throw new Error(msg); }
   function finish(ctx) {
     ctx.tl.to({}, { duration: 0.0001 }, ctx.D - 0.0001); // fija la duración exacta del timeline
     window.__fxDuration = ctx.D;
     return ctx.tl; // la plantilla lo registra inline en window.__timelines (lo exige el lint de HyperFrames)
   }
   const dim = (src) => (RAW.__dims && RAW.__dims[src]) || null; // [ancho, alto, duración] de un asset ya reescrito
-  window.FX = { drive, dim, W, H, init, finish, setRich, el, icon, ICONS, drawable, isMedia, isImg, fmt, mulberry32 };
+  window.FX = { drive, dim, W, H, init, finish, fail, afterFonts, mejorTexto, orbe, rasgado, setRich, el, icon, ICONS, drawable, isMedia, isImg, fmt, mulberry32 };
 })();

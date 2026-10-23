@@ -1,0 +1,25 @@
+{
+  "efecto": "telefono-chat",
+  "tema": "estilo-red-glow",
+  "orbe": true,
+  "duracion": 6,
+  "nombre": "CEINCA Mercantil",
+  "mensajes": [
+    {
+      "de": "yo",
+      "texto": "¿Puedo registrar mi empresa en línea?"
+    },
+    {
+      "de": "ceinca",
+      "texto": "Sí. Te guío paso a paso."
+    },
+    {
+      "de": "yo",
+      "texto": "¿Cuánto tarda?"
+    },
+    {
+      "de": "ceinca",
+      "texto": "Con los documentos listos, muy poco."
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>consola-macos</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .win { background:var(--fx-surface); border:2px solid var(--fx-line); border-radius:var(--fx-radius-lg); box-shadow:var(--fx-shadow-card); overflow:hidden; min-height:980px; }
+  .bar { display:flex; align-items:center; gap:14px; padding:24px 30px; background:var(--fx-surface-2); border-bottom:2px solid var(--fx-line); }
+  .dot { width:26px; height:26px; border-radius:50%; flex:none; }
+  .d1 { background:var(--fx-danger); } .d2 { background:var(--fx-accent-2); } .d3 { background:var(--fx-ok); }
+  .ttl { flex:1; text-align:center; font-family:var(--fx-font-mono); font-size:28px; color:var(--fx-text-muted); margin-right:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .cuerpo { padding:40px 42px 48px; font-family:var(--fx-font-mono); font-size:40px; line-height:1.5; }
+  .ln { display:flex; gap:20px; margin-bottom:14px; word-break:break-word; }
+  .pre { color:var(--fx-accent); flex:none; font-weight:700; }
+  .tx { flex:1; }
+  .ln.out .tx { color:var(--fx-text-muted); }
+  .ln.ok .tx { color:var(--fx-ok); }
+  .ln.err .tx { color:var(--fx-danger); }
+  .ln svg { width:38px; height:38px; flex:none; margin-top:6px; color:var(--fx-ok); }
+  .caret { display:inline-block; width:20px; height:38px; background:var(--fx-accent); vertical-align:text-bottom; margin-left:4px; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="area" class="fx-area" style="display:flex;flex-direction:column;justify-content:center"><div class="win" id="win"><div class="bar"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><div class="ttl" id="ttl"></div></div><div class="cuerpo" id="cuerpo"></div></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+// Marcas por línea: "$ " comando (se escribe), "> " salida tenue, "+ " éxito (con check), "! " error.
+const ctx = FX.init({ duracion: 6, titulo: 'ceinca — zsh', lineas: ['$ ceinca registrar --empresa', '> Validando documentos...', '+ Acta conforme', '+ Registro enviado'] });
+FX.orbe(ctx);
+const { P, tl, D } = ctx;
+document.getElementById('ttl').textContent = P.titulo;
+const cuerpo = document.getElementById('cuerpo');
+const CPS = 26;                                   // caracteres por segundo al escribir un comando
+const rows = P.lineas.map((raw) => {
+  const m = /^([$>+!])\s?(.*)$/.exec(raw) || ['', '>', raw];
+  return { tipo: m[1], texto: m[2] };
+});
+const avail = D - 0.9;
+const need = rows.reduce((a, r) => a + (r.tipo === '$' ? r.texto.length / CPS : 0) + 0.28, 0);
+const k = Math.min(1, avail / need);               // si no cabe, escribe más rápido (nunca más lento)
+const caret = document.createElement('span'); caret.className = 'caret';
+let t = 0.6;
+rows.forEach((r) => {
+  const ln = FX.el('div', 'ln ' + ({ '$': 'cmd', '>': 'out', '+': 'ok', '!': 'err' })[r.tipo], cuerpo);
+  if (r.tipo === '$') FX.el('span', 'pre', ln, '$');
+  else if (r.tipo === '+') ln.appendChild(FX.icon('check'));
+  else if (r.tipo === '!') FX.el('span', 'pre', ln, '!');
+  const tx = FX.el('span', 'tx', ln, '');
+  gsap.set(ln, { opacity: 0 });
+  if (r.tipo === '$') {
+    const dur = (r.texto.length / CPS) * k;
+    tl.set(ln, { opacity: 1 }, t);
+    FX.drive(tl, 0, r.texto.length, { duration: dur, ease: 'none' }, (v) => { tx.textContent = r.texto.slice(0, Math.round(v)); tx.appendChild(caret); }, t);
+    t += dur + 0.28 * k;
+  } else {
+    tx.textContent = r.texto;
+    tl.fromTo(ln, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, ease: 'power2.out' }, t);
+    t += 0.28 * k + 0.1;
+  }
+});
+FX.drive(tl, 0, 1, { duration: D, ease: 'none' }, (v) => { caret.style.opacity = Math.floor(v * D * 2.2) % 2 ? 0 : 1; }, 0); // parpadeo del cursor
+tl.from('#win', { y: 70, opacity: 0, scale: 0.97, duration: 0.55, ease: 'power3.out' }, 0);
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>camara-continua</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  #cam { position:absolute; left:0; top:0; width:1080px; height:4400px; will-change:transform; }
+  svg#esc { position:absolute; left:0; top:0; width:1080px; height:4400px; }
+  .sol { fill:var(--fx-accent); } .halo { fill:none; stroke:var(--fx-accent); stroke-width:6; opacity:.5; }
+  .nube { fill:var(--fx-surface); stroke:var(--fx-line); stroke-width:5; opacity:.92; }
+  .m1 { fill:var(--fx-accent-dark); opacity:.30; } .m2 { fill:var(--fx-accent-dark); opacity:.55; } .m3 { fill:var(--fx-accent-dark); }
+  .pino { fill:var(--fx-accent-dark); }
+  .estrato { fill:var(--fx-accent-2); opacity:.30; }
+  .trazo { fill:none; stroke:var(--fx-bg); stroke-width:4; stroke-linecap:round; opacity:.55; }
+  .cascada { fill:var(--fx-surface); } .hebra { fill:none; stroke:var(--fx-text); stroke-width:4; stroke-linecap:round; opacity:.38; }
+  .bruma { fill:var(--fx-surface); opacity:.85; }
+  .ola-bg { fill:var(--fx-accent-dark); } .ola-ln { fill:none; stroke:var(--fx-surface); stroke-width:5; }
+  .hoja-f { fill:var(--fx-accent); stroke:var(--fx-text); stroke-width:6; stroke-linejoin:round; paint-order:stroke; } .hoja-n { fill:none; stroke:var(--fx-on-accent); stroke-width:4; stroke-linecap:round; }
+  .cart { position:absolute; left:0; right:0; bottom:0; padding:34px 44px; text-align:center; background:var(--fx-surface); border:5px solid var(--fx-text); border-radius:var(--fx-radius); box-shadow:var(--fx-shadow-card); }
+  .cart .n { font-family:var(--fx-font-mono); font-weight:700; font-size:30px; letter-spacing:.2em; color:var(--fx-accent); }
+  .cart .t { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:84px; line-height:1.04; text-transform:uppercase; letter-spacing:-.01em; }
+  .cartwrap { position:absolute; left:0; right:0; bottom:0; height:250px; }
+  .hanko { position:absolute; right:0; top:0; width:168px; height:168px; background:var(--fx-accent); color:var(--fx-on-accent); border:8px double var(--fx-on-accent); display:flex; align-items:center; justify-content:center; text-align:center; transform:rotate(7deg); font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:30px; line-height:1.1; letter-spacing:.04em; text-transform:uppercase; box-shadow:var(--fx-shadow-accent); }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="cam"><svg id="esc" viewBox="0 0 1080 4400" xmlns="http://www.w3.org/2000/svg"></svg></div>
+<div id="area" class="fx-area fx-free"><div class="hanko" id="hanko"></div><div class="cartwrap" id="cartwrap"></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+// Toma continua sin cortes: una hoja cae desde el cielo por la cascada hasta el río y la cámara la sigue en vertical.
+const ctx = FX.init({ duracion: 6, cartelas: ['Constituye', 'Registra', 'Opera'], sello: 'CEINCA' });
+const { P, tl, D, rng } = ctx;
+const NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('esc');
+const S = (tag, attrs, cls, parent) => { const e = document.createElementNS(NS, tag); Object.entries(attrs || {}).forEach(([k, v]) => e.setAttribute(k, v)); if (cls) e.setAttribute('class', cls); (parent || svg).appendChild(e); return e; };
+const defs = S('defs');
+const bok = S('linearGradient', { id: 'bok', x1: 0, y1: 0, x2: 0, y2: 1 }, null, defs);
+S('stop', { offset: 0, 'stop-color': 'transparent' }, null, bok).style.stopColor = 'transparent';
+const s2 = S('stop', { offset: 1 }, null, bok); s2.style.stopColor = 'var(--fx-accent-2)'; s2.style.stopOpacity = 0.65;
+const sei = S('pattern', { id: 'sei', width: 160, height: 80, patternUnits: 'userSpaceOnUse' }, null, defs);
+[[0, 0], [160, 0], [80, 40], [0, 80], [160, 80]].forEach(([cx, cy]) => {
+  S('circle', { cx, cy, r: 44 }, 'ola-bg', sei);
+  [44, 33, 22, 11].forEach((r) => S('circle', { cx, cy, r }, 'ola-ln', sei));
+});
+// cielo
+S('rect', { x: 0, y: 760, width: 1080, height: 760, fill: 'url(#bok)' });
+S('circle', { cx: 760, cy: 520, r: 200 }, 'sol'); S('circle', { cx: 760, cy: 520, r: 236 }, 'halo');
+const nubes = [[40, 330, 6], [440, 640, 7], [90, 930, 5]].map(([x, y, n], i) => { // bandas de bruma (kasumi) con borde festoneado
+  let d = 'M' + x + ' ' + (y + 70); for (let k = 0; k < n; k++) d += ' a 45 45 0 0 1 90 0'; d += ' l 0 30 l ' + (-90 * n) + ' 0 Z';
+  const g = S('path', { d }, 'nube'); tl.fromTo(g, { x: i % 2 ? 90 : -90 }, { x: i % 2 ? -90 : 90, duration: D, ease: 'sine.inOut' }, 0); return g; });
+// montañas lejanas y cercanas
+const mont = (pts, cls) => S('path', { d: 'M' + pts.map((p) => p.join(' ')).join('L') + 'Z' }, cls);
+mont([[0, 1500], [0, 1180], [180, 1060], [360, 1250], [560, 1000], [800, 1240], [1080, 1090], [1080, 1500]], 'm1');
+mont([[0, 1520], [0, 1330], [240, 1210], [470, 1380], [700, 1260], [1080, 1400], [1080, 1520]], 'm2');
+// acantilados + cascada
+mont([[0, 1380], [500, 1500], [470, 1800], [505, 2150], [455, 2520], [490, 2930], [0, 2930]], 'm3');
+mont([[1080, 1380], [580, 1500], [610, 1820], [575, 2160], [625, 2540], [585, 2930], [1080, 2930]], 'm3');
+S('path', { d: 'M500 1500 L580 1500 L590 2900 L490 2900Z' }, 'cascada');
+for (let i = 0; i < 16; i++) { const x = 505 + i * 5.2, y0 = 1520 + rng() * 200, ln = 160 + rng() * 260;
+  const h = S('line', { x1: x, y1: y0, x2: x, y2: y0 + ln }, 'hebra'); h.style.strokeDasharray = '70 90';
+  tl.fromTo(h, { strokeDashoffset: 0 }, { strokeDashoffset: -(160 * 6), duration: D, ease: 'none' }, 0);
+}
+[[1640, 140, 0], [2040, 110, 1], [2420, 130, 0], [2760, 100, 1]].forEach(([y, h, right]) => { // estratos de roca (bandas de ocre)
+  const a = right ? 1080 : 0, b = right ? 600 : 480;
+  S('path', { d: 'M' + a + ' ' + y + ' L' + b + ' ' + (y + 14) + ' L' + b + ' ' + (y + h) + ' L' + a + ' ' + (y + h - 10) + 'Z' }, 'estrato');
+});
+for (let i = 0; i < 110; i++) { // trazos de roca (xilografía)
+  const left = i % 2 === 0, x = left ? 20 + rng() * 420 : 640 + rng() * 420, y = 1560 + rng() * 1300, l = 30 + rng() * 60;
+  S('path', { d: 'M' + x + ' ' + y + ' q' + (l / 2) + ' ' + (-14 - rng() * 12) + ' ' + l + ' ' + (4 + rng() * 6) }, 'trazo');
+}
+for (let i = 0; i < 7; i++) { const x = 30 + i * 62 + rng() * 20, y = 1420 + (x * 0.16) + rng() * 20, h = 110 + rng() * 60; // pinos de la cima izquierda
+  S('path', { d: 'M' + x + ' ' + y + ' l' + (-h * 0.22) + ' 0 l' + (h * 0.13) + ' ' + (-h * 0.35) + ' l' + (-h * 0.18) + ' 0 l' + (h * 0.27) + ' ' + (-h * 0.65) + ' l' + (h * 0.27) + ' ' + (h * 0.65) + ' l' + (-h * 0.18) + ' 0 l' + (h * 0.13) + ' ' + (h * 0.35) + 'Z' }, 'pino');
+}
+[[540, 2900, 150, 38], [470, 2930, 110, 30], [620, 2930, 120, 32]].forEach(([cx, cy, rx, ry]) => S('ellipse', { cx, cy, rx, ry }, 'bruma'));
+// río con motivo de olas (seigaiha)
+const rio = S('rect', { x: 0, y: 2930, width: 1080, height: 1470, fill: 'url(#sei)' });
+S('rect', { x: 0, y: 2930, width: 1080, height: 90, fill: 'url(#bok)', opacity: 0.0 });
+sei.setAttribute('patternTransform', 'translate(0 0)');
+tl.fromTo(sei, { attr: { patternTransform: 'translate(0 0)' } }, { attr: { patternTransform: 'translate(160 0)' }, duration: D, ease: 'none' }, 0);
+// hoja
+const hoja = S('g', {}, null);
+S('path', { d: 'M0 -64 C44 -34 44 34 0 74 C-44 34 -44 -34 0 -64Z' }, 'hoja-f', hoja);
+S('path', { d: 'M0 -52 L0 70 M0 -8 L24 -26 M0 18 L-24 0' }, 'hoja-n', hoja);
+// sello y cartelas (fijos en la zona segura)
+document.getElementById('hanko').textContent = P.sello;
+const wrap = document.getElementById('cartwrap');
+const cs = P.cartelas.map((t, i) => { const c = FX.el('div', 'cart', wrap); FX.el('div', 'n', c, String(i + 1).padStart(2, '0') + ' / ' + String(P.cartelas.length).padStart(2, '0')); FX.setRich(FX.el('div', 't', c), t); gsap.set(c, { opacity: 0 }); return c; });
+const per = (D - 0.4) / cs.length;
+cs.forEach((c, i) => {
+  const at = 0.2 + i * per;
+  tl.fromTo(c, { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, at);
+  if (i < cs.length - 1) tl.to(c, { opacity: 0, y: -40, duration: 0.3, ease: 'power2.in' }, at + per - 0.32);
+});
+tl.from('#hanko', { scale: 2.2, opacity: 0, rotation: -25, duration: 0.5, ease: 'back.out(1.6)' }, 0.1);
+// cámara: sigue la hoja (translateY) — todo el movimiento sale de un único progreso u
+const CAM_MAX = 4400 - 1920;
+const sm = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+FX.drive(tl, 0, 1, { duration: D - 0.6, ease: 'power1.inOut' }, (u) => {
+  const y = 420 + u * 3300;
+  const amp = 300 - 230 * sm(1250, 1600, y) + 170 * sm(2800, 3200, y);       // ancha en el cielo, estrecha en la cascada, ancha en el río
+  const x = 540 + Math.sin(u * Math.PI * 3.1) * amp;
+  hoja.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') rotate(' + (Math.cos(u * Math.PI * 3.1) * 42).toFixed(1) + ')');
+  const cy = Math.max(0, Math.min(CAM_MAX, y - 900));
+  document.getElementById('cam').style.transform = 'translateY(' + (-cy).toFixed(1) + 'px)';
+}, 0.3);
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

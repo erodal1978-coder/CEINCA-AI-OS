@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>diagrama-nodos</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .titulo { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:80px; line-height:1.02; letter-spacing:-.01em; text-transform:uppercase; margin:0; padding-top:26px; height:210px; flex:none; box-sizing:border-box; }
+  .canvas { position:relative; flex:1; }
+  svg.lines { position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible; }
+  svg.lines .l { fill:none; stroke:var(--fx-accent); stroke-width:6; stroke-linecap:round; stroke-dasharray:2 0; }
+  svg.lines .pulso { fill:var(--fx-accent-2); }
+  .nodo { position:absolute; width:380px; height:178px; margin:-89px 0 0 -190px; display:flex; align-items:center; gap:22px; padding:0 28px; }
+  .ico { width:84px; height:84px; flex:none; border-radius:50%; background:var(--fx-accent); color:var(--fx-on-accent); display:flex; align-items:center; justify-content:center; }
+  .ico svg { width:46px; height:46px; }
+  .et { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:42px; line-height:1.05; text-transform:uppercase; letter-spacing:.005em; }
+  .nodo.fin { border-color:var(--fx-accent); box-shadow:var(--fx-shadow-accent); }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="area" class="fx-area" style="display:flex;flex-direction:column"><h1 class="titulo" id="titulo"></h1><div class="canvas" id="canvas"><svg class="lines" id="lines"></svg></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+// nodos: x,y en % del lienzo (centro de la tarjeta). enlaces: pares [desde, hasta] por id; si faltan, se encadenan en orden.
+const ctx = FX.init({ duracion: 6, titulo: 'Así viaja tu **trámite**', nodos: [
+  { id: 'a', etiqueta: 'Tú', icono: 'user', x: 27, y: 10 }, { id: 'b', etiqueta: 'Documentos', icono: 'doc', x: 73, y: 30 },
+  { id: 'c', etiqueta: 'Revisión', icono: 'shield', x: 27, y: 50 }, { id: 'd', etiqueta: 'Registro', icono: 'building', x: 73, y: 69 },
+  { id: 'e', etiqueta: 'Listo', icono: 'check', x: 27, y: 88 } ] });
+FX.orbe(ctx);
+const { P, tl, D } = ctx;
+FX.setRich(document.getElementById('titulo'), P.titulo);
+const cv = document.getElementById('canvas'), svg = document.getElementById('lines');
+const CW = cv.clientWidth, CH = cv.clientHeight;
+svg.setAttribute('viewBox', '0 0 ' + CW + ' ' + CH);
+const NS = 'http://www.w3.org/2000/svg';
+const pos = {};
+const nodos = P.nodos.map((nd, i) => {
+  const cx = (nd.x / 100) * CW, cy = (nd.y / 100) * CH;
+  if (cx - 190 < -4 || cx + 190 > CW + 4 || cy - 89 < -4 || cy + 89 > CH + 4) FX.fail('diagrama-nodos: el nodo "' + nd.id + '" se sale del lienzo (ajusta x/y)');
+  pos[nd.id] = [cx, cy];
+  const el = FX.el('div', 'nodo fx-card' + (i === P.nodos.length - 1 ? ' fin' : ''), cv);
+  el.style.left = cx + 'px'; el.style.top = cy + 'px';
+  const ic = FX.el('div', 'ico', el); ic.appendChild(FX.icon(nd.icono || 'star'));
+  FX.el('div', 'et', el, nd.etiqueta);
+  gsap.set(el, { opacity: 0 });
+  return { el, id: nd.id };
+});
+const enlaces = P.enlaces || P.nodos.slice(1).map((nd, i) => [P.nodos[i].id, nd.id]);
+const n = Math.max(nodos.length, 1);
+const t0 = 0.55, span = (D - t0 - 0.5) / n;
+tl.from('#titulo', { y: 40, opacity: 0, duration: 0.55, ease: 'power3.out' }, 0);
+tl.fromTo(nodos[0].el, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(1.8)' }, t0 - 0.2);
+enlaces.forEach(([a, b], i) => {
+  const [ax, ay] = pos[a], [bx, by] = pos[b];
+  const sgn = by >= ay ? 1 : -1;
+  const x1 = ax, y1 = ay + sgn * 89, x2 = bx, y2 = by - sgn * 89, my = (y1 + y2) / 2;
+  const d = 'M' + x1 + ' ' + y1 + ' C' + x1 + ' ' + my + ' ' + x2 + ' ' + my + ' ' + x2 + ' ' + y2;
+  const p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); p.setAttribute('class', 'l'); svg.appendChild(p);
+  const len = FX.drawable(p);
+  const dot = document.createElementNS(NS, 'circle'); dot.setAttribute('r', 12); dot.setAttribute('class', 'pulso'); dot.setAttribute('opacity', 0); svg.appendChild(dot);
+  const at = t0 + i * span;
+  tl.to(p, { strokeDashoffset: 0, duration: span * 0.62, ease: 'power2.inOut' }, at);
+  tl.set(dot, { opacity: 1 }, at);
+  FX.drive(tl, 0, 1, { duration: span * 0.62, ease: 'power2.inOut' }, (v) => { const q = p.getPointAtLength(v * len); dot.setAttribute('cx', q.x); dot.setAttribute('cy', q.y); }, at);
+  tl.set(dot, { opacity: 0 }, at + span * 0.62);
+  const dest = nodos.find((q) => q.id === b);
+  tl.fromTo(dest.el, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(1.8)' }, at + span * 0.5);
+});
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

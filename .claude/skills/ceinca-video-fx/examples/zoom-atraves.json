@@ -1,0 +1,14 @@
+{
+  "efecto": "zoom-atraves",
+  "tema": "estilo-red-glow",
+  "orbe": true,
+  "duracion": 5,
+  "a": {
+    "kicker": "Antes",
+    "titular": "Meses de **trámites**"
+  },
+  "b": {
+    "kicker": "Ahora",
+    "titular": "Tu empresa **en línea**"
+  }
+}

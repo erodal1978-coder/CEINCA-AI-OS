@@ -1,0 +1,19 @@
+{
+  "efecto": "pasos-progreso",
+  "tema": "estilo-dark-tech",
+  "duracion": 6,
+  "pasos": [
+    {
+      "titulo": "Reserva el **nombre**",
+      "detalle": "Verifica que esté disponible antes de redactar nada."
+    },
+    {
+      "titulo": "Redacta el **acta**",
+      "detalle": "Objeto social, capital y administración, bien definidos."
+    },
+    {
+      "titulo": "Registra en **línea**",
+      "detalle": "Sube los documentos y espera la revisión."
+    }
+  ]
+}
