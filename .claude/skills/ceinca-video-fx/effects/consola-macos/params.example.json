@@ -1,0 +1,13 @@
+{
+  "efecto": "consola-macos",
+  "duracion": 6,
+  "titulo": "ceinca — registro mercantil",
+  "lineas": [
+    "$ ceinca registrar --empresa",
+    "> Validando documentos...",
+    "+ Acta conforme",
+    "+ Capital verificado",
+    "$ ceinca enviar --saren",
+    "+ Registro enviado en línea"
+  ]
+}

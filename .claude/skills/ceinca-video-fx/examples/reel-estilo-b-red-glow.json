@@ -1,0 +1,12 @@
+{
+  "tituloFijo": "Red Glow",
+  "tema": "estilo-red-glow",
+  "duracion": 5,
+  "efectos": [
+    "zoom-atraves.json",
+    "telefono-chat.json",
+    "orbita.json",
+    "texto-cristal.json",
+    "garabato-vivo-hervor.json"
+  ]
+}

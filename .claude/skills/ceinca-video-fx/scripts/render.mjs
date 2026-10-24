@@ -22,6 +22,9 @@ function usage() {
   --marca-dir <dir>         raíz alterna con themes/ y vendor/fonts/ (pruebas de cambio de marca)
   --zona-arriba <px> --zona-abajo <px>   zonas seguras (default 250 / 350)
   --sin-auditoria           no auditar texto fuera de zonas seguras
+  --con-overlay             añade título fijo + contador de prueba (como en reel.mjs): valida el layout con la zona superior reducida
+  --frame <seg>             guarda un PNG de ese instante (-o <png>) sin renderizar el video: vista previa rápida de efecto × tema
+  --solo-auditoria          audita (zonas seguras, errores de página) y sale sin renderizar: valida una combinación efecto × tema en segundos
   --ignorar-lock            renderiza aunque brand.lock.json no coincida con el manual
   --conservar               no borra el directorio temporal de composición`);
 }
@@ -153,6 +156,7 @@ async function openPage(dir, zona, pw) {
   await page.evaluate(() => document.fonts.ready);
   try { await page.waitForFunction(() => !!(window.__timelines && window.__timelines.root), null, { timeout: 15000, polling: 100 }); }
   catch (e) { await browser.close(); throw new Error(`la composición no registró window.__timelines.root. Errores de página: ${errs.join(' | ') || '(ninguno)'}`); }
+  errs.push(...await page.evaluate(() => window.__fxErrors || [])); // errores declarados por la plantilla con FX.fail()
   return { browser, page, errs };
 }
 const seek = (page, t) => page.evaluate((tt) => { const tl = window.__timelines.root; tl.pause(); tl.seek(tt, false); return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); }, t);
@@ -234,6 +238,7 @@ function probe(file) {
 export async function render(paramsFile, o = {}) {
   const params = Object.assign(JSON.parse(fs.readFileSync(paramsFile, 'utf8')), o.override || {});
   if (!params.efecto) die(2, 'params.json necesita el campo "efecto"');
+  if (o.conOverlay) Object.assign(params, { tituloFijo: 'Prueba de overlay', contador: { n: 1, total: 9 } });
   const tema = o.tema ?? params.tema ?? 'ceinca-social';
   const duracion = Number(o.duracion ?? params.duracion ?? 4);
   const zona = { arriba: Number(o.zonaArriba ?? params.zonaSegura?.arriba ?? 250), abajo: Number(o.zonaAbajo ?? params.zonaSegura?.abajo ?? 350) };
@@ -256,6 +261,23 @@ export async function render(paramsFile, o = {}) {
     if (aud.fallas.length) die(5, `texto fuera de zonas seguras (${zona.arriba}px arriba / ${zona.abajo}px abajo):\n  ${aud.fallas.join('\n  ')}`);
   } else if (!pw) log('⚠ playwright-core no disponible: se omite la auditoría de zonas seguras');
 
+  if (o.frame != null) {
+    if (!pw) die(6, '--frame necesita playwright-core');
+    const png = path.resolve(o.salida ?? path.join(SKILL, 'out', `${params.efecto}-${tema}-${o.frame}s.png`));
+    fs.mkdirSync(path.dirname(png), { recursive: true });
+    const { browser, page, errs } = await openPage(st.dir, zona, pw);
+    try { await seek(page, Math.min(Number(o.frame), duracion - 1 / FPS)); await page.screenshot({ path: png, type: 'png' }); } finally { await browser.close(); }
+    if (!o.conservar) fs.rmSync(st.dir, { recursive: true, force: true });
+    if (errs.length) die(4, `errores en la página:\n  ${errs.join('\n  ')}`);
+    console.log(JSON.stringify({ efecto: params.efecto, tema, frame: Number(o.frame), salida: png }));
+    return { out: png, ruta: null };
+  }
+  if (o.soloAuditoria) {
+    if (!aud) die(6, '--solo-auditoria necesita playwright-core');
+    if (!o.conservar) fs.rmSync(st.dir, { recursive: true, force: true });
+    console.log(JSON.stringify({ efecto: params.efecto, tema, auditoria: 'ok' }));
+    return { out: null, ruta: null };
+  }
   const motor = o.motor ?? 'auto';
   let ruta = null; let aviso = null;
   if (motor !== 'respaldo') {
@@ -279,6 +301,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   if (!file || flag('--help')) { usage(); process.exit(file ? 0 : 1); }
   await render(file, {
     salida: opt(['-o', '--salida']), motor: opt(['--motor']), duracion: opt(['--duracion']), tema: opt(['--tema']), marcaDir: opt(['--marca-dir']),
-    zonaArriba: opt(['--zona-arriba']), zonaAbajo: opt(['--zona-abajo']), sinAuditoria: flag('--sin-auditoria'), conservar: flag('--conservar'),
+    zonaArriba: opt(['--zona-arriba']), zonaAbajo: opt(['--zona-abajo']), sinAuditoria: flag('--sin-auditoria'), soloAuditoria: flag('--solo-auditoria'), conOverlay: flag('--con-overlay'), frame: opt(['--frame']), conservar: flag('--conservar'),
   });
 }

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # check.sh — validaciones de la skill.
 #   check.sh [estatico]                         → marca desacoplada, sin URLs externas, estructura de efectos
+#   check.sh matriz [overlay]                             → audita TODOS los efectos × TODOS los temas (zonas seguras + errores de página), sin renderizar video
 #   check.sh video <mp4> [duracion=4] [png-mitad] → ffprobe (1080×1920, 30 fps, H.264, yuv420p, frames ±1) + PNG del frame central
 set -uo pipefail
 SKILL="$(cd "$(dirname "$0")/.." && pwd)"
@@ -18,8 +19,8 @@ estatico() {
       | grep -vE "getElementById|querySelector|tl\.(to|from|fromTo|set)\(\s*['\"]#|\bgsap\.set\(\s*['\"]#|\bid=\"|\burl\(#|\.mjs:.*//" \
       | grep -vE '^\S+:[0-9]+:\s*(//|\*|/\*)' ) || true
   [ -n "$hits" ] && { bad "colores literales en effects/ o shared/ (usa solo --fx-*):"; echo "$hits" >&2; } || ok "sin colores hex/rgb/hsl/nombre literales"
-  # 2) familias tipográficas: toda declaración font-family debe ser var(--fx-font-*)
-  hits=$(grep -rnoE --include='*.html' --include='*.css' 'font-family\s*:[^;}]*' "${dirs[@]}" | grep -vE 'font-family\s*:\s*var\(--fx-font-(display|body)\)\s*$') || true
+  # 2) familias tipográficas: toda declaración font-family debe ser var(--fx-font-display|body|mono)
+  hits=$(grep -rnoE --include='*.html' --include='*.css' 'font-family\s*:[^;}]*' "${dirs[@]}" | grep -vE 'font-family\s*:\s*var\(--fx-font-(display|body|mono)\)\s*$') || true
   [ -n "$hits" ] && { bad "font-family literal (usa var(--fx-font-*)):"; echo "$hits" >&2; } || ok "sin familias tipográficas literales"
   # 3) nombres de familias vendorizadas (leídos del lock) no pueden aparecer escritos a mano
   if [ -f "$SKILL/themes/brand.lock.json" ]; then
@@ -71,6 +72,19 @@ video() {
   fi
 }
 
+matriz() {
+  local themes n=0 nbad=0 e f t out extra=""
+  [ "${1:-}" = "overlay" ] && extra="--con-overlay"
+  themes=$(ls "$SKILL"/themes/*.css | xargs -n1 basename | sed 's/\.css$//')
+  for d in "$SKILL"/effects/*/; do
+    e=$(basename "$d"); f="$SKILL/examples/$e.json"; [ -f "$f" ] || f="$d/params.example.json"
+    for t in $themes; do
+      if out=$(node "$SKILL/scripts/render.mjs" "$f" --tema "$t" --solo-auditoria $extra 2>&1); then n=$((n+1)); else nbad=$((nbad+1)); bad "$e × $t: $(echo "$out" | tr '\n' ' ' | cut -c1-300)"; fi
+    done
+  done
+  [ "$nbad" = 0 ] && ok "matriz efecto × tema${extra:+ (con overlay)}: $n combinaciones sin desbordes ni errores de página"
+}
+
 clip_check() {
   local json="${1:-}" mp4="${2:-}"
   [ -f "$json" ] || { bad "no existe $json"; return; }
@@ -116,6 +130,7 @@ case "${1:-estatico}" in
   estatico) estatico ;;
   video)    shift; video "$@" ;;
   clip)     shift; clip_check "$@" ;;
-  *) echo "uso: check.sh [estatico] | video <mp4> [dur] [png] | clip <json> [mp4]"; exit 2 ;;
+  matriz)   shift; matriz "$@" ;;
+  *) echo "uso: check.sh [estatico] | matriz [overlay] | video <mp4> [dur] [png] | clip <json> [mp4]"; exit 2 ;;
 esac
 exit $fail

@@ -1,0 +1,22 @@
+/* GENERADO por scripts/sync-brand.mjs — no editar a mano. Tema: estilo-ukiyo-e */
+@font-face { font-family: 'Noto Serif'; font-style: normal; font-weight: 800; font-display: block; src: url('../vendor/fonts/noto-serif-latin-800-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Noto Serif'; font-style: normal; font-weight: 400; font-display: block; src: url('../vendor/fonts/noto-serif-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Noto Serif'; font-style: normal; font-weight: 600; font-display: block; src: url('../vendor/fonts/noto-serif-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: block; src: url('../vendor/fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 700; font-display: block; src: url('../vendor/fonts/jetbrains-mono-latin-700-normal.woff2') format('woff2'); }
+:root {
+  --fx-bg: #EFE6D5; --fx-bg-2: #E3D6BC; --fx-surface: #F7F0E1; --fx-surface-2: #DCCDB0;
+  --fx-text: #1F2A44; --fx-text-muted: #6B5B45;
+  --fx-accent: #C8442C; --fx-accent-2: #C99A2E; --fx-accent-dark: #1E3A5F;
+  --fx-on-accent: #F7F0E1; --fx-line: #8C7A58; --fx-danger: #A3261A; --fx-ok: #5E7A3A;
+  --fx-bg-rgb: 239, 230, 213; --fx-surface-rgb: 247, 240, 225; --fx-text-rgb: 31, 42, 68;
+  --fx-accent-rgb: 200, 68, 44; --fx-line-rgb: 140, 122, 88;
+  --fx-font-display: 'Noto Serif', sans-serif; --fx-font-body: 'Noto Serif', sans-serif; --fx-font-mono: 'JetBrains Mono', monospace;
+  --fx-fw-display: 800; --fx-fw-strong: 600; --fx-fw-body: 400;
+  --fx-grad-accent: linear-gradient(135deg, #C8442C 0%, #C99A2E 100%); --fx-grad-bg: linear-gradient(180deg, #F3EBDA 0%, #EFE6D5 55%, #E1D3B6 100%);
+  --fx-radius: 6px; --fx-radius-lg: 10px;
+  --fx-shadow-card: 0 6px 18px rgba(70,50,30,0.22); --fx-shadow-accent: 0 4px 14px rgba(200,68,44,0.30);
+}
+/* textura de papel de arroz + marco de pergamino (capas de #root, sobre el contenido) */
+#root::before { content:''; position:absolute; inset:0; z-index:44; pointer-events:none; box-shadow: inset 0 0 240px rgba(110,80,40,0.38); border: 5px double rgba(70,50,30,0.55); background-clip: padding-box; margin: 30px; width: calc(100% - 60px); height: calc(100% - 60px); }
+#root::after { content:''; position:absolute; inset:0; z-index:45; pointer-events:none; mix-blend-mode:multiply; opacity:0.62; background-size: 540px 540px; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='540' height='540'><filter id='p' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' seed='7' result='n'/><feColorMatrix in='n' values='0 0 0 0 0.46  0 0 0 0 0.37  0 0 0 0 0.22  0 0 0 0.9 -0.18'/></filter><rect width='540' height='540' filter='url(%23p)'/></svg>"); }

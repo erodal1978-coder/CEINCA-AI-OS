@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>telefono-chat</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .stage3d { position:absolute; inset:0; perspective:2200px; display:flex; align-items:center; justify-content:center; }
+  .phone { position:relative; width:560px; height:1130px; border-radius:92px; padding:24px; background:var(--fx-surface-2); border:4px solid rgba(var(--fx-line-rgb),1); box-shadow:var(--fx-shadow-card), 0 50px 120px rgba(var(--fx-bg-rgb),.55); transform-style:preserve-3d; }
+  .screen { position:relative; width:100%; height:100%; border-radius:70px; overflow:hidden; background:var(--fx-bg); display:flex; flex-direction:column; }
+  .notch { position:absolute; left:50%; top:14px; width:150px; height:36px; margin-left:-75px; border-radius:20px; background:var(--fx-surface-2); z-index:3; }
+  .hd { flex:none; display:flex; align-items:center; gap:18px; padding:78px 28px 20px; background:var(--fx-surface); border-bottom:2px solid rgba(var(--fx-line-rgb),.9); }
+  .av { width:64px; height:64px; border-radius:50%; background:var(--fx-accent); color:var(--fx-on-accent); display:flex; align-items:center; justify-content:center; font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:32px; flex:none; }
+  .nm { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:30px; line-height:1.1; text-transform:uppercase; }
+  .st { font-size:24px; color:var(--fx-text-muted); }
+  .msgs { flex:1; display:flex; flex-direction:column; justify-content:flex-end; gap:16px; padding:22px 22px 34px; }
+  .row { display:flex; } .row.yo { justify-content:flex-end; }
+  .bub { max-width:78%; padding:18px 24px; border-radius:30px; font-size:32px; line-height:1.3; font-weight:var(--fx-fw-strong); }
+  .row.ceinca .bub { background:var(--fx-surface-2); color:var(--fx-text); border-bottom-left-radius:8px; }
+  .row.yo .bub { background:var(--fx-accent); color:var(--fx-on-accent); border-bottom-right-radius:8px; }
+  .typing { display:flex; gap:10px; padding:22px 26px; border-radius:30px; border-bottom-left-radius:8px; background:var(--fx-surface-2); }
+  .typing i { width:14px; height:14px; border-radius:50%; background:var(--fx-text-muted); display:block; }
+  .gloss { position:absolute; inset:0; border-radius:70px; background:linear-gradient(115deg, rgba(var(--fx-text-rgb),0) 38%, rgba(var(--fx-text-rgb),.09) 50%, rgba(var(--fx-text-rgb),0) 62%); pointer-events:none; z-index:4; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="area" class="fx-area fx-free"><div class="stage3d"><div class="phone" id="phone"><div class="screen" id="screen"><i class="notch"></i><div class="hd"><div class="av" id="av"></div><div><div class="nm" id="nm"></div><div class="st">en línea</div></div></div><div class="msgs" id="msgs"></div><div class="gloss"></div></div></div></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+// mensajes: [{ de: "ceinca" | "yo", texto }]. Máx. ~6 mensajes cortos: si no caben en pantalla el efecto falla a propósito.
+const ctx = FX.init({ duracion: 6, nombre: 'CEINCA Mercantil', mensajes: [
+  { de: 'yo', texto: '¿Puedo registrar mi empresa en línea?' }, { de: 'ceinca', texto: 'Sí. Te guío paso a paso.' },
+  { de: 'yo', texto: '¿Cuánto tarda?' }, { de: 'ceinca', texto: 'Con documentos listos, muy poco.' } ] });
+FX.orbe(ctx);
+const { P, tl, D } = ctx;
+const ah = document.getElementById('area').clientHeight;
+const ph = Math.min(1130, ah - 40), phone = document.getElementById('phone');
+phone.style.height = ph + 'px'; phone.style.width = Math.round(ph * 0.496) + 'px';
+document.getElementById('nm').textContent = P.nombre;
+document.getElementById('av').textContent = String(P.nombre).trim().charAt(0).toUpperCase();
+const box = document.getElementById('msgs');
+const items = P.mensajes.map((m) => {
+  const yo = m.de === 'yo';
+  const ty = yo ? null : FX.el('div', 'row ceinca', box);
+  if (ty) { const t = FX.el('div', 'typing', ty); [0, 1, 2].forEach(() => FX.el('i', '', t)); ty.style.display = 'none'; }
+  const row = FX.el('div', 'row ' + (yo ? 'yo' : 'ceinca'), box);
+  const b = FX.el('div', 'bub', row, m.texto); row.style.display = 'none';
+  return { row, b, yo, ty };
+});
+// Comprobación de cabida CON la fuente real cargada (antes de cargar, las medidas engañan): se muestran todos los mensajes,
+// se mide y se vuelven a ocultar. Si no caben, falla a propósito (el motor aborta con "errores en la página").
+FX.afterFonts(() => {
+  items.forEach((it) => { it.row.style.display = 'flex'; });
+  // Si no caben, .msgs (flex item) crece más allá de la pantalla: se compara su borde inferior con el de .screen.
+  // offsetTop/offsetHeight (no getBoundingClientRect) para que el giro 3D del teléfono no altere la medida.
+  const scr = document.getElementById('screen');
+  const sobra = (box.offsetTop + box.offsetHeight) - scr.clientHeight;
+  items.forEach((it) => { it.row.style.display = 'none'; });
+  if (sobra > 2) FX.fail('telefono-chat: los mensajes no caben en la pantalla (sobran ' + sobra + ' px; reduce cantidad o longitud)');
+});
+const t0 = 0.8, span = (D - t0 - 0.5) / items.length;
+items.forEach((it, i) => {
+  const at = t0 + i * span, wait = it.yo ? 0 : Math.min(0.7, span * 0.45);
+  if (it.ty) {
+    tl.set(it.ty, { display: 'flex' }, at);
+    tl.to(it.ty.querySelectorAll('i'), { y: -9, duration: 0.2, stagger: 0.12, yoyo: true, repeat: 2, ease: 'sine.inOut' }, at);
+    tl.set(it.ty, { display: 'none' }, at + wait);
+  }
+  tl.set(it.row, { display: 'flex' }, at + wait);
+  tl.fromTo(it.b, { opacity: 0, y: 34, scale: 0.85, transformOrigin: it.yo ? 'right bottom' : 'left bottom' }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.6)' }, at + wait);
+});
+tl.from('#phone', { y: 220, opacity: 0, scale: 0.86, duration: 0.9, ease: 'power4.out' }, 0);
+tl.fromTo('#phone', { rotationY: -18, rotationX: 7, rotationZ: -3 }, { rotationY: 12, rotationX: -4, rotationZ: 2, duration: D, ease: 'sine.inOut' }, 0);
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

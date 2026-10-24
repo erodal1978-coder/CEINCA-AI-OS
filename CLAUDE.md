@@ -16,7 +16,7 @@
 * Objetivo: Dominar el nicho mercantil/legal en Instagram LATAM.
 
 ## MÓDULOS DEL SISTEMA
-* `.claude/skills/` — Skills CEINCA de Claude Code: `ceinca-design` (sistema visual), `ceinca-video-fx` (sistema completo de 17 efectos de video para Reels/TikTok: 14 plantillas HTML/GSAP + 4 efectos FFmpeg con zooms, chroma key y composición overlay; lee la marca de `ceinca-design` vía `sync-brand`), `ceinca-ia` (gemelo digital / copy / consultoría), `meta-ads-andromeda-expert`, `remotion-best-practices`, `no-ai-slop`. Las skills genéricas de diseño (impeccable, ui-ux-pro-max, etc.) están instaladas a nivel de Claude, no aquí.
+* `.claude/skills/` — Skills CEINCA de Claude Code: `ceinca-design` (sistema visual), `ceinca-video-fx` (sistema de efectos de video para Reels/TikTok: 21 plantillas HTML/GSAP + 4 efectos FFmpeg con zooms, chroma key y composición overlay; Bloque 4 = 3 estilos como temas — `estilo-dark-tech`, `estilo-red-glow`, `estilo-ukiyo-e` — aplicables a cualquier efecto con `--tema`; lee la marca de `ceinca-design` vía `sync-brand`), `ceinca-ia` (gemelo digital / copy / consultoría), `meta-ads-andromeda-expert`, `remotion-best-practices`, `no-ai-slop`. Las skills genéricas de diseño (impeccable, ui-ux-pro-max, etc.) están instaladas a nivel de Claude, no aquí.
 * `AGENTS/` — Agentes especializados (AUDITOR_MERCANTIL, CONTENT_ENGINE, VIRAL_CONTENT_CREATOR, IG_AUDITOR).
 * `KNOWLEDGE/` — Base de conocimiento técnico (SAREN, reconversiones, práctica mercantil).
 * `MARKETING/` — Frameworks de contenido, copy, monetización y estrategia de ads.

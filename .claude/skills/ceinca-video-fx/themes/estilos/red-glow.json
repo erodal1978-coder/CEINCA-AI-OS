@@ -1,0 +1,17 @@
+{
+  "_nota": "Estilo B — Minimalist Red Glow y tarjetas 3D de cristal. Negro + carmesí. Sans geométrica en negrita para títulos y serif elegante para el cuerpo (la cursiva no está soportada por sync-brand: sólo fuentes normal).",
+  "colores": {
+    "bg": "#0A0A0A", "bg2": "#160A0A", "surface": "#1A1111", "surface2": "#2A1717",
+    "text": "#FFFFFF", "textMuted": "#B8A9A9",
+    "accent": "#EF4444", "accent2": "#F87171", "accentDark": "#B91C1C",
+    "onAccent": "#FFFFFF", "line": "#4A2323", "danger": "#F87171", "ok": "#FCA5A5"
+  },
+  "fuentes": {
+    "display": { "familia": "Poppins", "pesos": [800] },
+    "body": { "familia": "Playfair Display", "pesos": [400, 600] }
+  },
+  "forma": { "radius": "24px", "radiusLg": "36px" },
+  "gradBg": "radial-gradient(circle at 22% 14%, rgba(185,28,28,0.40), transparent 46%), radial-gradient(circle at 85% 90%, rgba(185,28,28,0.22), transparent 50%), #0A0A0A",
+  "shadowCard": "0 20px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.08)",
+  "shadowAccent": "0 0 48px rgba(239,68,68,0.45)"
+}

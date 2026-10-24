@@ -1,0 +1,10 @@
+{
+  "tituloFijo": "Ukiyo-e",
+  "tema": "estilo-ukiyo-e",
+  "duracion": 5,
+  "efectos": [
+    "collage-papel.json",
+    "camara-continua.json",
+    "corta-pega.json"
+  ]
+}

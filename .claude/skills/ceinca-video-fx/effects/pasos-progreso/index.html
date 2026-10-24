@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>pasos-progreso</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .segs { display:flex; gap:14px; margin-bottom:30px; flex:none; }
+  .seg { flex:1; height:16px; border-radius:999px; background:rgba(var(--fx-text-rgb),.14); overflow:hidden; }
+  .seg i { display:block; width:100%; height:100%; background:var(--fx-accent); transform-origin:left center; transform:scaleX(0); border-radius:999px; }
+  .stage { position:relative; flex:1; }
+  .paso { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; }
+  .kick { font-family:var(--fx-font-mono); font-size:32px; letter-spacing:.14em; text-transform:uppercase; color:var(--fx-text-muted); margin-bottom:6px; }
+  .num { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:580px; line-height:.88; letter-spacing:-.02em; color:transparent; -webkit-text-stroke:5px var(--fx-accent); margin-left:-10px; }
+  .tt { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:100px; line-height:1.04; letter-spacing:-.01em; text-transform:uppercase; margin:26px 0 22px; }
+  .dd { font-size:46px; line-height:1.3; color:var(--fx-text-muted); max-width:900px; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="area" class="fx-area" style="display:flex;flex-direction:column"><div class="segs" id="segs"></div><div class="stage" id="stage"></div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({ duracion: 6, pasos: [
+  { titulo: 'Reserva el nombre', detalle: 'Verifica que esté disponible en el registro.' },
+  { titulo: 'Redacta el acta', detalle: 'Con el objeto social y el capital.' },
+  { titulo: 'Registra en línea', detalle: 'Sube los documentos al sistema.' } ] });
+FX.orbe(ctx);
+const { P, tl, D } = ctx;
+const n = P.pasos.length;
+const segs = document.getElementById('segs'), stage = document.getElementById('stage');
+const fills = P.pasos.map(() => FX.el('i', '', FX.el('div', 'seg', segs)));
+const t0 = 0.15, span = (D - t0 - 0.2) / n;
+P.pasos.forEach((p, i) => {
+  const box = FX.el('div', 'paso', stage);
+  FX.el('div', 'kick', box, 'Paso ' + String(i + 1).padStart(2, '0') + ' de ' + String(n).padStart(2, '0'));
+  const num = FX.el('div', 'num', box, String(i + 1).padStart(2, '0'));
+  const tt = FX.el('div', 'tt', box); FX.setRich(tt, p.titulo);
+  const dd = FX.el('div', 'dd', box); FX.setRich(dd, p.detalle || '');
+  const at = t0 + i * span, last = i === n - 1;
+  gsap.set(box, { opacity: 0 });
+  tl.fromTo(fills[i], { scaleX: 0 }, { scaleX: 1, duration: span, ease: 'none' }, at);
+  tl.fromTo(box, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'none' }, at);
+  tl.fromTo(num, { x: 90, scale: 0.92, opacity: 0 }, { x: 0, scale: 1, opacity: 1, duration: 0.55, ease: 'power3.out' }, at);
+  tl.fromTo(tt, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, at + 0.14);
+  tl.fromTo(dd, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, at + 0.26);
+  if (!last) tl.to(box, { opacity: 0, x: -70, duration: 0.22, ease: 'power2.in' }, at + span - 0.24);
+});
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>
