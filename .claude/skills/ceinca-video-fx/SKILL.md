@@ -1,24 +1,6 @@
 ---
 name: ceinca-video-fx
-description: >
-  Efectos de video CEINCA™ en tres bloques que completan los 17 efectos de video
-  para Reels/TikTok: Bloque 1 (11 efectos de solo código HTML/GSAP: muro de
-  titulares, checklist, gráfica que crece, texto cristal, portada, teléfono,
-  mundo-app 3D, órbita, garabato vivo, muro de videos, vértigo simulado); Bloque 2
-  (3 efectos de zoom FFmpeg: zoom digital, zoom de corte, zoom hacia atrás); Bloque 3
-  (pantalla verde chroma key con FFmpeg, rompe el marco 2.5D, corta y pega sticker
-  stop-motion, subtítulos karaoke dinámicos palabra por palabra, y composición con overlay.mjs);
-  Bloque 4 (3 estilos visuales completos como temas — Dark Tech, Red Glow, Ukiyo-e — y 7 efectos
-  nuevos: pasos con barra de progreso, consola macOS con typewriter, diagrama de nodos, zoom a
-  través de anillos, chat en teléfono, collage de papel rasgado y cámara continua one-take).
-  Activa cuando el usuario pida "efecto de video", "motion graphics",
-  "animación para Reel/Story", "pantalla verde", "chroma key", "rompe el marco",
-  "corta y pega", "subtítulos karaoke", "subtítulos dinámicos", "overlay",
-  "zoom digital", "zoom de corte", "punch-in", "zoom hacia atrás", "estilo dark tech",
-  "red glow", "ukiyo-e", "video como código", "pasos con barra de progreso", "consola typewriter",
-  "diagrama de nodos", "zoom a través", "chat en teléfono", "collage de papel", "cámara continua",
-  "one take", "hervor", o cualquiera de los ids.
-  Marca desacoplada vía sync-brand; disponible en Claude Code, terminal y chat/cowork.
+description: "Efectos de video CEINCA para Reels y TikTok, generados con código: 21 plantillas HTML/GSAP (texto animado, checklist, gráfica, teléfono, consola, collage, órbita, muro de titulares), 4 efectos FFmpeg (zooms y pantalla verde) y audio sincronizado con música y efectos sintetizados. Úsala cuando pidan un efecto de video, motion graphics, animación para Reel o Story, chroma key, zoom de corte, subtítulos karaoke, overlay, los estilos dark tech, red glow o ukiyo-e, o renderizar un JSON de efecto a MP4 vertical 1080x1920. No edita video crudo ni recorta personas."
 ---
 
 # ceinca-video-fx — Bloque 1 (11 efectos de solo código) · Bloques 2-4 más abajo
