@@ -261,6 +261,32 @@ export async function render(paramsFile, o = {}) {
     if (aud.fallas.length) die(5, `texto fuera de zonas seguras (${zona.arriba}px arriba / ${zona.abajo}px abajo):\n  ${aud.fallas.join('\n  ')}`);
   } else if (!pw) log('⚠ playwright-core no disponible: se omite la auditoría de zonas seguras');
 
+  if (o.cuesOut) {
+    // Extrae del timeline GSAP los instantes de cada animación (para sincronizar audio en audio.mjs).
+    if (!pw) die(6, '--cues necesita playwright-core');
+    const { browser, page, errs } = await openPage(st.dir, zona, pw);
+    let raw;
+    try {
+      raw = await page.evaluate(() => {
+        const tl = window.__timelines.root;
+        const num = (x) => (typeof x === 'number' ? x : null);
+        return tl.getChildren(true, true, false).map((tw) => {
+          const tg = tw.targets()[0];
+          const dom = !!(tg && tg.nodeType === 1);
+          const v = tw.vars || {}; const sa = v.startAt || {};
+          return { t: tw.globalTime(0), d: tw.duration(), dom, ease: typeof v.ease === 'string' ? v.ease : '',
+            props: Object.keys(v).filter((k) => !['ease', 'duration', 'delay', 'stagger', 'yoyo', 'repeat', 'startAt', 'overwrite', 'transformOrigin', 'immediateRender', 'onComplete', 'onUpdate', 'onStart'].includes(k)),
+            from: Object.keys(sa), x0: num(sa.x), y0: num(sa.y), s0: num(sa.scale), o0: num(sa.opacity), s1: num(v.scale), o1: num(v.opacity), x1: num(v.x), y1: num(v.y),
+            origin: String(v.transformOrigin || sa.transformOrigin || ''), repeat: num(v.repeat) || 0, stagger: num(v.stagger) || 0,
+            id: dom ? (tg.id || tg.className || tg.tagName) : 'proxy' };
+        }).concat([{ t: tl.duration(), d: 0, fin: true }]);
+      });
+    } finally { await browser.close(); }
+    if (!o.conservar) fs.rmSync(st.dir, { recursive: true, force: true });
+    if (errs.length) die(4, `errores en la página:\n  ${errs.join('\n  ')}`);
+    fs.writeFileSync(path.resolve(o.cuesOut), JSON.stringify({ efecto: params.efecto, duracion, tweens: raw }, null, 1));
+    return { out: o.cuesOut, ruta: null };
+  }
   if (o.frame != null) {
     if (!pw) die(6, '--frame necesita playwright-core');
     const png = path.resolve(o.salida ?? path.join(SKILL, 'out', `${params.efecto}-${tema}-${o.frame}s.png`));

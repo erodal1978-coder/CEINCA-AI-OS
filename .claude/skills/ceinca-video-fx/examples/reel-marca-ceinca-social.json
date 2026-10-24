@@ -1,0 +1,6 @@
+{
+  "tituloFijo": "Mecánicas con marca CEINCA",
+  "tema": "ceinca-social",
+  "duracion": 6,
+  "efectos": ["pasos-progreso.json", "consola-macos.json", "diagrama-nodos.json", "telefono-chat.json", "zoom-atraves.json", "collage-papel.json"]
+}

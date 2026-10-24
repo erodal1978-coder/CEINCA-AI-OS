@@ -309,3 +309,10 @@ bash scripts/check.sh matriz                                                    
 - Ukiyo-e es un **estilo** (papel, tintas, motivos tradicionales como *seigaiha*); no reproduce ninguna obra concreta.
 - Audit de zonas seguras: el texto de Anton/Noto ocupa más alto que su `line-height`; deja ~25 px de colchón arriba al diseñar títulos en la zona superior.
 - Escenas con cámara o transiciones largas marcan `data-fx-skip-audit` solo en el elemento que sale de cuadro (`zoom-atraves`, escena A).
+
+## Audio sincronizado (música + SFX)
+`node scripts/audio.mjs <reel.json> <reel.mp4> [-o salida.mp4] [--bpm 120] [--sin-musica] [--sin-sfx] [--cues-json cues.json]`
+- **Sincronía real, no estimada:** `render.mjs` (opción `cuesOut`) lee del timeline GSAP el instante de cada animación; `audio.mjs` las clasifica en sonidos (entrada con movimiento → whoosh, `back.out` → pop/ding, trazo SVG → dibujo, barra `scaleX` → relleno, anillos de zoom → riser, typewriter → teclas a ~22 car/s, collage `steps()` → papel) y fusiona por familia (un stagger de 3 elementos = un solo sonido). Cada corte de escena lleva un golpe grave.
+- **Todo sintetizado por código** (`scripts/sfx_synth.py`, numpy, determinista): sin muestras ni licencias externas. Música Am–F–C–G a 120 bpm: 6 s = 3 compases, así cada corte cae en inicio de compás; la música baja ~5 dB bajo cada SFX. Salida AAC 48 kHz, ≈ −14 LUFS.
+- **Verificado:** con SFX solos, correlación audio↔movimiento de video máxima en desfase 0 cuadros. Lección: el pico del whoosh debe coincidir con el arranque del movimiento (ataque inmediato), no con su mitad.
+- Límites: el audio refleja las animaciones GSAP; efectos FFmpeg de clip (Bloque 2/3) no exponen timeline y no se sincronizan aquí. Es música de acompañamiento genérica: para pista de marca, sustituir el mix de `sfx_synth.py` o mezclar con ffmpeg.
