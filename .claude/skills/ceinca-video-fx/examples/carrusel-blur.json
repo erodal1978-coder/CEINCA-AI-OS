@@ -1,0 +1,14 @@
+{
+  "efecto": "carrusel-blur",
+  "tema": "marca-soyeduardo-ia",
+  "formato": "vertical",
+  "duracion": 4.5,
+  "titulo": "Selección de **modelo**",
+  "tarjetas": [
+    { "titulo": "Haiku 4.5", "subtitulo": "Velocidad extrema", "tag": "0.4s" },
+    { "titulo": "Sonnet 4.6", "subtitulo": "Producción y código", "tag": "Recomendado" },
+    { "titulo": "Opus 4.5", "subtitulo": "Razonamiento complejo", "tag": "Pro" },
+    { "titulo": "Veo 3.1", "subtitulo": "Video cinematográfico", "tag": "Media" }
+  ],
+  "destacado": 1
+}

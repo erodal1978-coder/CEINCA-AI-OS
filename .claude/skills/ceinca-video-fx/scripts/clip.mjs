@@ -331,6 +331,174 @@ function renderPantallaVerde(clipPath, params, meta, outPath, chromaData, outW, 
   return { escalaMax: 1, aviso: null, metodo: 'ffmpeg-chromakey' };
 }
 
+function renderLupaZoom(clipPath, params, meta, outPath, outW, outH) {
+  const audio = params.audio !== false;
+  const duracion = params.recorte ? params.recorte.hasta - params.recorte.desde : meta.duracion;
+  const recorte = params.recorte;
+  const ssArgs = recorte ? ['-ss', String(recorte.desde)] : [];
+  const tArgs = recorte ? ['-t', String(duracion)] : [];
+
+  const origen = params.origen ?? { x: 0.35, y: 0.35 };
+  const destino = params.destino ?? { x: 0.65, y: 0.65 };
+  const escala = Number(params.escala ?? 1.8);
+  const radio = Math.round(Number(params.radio ?? (outW > outH ? 180 : 220)));
+  const diam = radio * 2;
+  let ringCol = params.colorAnillo ?? '0xC6FF3D';
+  if (ringCol.startsWith('0x')) ringCol = '#' + ringCol.slice(2);
+  const ringWidth = Number(params.grosorAnillo ?? 8);
+
+  const encuadre = buildEncuadreFilter(meta.width, meta.height, params.foco ?? { x: 0.5, y: 0.5 }, outW, outH);
+
+  const maskSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${diam}" height="${diam}">
+    <circle cx="${radio}" cy="${radio}" r="${radio - ringWidth / 2}" fill="white" stroke="${ringCol}" stroke-width="${ringWidth}"/>
+  </svg>`;
+  const tmpMask = path.join(path.dirname(outPath), `_tmp_lupa_mask_${Date.now()}.svg`);
+  fs.writeFileSync(tmpMask, maskSvg, 'utf8');
+
+  const ox = Math.round(origen.x * outW);
+  const oy = Math.round(origen.y * outH);
+  const dx = Math.round(destino.x * outW);
+  const dy = Math.round(destino.y * outH);
+
+  const tExpr = `clip(t/${duracion},0,1)`;
+  const cxExpr = `(${ox}+(${dx}-${ox})*${tExpr})`;
+  const cyExpr = `(${oy}+(${dy}-${oy})*${tExpr})`;
+
+  const cropXExpr = `clip(${cxExpr}*${escala}-${radio},0,${Math.round(outW * escala)}-${diam})`;
+  const cropYExpr = `clip(${cyExpr}*${escala}-${radio},0,${Math.round(outH * escala)}-${diam})`;
+  const ovXExpr = `${cxExpr}-${radio}`;
+  const ovYExpr = `${cyExpr}-${radio}`;
+
+  const fc = [
+    `[0:v]${encuadre},fps=30,setsar=1,split[base][tozoom]`,
+    `[tozoom]scale=${Math.round(outW * escala)}:${Math.round(outH * escala)}:flags=lanczos,crop=${diam}:${diam}:x='${cropXExpr}':y='${cropYExpr}'[patch]`,
+    `[1:v]fps=30,scale=${diam}:${diam}:flags=lanczos[mask]`,
+    `[patch][mask]alphamerge[lens]`,
+    `[base][lens]overlay=x='${ovXExpr}':y='${ovYExpr}'[v]`
+  ].join(';');
+
+  const args = [
+    '-y', '-loglevel', 'error',
+    ...ssArgs, '-i', clipPath, ...tArgs,
+    '-i', tmpMask,
+    '-filter_complex', fc,
+    '-map', '[v]',
+    ...(audio ? ['-map', '0:a?'] : []),
+    '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', '-preset', 'fast',
+    ...(audio ? ['-c:a', 'aac', '-b:a', '128k'] : ['-an']),
+    outPath
+  ];
+
+  const r = spawnSync('ffmpeg', args, { stdio: ['ignore', 'pipe', 'pipe'] });
+  try { if (fs.existsSync(tmpMask)) fs.unlinkSync(tmpMask); } catch {}
+  if (r.status !== 0) die(`ffmpeg falló en lupa-zoom:\n${r.stderr.toString().trim()}`);
+
+  return { escalaMax: escala, aviso: null, metodo: 'ffmpeg-lupa-zoom' };
+}
+
+function renderFocoSpotlight(clipPath, params, meta, outPath, outW, outH) {
+  const audio = params.audio !== false;
+  const duracion = params.recorte ? params.recorte.hasta - params.recorte.desde : meta.duracion;
+  const recorte = params.recorte;
+  const ssArgs = recorte ? ['-ss', String(recorte.desde)] : [];
+  const tArgs = recorte ? ['-t', String(duracion)] : [];
+
+  const foco = params.foco ?? { x: 0.5, y: 0.4 };
+  const radio = Math.round(Number(params.radio ?? (outW > outH ? 220 : 280)));
+  const encuadre = buildEncuadreFilter(meta.width, meta.height, { x: 0.5, y: 0.5 }, outW, outH);
+
+  const fxPx = Math.round(foco.x * outW);
+  const fyPx = Math.round(foco.y * outH);
+
+  const maskSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${outW}" height="${outH}">
+    <defs>
+      <radialGradient id="spot" cx="${fxPx}" cy="${fyPx}" r="${radio}" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="white" stop-opacity="1"/>
+        <stop offset="70%" stop-color="white" stop-opacity="0.85"/>
+        <stop offset="100%" stop-color="black" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="${outW}" height="${outH}" fill="url(#spot)"/>
+  </svg>`;
+  const tmpMask = path.join(path.dirname(outPath), `_tmp_spot_mask_${Date.now()}.svg`);
+  fs.writeFileSync(tmpMask, maskSvg, 'utf8');
+
+  const fc = [
+    `[0:v]${encuadre},fps=30,setsar=1,split[lit][todark]`,
+    `[todark]eq=brightness=-0.32:contrast=0.8[dark]`,
+    `[1:v]fps=30,scale=${outW}:${outH}:flags=lanczos,format=gray[mask]`,
+    `[lit][dark][mask]maskedmerge[v]`
+  ].join(';');
+
+  const args = [
+    '-y', '-loglevel', 'error',
+    ...ssArgs, '-i', clipPath, ...tArgs,
+    '-i', tmpMask,
+    '-filter_complex', fc,
+    '-map', '[v]',
+    ...(audio ? ['-map', '0:a?'] : []),
+    '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', '-preset', 'fast',
+    ...(audio ? ['-c:a', 'aac', '-b:a', '128k'] : ['-an']),
+    outPath
+  ];
+
+  const r = spawnSync('ffmpeg', args, { stdio: ['ignore', 'pipe', 'pipe'] });
+  try { if (fs.existsSync(tmpMask)) fs.unlinkSync(tmpMask); } catch {}
+  if (r.status !== 0) die(`ffmpeg falló en foco-spotlight:\n${r.stderr.toString().trim()}`);
+
+  return { escalaMax: 1, aviso: null, metodo: 'ffmpeg-foco-spotlight' };
+}
+
+function renderFragmentosShatter(clipPath, params, meta, outPath, outW, outH) {
+  const audio = params.audio !== false;
+  const duracion = params.recorte ? params.recorte.hasta - params.recorte.desde : meta.duracion;
+  const recorte = params.recorte;
+  const ssArgs = recorte ? ['-ss', String(recorte.desde)] : [];
+  const tArgs = recorte ? ['-t', String(duracion)] : [];
+
+  const snapDur = Number(params.duracionTransicion ?? params.transicion ?? 0.35);
+  const nFranjas = Math.max(2, Math.min(10, Number(params.franjas ?? 6)));
+  const desp = Number(params.desplazamiento ?? (outW > outH ? 200 : 260));
+  const sliceH = Math.round(outH / nFranjas);
+
+  const encuadre = buildEncuadreFilter(meta.width, meta.height, params.foco ?? { x: 0.5, y: 0.5 }, outW, outH);
+
+  const splits = Array.from({ length: nFranjas }, (_, i) => `[s${i}]`).join('');
+  const fc = [
+    `[0:v]${encuadre},fps=30,setsar=1,split=${nFranjas}${splits}`,
+    `color=c=black:s=${outW}x${outH}:d=${duracion}:r=30[bg]`
+  ];
+
+  let lastLayer = '[bg]';
+  for (let i = 0; i < nFranjas; i++) {
+    const yPos = i * sliceH;
+    const curH = (i === nFranjas - 1) ? (outH - yPos) : sliceH;
+    const sgn = (i % 2 === 0) ? -1 : 1;
+    fc.push(`[s${i}]crop=${outW}:${curH}:0:${yPos}[c${i}]`);
+
+    const xExpr = `if(lt(t,${snapDur}),${sgn * desp}*pow(1-t/${snapDur},2),0)`;
+    const outLayer = (i === nFranjas - 1) ? '[v]' : `[v${i}]`;
+    fc.push(`${lastLayer}[c${i}]overlay=x='${xExpr}':y=${yPos}${outLayer}`);
+    lastLayer = outLayer;
+  }
+
+  const args = [
+    '-y', '-loglevel', 'error',
+    ...ssArgs, '-i', clipPath, ...tArgs,
+    '-filter_complex', fc.join(';'),
+    '-map', '[v]',
+    ...(audio ? ['-map', '0:a?'] : []),
+    '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', '-preset', 'fast',
+    ...(audio ? ['-c:a', 'aac', '-b:a', '128k'] : ['-an']),
+    outPath
+  ];
+
+  const r = spawnSync('ffmpeg', args, { stdio: ['ignore', 'pipe', 'pipe'] });
+  if (r.status !== 0) die(`ffmpeg falló en fragmentos-shatter:\n${r.stderr.toString().trim()}`);
+
+  return { escalaMax: 1, aviso: null, metodo: 'ffmpeg-fragmentos-shatter' };
+}
+
 function probeOut(outPath) {
   const r = spawnSync('ffprobe', [
     '-v', 'error', '-count_frames',
@@ -372,7 +540,7 @@ const outH = isHoriz ? 1080 : 1920;
 
 if (!params.efecto) die('falta "efecto" en params.json');
 if (!params.clip)   die('falta "clip" en params.json (ruta al mp4/mov)');
-const efectosValidos = ['zoom-digital', 'zoom-corte', 'zoom-atras', 'pantalla-verde'];
+const efectosValidos = ['zoom-digital', 'zoom-corte', 'zoom-atras', 'pantalla-verde', 'lupa-zoom', 'foco-spotlight', 'fragmentos-shatter'];
 if (!efectosValidos.includes(params.efecto)) die(`"efecto" debe ser uno de: ${efectosValidos.join(', ')}`);
 
 const jsonDir  = path.dirname(jsonPath);
@@ -408,6 +576,12 @@ if (params.efecto === 'zoom-digital') {
 } else if (params.efecto === 'pantalla-verde') {
   const chromaData = buildPantallaVerde(params);
   zoomResult = renderPantallaVerde(clipPath, params, meta, outPath, chromaData, outW, outH);
+} else if (params.efecto === 'lupa-zoom') {
+  zoomResult = renderLupaZoom(clipPath, params, meta, outPath, outW, outH);
+} else if (params.efecto === 'foco-spotlight') {
+  zoomResult = renderFocoSpotlight(clipPath, params, meta, outPath, outW, outH);
+} else if (params.efecto === 'fragmentos-shatter') {
+  zoomResult = renderFragmentosShatter(clipPath, params, meta, outPath, outW, outH);
 }
 
 if (audio) checkAudioDuration(outPath, duracion);

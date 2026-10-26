@@ -1,16 +1,7 @@
 ---
 name: ceinca-video-fx
 description: >
-  Motor de efectos y edición de video por código CEINCA™ y @soyeduardo.ia en formato
-  vertical 9:16 (1080×1920 Reels/TikTok) y horizontal 16:9 (1920×1080 YouTube/cursos) en 5 bloques:
-  B1 (11 efectos HTML/GSAP: muro-titulares, checklist, grafica-crece, texto-cristal, portada,
-  telefono, mundo-app, orbita, garabato-vivo, muro-videos, vertigo-simulado); B2 (3 zooms
-  FFmpeg: zoom-digital, zoom-corte, zoom-atras); B3 (pantalla-verde chroma key, rompe-marco
-  2.5D, corta-pega stop-motion, subtitulos-karaoke y overlay.mjs); B4 (temas ceinca-social,
-  ceinca-guias, marca-soyeduardo-ia, Dark Tech, Red Glow, Ukiyo-e y 7 efectos: pasos-progreso,
-  consola-macos, diagrama-nodos, zoom-atraves, telefono-chat, collage-papel, camara-continua);
-  B5 (modo 16:9 YouTube, grabar-demo.mjs, doctor.mjs, check.sh reel a -16 LUFS y comandos
-  /editar, /ajustar, /grabar-demo, /doctor en Linux). Marca desacoplada vía sync-brand.
+  Motor de efectos y edición de video CEINCA™ y @soyeduardo.ia en formato dual vertical 9:16 (1080×1920) y horizontal 16:9 (1920×1080) v1.3.0 en 6 bloques: B1 (11 efectos HTML/GSAP: muro-titulares, checklist, grafica-crece, texto-cristal, portada, telefono, mundo-app, orbita, garabato-vivo, muro-videos, vertigo-simulado); B2 (6 efectos de clip FFmpeg: zoom-digital, zoom-corte, zoom-atras, lupa-zoom, foco-spotlight, fragmentos-shatter); B3 (pantalla-verde chroma, rompe-marco 2.5D, corta-pega stop-motion, subtitulos-karaoke y overlay.mjs con layout split-pip); B4 (temas ceinca-social, ceinca-guias, marca-soyeduardo-ia, Dark Tech, Red Glow, Ukiyo-e y 7 efectos: pasos-progreso, consola-macos, diagrama-nodos, zoom-atraves, telefono-chat, collage-papel, camara-continua); B5 (modo 16:9 YouTube, grabar-demo.mjs, doctor.mjs, check.sh reel a -16 LUFS y comandos /editar, /ajustar, /doctor); B6 (4 efectos Claude Motion: bento-grid, barra-prompt, carrusel-blur, catalogo-lateral). Marca desacoplada.
 ---
 
 # ceinca-video-fx — Bloques 1 a 5 (9:16 Vertical Reels + 16:9 Horizontal YouTube)
@@ -64,6 +55,10 @@ El texto admite `**acento**` para resaltar con el color de acento del tema.
 | `rompe-marco` | Sujeto que sobrepasa el borde superior de una tarjeta UI (profundidad 2.5D) | `sujeto`, `titular`, `subtitulo`, `etiqueta` |
 | `corta-pega` | Efecto collage / sticker stop-motion con borde blanco y movimiento discontinuo | `sujeto`, `titular`, `subtitulo`, `etiquetas[]` |
 | `subtitulos-karaoke` | Subtítulos dinámicos con resaltado sincronizado palabra por palabra | `palabras[]` (`{texto, t}`), `posicion` (`centro`\|`abajo`) |
+| `bento-grid` | Cuadrícula Bento de 4 a 6 tarjetas (contador flip 3-2-1-LIVE, anillo de porcentaje, barras que crecen, métrica destacada) | `titulo`, `contador`, `porcentaje`, `barras`, `metrica`, `tarjetaExtra` |
+| `barra-prompt` | Píldora de prompt con typewriter, pulsación de botón y tarjeta que emerge con línea dibujada y check | `prompt`, `boton`, `resultado` (`{titulo, pasos[], estadoFinal}`) |
+| `carrusel-blur` | Tira horizontal con desplazamiento de alta velocidad con blur dinámico, frenado en seco y tarjeta destacada con check | `titulo`, `tarjetas[]`, `destacado` |
+| `catalogo-lateral` | Layout de catálogo con lista lateral numerada cuya píldora activa avanza sincronizada y marco interactivo | `titulo`, `pasos[]` (`{n, titulo, detalle, icono}`) |
 
 Íconos disponibles para `mundo-app`/`orbita`: `doc check shield chart bell chat user lock star coin clock mail pin building`.
 Un `params.example.json` por efecto vive en `effects/<id>/`; versiones listas para correr en `examples/<id>.json`.
@@ -161,6 +156,9 @@ bash scripts/check.sh video out/zoom-digital.mp4 5 out/frames/dig-mid.png
 | `zoom-corte` | Saltos instantáneos entre plano abierto y cerrado; simula dos cámaras | `cortes[]` con `{ "t": s, "escala": n, "foco"?: {x,y} }`. Cada corte se mantiene hasta el siguiente. Sin interpolación: el cambio ocurre en un solo frame. `escala: 1` = plano abierto. |
 | `zoom-atras` | Empieza cerrado, se abre hasta escala 1 (pull-back) | `escalaInicial` (default 1.4), `inicio`, `fin` (s), `curva` (igual que zoom-digital). Tras `fin` queda en escala 1. |
 | `pantalla-verde` | Chroma key nativo FFmpeg: elimina fondo verde y reemplaza por color/imagen/video | `color` (default `0x00FF00`), `tolerancia`, `suavizado`, `fondo` (`{tipo,valor}`) |
+| `lupa-zoom` | Lupa circular que recorre de {x1,y1} a {x2,y2} ampliando el video interno (1.8x) con anillo de acento | `origen` `{x,y}`, `destino` `{x,y}`, `escala` (default 1.8), `radio`, `colorAnillo`, `grosorAnillo` |
+| `foco-spotlight` | Oscurece el resto del cuadro y deja un foco circular suave iluminando {foco.x, foco.y} | `foco` `{x,y}`, `radio` (default 260), `oscuridad` |
+| `fragmentos-shatter` | Desplazamiento rápido de franjas al inicio del corte que encajan en su sitio en 0.35s | `duracionTransicion` (0.35), `franjas` (6), `desplazamiento` (240) |
 
 Un `clip-<efecto>.json` de ejemplo vive en `examples/`.
 

@@ -1,0 +1,13 @@
+{
+  "efecto": "catalogo-lateral",
+  "tema": "marca-soyeduardo-ia",
+  "formato": "vertical",
+  "duracion": 5,
+  "titulo": "20 Efectos de **Video FX**",
+  "pasos": [
+    { "n": "01", "titulo": "Bento Grid", "detalle": "Métricas y gráficas en cuadrícula", "icono": "chart" },
+    { "n": "02", "titulo": "Barra Prompt", "detalle": "Typewriter y tarjeta animada", "icono": "chat" },
+    { "n": "03", "titulo": "Carrusel Blur", "detalle": "Frenado con desenfoque dinámico", "icono": "star" },
+    { "n": "04", "titulo": "Split PIP", "detalle": "Dual vocero y pantalla técnica", "icono": "doc" }
+  ]
+}

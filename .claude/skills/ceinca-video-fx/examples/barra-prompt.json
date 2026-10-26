@@ -1,0 +1,17 @@
+{
+  "efecto": "barra-prompt",
+  "tema": "marca-soyeduardo-ia",
+  "formato": "vertical",
+  "duracion": 5,
+  "prompt": "Genera el plan de **edición automática**",
+  "boton": "Ejecutar",
+  "resultado": {
+    "titulo": "Pipeline Automatizado",
+    "pasos": [
+      "Normalización audio a -16 LUFS",
+      "Sincronización de cortes dinámicos",
+      "Renderizado GSAP final"
+    ],
+    "estadoFinal": "Listo para publicar"
+  }
+}
