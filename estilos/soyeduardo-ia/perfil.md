@@ -22,7 +22,7 @@
 - **Voz y trato:** Español con acento venezolano cercano, seguro y práctico. Trato estricto en **singular y de tú** ("Te muestro", "Comenta CEREBRO y te envío..."). Prohibido hablar en plural ("les muestro", "comenten").
 - **Subtítulos desde 0.0 s:** Siempre activos desde el primer cuadro, máximo 2 líneas en pantalla, resaltando la palabra clave en lima `#C6FF3D`.
 - **Primeros 3 segundos (0–3 s):** Etiqueta de nombre `@soyeduardo.ia · Eduardo González` + sello `LO HIZO LA IA` cuando el vocero fue generado con Flow/IA.
-- **Ritmo visual (cambio cada 3–5 s):** Alternar plano medio con `zoom-corte` (1.16x–1.22x), `zoom-digital` suave, tarjetas de cristal/pizarra, capturas reales en `telefono` o `grabar-demo` (`--modo marco`) y efectos de código (`diagrama-nodos`, `checklist`, `pasos-progreso`, `consola-macos`).
+- **Ritmo visual (cambio cada 3–5 s):** Alternar plano medio con `zoom-corte` (1.16x–1.22x), `zoom-digital` suave, `lupa-zoom`, `foco-spotlight`, `fragmentos-shatter`, layout `split-pip`, tarjetas de cristal/pizarra, capturas reales en `telefono` o `grabar-demo` (`--modo marco`) y efectos de código/motion (`bento-grid`, `barra-prompt`, `carrusel-blur`, `catalogo-lateral`, `diagrama-nodos`, `checklist`, `pasos-progreso`, `consola-macos`).
 - **Política de marcas de terceros:** No generar ni dibujar logos oficiales ni mascotas de terceros (ChatGPT, Claude, Gemini); nombrar cada herramienta con etiquetas tipográficas limpias (`JetBrains Mono` + `Manrope`) y mostrar capturas reales de pantalla.
 - **Cierre CTB (últimos 3–8 s):** Tarjeta final con palabra clave en mayúsculas (p. ej. `TORNILLO`, `CEREBRO`) visible durante al menos `3.0 s`.
 

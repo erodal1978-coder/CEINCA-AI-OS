@@ -222,6 +222,9 @@ Resuelve la limitación de superponer gráficos, títulos o subtítulos sobre vi
 ```bash
 # Superponer subtítulos karaoke sobre un video grabado
 node scripts/overlay.mjs --base mi-clip.mp4 --overlay examples/subtitulos-karaoke.json --key 0x122A63 -o out/final.mp4
+
+# Layout Split-PIP (vocero abajo en tarjeta + efecto arriba + subtítulos al centro)
+node scripts/overlay.mjs --base vocero.mp4 --overlay examples/bento-grid.json --layout split-pip --tema marca-soyeduardo-ia -o out/split-pip.mp4
 ```
 
 ---
