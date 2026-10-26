@@ -4,6 +4,24 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🔄 EN CURSO 26-10-2026 (14:30) — Reel CEINCA: Título Universitario SAREN (Opción B: Flow + Split-PIP + Bento Grid)
+- **Proyecto:** Reel vertical 9:16 (~40–42s) para **CEINCA** (`ceinca-social`, Azul Marino `#122A63` + Dorado `#C8A951`) explicando el proceso oficial de solicitud de copia certificada y legalización de título universitario ante el SAREN (100% en línea).
+- **Actualización de Motor `ceinca-video-fx v1.3.0`:**
+  - 4 efectos HTML/GSAP incorporados en `effects/`: `bento-grid`, `barra-prompt`, `carrusel-blur`, `catalogo-lateral`.
+  - 3 efectos de clip FFmpeg en `scripts/clip.mjs`: `lupa-zoom` (1.8x circular con anillo de acento), `foco-spotlight` (viñeta radial oscurecedora), `fragmentos-shatter` (0.35s snap horizontal).
+  - Modo `--layout split-pip` en `scripts/overlay.mjs`: video del vocero en tarjeta inferior (960×700 con rx=28), efecto/sistema en tarjeta superior (960×760 con rx=28), y franja central reservada para subtítulos sobre fondo `--fx-bg`.
+  - Auditoría estática: `bash scripts/check.sh estatico` pasando 25/25 efectos sin colores literales y con description de SKILL.md en 998 caracteres (estricto < 1024).
+  - Paquete `dist/ceinca-video-fx.zip` (505 KB) regenerado y entregado en `~/Descargas/ceinca-video-fx-v1.3.zip`.
+- **Estrategia y Decisión de Formato:** Eduardo aprobó **Opción B** (generar las tomas del vocero con Google Flow / Veo 3.1 para evitar grabación manual en cámara, combinadas con B-roll técnico recortado de Canva en `split-pip`).
+- **Guion y Prompts Google Flow:** Generados en `proyectos/saren-titulo/prompts-flow.md` cumpliendo al 100% las reglas de `PRODUCTION/FLOW_SISTEMA.md`:
+  - 5 escenas de 8s (Hook, Paso 1, Paso 2, Paso 3, CTA) a 14–16 palabras por escena.
+  - Cero nombres propios (descripción física fija del sujeto: hombre venezolano, lentes aviador rosé/marrón con detalle dorado, cabello sal y pimienta, chivera canosa, blazer azul marino).
+  - Cero palabras prohibidas (calidad cinematográfica profesional, sin "hiperrealismo").
+  - Voz explícita: español latinoamericano neutro con acento venezolano suave y autoridad experta.
+- **Overlay Bento Grid Renderizado:** `proyectos/saren-titulo/salida/bento-saren.mp4` (8.0s, 1080×1920 vertical, 240 frames a 30 fps, H.264 yuv420p) con métricas solicitadas: anillo "3 A 5 DÍAS HÁBILES", arancel "Tasa Oficial PUB", "100% En Línea sin gestores".
+- **B-roll SAREN:** Metraje de Canva en `~/Descargas/Video copias certificadas titulo univ SAREN/` analizado para recortes con `lupa-zoom` y `foco-spotlight`.
+- **Pendiente inmediato:** Generación de los 5 clips en Google Flow por parte de Eduardo → ensamble final con `scripts/overlay.mjs --layout split-pip` → subtítulos karaoke y normalización de audio a −16.0 LUFS.
+
 ## 🔄 EN CURSO 22-10-2026 (18:02) — Reel 2 SOLDADURA — **v2 LISTA** (corrige el chasquido de la Luna)
 - **Video vigente:** `CEINCA-WORKSPACE/SOY_EDUARDO_IA/REEL_2_SOLDADURA/FINAL/reel2_SOLDADURA_v2.mp4` (30,7 s, 1080×1920, 30 fps, −16,0 LUFS, pico −1,5 dBFS, `check.sh reel` en verde). Subido a Drive `Digital mentor /REEL_2_SOLDADURA/FINAL/` (rclone check OK).
 - **Corrección pedida por Eduardo:** en la v1 el alien chasqueaba ya en la Luna (el fondo cambiaba antes). v2: clip nuevo `CLIPS_FLOW/T15_chasquido_oficina_1080p.mp4` (Veo 3.1 Fast, Fotogramas, inicio = cuadro de H1 a 6,35 s, 20 créditos Pro) insertado en 13,000–13,567 s del base (`MONTAJE/parche_chasquido.sh` → `base_overlays_v2.mp4`): el alien chasquea en la oficina y en ese cuadro corta a la Luna; el chasquido suena a 13,57 s. Música rehecha con `musica.mjs` (SFX en 3,40 / 7,50 / **13,57** / 17,86 / 22,86 / 26,76).
@@ -138,10 +156,13 @@ Decisión de Eduardo: GitHub = solo conocimiento reutilizable (manuales, reglas,
 - **✅ PASO APARTE hecho (04-10, mismo día):** (1) viralidad unificada en `MARKETING/SISTEMA_VIRAL.md` (FRAMEWORK_VIRAL_V2 + VIRAL_PLAYBOOK + NEAPS_AIDA + SISTEMA_VIRAL_ORGANICO_Y_ADS_LEXIA; LEXIA como anexo histórico); (2) Flow unificado en `PRODUCTION/FLOW_SISTEMA.md` (FLOW_VIDEO_DIRECTOR_SYSTEM v1.1 + FLOW_GUIA_DIRECCION_AVANZADA + FLOW_REELS + GUIA_PROMPTS_FLOW_UGC). Referencias actualizadas en CLAUDE.md, agentes, skills (ceinca-ia, ceinca-design, meta-ads) y OPENMONTAGE_STUDIO. **Confirmado por Eduardo (04-10 06:27):** (a) dorado/azul ✅; (b) ejemplo corregido ✅ — textos/overlays preferentemente en post con Claude Code (Flow a veces los hace bien), prompts en español; (c) precios se mantienen pero **🔴 PENDIENTE: revisión/reajuste de precios de los GEM y de LEXIA — no hubo ninguna venta**. Detalle original: (a) SISTEMA_VIRAL §4.5 — el framework original mezclaba "verde" para keywords/badges/bordes con la paleta dorado/azul; se aplicó dorado/azul; (b) FLOW_SISTEMA §18 — el ejemplo GEM LOPNNA se corrigió para cumplir reglas NO NEGOCIABLES (64→60 en pantalla, sin "ultra-realistic", sin "same attorney", textos como overlay en Edits, prompts en un párrafo en español); confirmar si el precio del ejemplo ($97 tachado $400) sigue vigente.
 
 ## 1. Objetivo
-Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agentes, marketing y producción digital de CEINCA. El núcleo actual prioriza conocimiento/estrategia, agentes y skills de Claude Code, producción audiovisual, exportación de carruseles y workflows reproducibles. Los experimentos obsoletos deben retirarse en lugar de mantenerse por inercia.
+Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agentes, marketing y producción digital de CEINCA. El núcleo actual prioriza conocimiento/estrategia, agentes y skills de Claude Code/Antigravity, producción audiovisual con `ceinca-video-fx v1.3.0` y Google Flow, y workflows reproducibles de alta retención para redes sociales.
 
 ## 2. Estado actual
-> Última sesión (21-10-2026): cuenta @soyeduardo.ia, estudio de estilo y banco de keywords v0.2/v0.3, tema = marca propia — ver el bloque dominante al inicio de este archivo.
+> Última sesión (26-10-2026): Actualización de motor `ceinca-video-fx v1.3.0` (4 efectos HTML/GSAP, 3 efectos FFmpeg, split-pip), render del Bento Grid CEINCA y prompts de Google Flow para el Reel de Título Universitario SAREN.
+- **Motor `ceinca-video-fx` actualizado a v1.3.0:** Soporta 25 efectos en total (18 HTML/GSAP + 7 FFmpeg de clip), con layout `split-pip` integrado en `scripts/overlay.mjs`. Todos los tests estáticos y de video en verde.
+- **Proyecto Reel SAREN Título Universitario en marcha:** Guion técnico y prompts Flow listos en `proyectos/saren-titulo/prompts-flow.md`, Bento Grid generado en `proyectos/saren-titulo/salida/bento-saren.mp4`.
+- Histórico anterior: (21-10-2026): cuenta @soyeduardo.ia, estudio de estilo y banco de keywords v0.2/v0.3, tema = marca propia — ver el bloque dominante al inicio de este archivo.
 - Limpieza de repositorio completada y mergeada a `main` mediante PR #16, commit `d9d75a871b96721c187ca44680a1dac312392187`.
 - Eliminado `ig-viral-tracker/` completo: era un MVP/artefacto de aprendizaje y ya no forma parte del sistema.
 - Eliminados vídeos, audios y assets multimedia pesados que estaban almacenados temporalmente en GitHub.
@@ -340,6 +361,40 @@ Construir y mantener CEINCA-AI-OS como sistema operativo de conocimiento, agente
   - **Hallazgo de disciplina de respaldo (13-09-2026, sesión siguiente)**: el archivo del plan (524 líneas) quedó escrito en disco pero **nunca se commiteó a mano** durante la sesión del 12-09 ni se reflejó en este `handoff.md` al cierre — el único motivo por el que no se perdió fue que el cron `git-wip-checkpoint` (cada 15 min, ver `[[project-git-wip-checkpoint]]`) lo capturó solo, en su primer tick tras reabrir la sesión (commit `ce9d0bc`, 2026-09-13 12:31). El safety net funcionó exactamente para esto, pero confirma el mismo patrón de gap de disciplina ya señalado en la entrada del 11-09-2026 de esta sección (2 días sin tocar `handoff.md`) — reforzar: actualizar este archivo al cierre de CADA sesión, no depender solo del cron para no perder trabajo de planificación.
 
 ## 3. Archivos y cambios (esta sesión)
+> Sesión 26-10-2026: Upgrade `ceinca-video-fx v1.3.0`, prompts Google Flow y render Bento Grid SAREN.
+Commits en rama `docs/soyeduardo-ia-estilo-keywords`:
+- `83e27a3` chore: auto-checkpoint (safety net corte de luz) 2026-10-26 14:00
+- `ee188a9` chore: auto-checkpoint (safety net corte de luz) 2026-10-26 12:45
+- `123ce48` chore: auto-checkpoint (safety net corte de luz) 2026-10-26 12:30
+
+Output de `git diff --stat 9de150c..HEAD`:
+```text
+ .claude/skills/ceinca-video-fx/SKILL.md            |  21 +--
+ .../effects/barra-prompt/index.html                | 157 ++++++++++++++++++
+ .../effects/barra-prompt/params.example.json       |  17 ++
+ .../ceinca-video-fx/effects/bento-grid/index.html  | 148 +++++++++++++++++
+ .../effects/bento-grid/params.example.json         |  12 ++
+ .../effects/carrusel-blur/index.html               | 153 ++++++++++++++++++
+ .../effects/carrusel-blur/params.example.json      |  14 ++
+ .../effects/catalogo-lateral/index.html            | 127 +++++++++++++++
+ .../effects/catalogo-lateral/params.example.json   |  13 ++
+ .../ceinca-video-fx/examples/barra-prompt.json     |  17 ++
+ .../ceinca-video-fx/examples/bento-grid.json       |  12 ++
+ .../ceinca-video-fx/examples/carrusel-blur.json    |  14 ++
+ .../ceinca-video-fx/examples/catalogo-lateral.json |  13 ++
+ .claude/skills/ceinca-video-fx/package.json        |   2 +-
+ .claude/skills/ceinca-video-fx/scripts/check.sh    |   2 +-
+ .claude/skills/ceinca-video-fx/scripts/clip.mjs    | 176 ++++++++++++++++++++-
+ .claude/skills/ceinca-video-fx/scripts/overlay.mjs |  83 +++++++++-
+ estilos/soyeduardo-ia/aprendizajes.md              |   1 +
+ estilos/soyeduardo-ia/perfil.md                    |   2 +-
+ 19 files changed, 969 insertions(+), 15 deletions(-)
+```
+Archivos no trackeados del proyecto en `proyectos/saren-titulo/`:
+- `prompts-flow.md` (guion técnico y 5 prompts Google Flow para Veo 3.1)
+- `bento-saren.json` (configuración del Bento Grid con tema `ceinca-social`)
+- `salida/bento-saren.mp4` (video renderizado 1080×1920, 8s, 240 frames)
+
 > Sesión 19-10-2026: `git log --oneline 5ad34f8..a6a5ad1` y `git diff --stat 5ad34f8 a6a5ad1` (69 archivos, +4068, todo en `.claude/skills/ceinca-video-fx/`) + commit de cierre (`CLAUDE.md`, `handoff.md`).
 Commits de limpieza y documentación en `main`:
 - `d9d75a871b96721c187ca44680a1dac312392187` — merge de PR #16: elimina tracker obsoleto, assets multimedia pesados y endurece `.gitignore`.
@@ -509,7 +564,17 @@ Sesión plan arquitectura unificada Agy/Claude (12-09-2026, sobre `main`, captur
 - `page.waitForFunction(() => window.__timelines.root)` en Playwright se cuelga (timeout) si la función devuelve el Timeline de GSAP: Playwright intenta serializar el objeto (referencias circulares). Devolver siempre un booleano (`!!(...)`) y usar `polling: 100`.
 - Prueba sin red (`unshare -rn`): HyperFrames necesita loopback (levanta un servidor local) y en el namespace nuevo `lo` está caído → `ENETUNREACH 127.0.0.1`. Subir `lo` por ioctl (`SIOCSIFFLAGS`) y entonces HyperFrames y el respaldo renderizan sin red. No es un fallo de la skill.
 
+- Auditoría DOM mid-frame (`frac=0.5`) fallaba en `carrusel-blur` por desborde en el renderizado: las tarjetas animadas a alta velocidad exceden el ancho visible del viewport horizontalmente (x=-132..-75, x=1340..1649). Fix: se añadió el atributo `data-fx-skip-audit` a `<div class="track" id="track" data-fx-skip-audit>` siguiendo el patrón probado en `zoom-atraves`.
+- Entorno virtual roto en `~/.local/bin/whisper` que apuntaba a `/home/eduardo/OpenMontage/.venv/bin/whisper` (exit code 127). Fix: la medición de audio con `ffprobe/ebur128` reveló que la pista del metraje de Canva estaba en silencio total (-70 LUFS), confirmando que no había locución que transcribir y que el audio provendrá de las tomas del vocero en Flow.
+- Error EROFS (Read-only file system) al intentar escribir artefactos desde la terminal sandboxed de Agy hacia `/home/eduardo/CEINCA-AI-OS`. Fix: ejecución de comandos de render y compilación con bypass explícito de sandbox.
+
 ## 5. Próximos pasos
+0. **(26-10-2026) Producción Reel SAREN Título Universitario (Opción B)**:
+   - [ ] Eduardo genera los 5 clips en Google Flow usando los prompts de `proyectos/saren-titulo/prompts-flow.md` y los descarga en `proyectos/saren-titulo/flow-clips/`.
+   - [ ] Recortar metraje de Canva SAREN en 3 momentos y aplicar `lupa-zoom` en menú de copias certificadas y `foco-spotlight` en planilla PUB.
+   - [ ] Componer con `node scripts/overlay.mjs --layout split-pip` integrando vocero abajo, efectos/sistema arriba y Bento Grid.
+   - [ ] Generar subtítulos karaoke sincronizados en `#FFFFFF` con acento en `#C8A951`.
+   - [ ] Mezcla de música con sidechain ducking y master a −16.0 LUFS (`check.sh reel`).
 0. **(19-10-2026) `ceinca-video-fx`**: revisar y mergear el PR de `feature/ceinca-video-fx-bloque1`; subir `dist/ceinca-video-fx.zip` a claude.ai y probar un render real ahí; después Bloque 2 de efectos. Si cambia el manual de marca: `npm run sync-brand` → commit → `npm run zip`.
 57. **Primera edición del video SAREN "solicitud de copia certificada" (13-09-2026, misma sesión que cerró el plan de reorg)** — video de demo real (proceso de carga de documentos, con el título universitario de Eduardo) para redes, sin audio. Original en `CEINCA-WORKSPACE/02 SERVICIOS LEGALES/GUIAS TECNICAS SAREN/Saren_solicitud de copia certificada.mp4` (5:02 min, 1366x728). Pedido explícito: corregir el arranque lento/con error, difuminar datos sensibles, agregar captions explicativos tipo overlay con resaltado de palabras (elegante/profesional), eliminar pausas y acortar, con velocidad variable tras los cortes — "es la primera edición, luego haremos otras".
     - **Entregable v1**: `CEINCA-WORKSPACE/02 SERVICIOS LEGALES/GUIAS TECNICAS SAREN/Saren_solicitud_copia_certificada_v1_editado.mp4` (47.7s, sin audio). El original NO se tocó ni se borró.
