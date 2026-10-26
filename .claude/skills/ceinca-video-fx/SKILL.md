@@ -1,21 +1,19 @@
 ---
 name: ceinca-video-fx
 description: >
-  Efectos de video CEINCA™ en tres bloques que completan los 17 efectos de video
-  para Reels/TikTok: Bloque 1 (11 efectos de solo código HTML/GSAP: muro de
-  titulares, checklist, gráfica que crece, texto cristal, portada, teléfono,
-  mundo-app 3D, órbita, garabato vivo, muro de videos, vértigo simulado); Bloque 2
-  (3 efectos de zoom FFmpeg: zoom digital, zoom de corte, zoom hacia atrás); Bloque 3
-  (pantalla verde chroma key con FFmpeg, rompe el marco 2.5D, corta y pega sticker
-  stop-motion, subtítulos karaoke dinámicos palabra por palabra, y composición con overlay.mjs).
-  Activa cuando el usuario pida "efecto de video", "motion graphics",
-  "animación para Reel/Story", "pantalla verde", "chroma key", "rompe el marco",
-  "corta y pega", "subtítulos karaoke", "subtítulos dinámicos", "overlay",
-  "zoom digital", "zoom de corte", "punch-in", "zoom hacia atrás", o cualquiera de los ids.
-  Marca desacoplada vía sync-brand; disponible en Claude Code, terminal y chat/cowork.
+  Motor de efectos y edición de video por código CEINCA™ y @soyeduardo.ia en formato
+  vertical 9:16 (1080×1920 Reels/TikTok) y horizontal 16:9 (1920×1080 YouTube/cursos) en 5 bloques:
+  B1 (11 efectos HTML/GSAP: muro-titulares, checklist, grafica-crece, texto-cristal, portada,
+  telefono, mundo-app, orbita, garabato-vivo, muro-videos, vertigo-simulado); B2 (3 zooms
+  FFmpeg: zoom-digital, zoom-corte, zoom-atras); B3 (pantalla-verde chroma key, rompe-marco
+  2.5D, corta-pega stop-motion, subtitulos-karaoke y overlay.mjs); B4 (temas ceinca-social,
+  ceinca-guias, marca-soyeduardo-ia, Dark Tech, Red Glow, Ukiyo-e y 7 efectos: pasos-progreso,
+  consola-macos, diagrama-nodos, zoom-atraves, telefono-chat, collage-papel, camara-continua);
+  B5 (modo 16:9 YouTube, grabar-demo.mjs, doctor.mjs, check.sh reel a -16 LUFS y comandos
+  /editar, /ajustar, /grabar-demo, /doctor en Linux). Marca desacoplada vía sync-brand.
 ---
 
-# ceinca-video-fx — Bloque 1 (11 efectos de solo código)
+# ceinca-video-fx — Bloques 1 a 5 (9:16 Vertical Reels + 16:9 Horizontal YouTube)
 
 Cada efecto es una plantilla HTML + GSAP (`effects/<id>/index.html`) que recibe un `params.json` y se renderiza a MP4.
 Sin CDN, sin APIs ni servicios pagos: GSAP, fuentes y plantillas viajan dentro de la skill.
@@ -38,7 +36,8 @@ Las rutas de imágenes/videos se resuelven relativas al `params.json` (también 
 ### Parámetros globales (todos los efectos)
 | Parámetro | Default | Qué hace |
 |---|---|---|
-| `tema` | `ceinca-social` | `ceinca-social`, `ceinca-guias` o `cliente-<nombre>` (ver Marca) |
+| `tema` | `ceinca-social` | `ceinca-social`, `ceinca-guias`, `marca-soyeduardo-ia`, `cliente-<nombre>` o `estilo-<nombre>` |
+| `formato` | `vertical` | `vertical` (`1080×1920`, 9:16 Reels/TikTok) o `horizontal` (`1920×1080`, 16:9 YouTube) |
 | `duracion` | `4` | segundos por efecto |
 | `zonaSegura` | `{ "arriba": 250, "abajo": 350 }` | px libres de texto clave arriba/abajo |
 | `contador` | — | overlay `NN/TT`: `{ "n": 3, "total": 11 }` o texto `"03/11"` |
@@ -76,6 +75,8 @@ Un `params.example.json` por efecto vive en `effects/<id>/`; versiones listas pa
 - `themes/brand.lock.json` guarda el hash del/los archivo(s) de tokens, la fecha y las familias. `render.mjs` compara el hash con el manual actual cuando el repo está presente y, si cambió, se detiene y pide correr `sync-brand`.
 - Las plantillas en `effects/` y `shared/` **solo** usan `var(--fx-*)`. `bash scripts/check.sh` falla si encuentra hex/rgb/hsl/nombres de color literales, `font-family` que no sea `var(--fx-font-*)`, el nombre de una familia del lock o cualquier URL externa.
 - **Clientes:** `themes/clientes/<cliente>.json` con el mismo esquema semántico (`colores.{bg,bg2,surface,surface2,text,textMuted,accent,accent2,accentDark,onAccent,line,danger,ok}`, `fuentes.{display,body}.{familia,pesos}`, `forma.{radius,radiusLg}`); `sync-brand` los procesa a `themes/cliente-<cliente>.css`. Uso: `"tema": "cliente-<cliente>"`.
+- **Estilos (Bloque 4):** `themes/estilos/<estilo>.json`, mismo esquema que los clientes más opcionales `gradBg`, `gradAccent`, `shadowCard`, `shadowAccent`, `extraCss` (CSS libre del estilo, p. ej. textura de papel) y `fuentes.mono`. `sync-brand` los emite como `themes/estilo-<estilo>.css`. Uso: `"tema": "estilo-dark-tech"`. Un estilo **no es la marca CEINCA**: es una paleta/tipografía alterna aplicable a cualquier efecto.
+- **Rol `--fx-font-mono`:** rol técnico para consola/código. `tokens.md` no lo define, así que `sync-brand` usa por defecto JetBrains Mono (declarado en `DEFAULT_MONO` dentro del script, no en las plantillas) y cualquier tema JSON lo puede sobrescribir.
 - Pruebas de marca alterna: `node scripts/sync-brand.mjs --tokens <md> --guias ninguno --out <dir>` genera un tema fuera de la skill (sin tocar el lock) y `render.mjs --marca-dir <dir>` lo usa.
 
 ### Cuando cambie el manual de marca
@@ -114,7 +115,7 @@ ceinca-video-fx/
 ├─ SKILL.md · package.json
 ├─ effects/<id>/index.html + params.example.json (+ prepare.mjs en muro-videos)
 ├─ shared/        base.css (solo --fx-*) · fx.js (runtime: overlays, drive, rich text, íconos)
-├─ themes/        ceinca-social.css · ceinca-guias.css · brand.lock.json · clientes/
+├─ themes/        ceinca-social.css · ceinca-guias.css · estilo-*.css · brand.lock.json · clientes/ · estilos/
 ├─ vendor/        gsap/ (+LICENSE.md) · fonts/ (+ licencia por familia)
 ├─ scripts/       sync-brand · render · reel · clip · check.sh · build-zip.sh · make-assets
 └─ examples/      <id>.json · clip-zoom-*.json · reel-bloque1.json · assets/
@@ -225,3 +226,125 @@ Resuelve la limitación de superponer gráficos, títulos o subtítulos sobre vi
 node scripts/overlay.mjs --base mi-clip.mp4 --overlay examples/subtitulos-karaoke.json --key 0x122A63 -o out/final.mp4
 ```
 
+---
+
+## Bloque 4 — Estilos visuales (Video-as-Code) y 7 efectos nuevos
+
+Origen: especificación "Video-as-Code" (vertical 9:16, 1080×1920, 30 fps, todo definido por código y renderizado cuadro a cuadro, sin editor de línea de tiempo ni modelos de difusión). Este motor ya cumple ese paradigma (HTML/CSS/SVG + GSAP → Chromium headless + FFmpeg), por eso **no hace falta Remotion** ni otro framework: se extendió esta skill en vez de crear otra.
+
+### Concepto: estilo = tema; variación = combinar efecto × tema
+Un **estilo** es un tema (`themes/estilos/*.json` → `themes/estilo-*.css`). **Cualquier efecto puede renderizarse en cualquier tema** cambiando solo `"tema"` (o `--tema`). Así un mismo guion produce versiones distintas sin tocar plantillas.
+
+| Estilo | Tema | Look | Fuentes (vendorizadas) |
+|---|---|---|---|
+| A · Dark Tech UI | `estilo-dark-tech` | carbón con cuadrícula 40 px y brillos radiales de acento terracota | Anton + Poppins |
+| B · Red Glow | `estilo-red-glow` | negro con carmesí, tarjetas de cristal | Poppins 800 + Playfair Display |
+| C · Ukiyo-e | `estilo-ukiyo-e` | papel de arroz envejecido, textura y marco de pergamino, tintas minerales (bermellón / ocre / índigo / musgo) | Noto Serif |
+
+Los valores de color/fuente de cada estilo viven **solo** en su JSON. Para crear otro estilo: copiar un JSON de `themes/estilos/`, ajustar, `npm run sync-brand`, `bash scripts/check.sh`.
+Parámetro opcional `"orbe": true`: orbe difuso del color `--fx-accent-dark` que deriva por el fondo (lo usan los efectos nuevos; pensado para Red Glow).
+
+### Efectos nuevos (`effects/<id>/`, ejemplos en `examples/<id>.json`)
+
+| id | Estilo natural | Comportamiento | Parámetros |
+|---|---|---|---|
+| `pasos-progreso` | A | Barra de progreso segmentada que se llena por pasos + numeral gigante con contorno | `pasos[]` (`{titulo, detalle}`) |
+| `consola-macos` | A | Ventana tipo macOS; los comandos se escriben (typewriter) con cursor parpadeante | `titulo`, `lineas[]` con marca: `$ ` comando · `> ` salida · `+ ` éxito · `! ` error |
+| `diagrama-nodos` | A | Nodos conectados con trazos SVG que se dibujan (`stroke-dashoffset`) y un pulso que viaja por cada enlace | `titulo`, `nodos[]` (`{id, etiqueta, icono, x, y}` en %), `enlaces[]` (pares de ids; si falta se encadenan) |
+| `zoom-atraves` | B | Transición "zoom-through": anillos concéntricos escalan masivamente y revelan la escena B | `a`/`b` = `{kicker, titular}` |
+| `telefono-chat` | B | Teléfono 3D con burbujas de chat secuenciales y "escribiendo…" | `nombre`, `mensajes[]` (`{de: "yo"\|"ceinca", texto}`) — máx. ~6 cortos; si no caben **falla a propósito** |
+| `collage-papel` | C | Piezas de papel rasgado con medios tonos, entrada stop-motion (pasos) y vibración a 6 cuadros/seg | `kicker`, `titular`, `subtitulo`, `sello` |
+| `camara-continua` | C | Toma continua (one-take): la cámara sigue en vertical a una hoja que cae del cielo por la cascada hasta un río de olas *seigaiha*; cartelas y sello fijos | `cartelas[]`, `sello` |
+| `garabato-vivo` + `"hervor": true` | B | Los trazos "hierven" (filtro `feTurbulence`+`feDisplacementMap`, semilla nueva cada 3 cuadros) | (opción nueva del efecto existente) |
+
+```bash
+cd .claude/skills/ceinca-video-fx && npm install   # primera vez
+node scripts/render.mjs examples/pasos-progreso.json -o out/pasos.mp4
+node scripts/render.mjs examples/portada.json --tema estilo-ukiyo-e -o out/portada-ukiyo.mp4     # variación: mismo efecto, otro estilo
+node scripts/reel.mjs examples/reel-estilo-c-ukiyo-e.json -o out/reel-ukiyo.mp4                  # reels de muestra: reel-estilo-a-dark-tech · -b-red-glow · -c-ukiyo-e
+```
+Los efectos del Bloque 4 duran 5–6 s (el JSON trae `"duracion"`); `render.mjs` mantiene sus validaciones (zonas seguras, marca desacoplada, determinismo).
+
+### Verificación rápida (nuevo)
+```bash
+node scripts/render.mjs examples/portada.json --tema estilo-red-glow --frame 2 -o out/prev.png   # PNG de un instante, ~3 s, sin renderizar el video
+node scripts/render.mjs examples/portada.json --tema estilo-red-glow --solo-auditoria            # zonas seguras + errores de página, ~3 s
+bash scripts/check.sh matriz                                                                       # TODOS los efectos × TODOS los temas (≈5 min)
+```
+`check.sh matriz` es el paso a correr al crear un efecto o un estilo nuevo: detecta texto fuera de zona segura y errores de plantilla en cada combinación antes de gastar tiempo en renderizar.
+
+### Al escribir plantillas nuevas (aprendido en este bloque)
+- **No midas layout antes de que carguen las fuentes.** Al correr el script la fuente real aún no se pidió y `document.fonts.ready` ya está resuelto: se mide con la fuente de respaldo y, con una tipografía más ancha, el texto salta de línea y todo se desplaza (así falló `diagrama-nodos` en Ukiyo-e). Soluciones usadas: alturas fijas para los bloques que definen el lienzo, layout por CSS en vez de medir (`collage-papel`), bordes con `%`/`calc()` (`FX.rasgado`), o esperar con `FX.afterFonts(fn)`, que fuerza la carga de las familias del tema.
+- `FX.fail(msg)` declara un error de plantilla que el motor siempre reporta (código 4), incluso si ocurre dentro de una promesa (`telefono-chat` lo usa cuando los mensajes no caben).
+- `FX.mejorTexto('--fx-accent-2')` elige entre `--fx-text` / `--fx-bg` / `--fx-on-accent` el color con mayor contraste (WCAG) sobre una pieza de color del tema. Úsalo cuando el fondo del texto cambie según el estilo.
+- Con `justify-content:flex-end` el desborde hacia arriba **no** suma a `scrollHeight`; mide con `offsetTop`/`offsetHeight` (inmunes a transformaciones 3D).
+
+### Qué cubre y qué no (mapeo contra la especificación original)
+
+| Ítem de la especificación | Estado |
+|---|---|
+| A · barra segmentada + numeración con `-webkit-text-stroke` | ✓ `pasos-progreso` |
+| A · ventana macOS con typewriter | ✓ `consola-macos` |
+| A · diagrama de nodos con `stroke-dashoffset` | ✓ `diagrama-nodos` |
+| A · subtítulos palabra por palabra | ✓ `subtitulos-karaoke` (existente; palabra activa en acento con *scale*; no es física de resorte real) |
+| A · fondo cuadrícula + radiales **animados** | ◐ cuadrícula y radiales en el tema; los radiales son estáticos |
+| B · Orbit · Frame Break · UI World · Chart Grow | ✓ `orbita` · `rompe-marco` · `mundo-app` · `grafica-crece` (existentes) |
+| B · Phone Mockup con chat · Zoom-Through · Doodle Boil | ✓ `telefono-chat` · `zoom-atraves` · `garabato-vivo` + `hervor` |
+| B · Headline Wall (etiquetas a -4°) · Glass Type (`background-clip:text` + destello) · Digital Zoom con contadores | ✗/◐ `muro-titulares` y `texto-cristal` cubren la idea pero **sin** la inclinación ni el texto-cristal con destello; el zoom digital existe sobre clip (`clip.mjs`), sin contador sincronizado |
+| B · subtítulos serif **cursiva** | ✗ `sync-brand` solo vendoriza fuentes *normal* (el estilo usa Playfair Display recto) |
+| C · textura de papel + marco de pergamino | ✓ tema `estilo-ukiyo-e` (`extraCss`) |
+| C · OneTake (cámara continua) · Collage halftone | ✓ `camara-continua` · `collage-papel` (+ `corta-pega` existente) |
+| C · Morphing de código HTML a trazados · p5.brush / WebGL | ✗ no implementado (requiere motor de glifos→paths y runtime Canvas/WebGL que esta skill no incluye) |
+| Skills de terceros citadas (remotion-dev/skills, onetake, gbro-collage-broll, ClaudeAnimationBase, lemo-opuscar) | no se instalaron ni se verificaron sus repos; esta skill es de producción propia |
+
+### Notas del Bloque 4
+- **Color de acento del Estilo A:** la especificación pide el naranja terracota de Claude/Anthropic; aquí es solo un valor del tema `estilo-dark-tech` (cámbialo en su JSON si el contenido es de marca CEINCA).
+- Ukiyo-e es un **estilo** (papel, tintas, motivos tradicionales como *seigaiha*); no reproduce ninguna obra concreta.
+- Audit de zonas seguras: el texto de Anton/Noto ocupa más alto que su `line-height`; deja ~25 px de colchón arriba al diseñar títulos en la zona superior.
+- Escenas con cámara o transiciones largas marcan `data-fx-skip-audit` solo en el elemento que sale de cuadro (`zoom-atraves`, escena A).
+
+## Audio sincronizado (música + SFX)
+`node scripts/audio.mjs <reel.json> <reel.mp4> [-o salida.mp4] [--bpm 120] [--sin-musica] [--sin-sfx] [--cues-json cues.json]`
+- **Sincronía real, no estimada:** `render.mjs` (opción `cuesOut`) lee del timeline GSAP el instante de cada animación; `audio.mjs` las clasifica en sonidos (entrada con movimiento → whoosh, `back.out` → pop/ding, trazo SVG → dibujo, barra `scaleX` → relleno, anillos de zoom → riser, typewriter → teclas a ~22 car/s, collage `steps()` → papel) y fusiona por familia (un stagger de 3 elementos = un solo sonido). Cada corte de escena lleva un golpe grave.
+- **Todo sintetizado por código** (`scripts/sfx_synth.py`, numpy, determinista): sin muestras ni licencias externas. Música Am–F–C–G a 120 bpm: 6 s = 3 compases, así cada corte cae en inicio de compás; la música baja ~5 dB bajo cada SFX. Salida AAC 48 kHz, ≈ −14 LUFS.
+- **Verificado:** con SFX solos, correlación audio↔movimiento de video máxima en desfase 0 cuadros. Lección: el pico del whoosh debe coincidir con el arranque del movimiento (ataque inmediato), no con su mitad.
+- Límites: el audio refleja las animaciones GSAP; efectos FFmpeg de clip (Bloque 2/3) no exponen timeline y no se sincronizan aquí. Es música de acompañamiento genérica: para pista de marca, sustituir el mix de `sfx_synth.py` o mezclar con ffmpeg.
+
+---
+
+## Bloque 5 — Modo Horizontal YouTube (16:9), Grabador de Demos y Flujo Editor Architect en Linux
+
+Inspirado y adaptado de la arquitectura de flujo conversacional (`video-editor-architect`, MIT) pero ejecutado **100% sobre el motor propio `ceinca-video-fx` en Linux** (sin Remotion y respetando el estándar **`-16 LUFS`** de CEINCA / `@soyeduardo.ia`).
+
+### 1. Formato Dual: Vertical `9:16` (`1080×1920`) y Horizontal YouTube `16:9` (`1920×1080`)
+Todos los scripts (`render.mjs`, `clip.mjs`, `overlay.mjs`, `reel.mjs`, `grabar-demo.mjs` y `check.sh`) aceptan `--formato vertical|horizontal` (o `"formato": "horizontal"` en el JSON):
+- **Vertical (`vertical` / `9:16`):** `1080×1920`, zonas seguras `250 px` arriba y `350 px` abajo (Reels, TikTok, Shorts).
+- **Horizontal (`horizontal` / `16:9`):** `1920×1080`, zonas seguras `80 px` arriba y `90 px` abajo (videos largos de YouTube, clases de cursos, webinars y presentaciones de pantalla). En `shared/base.css`, `#root[data-formato="horizontal"]` adapta automáticamente grillas, tipografías y tarjetas al apaisado 16:9.
+
+```bash
+node scripts/render.mjs examples/diagrama-nodos.json --tema marca-soyeduardo-ia --formato horizontal -o out/nodos-yt.mp4
+node scripts/clip.mjs examples/clip-zoom-corte.json --formato horizontal -o out/clip-yt.mp4
+node scripts/overlay.mjs --base out/clip-yt.mp4 --overlay examples/subtitulos-karaoke.json --formato horizontal --key 0x0B0F17 -o out/final-yt.mp4
+```
+
+### 2. Grabador Determinista de Demos Web/App (`scripts/grabar-demo.mjs` · comando `/grabar-demo`)
+Graba cualquier URL o aplicación local a 30 fps reales en Linux, tanto en **vertical (`1080×1920`)** como en **horizontal (`1920×1080`)**:
+```bash
+# Demo vertical 9:16 con marco de navegador sobre fondo @soyeduardo.ia (para Reel)
+node scripts/grabar-demo.mjs --url https://tu-web.com --formato vertical --modo marco --tema marca-soyeduardo-ia -o out/demo-reel.mp4
+
+# Demo horizontal 16:9 con marco o pantalla completa (para YouTube / curso)
+node scripts/grabar-demo.mjs --url https://tu-web.com --formato horizontal --modo marco --tema marca-soyeduardo-ia -o out/demo-youtube.mp4
+```
+- **Tres modos (`--modo`):** `pantalla` (lienzo completo `1080×1920` o `1920×1080`), `marco` (ventana con barra superior y semáforo sobre el fondo `--fx-bg` del tema) y `telefono` (mockup móvil centrado).
+- **Candado de privacidad automático:** difumina cualquier `input[type="password"]` o `[data-secret]` antes de capturar cada cuadro y nunca lee ni escribe contraseñas.
+
+### 3. Diagnóstico del Sistema en Linux (`scripts/doctor.mjs` · comando `/doctor`)
+Verifica de un vistazo sistema operativo, espacio libre (≥ 5 GB), Node.js, Git, FFmpeg + filtros (`loudnorm`, `ebur128`, `colorkey`, `chromakey`, `zoompan`), Chromium headless, Python 3 + NumPy (`sfx_synth.py`), herramientas opcionales (`whisper`, `yt-dlp`), integridad de `brand.lock.json` y verificación ciega de `~/.config/ceinca-editor/.env` (reporta solo si una llave opcional está configurada o vacía, **sin leer ni imprimir jamás su valor**).
+
+### 4. Auditoría de Entrega Final (`bash scripts/check.sh reel <mp4>`)
+Verifica que el MP4 terminado cumpla resolución exacta (`1080×1920` o `1920×1080`), `30 fps`, códec `h264`, `yuv420p` y sonoridad integrada EBU R128 en **`-16.0 LUFS` (± 1.5 LU)**.
+
+### 5. Comandos de Estudio en el Repo (`.claude/commands/` + `estilos/`)
+- `/editar`: flujo guiado en **3 paradas** (Parada 1: Texto y recorte de silencios/repeticiones; Parada 2: Dirección y escaleta en `vertical` 9:16 o `horizontal` 16:9; Parada 3: Render a `-16 LUFS` y reporte **`Cumple X de Y reglas`**).
+- `/ajustar`: aplica cambios puntuales generando `final-v2.mp4`, `final-v3.mp4` sin pisar la versión anterior y guarda reglas permanentes en `estilos/<id>/aprendizajes.md` y `perfil.json`.

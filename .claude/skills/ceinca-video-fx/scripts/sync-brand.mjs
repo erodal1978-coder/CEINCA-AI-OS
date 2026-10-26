@@ -16,7 +16,7 @@ const REPO_GUIAS = path.resolve(SKILL, '../ceinca-design/references/editorial-gu
 const args = process.argv.slice(2);
 const opt = (n, d) => { const i = args.indexOf(`--${n}`); return i >= 0 ? args[i + 1] : d; };
 if (args.includes('--help')) {
-  console.log(`sync-brand [--tokens <md>] [--guias <md|ninguno>] [--out <dir>] [--clientes <dir>]
+  console.log(`sync-brand [--tokens <md>] [--guias <md|ninguno>] [--out <dir>] [--clientes <dir>] [--estilos <dir>]
   --tokens    tokens modo Social (default: ${path.relative(process.cwd(), REPO_TOKENS)})
   --guias     editorial-guides modo Guías, o "ninguno" (default: ${path.relative(process.cwd(), REPO_GUIAS)})
   --out       raíz de salida con themes/ y vendor/fonts/ (default: la skill). Con --out distinto
@@ -28,6 +28,10 @@ const GUIAS_ARG = opt('guias', REPO_GUIAS);
 const GUIAS = GUIAS_ARG === 'ninguno' ? null : path.resolve(GUIAS_ARG);
 const OUT = path.resolve(opt('out', SKILL));
 const CLIENTES = path.resolve(opt('clientes', path.join(SKILL, 'themes/clientes')));
+const ESTILOS = path.resolve(opt('estilos', path.join(SKILL, 'themes/estilos')));
+// Rol técnico (bloques de código/consola). No es marca CEINCA: tokens.md no lo define, por eso vive aquí
+// como valor por defecto y cualquier tema JSON puede sobrescribirlo con fuentes.mono.
+const DEFAULT_MONO = { familia: 'JetBrains Mono', pesos: [400, 700] };
 const IS_DEFAULT_OUT = OUT === SKILL;
 
 const fail = (m) => { console.error(`✗ sync-brand: ${m}`); process.exit(1); };
@@ -104,18 +108,20 @@ function guiasTheme(md) {
   };
 }
 
-// ---------- clientes: json con el mismo esquema semántico ----------
-function clienteTheme(file) {
+// ---------- clientes y estilos: json con el mismo esquema semántico ----------
+// Opcionales: fuentes.mono, gradBg, gradAccent, shadowCard, shadowAccent, extraCss (CSS libre del estilo, p. ej. textura de papel).
+function temaJson(file, prefijo) {
   const j = JSON.parse(fs.readFileSync(file, 'utf8'));
   for (const k of ['bg', 'bg2', 'surface', 'surface2', 'text', 'textMuted', 'accent', 'accent2', 'accentDark', 'onAccent', 'line', 'danger', 'ok'])
     if (!j.colores?.[k]) fail(`${path.basename(file)}: falta colores.${k}`);
   if (!j.fuentes?.display?.familia || !j.fuentes?.body?.familia) fail(`${path.basename(file)}: faltan fuentes.display/body`);
   const wd = Math.max(...j.fuentes.display.pesos), wb = Math.min(...j.fuentes.body.pesos);
   return {
-    nombre: `cliente-${path.basename(file, '.json')}`,
+    nombre: `${prefijo}-${path.basename(file, '.json')}`,
     colores: j.colores, fuentes: j.fuentes, derive: true,
     pesos: { display: wd, strong: j.fuentes.body.pesos.find((p) => p > wb) ?? wb, body: wb },
     radius: j.forma?.radius ?? '12px', radiusLg: j.forma?.radiusLg ?? '20px',
+    gradBg: j.gradBg, gradAccent: j.gradAccent, shadowCard: j.shadowCard, shadowAccent: j.shadowAccent, extraCss: j.extraCss,
   };
 }
 
@@ -156,7 +162,8 @@ function vendorFont(familia, peso) {
 function emit(th) {
   const faces = [];
   const seen = new Set();
-  for (const rol of ['display', 'body']) {
+  th.fuentes.mono = th.fuentes.mono ?? DEFAULT_MONO;
+  for (const rol of ['display', 'body', 'mono']) {
     for (const p of th.fuentes[rol].pesos) {
       const key = `${th.fuentes[rol].familia}|${p}`;
       if (seen.has(key)) continue; seen.add(key);
@@ -179,13 +186,13 @@ ${faces.join('\n')}
   --fx-on-accent: ${c.onAccent}; --fx-line: ${c.line}; --fx-danger: ${c.danger}; --fx-ok: ${c.ok};
   --fx-bg-rgb: ${rgbList(c.bg)}; --fx-surface-rgb: ${rgbList(c.surface)}; --fx-text-rgb: ${rgbList(c.text)};
   --fx-accent-rgb: ${rgbList(c.accent)}; --fx-line-rgb: ${rgbList(c.line)};
-  --fx-font-display: ${fam('display')}; --fx-font-body: ${fam('body')};
+  --fx-font-display: ${fam('display')}; --fx-font-body: ${fam('body')}; --fx-font-mono: ${th.fuentes.mono.familia.includes(',') ? th.fuentes.mono.familia : `'${th.fuentes.mono.familia}', monospace`};
   --fx-fw-display: ${th.pesos.display}; --fx-fw-strong: ${th.pesos.strong}; --fx-fw-body: ${th.pesos.body};
   --fx-grad-accent: ${gradAccent}; --fx-grad-bg: ${gradBg};
   --fx-radius: ${th.radius}; --fx-radius-lg: ${th.radiusLg};
   --fx-shadow-card: ${shadowCard}; --fx-shadow-accent: ${shadowAccent};
 }
-`;
+${th.extraCss ? th.extraCss + '\n' : ''}`;
   fs.mkdirSync(path.join(OUT, 'themes'), { recursive: true });
   fs.writeFileSync(path.join(OUT, 'themes', `${th.nombre}.css`), css);
   console.log(`✓ tema ${th.nombre}  (${[...new Set([th.fuentes.display.familia, th.fuentes.body.familia])].join(', ')})`);
@@ -196,7 +203,8 @@ const tokensBuf = Buffer.from(read(TOKENS));
 const temas = [socialTheme(tokensBuf.toString('utf8'))];
 let guiasBuf = null;
 if (GUIAS) { guiasBuf = Buffer.from(read(GUIAS)); temas.push(guiasTheme(guiasBuf.toString('utf8'))); }
-if (fs.existsSync(CLIENTES)) for (const f of fs.readdirSync(CLIENTES).filter((x) => x.endsWith('.json')).sort()) temas.push(clienteTheme(path.join(CLIENTES, f)));
+if (fs.existsSync(CLIENTES)) for (const f of fs.readdirSync(CLIENTES).filter((x) => x.endsWith('.json')).sort()) temas.push(temaJson(path.join(CLIENTES, f), 'cliente'));
+if (fs.existsSync(ESTILOS)) for (const f of fs.readdirSync(ESTILOS).filter((x) => x.endsWith('.json')).sort()) temas.push(temaJson(path.join(ESTILOS, f), 'estilo'));
 temas.forEach(emit);
 
 if (IS_DEFAULT_OUT) {

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>zoom-atraves</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  .esc { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 90px; }
+  .kick { font-family:var(--fx-font-mono); font-size:38px; letter-spacing:.2em; text-transform:uppercase; margin-bottom:30px; }
+  .tt { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:150px; line-height:1.02; letter-spacing:-.02em; text-transform:uppercase; }
+  #escA .kick { color:var(--fx-text-muted); }
+  #escB { background:var(--fx-grad-accent); color:var(--fx-on-accent); clip-path:circle(0px at 540px 910px); }
+  #escB .kick { color:var(--fx-on-accent); opacity:.85; }
+  #escB .fx-hl { color:var(--fx-on-accent); text-decoration:underline; text-decoration-thickness:10px; text-underline-offset:14px; }
+  .anillo { position:absolute; left:540px; top:910px; width:300px; height:300px; margin:-150px 0 0 -150px; border-radius:50%; border:14px solid var(--fx-accent); z-index:20; pointer-events:none; opacity:0; }
+  .anillo.b { border-color:var(--fx-text); border-width:8px; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div class="esc" id="escA" data-fx-skip-audit><div class="kick" id="kA"></div><div class="tt" id="tA"></div></div>
+<div class="esc" id="escB"><div class="kick" id="kB"></div><div class="tt" id="tB"></div></div>
+<div id="area" class="fx-area fx-free" style="pointer-events:none"></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({ duracion: 5, a: { kicker: 'Antes', titular: 'Meses de **trámites**' }, b: { kicker: 'Ahora', titular: 'Tu empresa **en línea**' } });
+FX.orbe(ctx);
+const { P, tl, D, root } = ctx;
+// El centro del portal es el centro de la zona segura (se mide: depende de overlays).
+const ar = document.getElementById('area').getBoundingClientRect();
+const cx = Math.round(ar.left + ar.width / 2), cy = Math.round(ar.top + ar.height / 2);
+const A = document.getElementById('escA'), B = document.getElementById('escB');
+[A, B].forEach((e) => { e.style.paddingTop = 'calc(var(--content-top) - 100px)'; e.style.paddingBottom = 'calc(var(--safe-bottom) - 100px)'; });
+FX.setRich(document.getElementById('kA'), P.a.kicker); FX.setRich(document.getElementById('tA'), P.a.titular);
+FX.setRich(document.getElementById('kB'), P.b.kicker); FX.setRich(document.getElementById('tB'), P.b.titular);
+const rings = [];
+for (let i = 0; i < 6; i++) { const r = FX.el('div', 'anillo' + (i % 2 ? ' b' : ''), root); r.style.left = cx + 'px'; r.style.top = cy + 'px'; rings.push(r); }
+const T0 = D * 0.40, TT = D * 0.30;                  // inicio y duración del cruce
+tl.from('#kA', { y: 30, opacity: 0, duration: 0.5, ease: 'power3.out' }, 0.05);
+tl.from('#tA', { y: 60, opacity: 0, scale: 0.94, duration: 0.7, ease: 'power3.out' }, 0.15);
+tl.to('#escA', { scale: 2.6, opacity: 0, duration: TT * 0.9, ease: 'power3.in', transformOrigin: cx + 'px ' + cy + 'px' }, T0 + TT * 0.15);
+rings.forEach((r, i) => {
+  tl.fromTo(r, { scale: 0.05, opacity: 1 }, { scale: 26, duration: TT, ease: 'power3.in' }, T0 + i * (TT * 0.07));
+  tl.to(r, { opacity: 0, duration: 0.08, ease: 'none' }, T0 + i * (TT * 0.07) + TT - 0.02);
+});
+FX.drive(tl, 0, 1, { duration: TT, ease: 'power3.in' }, (v) => { B.style.clipPath = 'circle(' + Math.round(v * 1900) + 'px at ' + cx + 'px ' + cy + 'px)'; }, T0 + TT * 0.08);
+tl.from('#tB', { scale: 0.7, duration: TT, ease: 'power3.out' }, T0 + TT * 0.35);
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

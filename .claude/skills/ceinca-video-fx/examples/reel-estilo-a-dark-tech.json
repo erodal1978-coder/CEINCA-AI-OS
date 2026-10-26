@@ -1,0 +1,11 @@
+{
+  "tituloFijo": "Dark Tech",
+  "tema": "estilo-dark-tech",
+  "duracion": 6,
+  "efectos": [
+    "pasos-progreso.json",
+    "consola-macos.json",
+    "diagrama-nodos.json",
+    "subtitulos-karaoke.json"
+  ]
+}

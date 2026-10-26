@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>collage-papel</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>  /* Layout 100 % CSS (sin medir texto): la altura de cada pieza la decide el contenido y el borde rasgado va en %. */
+  .grupo { position:absolute; left:0; width:960px; top:50%; transform:translateY(-50%); padding-bottom:70px; }
+  .pz { position:relative; will-change:transform; filter:drop-shadow(0 10px 10px rgba(var(--fx-text-rgb),.28)); }
+  .pz.abs { position:absolute; }
+  .in { position:relative; box-sizing:border-box; }
+  #pHoja { left:20px; top:90px; bottom:0; width:920px; }
+  #pHoja .in { height:100%; background:var(--fx-accent-dark); overflow:hidden; }
+  #pTira { width:860px; margin:150px 0 0 50px; }
+  #pTira .in { background:var(--fx-surface); color:var(--fx-text); padding:46px 54px 52px; }
+  #pSub { width:760px; margin:-44px 0 0 150px; }
+  #pSub .in { background:var(--fx-accent-2); color:var(--fx-text); padding:30px 44px 34px; }
+  #pTag { left:30px; top:56px; width:440px; }
+  #pTag .in { background:var(--fx-accent); color:var(--fx-on-accent); padding:22px 38px; }
+  #pSello { left:740px; top:6px; width:170px; height:170px; }
+  #pSello .in { height:100%; background:var(--fx-accent); color:var(--fx-on-accent); display:flex; align-items:center; justify-content:center; text-align:center; border:8px double var(--fx-on-accent); }
+  .tt { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:112px; line-height:1.02; letter-spacing:-.02em; text-transform:uppercase; }
+  .kk { font-family:var(--fx-font-mono); font-weight:700; font-size:34px; letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; }
+  .ss { font-size:44px; line-height:1.22; font-weight:var(--fx-fw-strong); }
+  .sl { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:32px; line-height:1.1; letter-spacing:.04em; text-transform:uppercase; }
+  .ht { position:absolute; inset:0; background:radial-gradient(circle at center, var(--fx-accent-2) 34%, transparent 36%) 0 0 / 30px 30px; opacity:.55; -webkit-mask-image:radial-gradient(ellipse at 85% 90%, var(--fx-text) 0%, transparent 65%); mask-image:radial-gradient(ellipse at 85% 90%, var(--fx-text) 0%, transparent 65%); }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+<div id="area" class="fx-area fx-free"><div class="grupo" id="grupo">
+  <div class="pz abs" id="pHoja"><div class="in"><div class="ht"></div></div></div>
+  <div class="pz" id="pTira"><div class="in"><div class="tt" id="tt"></div></div></div>
+  <div class="pz" id="pSub"><div class="in"><div class="ss" id="ss"></div></div></div>
+  <div class="pz abs" id="pTag"><div class="in"><div class="kk" id="kk"></div></div></div>
+  <div class="pz abs" id="pSello"><div class="in"><div class="sl" id="sl"></div></div></div>
+</div></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({ duracion: 5, kicker: 'Paso a paso', titular: 'Registra tu empresa **sin filas**', subtitulo: 'Todo el trámite, desde tu casa.', sello: 'CEINCA' });
+FX.orbe(ctx);
+const { P, tl, D, rng } = ctx;
+FX.setRich(document.getElementById('tt'), P.titular); FX.setRich(document.getElementById('ss'), P.subtitulo);
+document.getElementById('kk').textContent = P.kicker; document.getElementById('sl').textContent = P.sello;
+document.querySelector('#pSub .in').style.color = FX.mejorTexto('--fx-accent-2');   // contraste correcto sobre el color de la franja en cualquier tema
+// Borde rasgado (sólo el ancho es fijo) + giro base de cada pieza.
+const defs = [['pHoja', 920, 14, -4], ['pTira', 860, 10, 2.5], ['pSub', 760, 9, -2], ['pTag', 440, 8, -6], ['pSello', 170, 4, 8]];
+const piezas = defs.map(([id, w, amp, rot]) => {
+  const wr = document.getElementById(id), inn = wr.firstElementChild;
+  inn.style.clipPath = FX.rasgado(rng, w, amp, 28, id === 'pSello' ? 4 : 10);
+  gsap.set(wr, { rotation: rot });
+  return { wr, inn, rot };
+});
+// Entrada tipo stop-motion: pasos discretos (steps) desde fuera del cuadro, con desfase entre piezas.
+const dirs = [[-120, 0], [140, 0], [-160, 0], [0, -160], [0, 140]];
+piezas.forEach((p, i) => {
+  const at = 0.1 + i * 0.22;
+  tl.fromTo(p.wr, { x: dirs[i][0], y: dirs[i][1], opacity: 0, rotation: p.rot + (i % 2 ? 9 : -9) }, { x: 0, y: 0, opacity: 1, rotation: p.rot, duration: 0.5, ease: 'steps(5)' }, at);
+  // "hervor" de stop-motion: tras entrar, la pieza vibra a 6 cuadros/seg (determinista, sobre el elemento interno).
+  const dur = D - at - 0.6;
+  FX.drive(tl, 0, 1, { duration: dur, ease: 'none' }, (v) => {
+    const k = Math.floor(v * dur * 6) + i;
+    gsap.set(p.inn, { rotation: (k % 2 ? 0.9 : -0.9), y: (k % 3 - 1) * 2 });
+  }, at + 0.6);
+});
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

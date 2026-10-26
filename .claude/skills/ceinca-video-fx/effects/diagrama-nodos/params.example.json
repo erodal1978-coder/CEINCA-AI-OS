@@ -1,0 +1,42 @@
+{
+  "efecto": "diagrama-nodos",
+  "duracion": 6,
+  "titulo": "Así viaja tu **trámite**",
+  "nodos": [
+    {
+      "id": "a",
+      "etiqueta": "Tú",
+      "icono": "user",
+      "x": 27,
+      "y": 10
+    },
+    {
+      "id": "b",
+      "etiqueta": "Documentos",
+      "icono": "doc",
+      "x": 73,
+      "y": 30
+    },
+    {
+      "id": "c",
+      "etiqueta": "Revisión",
+      "icono": "shield",
+      "x": 27,
+      "y": 50
+    },
+    {
+      "id": "d",
+      "etiqueta": "Registro",
+      "icono": "building",
+      "x": 73,
+      "y": 69
+    },
+    {
+      "id": "e",
+      "etiqueta": "Listo",
+      "icono": "check",
+      "x": 27,
+      "y": 88
+    }
+  ]
+}

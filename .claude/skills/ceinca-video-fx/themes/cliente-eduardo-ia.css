@@ -1,0 +1,20 @@
+/* GENERADO por scripts/sync-brand.mjs — no editar a mano. Tema: cliente-eduardo-ia */
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 800; font-display: block; src: url('../vendor/fonts/manrope-latin-800-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 400; font-display: block; src: url('../vendor/fonts/manrope-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 600; font-display: block; src: url('../vendor/fonts/manrope-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 700; font-display: block; src: url('../vendor/fonts/manrope-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: block; src: url('../vendor/fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 700; font-display: block; src: url('../vendor/fonts/jetbrains-mono-latin-700-normal.woff2') format('woff2'); }
+:root {
+  --fx-bg: #0B0F17; --fx-bg-2: #131B2E; --fx-surface: #131B2E; --fx-surface-2: #1C2742;
+  --fx-text: #F8FAFC; --fx-text-muted: #94A3B8;
+  --fx-accent: #C6FF3D; --fx-accent-2: #38BDF8; --fx-accent-dark: #9EE01A;
+  --fx-on-accent: #0B0F17; --fx-line: #1E293B; --fx-danger: #EF4444; --fx-ok: #C6FF3D;
+  --fx-bg-rgb: 11, 15, 23; --fx-surface-rgb: 19, 27, 46; --fx-text-rgb: 248, 250, 252;
+  --fx-accent-rgb: 198, 255, 61; --fx-line-rgb: 30, 41, 59;
+  --fx-font-display: 'Manrope', sans-serif; --fx-font-body: 'Manrope', sans-serif; --fx-font-mono: 'JetBrains Mono', monospace;
+  --fx-fw-display: 800; --fx-fw-strong: 600; --fx-fw-body: 400;
+  --fx-grad-accent: linear-gradient(135deg, #C6FF3D 0%, #9EE01A 55%, #38BDF8 100%); --fx-grad-bg: linear-gradient(180deg, #0B0F17 0%, #131B2E 100%);
+  --fx-radius: 14px; --fx-radius-lg: 22px;
+  --fx-shadow-card: 0 8px 32px rgba(0,0,0,0.45); --fx-shadow-accent: 0 4px 24px rgba(198,255,61,0.28);
+}

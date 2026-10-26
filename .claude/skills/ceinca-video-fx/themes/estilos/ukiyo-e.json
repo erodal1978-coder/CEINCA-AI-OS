@@ -1,0 +1,18 @@
+{
+  "_nota": "Estilo C — Narrativa ilustrada tipo xilografía japonesa (estilo, no obras concretas). Papel de arroz envejecido + tintas minerales: bermellón (accent), ocre (accent2), índigo (accentDark), verde musgo (ok).",
+  "colores": {
+    "bg": "#EFE6D5", "bg2": "#E3D6BC", "surface": "#F7F0E1", "surface2": "#DCCDB0",
+    "text": "#1F2A44", "textMuted": "#6B5B45",
+    "accent": "#C8442C", "accent2": "#C99A2E", "accentDark": "#1E3A5F",
+    "onAccent": "#F7F0E1", "line": "#8C7A58", "danger": "#A3261A", "ok": "#5E7A3A"
+  },
+  "fuentes": {
+    "display": { "familia": "Noto Serif", "pesos": [800] },
+    "body": { "familia": "Noto Serif", "pesos": [400, 600] }
+  },
+  "forma": { "radius": "6px", "radiusLg": "10px" },
+  "gradBg": "linear-gradient(180deg, #F3EBDA 0%, #EFE6D5 55%, #E1D3B6 100%)",
+  "shadowCard": "0 6px 18px rgba(70,50,30,0.22)",
+  "shadowAccent": "0 4px 14px rgba(200,68,44,0.30)",
+  "extraCss": "/* textura de papel de arroz + marco de pergamino (capas de #root, sobre el contenido) */\n#root::before { content:''; position:absolute; inset:0; z-index:44; pointer-events:none; box-shadow: inset 0 0 240px rgba(110,80,40,0.38); border: 5px double rgba(70,50,30,0.55); background-clip: padding-box; margin: 30px; width: calc(100% - 60px); height: calc(100% - 60px); }\n#root::after { content:''; position:absolute; inset:0; z-index:45; pointer-events:none; mix-blend-mode:multiply; opacity:0.62; background-size: 540px 540px; background-image: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='540' height='540'><filter id='p' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' seed='7' result='n'/><feColorMatrix in='n' values='0 0 0 0 0.46  0 0 0 0 0.37  0 0 0 0 0.22  0 0 0 0.9 -0.18'/></filter><rect width='540' height='540' filter='url(%23p)'/></svg>\"); }"
+}

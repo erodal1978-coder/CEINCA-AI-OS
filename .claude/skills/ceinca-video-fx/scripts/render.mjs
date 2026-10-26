@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// render.mjs — params.json → MP4 (1080×1920, 30 fps, H.264, yuv420p).
+// render.mjs — params.json → MP4 (1080×1920 vertical 9:16 o 1920×1080 horizontal 16:9, 30 fps, H.264, yuv420p).
 // Ruta 1: HyperFrames CLI (composición HTML con timeline GSAP pausado en window.__timelines).
 // Ruta 2 (respaldo): mismo timeline, seek frame a frame + captura Playwright + unión con FFmpeg.
 import fs from 'node:fs';
@@ -10,18 +10,22 @@ import { spawnSync, spawn } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 export const SKILL = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const FPS = 30, W = 1080, H = 1920;
+const FPS = 30;
 const argv = process.argv.slice(2);
 
 function usage() {
   console.log(`Uso: node scripts/render.mjs <params.json> [opciones]
   -o, --salida <mp4>        archivo de salida (default: out/<efecto>-<tema>.mp4)
+  --formato <vertical|horizontal>  9:16 (1080×1920, default) o 16:9 YouTube (1920×1080)
   --motor <auto|hyperframes|respaldo>   (default: auto → HyperFrames y, si falla, respaldo)
   --duracion <seg>          sobreescribe la duración (default 4)
   --tema <nombre>           sobreescribe el tema (default: params.tema o ceinca-social)
   --marca-dir <dir>         raíz alterna con themes/ y vendor/fonts/ (pruebas de cambio de marca)
-  --zona-arriba <px> --zona-abajo <px>   zonas seguras (default 250 / 350)
+  --zona-arriba <px> --zona-abajo <px>   zonas seguras (default 250/350 en vertical, 80/90 en horizontal)
   --sin-auditoria           no auditar texto fuera de zonas seguras
+  --con-overlay             añade título fijo + contador de prueba (como en reel.mjs): valida el layout con la zona superior reducida
+  --frame <seg>             guarda un PNG de ese instante (-o <png>) sin renderizar el video: vista previa rápida de efecto × tema
+  --solo-auditoria          audita (zonas seguras, errores de página) y sale sin renderizar: valida una combinación efecto × tema en segundos
   --ignorar-lock            renderiza aunque brand.lock.json no coincida con el manual
   --conservar               no borra el directorio temporal de composición`);
 }
@@ -31,6 +35,11 @@ const flag = (n) => argv.includes(n);
 
 export const log = (...a) => console.error(...a);
 const die = (code, m) => { console.error(`✗ ${m}`); process.exit(code); };
+
+export function dimsForFormato(fmt) {
+  const isH = fmt === 'horizontal' || fmt === '16:9';
+  return { formato: isH ? 'horizontal' : 'vertical', isHoriz: isH, W: isH ? 1920 : 1080, H: isH ? 1080 : 1920 };
+}
 
 /* ---------- lock de marca ---------- */
 function checkLock(marcaDir) {
@@ -82,7 +91,6 @@ function stage(params, opts) {
   if (fs.existsSync(path.join(marca, 'vendor/fonts'))) cp(path.join(marca, 'vendor/fonts'), path.join(dir, 'vendor/fonts'));
   fs.writeFileSync(path.join(dir, 'theme.css'), fs.readFileSync(themeFile, 'utf8').replaceAll('../vendor/', 'vendor/'));
 
-  // Assets: cualquier string que sea ruta existente a imagen/video se copia y se reescribe.
   const baseDirs = [opts.paramsDir, process.cwd(), SKILL];
   const assets = new Map();
   const walk = (v) => {
@@ -100,20 +108,30 @@ function stage(params, opts) {
   const resolved = walk(params);
   for (const [abs, rel] of assets) cp(abs, path.join(dir, rel));
   resolved.__assets = [...assets.values()];
-  resolved.__dims = Object.fromEntries([...assets].map(([abs, rel]) => [rel, probeAsset(abs)])); // [ancho, alto, duración] conocidos sin esperar a la carga
+  resolved.__dims = Object.fromEntries([...assets].map(([abs, rel]) => [rel, probeAsset(abs)]));
 
+  const { W, H, isHoriz } = opts.dims;
   let html = fs.readFileSync(path.join(srcDir, 'index.html'), 'utf8');
   html = html.replace(/(data-composition-id="root"[^>]*?data-duration=")[^"]*(")/, `$1${opts.duracion}$2`);
+  html = html.replace(/width=1080,\s*height=1920/, `width=${W}, height=${H}`);
+  html = html.replace(/data-width="1080"\s+data-height="1920"/, `data-width="${W}" data-height="${H}"${isHoriz ? ' data-formato="horizontal"' : ''}`);
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   fs.writeFileSync(path.join(dir, 'params.js'), `window.__FX_PARAMS__ = ${JSON.stringify(resolved)};\n`);
 
-  const prep = path.join(srcDir, 'prepare.mjs'); // hook opcional por efecto (p. ej. extraer frames con FFmpeg)
+  const prep = path.join(srcDir, 'prepare.mjs');
   return { dir, prep: fs.existsSync(prep) ? prep : null, resolved };
 }
 
 /* ---------- Chrome ---------- */
 export function findChrome() {
-  const cands = [process.env.FX_CHROME, process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH];
+  const cands = [
+    process.env.FX_CHROME,
+    process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,
+    '/usr/bin/chromium',
+    '/usr/bin/chromium-browser',
+    '/usr/bin/google-chrome',
+    '/usr/bin/google-chrome-stable'
+  ];
   const globRoots = [process.env.PLAYWRIGHT_BROWSERS_PATH, '/opt/pw-browsers', path.join(os.homedir(), '.cache/ms-playwright'), path.join(os.homedir(), '.cache/hyperframes/chrome')].filter(Boolean);
   for (const root of globRoots) {
     if (!fs.existsSync(root)) continue;
@@ -132,18 +150,18 @@ export function findChrome() {
   return null;
 }
 
-async function loadPlaywright() {
+export async function loadPlaywright() {
   for (const spec of [path.join(SKILL, 'node_modules/playwright-core/index.mjs'), 'playwright-core', 'playwright']) {
     try { return await import(spec.startsWith('/') ? pathToFileURL(spec).href : spec); } catch { /* siguiente */ }
   }
   return null;
 }
 
-async function openPage(dir, zona, pw) {
+async function openPage(dir, zona, pw, dims) {
   const exe = findChrome();
   if (!exe) throw new Error('no encontré Chromium/Chrome headless (define FX_CHROME=/ruta/al/binario)');
   const browser = await pw.chromium.launch({ executablePath: exe, args: ['--no-sandbox', '--force-color-profile=srgb', '--font-render-hinting=none', '--disable-lcd-text'] });
-  const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
+  const ctx = await browser.newContext({ viewport: { width: dims.W, height: dims.H }, deviceScaleFactor: 1 });
   const page = await ctx.newPage();
   const errs = [];
   page.on('pageerror', (e) => errs.push(String(e)));
@@ -153,18 +171,19 @@ async function openPage(dir, zona, pw) {
   await page.evaluate(() => document.fonts.ready);
   try { await page.waitForFunction(() => !!(window.__timelines && window.__timelines.root), null, { timeout: 15000, polling: 100 }); }
   catch (e) { await browser.close(); throw new Error(`la composición no registró window.__timelines.root. Errores de página: ${errs.join(' | ') || '(ninguno)'}`); }
+  errs.push(...await page.evaluate(() => window.__fxErrors || []));
   return { browser, page, errs };
 }
 const seek = (page, t) => page.evaluate((tt) => { const tl = window.__timelines.root; tl.pause(); tl.seek(tt, false); return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); }, t);
 
 /* ---------- auditoría de zonas seguras ---------- */
-async function auditar(dir, zona, duracion, pw) {
-  const { browser, page, errs } = await openPage(dir, zona, pw);
+async function auditar(dir, zona, duracion, pw, dims) {
+  const { browser, page, errs } = await openPage(dir, zona, pw, dims);
   const fallas = [];
   try {
     for (const frac of [0.5, 0.97]) {
       await seek(page, duracion * frac);
-      const r = await page.evaluate(({ top, bottom }) => {
+      const r = await page.evaluate(({ top, bottom, W, H }) => {
         const out = [];
         const walker = document.createTreeWalker(document.getElementById('root'), NodeFilter.SHOW_TEXT);
         let n;
@@ -177,12 +196,12 @@ async function auditar(dir, zona, duracion, pw) {
           const rg = document.createRange(); rg.selectNodeContents(n);
           for (const b of rg.getClientRects()) {
             if (b.width < 1) continue;
-            if (b.top < top - 14 || b.bottom > 1920 - bottom + 14 || b.left < 20 || b.right > 1060)
+            if (b.top < top - 14 || b.bottom > H - bottom + 14 || b.left < 20 || b.right > W - 20)
               out.push(`"${txt.slice(0, 40)}" y=${Math.round(b.top)}..${Math.round(b.bottom)} x=${Math.round(b.left)}..${Math.round(b.right)}`);
           }
         }
         return out;
-      }, { top: zona.arriba, bottom: zona.abajo });
+      }, { top: zona.arriba, bottom: zona.abajo, W: dims.W, H: dims.H });
       fallas.push(...r);
     }
   } finally { await browser.close(); }
@@ -190,11 +209,11 @@ async function auditar(dir, zona, duracion, pw) {
 }
 
 /* ---------- ruta 2: respaldo ---------- */
-async function renderRespaldo(dir, out, zona, duracion, pw) {
-  const { browser, page, errs } = await openPage(dir, zona, pw);
+async function renderRespaldo(dir, out, zona, duracion, pw, dims) {
+  const { browser, page, errs } = await openPage(dir, zona, pw, dims);
   const frames = Math.round(duracion * FPS);
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-c:v', 'png', '-i', '-',
-    '-vf', `scale=${W}:${H}:flags=lanczos,format=yuv420p`, '-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-pix_fmt', 'yuv420p', '-r', String(FPS), '-movflags', '+faststart', out],
+    '-vf', `scale=${dims.W}:${dims.H}:flags=lanczos,format=yuv420p`, '-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-pix_fmt', 'yuv420p', '-r', String(FPS), '-movflags', '+faststart', out],
   { stdio: ['pipe', 'inherit', 'inherit'] });
   const done = new Promise((res, rej) => { ff.on('close', (c) => (c === 0 ? res() : rej(new Error(`ffmpeg salió con ${c}`)))); ff.stdin.on('error', () => {}); });
   try {
@@ -234,14 +253,21 @@ function probe(file) {
 export async function render(paramsFile, o = {}) {
   const params = Object.assign(JSON.parse(fs.readFileSync(paramsFile, 'utf8')), o.override || {});
   if (!params.efecto) die(2, 'params.json necesita el campo "efecto"');
+  if (o.conOverlay) Object.assign(params, { tituloFijo: 'Prueba de overlay', contador: { n: 1, total: 9 } });
   const tema = o.tema ?? params.tema ?? 'ceinca-social';
   const duracion = Number(o.duracion ?? params.duracion ?? 4);
-  const zona = { arriba: Number(o.zonaArriba ?? params.zonaSegura?.arriba ?? 250), abajo: Number(o.zonaAbajo ?? params.zonaSegura?.abajo ?? 350) };
-  params.tema = tema; params.duracion = duracion; params.zonaSegura = zona;
+  const dims = dimsForFormato(o.formato ?? params.formato ?? 'vertical');
+  const defTop = dims.isHoriz ? 80 : 250;
+  const defBottom = dims.isHoriz ? 90 : 350;
+  const zona = {
+    arriba: Number(o.zonaArriba ?? params.zonaSegura?.arriba ?? defTop),
+    abajo: Number(o.zonaAbajo ?? params.zonaSegura?.abajo ?? defBottom)
+  };
+  params.tema = tema; params.duracion = duracion; params.zonaSegura = zona; params.formato = dims.formato;
   checkLock(o.marcaDir);
-  const out = path.resolve(o.salida ?? path.join(SKILL, 'out', `${params.efecto}-${tema}.mp4`));
+  const out = path.resolve(o.salida ?? path.join(SKILL, 'out', `${params.efecto}-${tema}${dims.isHoriz ? '-16x9' : ''}.mp4`));
   fs.mkdirSync(path.dirname(out), { recursive: true });
-  const st = stage(params, { tema, duracion, marcaDir: o.marcaDir, paramsDir: path.dirname(path.resolve(paramsFile)) });
+  const st = stage(params, { tema, duracion, dims, marcaDir: o.marcaDir, paramsDir: path.dirname(path.resolve(paramsFile)) });
   const pw = await loadPlaywright();
   if (st.prep) {
     const extra = await (await import(pathToFileURL(st.prep).href)).default({ dir: st.dir, params: st.resolved, duracion, fps: FPS, log });
@@ -251,11 +277,53 @@ export async function render(paramsFile, o = {}) {
 
   let aud = null;
   if (pw && !o.sinAuditoria) {
-    aud = await auditar(st.dir, zona, duracion, pw);
+    aud = await auditar(st.dir, zona, duracion, pw, dims);
     if (aud.errs.length) die(4, `errores en la página:\n  ${aud.errs.join('\n  ')}`);
-    if (aud.fallas.length) die(5, `texto fuera de zonas seguras (${zona.arriba}px arriba / ${zona.abajo}px abajo):\n  ${aud.fallas.join('\n  ')}`);
+    if (aud.fallas.length) die(5, `texto fuera de zonas seguras (${zona.arriba}px arriba / ${zona.abajo}px abajo en ${dims.W}×${dims.H}):\n  ${aud.fallas.join('\n  ')}`);
   } else if (!pw) log('⚠ playwright-core no disponible: se omite la auditoría de zonas seguras');
 
+  if (o.cuesOut) {
+    if (!pw) die(6, '--cues necesita playwright-core');
+    const { browser, page, errs } = await openPage(st.dir, zona, pw, dims);
+    let raw;
+    try {
+      raw = await page.evaluate(() => {
+        const tl = window.__timelines.root;
+        const num = (x) => (typeof x === 'number' ? x : null);
+        return tl.getChildren(true, true, false).map((tw) => {
+          const tg = tw.targets()[0];
+          const dom = !!(tg && tg.nodeType === 1);
+          const v = tw.vars || {}; const sa = v.startAt || {};
+          return { t: tw.globalTime(0), d: tw.duration(), dom, ease: typeof v.ease === 'string' ? v.ease : '',
+            props: Object.keys(v).filter((k) => !['ease', 'duration', 'delay', 'stagger', 'yoyo', 'repeat', 'startAt', 'overwrite', 'transformOrigin', 'immediateRender', 'onComplete', 'onUpdate', 'onStart'].includes(k)),
+            from: Object.keys(sa), x0: num(sa.x), y0: num(sa.y), s0: num(sa.scale), o0: num(sa.opacity), s1: num(v.scale), o1: num(v.opacity), x1: num(v.x), y1: num(v.y),
+            origin: String(v.transformOrigin || sa.transformOrigin || ''), repeat: num(v.repeat) || 0, stagger: num(v.stagger) || 0,
+            id: dom ? (tg.id || tg.className || tg.tagName) : 'proxy' };
+        }).concat([{ t: tl.duration(), d: 0, fin: true }]);
+      });
+    } finally { await browser.close(); }
+    if (!o.conservar) fs.rmSync(st.dir, { recursive: true, force: true });
+    if (errs.length) die(4, `errores en la página:\n  ${errs.join('\n  ')}`);
+    fs.writeFileSync(path.resolve(o.cuesOut), JSON.stringify({ efecto: params.efecto, formato: dims.formato, duracion, tweens: raw }, null, 1));
+    return { out: o.cuesOut, ruta: null };
+  }
+  if (o.frame != null) {
+    if (!pw) die(6, '--frame necesita playwright-core');
+    const png = path.resolve(o.salida ?? path.join(SKILL, 'out', `${params.efecto}-${tema}-${o.frame}s.png`));
+    fs.mkdirSync(path.dirname(png), { recursive: true });
+    const { browser, page, errs } = await openPage(st.dir, zona, pw, dims);
+    try { await seek(page, Math.min(Number(o.frame), duracion - 1 / FPS)); await page.screenshot({ path: png, type: 'png' }); } finally { await browser.close(); }
+    if (!o.conservar) fs.rmSync(st.dir, { recursive: true, force: true });
+    if (errs.length) die(4, `errores en la página:\n  ${errs.join('\n  ')}`);
+    console.log(JSON.stringify({ efecto: params.efecto, tema, formato: dims.formato, ancho: dims.W, alto: dims.H, frame: Number(o.frame), salida: png }));
+    return { out: png, ruta: null };
+  }
+  if (o.soloAuditoria) {
+    if (!aud) die(6, '--solo-auditoria necesita playwright-core');
+    if (!o.conservar) fs.rmSync(st.dir, { recursive: true, force: true });
+    console.log(JSON.stringify({ efecto: params.efecto, tema, formato: dims.formato, auditoria: 'ok' }));
+    return { out: null, ruta: null };
+  }
   const motor = o.motor ?? 'auto';
   let ruta = null; let aviso = null;
   if (motor !== 'respaldo') {
@@ -264,13 +332,13 @@ export async function render(paramsFile, o = {}) {
   }
   if (!ruta) {
     if (!pw) die(6, 'sin HyperFrames ni playwright-core no hay forma de renderizar');
-    const errs = await renderRespaldo(st.dir, out, zona, duracion, pw);
+    const errs = await renderRespaldo(st.dir, out, zona, duracion, pw, dims);
     if (errs.length) die(4, `errores en la página:\n  ${errs.join('\n  ')}`);
     ruta = 'respaldo';
   }
   if (!o.conservar) fs.rmSync(st.dir, { recursive: true, force: true });
   const s = probe(out);
-  console.log(JSON.stringify({ efecto: params.efecto, tema, ruta, aviso, salida: out, ancho: s.width, alto: s.height, fps: s.r_frame_rate, codec: s.codec_name, pix_fmt: s.pix_fmt, frames: s.nb_frames, duracion: s.duration }));
+  console.log(JSON.stringify({ efecto: params.efecto, tema, formato: dims.formato, ruta, aviso, salida: out, ancho: s.width, alto: s.height, fps: s.r_frame_rate, codec: s.codec_name, pix_fmt: s.pix_fmt, frames: s.nb_frames, duracion: s.duration }));
   return { out, ruta };
 }
 
@@ -278,7 +346,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const file = argv.find((a) => !a.startsWith('-') && a.endsWith('.json'));
   if (!file || flag('--help')) { usage(); process.exit(file ? 0 : 1); }
   await render(file, {
-    salida: opt(['-o', '--salida']), motor: opt(['--motor']), duracion: opt(['--duracion']), tema: opt(['--tema']), marcaDir: opt(['--marca-dir']),
-    zonaArriba: opt(['--zona-arriba']), zonaAbajo: opt(['--zona-abajo']), sinAuditoria: flag('--sin-auditoria'), conservar: flag('--conservar'),
+    salida: opt(['-o', '--salida']), formato: opt(['--formato']), motor: opt(['--motor']), duracion: opt(['--duracion']), tema: opt(['--tema']), marcaDir: opt(['--marca-dir']),
+    zonaArriba: opt(['--zona-arriba']), zonaAbajo: opt(['--zona-abajo']), sinAuditoria: flag('--sin-auditoria'), soloAuditoria: flag('--solo-auditoria'), conOverlay: flag('--con-overlay'), frame: opt(['--frame']), conservar: flag('--conservar'),
   });
 }
