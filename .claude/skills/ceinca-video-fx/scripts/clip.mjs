@@ -379,7 +379,7 @@ function renderLupaZoom(clipPath, params, meta, outPath, outW, outH) {
 
   const args = [
     '-y', '-loglevel', 'error',
-    ...ssArgs, '-i', clipPath, ...tArgs,
+    ...ssArgs, ...tArgs, '-i', clipPath,
     '-i', tmpMask,
     '-filter_complex', fc,
     '-map', '[v]',
@@ -432,7 +432,7 @@ function renderFocoSpotlight(clipPath, params, meta, outPath, outW, outH) {
 
   const args = [
     '-y', '-loglevel', 'error',
-    ...ssArgs, '-i', clipPath, ...tArgs,
+    ...ssArgs, ...tArgs, '-i', clipPath,
     '-i', tmpMask,
     '-filter_complex', fc,
     '-map', '[v]',
