@@ -4,6 +4,14 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🔎 27-10-2026 — Auditoría de referencias + plan 2 reels y 1 carrusel @soyeduardo.ia — rama `claude/soyeduardo-content-audit-ultq4l`
+- **Objetivo:** auditar `20 video effects for Claude.mp4`, `Claude Motion.mp4` y un carrusel de 8 láminas (Drive `Nuevos videos analizar`) y planear su recreación con la identidad de @soyeduardo.ia; la skill (zip Starter Kit) es el regalo de los reels.
+- **Estado actual:** entregado `docs/PLAN_REELS_CARRUSEL_SKILL_27-10-2026.md` (auditoría, brechas, guiones, prompts de imagen, plan por fases F0–F6, decisiones pendientes). Verificados por mí: 20 effects (frames + audio −14,1 LUFS) y carrusel. **`Claude Motion.mp4` NO verificado** (descarga MCP falló por tamaño); se usó el análisis del 26-10 en Drive.
+- **Hallazgos clave:** el repo tiene 21 plantillas y el zip 25 (Bloque 6); el zip "sin marca" aún contiene tema y menciones de @soyeduardo.ia / eduardo-ia; "25 efectos" no está probado por render; faltan 8 de los 20 efectos de la referencia.
+- **Sección 3 — cambios:** `git diff --stat` de esta sesión: `docs/PLAN_REELS_CARRUSEL_SKILL_27-10-2026.md` (nuevo) y `handoff.md`. Sin cambios de código.
+- **Próximos pasos:** Eduardo decide palabra clave, cifra N, audio objetivo (−16 vs ≈−14), fondo del carrusel y sube Claude Motion; luego F1 (sincronizar repo con zip y probar render de todos los efectos).
+- **Intentos fallidos (se agrega):** `download_file_content` de Drive sobre `Claude Motion.mp4` (6,4 MB) cerró la conexión MCP; el de 2,5 MB sí funcionó vía archivo de resultados.
+
 ## 🎬 23-10-2026 — Skill `ceinca-video-fx` Bloque 4 (3 estilos como temas + 7 efectos nuevos) — rama `feature/ceinca-video-fx-bloque4-estilos`
 - **Objetivo:** llevar a la skill existente la especificación "Video-as-Code" (3 estilos: Dark Tech UI, Red Glow, Ukiyo-e). **Decisión:** NO crear skill nueva ni proyecto aparte; el motor (HTML/GSAP → Chromium + FFmpeg) ya cumple ese paradigma y el Estilo B estaba casi todo cubierto, así que se extendió `ceinca-video-fx` (Bloque 4). Un estilo = un tema; cualquier efecto se renderiza en cualquier tema con `--tema`.
 - **Estado actual:** 21 plantillas HTML/GSAP (14 previas + 7 nuevas) + 4 efectos FFmpeg. Nuevos: `pasos-progreso`, `consola-macos`, `diagrama-nodos` (A) · `zoom-atraves`, `telefono-chat` (B) · `collage-papel`, `camara-continua` (C) · opción `hervor` en `garabato-vivo`. Temas nuevos `estilo-dark-tech`, `estilo-red-glow`, `estilo-ukiyo-e` (`themes/estilos/*.json`; sus valores solo viven ahí). `sync-brand` ahora lee `themes/estilos/`, acepta `gradBg/gradAccent/shadowCard/shadowAccent/extraCss` y emite el rol `--fx-font-mono` (JetBrains Mono por defecto, en todos los temas). El hash de `tokens.md`/`editorial-guides.md` en `brand.lock.json` NO cambió.
