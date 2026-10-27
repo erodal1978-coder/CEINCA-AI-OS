@@ -104,7 +104,8 @@ function stage(params, opts) {
   const baseDirs = [opts.paramsDir, process.cwd(), SKILL];
   const assets = new Map();
   const walk = (v) => {
-    if (typeof v === 'string' && /\.(png|jpe?g|svg|webp|gif|mp4|webm)$/i.test(v)) {
+    // las líneas de consola ("$ cmd -o x.mp4", "> ...") son texto, no rutas de asset
+    if (typeof v === 'string' && !/^\s*[$>#+]\s/.test(v) && /\.(png|jpe?g|svg|webp|gif|mp4|webm)$/i.test(v)) {
       const cand = path.isAbsolute(v) ? [v] : baseDirs.map((b) => path.resolve(b, v));
       const found = cand.find((c) => fs.existsSync(c));
       if (!found) die(2, `asset no encontrado: ${v} (busqué en ${cand.join(' | ')})`);
