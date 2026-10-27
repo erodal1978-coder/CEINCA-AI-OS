@@ -127,7 +127,7 @@ Después: recortar con fondo transparente y colocar sobre la plantilla (texto **
 3. Medir a 1 h, 24 h y 72 h: retención a 3 s, % visto, envíos, guardados (meta ≥3 %), % de alcance a no seguidores, comentarios con la palabra, DMs entregados, seguidores nuevos. Línea base = mediana de las primeras 10 piezas propias (regla de la auditoría).
 4. TikTok: mismo video, caption corto, entrega manual del recurso (envío automático sin seguir **no verificado**).
 
-## 8. Decisiones que solo puede tomar Eduardo
+## 8. Decisiones que solo puede tomar Eduardo (estado inicial; resueltas en §10)
 1. **Palabra clave** del regalo: debe ser un venezolanismo verificado, una palabra = un recurso. GOLEM ya está ligada al reel 1; el banco de @soyeduardo.ia (rama `docs/soyeduardo-ia-estilo-keywords`) sigue sin aprobar. No propongo palabras sin verificar.
 2. **Cifra N:** solo la que pase F1 (el manual y la auditoría hablan de "18 efectos"; el zip tiene 25 carpetas).
 3. **Audio objetivo:** −16 LUFS (norma actual del repo) o ≈ −14 (como la referencia). Mi sugerencia: probar −14 en los 2 reels y comparar retención; es hipótesis, no dato.
@@ -140,3 +140,47 @@ Tres versiones internas puntuadas con los mismos criterios (precisión sin inven
 - v1 plan genérico "recrear los 3 con tu marca": 6,5 (promete "20 efectos" y copia los 30 skills).
 - v2 con auditoría verificada y brechas reales: 8,3 (aún sin criterios de aceptación ni decisiones).
 - **v3 (esta): 9,3** — separa lo verificado de lo no verificado, define aceptación medible por fase y deja las decisiones en quien corresponde. Autoevaluación mía, no medición externa.
+
+## 10. Actualización 27-10 (tarde)
+
+### 10.1 Decisiones de Eduardo
+| Tema | Decisión |
+|---|---|
+| Música Gemini | Uso comercial **confirmado** por Eduardo → se retira la cautela del §8.4 |
+| Cifra en el título | "Varios" o **"+20"**. "+20" solo si ≥21 efectos pasan render con evidencia; si no, cifra exacta |
+| Audio | **−14 LUFS** en los 2 reels (prueba). Perfil nuevo: LUFS −14, pico real ≤ −1,0 dBTP (la referencia 3 llega a −0,5: demasiado cerca de 0) |
+| Fondo del carrusel | **Tinta** |
+| Repo | Los cambios están solo en local (cortes eléctricos). El repo en GitHub está atrasado |
+| Palabra clave | Reutilizable; hay que **reemplazar el archivo del Drive** que entrega el DM |
+
+### 10.2 Tercer video verificado por mí — "30 Reels for your brand" (43,33 s)
+- 720×1280, 30 fps, H.264 + AAC · **−14,3 LUFS**, pico real −0,5 dBFS · 8 láminas animadas con contador `01/08`, cremas y terracota, kicker pequeño + titular bicolor, subtítulos palabra por palabra en píldoras oscuras.
+- **Arco:** promesa cuantificada → frase única → **objeción verbalizada y tachada** ("¿Reels aleatorios de IA? No.") → mecanismo → configuración → demo → oferta alternativa → CTB.
+- **Qué sirve:** (a) objeción en el gancho → Reel B; (b) "carrusel animado como reel" = gemelo en video del carrusel (`reel.mjs` ya tiene contador NN/TT); (c) ninguna escena debería pasar de ≈4,5 s (la lámina 04/08 dura 10,5 s con el mismo encabezado).
+- **Qué no:** es el pitch de un producto de terceros; no se replican su oferta ni su conector.
+
+### 10.3 Contraste del análisis forense de la otra IA (`auditoria_forense_ingenieria_inversa_3_videos_ia.md`)
+| Dato | Resultado de mi contraste |
+|---|---|
+| Duración, 720×1280, 30 fps, 8 láminas, cadencia ≈1,1 s, CTB "EFFECT" / "OOTTO" | ✅ Coincide |
+| Lecho grave en "20 effects" | ✅ Plausible: en los fotogramas más silenciosos el 60 % de la energía está bajo 250 Hz. No puedo afirmar que sea música rítmica |
+| **Niveles de audio** | ❌ **No coinciden.** "20 effects": ellos RMS −21,2 / pico −11,7; medí RMS −17,1 / **pico −1,7 dBFS**. "30 Reels": ellos RMS −24,3; medí −18,1 / LUFS −14,3 / pico −0,5. Se descartan sus cifras de audio |
+| Stack "Remotion + MediaPipe", cómo se construye cada efecto | ⚠️ Inferencia, no hecho. Útil como hipótesis de implementación |
+| HEX "extraídos" | ⚠️ Aproximados; no se usan: nuestro sistema de marca manda |
+| "Drop-off 60–70 %", "miles de comentarios EFFECT", "efectos que duplicaron retención de clientes" | ❌ Sin fuente / inventado. **No se usa ninguna** (regla anti-alucinación y manual §8) |
+| "Claude Motion = interfaz ficticia" | ❌ Contradicho por esta sesión: los conectores de Canva, Vercel y HyperFrames exponen `import-claude-motion-from-url`, lo que indica que existe como función. Sigo sin ver el video |
+
+### 10.4 Lo útil que se incorpora
+1. **Menú de pasos con los pasos futuros desenfocados** (bucle abierto): comprobar si `pasos-progreso` ya lo hace; si no, parametrizarlo (el doc sugiere opacidad .35 + blur 4 px: valor a probar, no dato).
+2. **Los 8 efectos que faltan, separados por dificultad:** *sin recorte de persona* (deterministas en HTML/GSAP): Portal, Infinite Zoom, Cube Spin, Tile Tunnel, Phone Fan → F1b. *Con recorte de persona*: Title Orbit, Clone Room, Ribbon Wrap → diferidos (la skill no trae máscara de persona; la nota del 21-10 menciona un modelo `.onnx` en una rama local, sin verificar).
+3. **Reel A cierra con 1 efecto aplicado a una pieza real** (propia o de @ceinca.mercantil, sin cifras de resultados) para cualificar al público; la referencia atrae "coleccionistas" sin caso de uso.
+4. **Reel A es mixto:** columna derecha alterna efectos sobre tu cara (zooms, lupa, spotlight, shatter, rompe-marco, corta-pega, chroma, karaoke, grid) con escenas UI (bento, gráfica, teléfono, consola…). Con ≥21 pasan "+20".
+5. **Opcional F7:** versión reel animado del carrusel (8 láminas, ≤4,5 s cada una, contador 01/08).
+
+### 10.5 Repo local sin subir
+No importo el zip a la copia de GitHub: chocaría con tus ramas locales (la del 21-10 menciona 25 commits sin subir). Orden: subes cuando haya luz → F1 se ejecuta sobre eso. Hasta entonces el plan no toca código.
+
+### 10.6 Reemplazar el archivo del DM en Drive (desde el cel)
+- **A (recomendada):** lo hago yo con la herramienta de Drive de esta sesión, conservando el mismo enlace. Necesito (1) el nombre o enlace del archivo que entrega el DM y (2) el zip final tras F2. Solo lo ejecuto con tu confirmación, porque cambia lo que reciben quienes comenten.
+- **B (manual, no verificado desde un cel):** `drive.google.com` en el navegador del cel con "Versión para computadora" → ⋮ del archivo → *Administrar versiones* → *Subir nueva versión*. La app de Drive normalmente no ofrece esa opción.
+- ⚠️ **Riesgo de coherencia:** GOLEM ya está en el reel 1. La regla del CTB exige que el DM cumpla lo que prometen **todas** las piezas de esa palabra. Si el reel 1 promete otro recurso, reemplazar el archivo rompe esa promesa; entonces conviene un bloque separado en Beacons o archivo/palabra distinta. Pregunta abierta: ¿qué promete el reel 1?

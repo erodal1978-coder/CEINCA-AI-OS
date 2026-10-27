@@ -9,7 +9,8 @@
 - **Estado actual:** entregado `docs/PLAN_REELS_CARRUSEL_SKILL_27-10-2026.md` (auditoría, brechas, guiones, prompts de imagen, plan por fases F0–F6, decisiones pendientes). Verificados por mí: 20 effects (frames + audio −14,1 LUFS) y carrusel. **`Claude Motion.mp4` NO verificado** (descarga MCP falló por tamaño); se usó el análisis del 26-10 en Drive.
 - **Hallazgos clave:** el repo tiene 21 plantillas y el zip 25 (Bloque 6); el zip "sin marca" aún contiene tema y menciones de @soyeduardo.ia / eduardo-ia; "25 efectos" no está probado por render; faltan 8 de los 20 efectos de la referencia.
 - **Sección 3 — cambios:** `git diff --stat` de esta sesión: `docs/PLAN_REELS_CARRUSEL_SKILL_27-10-2026.md` (nuevo) y `handoff.md`. Sin cambios de código.
-- **Próximos pasos:** Eduardo decide palabra clave, cifra N, audio objetivo (−16 vs ≈−14), fondo del carrusel y sube Claude Motion; luego F1 (sincronizar repo con zip y probar render de todos los efectos).
+- **Actualización tarde:** decididos música Gemini comercial ✅, título "+20" solo con ≥21 efectos verificados, audio −14 LUFS (pico ≤ −1 dBTP), fondo Tinta. Tercer video ("30 Reels") verificado; el análisis forense de otra IA se contrastó (§10 del plan): sus niveles de audio NO coinciden con mis mediciones y contiene cifras sin fuente. Repo de Eduardo en local sin subir (cortes eléctricos): no se importó el zip.
+- **Próximos pasos:** Eduardo sube el repo local, indica qué promete GOLEM (reel 1) y el archivo del DM a reemplazar (lo reemplaza Claude en Drive con su confirmación); sube Claude Motion; luego F1 (sincronizar repo con zip y probar render de todos los efectos).
 - **Intentos fallidos (se agrega):** `download_file_content` de Drive sobre `Claude Motion.mp4` (6,4 MB) cerró la conexión MCP; el de 2,5 MB sí funcionó vía archivo de resultados.
 
 ## 🎬 23-10-2026 — Skill `ceinca-video-fx` Bloque 4 (3 estilos como temas + 7 efectos nuevos) — rama `feature/ceinca-video-fx-bloque4-estilos`
