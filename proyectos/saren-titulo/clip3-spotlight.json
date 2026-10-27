@@ -1,0 +1,11 @@
+{
+  "clip": "/home/eduardo/Descargas/Video copias certificadas titulo univ SAREN/Video copias certificadas titulo univ SAREN.mp4",
+  "efecto": "foco-spotlight",
+  "recorte": {
+    "desde": 262,
+    "hasta": 270
+  },
+  "foco": { "x": 0.50, "y": 0.45 },
+  "radio": 300,
+  "audio": false
+}

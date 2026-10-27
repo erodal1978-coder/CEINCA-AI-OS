@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>bento-grid</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>
+  .titulo { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:74px; line-height:1.05; letter-spacing:-.02em; text-transform:uppercase; margin:0 0 32px 0; }
+  .grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:24px; width:100%; height:calc(100% - 130px); }
+  #root[data-formato="horizontal"] .grid { grid-template-columns:repeat(4, 1fr); height:calc(100% - 110px); }
+  .b-card { background:var(--fx-surface); border:2px solid var(--fx-line); border-radius:var(--fx-radius-lg); padding:28px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; box-shadow:var(--fx-shadow-card); }
+  .b-card.highlight { border-color:var(--fx-accent); box-shadow:var(--fx-shadow-accent); }
+  .b-tag { font-family:var(--fx-font-mono); font-size:24px; text-transform:uppercase; letter-spacing:.05em; color:var(--fx-text-muted); }
+  .b-val-large { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:96px; line-height:.95; color:var(--fx-accent); }
+  #root[data-formato="horizontal"] .b-val-large { font-size:68px; }
+  .b-flip-box { display:flex; align-items:center; justify-content:center; flex:1; }
+  .b-flip-digit { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:110px; color:var(--fx-text); background:var(--fx-surface-2); border-radius:var(--fx-radius); padding:10px 32px; border:1px solid var(--fx-line); }
+  .b-ring-wrap { position:relative; width:190px; height:190px; margin:auto; display:flex; align-items:center; justify-content:center; }
+  #root[data-formato="horizontal"] .b-ring-wrap { width:150px; height:150px; }
+  .b-ring-svg { width:100%; height:100%; transform:rotate(-90deg); }
+  .b-ring-bg { fill:none; stroke:var(--fx-surface-2); stroke-width:16; }
+  .b-ring-fg { fill:none; stroke:var(--fx-accent); stroke-width:16; stroke-linecap:round; }
+  .b-ring-txt { position:absolute; font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:52px; color:var(--fx-text); }
+  #root[data-formato="horizontal"] .b-ring-txt { font-size:40px; }
+  .b-bars-box { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; height:160px; padding-top:20px; }
+  .b-bar-col { flex:1; background:var(--fx-accent); border-radius:6px; transform-origin:bottom; height:100%; transform:scaleY(0); }
+  .b-bar-col.accent2 { background:var(--fx-accent-2); }
+  .b-footer-val { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:36px; color:var(--fx-text); margin-top:8px; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="5" data-width="1080" data-height="1920">
+  <div id="area" class="fx-area" style="display:flex;flex-direction:column">
+    <h1 class="titulo" id="titulo"></h1>
+    <div class="grid" id="grid">
+      <!-- 1. Contador Flip -->
+      <div class="b-card" id="card-flip">
+        <div class="b-tag" id="tag-flip">ESTADO</div>
+        <div class="b-flip-box"><div class="b-flip-digit" id="flip-digit">3</div></div>
+        <div class="b-tag">Lanzamiento</div>
+      </div>
+      <!-- 2. Anillo Porcentaje -->
+      <div class="b-card" id="card-ring">
+        <div class="b-tag" id="tag-ring">PRECISIÓN</div>
+        <div class="b-ring-wrap">
+          <svg class="b-ring-svg" viewBox="0 0 160 160">
+            <circle class="b-ring-bg" cx="80" cy="80" r="68"></circle>
+            <circle class="b-ring-fg" id="ring-fg" cx="80" cy="80" r="68" stroke-dasharray="427" stroke-dashoffset="427"></circle>
+          </svg>
+          <div class="b-ring-txt" id="ring-txt">0%</div>
+        </div>
+        <div class="b-tag">Efectividad</div>
+      </div>
+      <!-- 3. Mini Gráfica de Barras -->
+      <div class="b-card" id="card-bars">
+        <div class="b-tag" id="tag-bars">RENDIMIENTO</div>
+        <div class="b-bars-box" id="bars-box"></div>
+        <div class="b-tag">Tiempo de respuesta</div>
+      </div>
+      <!-- 4. Métrica Destacada -->
+      <div class="b-card highlight" id="card-metric">
+        <div class="b-tag" id="tag-metric">VELOCIDAD</div>
+        <div class="b-val-large" id="metric-val">+0%</div>
+        <div class="b-tag">Optimización IA</div>
+      </div>
+      <!-- 5. Tarjeta Extra / Estado -->
+      <div class="b-card" id="card-extra" style="grid-column: span 2;">
+        <div class="b-tag" id="tag-extra">INFRAESTRUCTURA</div>
+        <div class="b-footer-val" id="extra-val">100% Determinista</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({
+  duracion: 5,
+  titulo: 'Arquitectura **Bento Grid**',
+  contador: { valores: ['3', '2', '1', 'LIVE'], etiqueta: 'Estado' },
+  porcentaje: { valor: 98, etiqueta: 'Precisión' },
+  barras: { datos: [35, 60, 45, 80, 95], etiqueta: 'Rendimiento' },
+  metrica: { valor: 148, prefijo: '+', sufijo: '%', etiqueta: 'Velocidad' },
+  tarjetaExtra: { etiqueta: 'Infraestructura', valor: '100% Determinista' }
+});
+FX.orbe(ctx);
+const { P, tl, D } = ctx;
+FX.setRich(document.getElementById('titulo'), P.titulo);
+
+// Etiquetas
+if (P.contador?.etiqueta) document.getElementById('tag-flip').textContent = P.contador.etiqueta;
+if (P.porcentaje?.etiqueta) document.getElementById('tag-ring').textContent = P.porcentaje.etiqueta;
+if (P.barras?.etiqueta) document.getElementById('tag-bars').textContent = P.barras.etiqueta;
+if (P.metrica?.etiqueta) document.getElementById('tag-metric').textContent = P.metrica.etiqueta;
+if (P.tarjetaExtra?.etiqueta) document.getElementById('tag-extra').textContent = P.tarjetaExtra.etiqueta;
+if (P.tarjetaExtra?.valor) document.getElementById('extra-val').textContent = P.tarjetaExtra.valor;
+
+// Barras dinámicas
+const bBox = document.getElementById('bars-box');
+const bData = P.barras?.datos || [30, 50, 70, 90, 100];
+const barEls = bData.map((val, idx) => {
+  const col = document.createElement('div');
+  col.className = 'b-bar-col' + (idx === bData.length - 1 ? ' accent2' : '');
+  col.style.height = val + '%';
+  bBox.appendChild(col);
+  return col;
+});
+
+// Animaciones GSAP
+// 1. Entrada de tarjetas
+const cards = ['#card-flip', '#card-ring', '#card-bars', '#card-metric', '#card-extra'];
+tl.from('#titulo', { y: 35, opacity: 0, duration: 0.5, ease: 'power3.out' }, 0);
+tl.from(cards, { opacity: 0, scale: 0.85, y: 30, duration: 0.55, stagger: 0.08, ease: 'back.out(1.5)' }, 0.2);
+
+// 2. Flip contador
+const flipEl = document.getElementById('flip-digit');
+const vals = P.contador?.valores || ['3', '2', '1', 'LIVE'];
+const stepDur = Math.min(0.7, (D - 1.2) / vals.length);
+vals.forEach((txt, idx) => {
+  const at = 0.6 + idx * stepDur;
+  tl.to(flipEl, { scaleY: 0, duration: 0.15, ease: 'power2.in', onComplete: () => { flipEl.textContent = txt; } }, at);
+  tl.to(flipEl, { scaleY: 1, duration: 0.22, ease: 'back.out(2)' }, at + 0.15);
+});
+
+// 3. Ring de porcentaje
+const ringFg = document.getElementById('ring-fg');
+const ringTxt = document.getElementById('ring-txt');
+const maxOffset = 427;
+const targetPct = Number(P.porcentaje?.valor ?? 98);
+const targetOffset = maxOffset - (maxOffset * targetPct) / 100;
+FX.drive(tl, 0, targetPct, { duration: 1.8, ease: 'power2.out' }, (val) => {
+  ringTxt.textContent = Math.round(val) + '%';
+  const currOffset = maxOffset - (maxOffset * val) / 100;
+  ringFg.setAttribute('stroke-dashoffset', currOffset);
+}, 0.6);
+
+// 4. Barras que crecen
+barEls.forEach((col, idx) => {
+  tl.to(col, { scaleY: 1, duration: 0.8, ease: 'power3.out' }, 0.7 + idx * 0.1);
+});
+
+// 5. Métrica destacada
+const mValEl = document.getElementById('metric-val');
+const targetMet = Number(P.metrica?.valor ?? 148);
+const pref = P.metrica?.prefijo || '';
+const suff = P.metrica?.sufijo || '';
+FX.drive(tl, 0, targetMet, { duration: 1.6, ease: 'power2.out' }, (val) => {
+  mValEl.textContent = pref + Math.round(val) + suff;
+}, 0.8);
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

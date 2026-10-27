@@ -1,0 +1,51 @@
+{
+  "id": "ceinca-social",
+  "nombre": "CEINCA™ Institucional (Modo Social y YouTube)",
+  "tema_fx": "ceinca-social",
+  "idioma": "es-VE",
+  "trato": "tu_profesional",
+  "formatos": {
+    "vertical": {
+      "ancho": 1080,
+      "alto": 1920,
+      "fps": 30,
+      "zona_segura": { "arriba": 250, "abajo": 350, "izquierda": 60, "derecha": 60 }
+    },
+    "horizontal": {
+      "ancho": 1920,
+      "alto": 1080,
+      "fps": 30,
+      "zona_segura": { "arriba": 80, "abajo": 90, "izquierda": 96, "derecha": 96 }
+    }
+  },
+  "audio": {
+    "lufs_objetivo": -16.0,
+    "lufs_tolerancia": 1.5,
+    "true_peak_max": -1.5,
+    "musica_db_hablando": -23.0,
+    "sfx_db": -14.0,
+    "silencio_corte_s": 0.4
+  },
+  "reglas_medibles": [
+    {
+      "id": "R01_RESOLUCION_FPS",
+      "descripcion": "Resolución exacta (1080x1920 vertical o 1920x1080 horizontal) a 30 fps H.264 yuv420p",
+      "verificador": "check.sh reel"
+    },
+    {
+      "id": "R02_SONORIDAD_16LUFS",
+      "descripcion": "Sonoridad integrada en -16.0 LUFS (±1.5 LU)",
+      "verificador": "check.sh reel"
+    },
+    {
+      "id": "R03_ZONA_SEGURA",
+      "descripcion": "Todo texto y subtítulo dentro de la zona segura del formato activo",
+      "verificador": "render.mjs --solo-auditoria"
+    },
+    {
+      "id": "R04_SEPARACION_MARCA",
+      "descripcion": "Uso exclusivo de paleta azul marino #122A63 y dorado #C8A951 de CEINCA",
+      "verificador": "check.sh estatico"
+    }
+  ]
+}

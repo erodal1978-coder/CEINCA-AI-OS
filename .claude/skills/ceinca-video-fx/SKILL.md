@@ -1,9 +1,10 @@
 ---
 name: ceinca-video-fx
-description: "Efectos de video CEINCA para Reels y TikTok, generados con código: 21 plantillas HTML/GSAP (texto animado, checklist, gráfica, teléfono, consola, collage, órbita, muro de titulares), 4 efectos FFmpeg (zooms y pantalla verde) y audio sincronizado con música y efectos sintetizados. Úsala cuando pidan un efecto de video, motion graphics, animación para Reel o Story, chroma key, zoom de corte, subtítulos karaoke, overlay, los estilos dark tech, red glow o ukiyo-e, o renderizar un JSON de efecto a MP4 vertical 1080x1920. No edita video crudo ni recorta personas."
+description: >
+  Motor de efectos y edición de video CEINCA™ y @soyeduardo.ia en formato dual vertical 9:16 (1080×1920) y horizontal 16:9 (1920×1080) v1.3.0 en 6 bloques: B1 (11 efectos HTML/GSAP: muro-titulares, checklist, grafica-crece, texto-cristal, portada, telefono, mundo-app, orbita, garabato-vivo, muro-videos, vertigo-simulado); B2 (6 efectos de clip FFmpeg: zoom-digital, zoom-corte, zoom-atras, lupa-zoom, foco-spotlight, fragmentos-shatter); B3 (pantalla-verde chroma, rompe-marco 2.5D, corta-pega stop-motion, subtitulos-karaoke y overlay.mjs con layout split-pip); B4 (temas ceinca-social, ceinca-guias, marca-soyeduardo-ia, Dark Tech, Red Glow, Ukiyo-e y 7 efectos: pasos-progreso, consola-macos, diagrama-nodos, zoom-atraves, telefono-chat, collage-papel, camara-continua); B5 (modo 16:9 YouTube, grabar-demo.mjs, doctor.mjs, check.sh reel a -16 LUFS y comandos /editar, /ajustar, /doctor); B6 (4 efectos Claude Motion: bento-grid, barra-prompt, carrusel-blur, catalogo-lateral). Marca desacoplada.
 ---
 
-# ceinca-video-fx — Bloque 1 (11 efectos de solo código) · Bloques 2-4 más abajo
+# ceinca-video-fx — Bloques 1 a 5 (9:16 Vertical Reels + 16:9 Horizontal YouTube)
 
 Cada efecto es una plantilla HTML + GSAP (`effects/<id>/index.html`) que recibe un `params.json` y se renderiza a MP4.
 Sin CDN, sin APIs ni servicios pagos: GSAP, fuentes y plantillas viajan dentro de la skill.
@@ -26,7 +27,8 @@ Las rutas de imágenes/videos se resuelven relativas al `params.json` (también 
 ### Parámetros globales (todos los efectos)
 | Parámetro | Default | Qué hace |
 |---|---|---|
-| `tema` | `ceinca-social` | `ceinca-social`, `ceinca-guias` o `cliente-<nombre>` (ver Marca) |
+| `tema` | `ceinca-social` | `ceinca-social`, `ceinca-guias`, `marca-soyeduardo-ia`, `cliente-<nombre>` o `estilo-<nombre>` |
+| `formato` | `vertical` | `vertical` (`1080×1920`, 9:16 Reels/TikTok) o `horizontal` (`1920×1080`, 16:9 YouTube) |
 | `duracion` | `4` | segundos por efecto |
 | `zonaSegura` | `{ "arriba": 250, "abajo": 350 }` | px libres de texto clave arriba/abajo |
 | `contador` | — | overlay `NN/TT`: `{ "n": 3, "total": 11 }` o texto `"03/11"` |
@@ -53,6 +55,10 @@ El texto admite `**acento**` para resaltar con el color de acento del tema.
 | `rompe-marco` | Sujeto que sobrepasa el borde superior de una tarjeta UI (profundidad 2.5D) | `sujeto`, `titular`, `subtitulo`, `etiqueta` |
 | `corta-pega` | Efecto collage / sticker stop-motion con borde blanco y movimiento discontinuo | `sujeto`, `titular`, `subtitulo`, `etiquetas[]` |
 | `subtitulos-karaoke` | Subtítulos dinámicos con resaltado sincronizado palabra por palabra | `palabras[]` (`{texto, t}`), `posicion` (`centro`\|`abajo`) |
+| `bento-grid` | Cuadrícula Bento de 4 a 6 tarjetas (contador flip 3-2-1-LIVE, anillo de porcentaje, barras que crecen, métrica destacada) | `titulo`, `contador`, `porcentaje`, `barras`, `metrica`, `tarjetaExtra` |
+| `barra-prompt` | Píldora de prompt con typewriter, pulsación de botón y tarjeta que emerge con línea dibujada y check | `prompt`, `boton`, `resultado` (`{titulo, pasos[], estadoFinal}`) |
+| `carrusel-blur` | Tira horizontal con desplazamiento de alta velocidad con blur dinámico, frenado en seco y tarjeta destacada con check | `titulo`, `tarjetas[]`, `destacado` |
+| `catalogo-lateral` | Layout de catálogo con lista lateral numerada cuya píldora activa avanza sincronizada y marco interactivo | `titulo`, `pasos[]` (`{n, titulo, detalle, icono}`) |
 
 Íconos disponibles para `mundo-app`/`orbita`: `doc check shield chart bell chat user lock star coin clock mail pin building`.
 Un `params.example.json` por efecto vive en `effects/<id>/`; versiones listas para correr en `examples/<id>.json`.
@@ -150,6 +156,9 @@ bash scripts/check.sh video out/zoom-digital.mp4 5 out/frames/dig-mid.png
 | `zoom-corte` | Saltos instantáneos entre plano abierto y cerrado; simula dos cámaras | `cortes[]` con `{ "t": s, "escala": n, "foco"?: {x,y} }`. Cada corte se mantiene hasta el siguiente. Sin interpolación: el cambio ocurre en un solo frame. `escala: 1` = plano abierto. |
 | `zoom-atras` | Empieza cerrado, se abre hasta escala 1 (pull-back) | `escalaInicial` (default 1.4), `inicio`, `fin` (s), `curva` (igual que zoom-digital). Tras `fin` queda en escala 1. |
 | `pantalla-verde` | Chroma key nativo FFmpeg: elimina fondo verde y reemplaza por color/imagen/video | `color` (default `0x00FF00`), `tolerancia`, `suavizado`, `fondo` (`{tipo,valor}`) |
+| `lupa-zoom` | Lupa circular que recorre de {x1,y1} a {x2,y2} ampliando el video interno (1.8x) con anillo de acento | `origen` `{x,y}`, `destino` `{x,y}`, `escala` (default 1.8), `radio`, `colorAnillo`, `grosorAnillo` |
+| `foco-spotlight` | Oscurece el resto del cuadro y deja un foco circular suave iluminando {foco.x, foco.y} | `foco` `{x,y}`, `radio` (default 260), `oscuridad` |
+| `fragmentos-shatter` | Desplazamiento rápido de franjas al inicio del corte que encajan en su sitio en 0.35s | `duracionTransicion` (0.35), `franjas` (6), `desplazamiento` (240) |
 
 Un `clip-<efecto>.json` de ejemplo vive en `examples/`.
 
@@ -213,6 +222,9 @@ Resuelve la limitación de superponer gráficos, títulos o subtítulos sobre vi
 ```bash
 # Superponer subtítulos karaoke sobre un video grabado
 node scripts/overlay.mjs --base mi-clip.mp4 --overlay examples/subtitulos-karaoke.json --key 0x122A63 -o out/final.mp4
+
+# Layout Split-PIP (vocero abajo en tarjeta + efecto arriba + subtítulos al centro)
+node scripts/overlay.mjs --base vocero.mp4 --overlay examples/bento-grid.json --layout split-pip --tema marca-soyeduardo-ia -o out/split-pip.mp4
 ```
 
 ---
@@ -298,3 +310,42 @@ bash scripts/check.sh matriz                                                    
 - **Todo sintetizado por código** (`scripts/sfx_synth.py`, numpy, determinista): sin muestras ni licencias externas. Música Am–F–C–G a 120 bpm: 6 s = 3 compases, así cada corte cae en inicio de compás; la música baja ~5 dB bajo cada SFX. Salida AAC 48 kHz, ≈ −14 LUFS.
 - **Verificado:** con SFX solos, correlación audio↔movimiento de video máxima en desfase 0 cuadros. Lección: el pico del whoosh debe coincidir con el arranque del movimiento (ataque inmediato), no con su mitad.
 - Límites: el audio refleja las animaciones GSAP; efectos FFmpeg de clip (Bloque 2/3) no exponen timeline y no se sincronizan aquí. Es música de acompañamiento genérica: para pista de marca, sustituir el mix de `sfx_synth.py` o mezclar con ffmpeg.
+
+---
+
+## Bloque 5 — Modo Horizontal YouTube (16:9), Grabador de Demos y Flujo Editor Architect en Linux
+
+Inspirado y adaptado de la arquitectura de flujo conversacional (`video-editor-architect`, MIT) pero ejecutado **100% sobre el motor propio `ceinca-video-fx` en Linux** (sin Remotion y respetando el estándar **`-16 LUFS`** de CEINCA / `@soyeduardo.ia`).
+
+### 1. Formato Dual: Vertical `9:16` (`1080×1920`) y Horizontal YouTube `16:9` (`1920×1080`)
+Todos los scripts (`render.mjs`, `clip.mjs`, `overlay.mjs`, `reel.mjs`, `grabar-demo.mjs` y `check.sh`) aceptan `--formato vertical|horizontal` (o `"formato": "horizontal"` en el JSON):
+- **Vertical (`vertical` / `9:16`):** `1080×1920`, zonas seguras `250 px` arriba y `350 px` abajo (Reels, TikTok, Shorts).
+- **Horizontal (`horizontal` / `16:9`):** `1920×1080`, zonas seguras `80 px` arriba y `90 px` abajo (videos largos de YouTube, clases de cursos, webinars y presentaciones de pantalla). En `shared/base.css`, `#root[data-formato="horizontal"]` adapta automáticamente grillas, tipografías y tarjetas al apaisado 16:9.
+
+```bash
+node scripts/render.mjs examples/diagrama-nodos.json --tema marca-soyeduardo-ia --formato horizontal -o out/nodos-yt.mp4
+node scripts/clip.mjs examples/clip-zoom-corte.json --formato horizontal -o out/clip-yt.mp4
+node scripts/overlay.mjs --base out/clip-yt.mp4 --overlay examples/subtitulos-karaoke.json --formato horizontal --key 0x0B0F17 -o out/final-yt.mp4
+```
+
+### 2. Grabador Determinista de Demos Web/App (`scripts/grabar-demo.mjs` · comando `/grabar-demo`)
+Graba cualquier URL o aplicación local a 30 fps reales en Linux, tanto en **vertical (`1080×1920`)** como en **horizontal (`1920×1080`)**:
+```bash
+# Demo vertical 9:16 con marco de navegador sobre fondo @soyeduardo.ia (para Reel)
+node scripts/grabar-demo.mjs --url https://tu-web.com --formato vertical --modo marco --tema marca-soyeduardo-ia -o out/demo-reel.mp4
+
+# Demo horizontal 16:9 con marco o pantalla completa (para YouTube / curso)
+node scripts/grabar-demo.mjs --url https://tu-web.com --formato horizontal --modo marco --tema marca-soyeduardo-ia -o out/demo-youtube.mp4
+```
+- **Tres modos (`--modo`):** `pantalla` (lienzo completo `1080×1920` o `1920×1080`), `marco` (ventana con barra superior y semáforo sobre el fondo `--fx-bg` del tema) y `telefono` (mockup móvil centrado).
+- **Candado de privacidad automático:** difumina cualquier `input[type="password"]` o `[data-secret]` antes de capturar cada cuadro y nunca lee ni escribe contraseñas.
+
+### 3. Diagnóstico del Sistema en Linux (`scripts/doctor.mjs` · comando `/doctor`)
+Verifica de un vistazo sistema operativo, espacio libre (≥ 5 GB), Node.js, Git, FFmpeg + filtros (`loudnorm`, `ebur128`, `colorkey`, `chromakey`, `zoompan`), Chromium headless, Python 3 + NumPy (`sfx_synth.py`), herramientas opcionales (`whisper`, `yt-dlp`), integridad de `brand.lock.json` y verificación ciega de `~/.config/ceinca-editor/.env` (reporta solo si una llave opcional está configurada o vacía, **sin leer ni imprimir jamás su valor**).
+
+### 4. Auditoría de Entrega Final (`bash scripts/check.sh reel <mp4>`)
+Verifica que el MP4 terminado cumpla resolución exacta (`1080×1920` o `1920×1080`), `30 fps`, códec `h264`, `yuv420p` y sonoridad integrada EBU R128 en **`-16.0 LUFS` (± 1.5 LU)**.
+
+### 5. Comandos de Estudio en el Repo (`.claude/commands/` + `estilos/`)
+- `/editar`: flujo guiado en **3 paradas** (Parada 1: Texto y recorte de silencios/repeticiones; Parada 2: Dirección y escaleta en `vertical` 9:16 o `horizontal` 16:9; Parada 3: Render a `-16 LUFS` y reporte **`Cumple X de Y reglas`**).
+- `/ajustar`: aplica cambios puntuales generando `final-v2.mp4`, `final-v3.mp4` sin pisar la versión anterior y guarda reglas permanentes en `estilos/<id>/aprendizajes.md` y `perfil.json`.

@@ -1,0 +1,17 @@
+{
+  "efecto": "barra-prompt",
+  "tema": "ceinca-social",
+  "formato": "vertical",
+  "duracion": 8,
+  "prompt": "Comenta **CORONAR** en el post",
+  "boton": "Enviar Guía",
+  "resultado": {
+    "titulo": "Guía Oficial Legalización Título",
+    "pasos": [
+      "Requisitos exactos y escaneo en PDF",
+      "Ruta directa en tramites.saren.gob.ve",
+      "Planilla PUB y verificación de arancel"
+    ],
+    "estadoFinal": "Enviado a tu DM ✓"
+  }
+}
