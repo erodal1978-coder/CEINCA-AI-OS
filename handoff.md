@@ -4,6 +4,15 @@
 > Al iniciar una sesión nueva: "Lee handoff.md y continúa desde los próximos pasos."
 > Al cerrar una sesión: actualiza este archivo siguiendo las reglas definidas en `CLAUDE.md`.
 
+## 🔁 PENDIENTE — SINCRONIZACIÓN ÚNICA repo nube ↔ local (anotado 27-10-2026, a pedido de Eduardo)
+Mientras el repo local siga sin subir (cortes eléctricos), **no se edita nada de código ni de `PRODUCTION/`/`MARKETING/` desde la nube** para no generar conflictos. Todo lo que toca el repo se aplica de una vez, en este orden:
+1. **Traer la rama de la nube al local:** `git fetch origin claude/soyeduardo-content-audit-ultq4l` y fusionarla en la rama de trabajo local que reúne todo. Trae 3 archivos: `docs/PLAN_REELS_CARRUSEL_SKILL_27-10-2026.md`, `docs/PLAN_MAESTRO_ÑAPA_27-10-2026.md` y este `handoff.md`. Si `handoff.md` choca: **fusionar conservando ambos bloques**, nunca sobrescribir.
+2. **`PRODUCTION/FLOW_SISTEMA.md` §3 regla 8:** la chivera **varía** (solo de vez en cuando; no es rasgo fijo). Añadir: con avatar propio configurado (identidad y voz en el Ingrediente) no se describen rasgos; solo vestimenta, fondo, acción y cámara. Revisar a la vez el diff local de la regla Ingredientes + avatar (ver nota del 21-10).
+3. **`MARKETING/CTB_PALABRAS_DISRUPTIVAS.md`:** al publicar, registrar **ÑAPA** en la tabla 1 (tema: skill de efectos de video) y tacharla en §3 (nº 66). Subir el archivo a repo, Drive y proyecto de Claude.
+4. **`scripts/check.sh`:** perfil −14 ±1 LUFS y pico real ≤ −1,0 dBTP (hoy exige −16 ±1,5 y `audio.mjs` sale a −14).
+5. **Kit público:** `scripts/build-public-kit.sh` → `Video_Fx_Eduardo_IA.zip` (carpeta/`name` `video-fx-eduardo-ia`), sin "ceinca"/"soyeduardo" salvo `CREDITOS.md`; revisar la licencia de GSAP antes de redistribuir.
+6. Subir **todas** las ramas locales a GitHub en un solo push y abrir PR(s) después (sin mergear hasta su revisión).
+
 ## 🔎 27-10-2026 — Auditoría de referencias + plan 2 reels y 1 carrusel @soyeduardo.ia — rama `claude/soyeduardo-content-audit-ultq4l`
 - **Objetivo:** auditar `20 video effects for Claude.mp4`, `Claude Motion.mp4` y un carrusel de 8 láminas (Drive `Nuevos videos analizar`) y planear su recreación con la identidad de @soyeduardo.ia; la skill (zip Starter Kit) es el regalo de los reels.
 - **Estado actual:** entregado `docs/PLAN_REELS_CARRUSEL_SKILL_27-10-2026.md` (auditoría, brechas, guiones, prompts de imagen, plan por fases F0–F6, decisiones pendientes). Verificados por mí: 20 effects (frames + audio −14,1 LUFS) y carrusel. **`Claude Motion.mp4` NO verificado** (descarga MCP falló por tamaño); se usó el análisis del 26-10 en Drive.
@@ -13,6 +22,7 @@
 - **Claude Motion subido y verificado (−14,1 LUFS, pico −0,7).** GOLEM descartada (entrega un prompt); recomendada ÑAPA (alt. PALANCA), a confirmar contra las palabras activas de @soyeduardo.ia (ej. FIEBRU'O).
 - **ÑAPA elegida. Entregado `docs/PLAN_MAESTRO_ÑAPA_27-10-2026.md`** (plan ejecutable F0–F7 con prompts para Claude Code, guiones con tiempos, captions/fijado/respuestas/DM ya redactados y medidos, spec de carrusel y Beacons, riesgos). Hallazgo: `audio.mjs` normaliza a −14 LUFS pero `check.sh reel` exige −16 ±1,5 → −14 FALLA; F1 lo unifica. Pendiente verificar: licencia GSAP para redistribuir, si `catalogo-lateral` admite clip, si Meta admite 'ñapa' y 'napa' en un disparador.
 - **Reel B: prompts de Flow añadidos** (`PLAN_MAESTRO` §4.5): 5 clips de 8–10 s en modo Fotogramas, guion partido 16/19/16/18/14 palabras según `FLOW_SISTEMA` §4.1; recomendación: grabar el Reel B él mismo (misma sesión que el A) y usar Flow solo si prefiere no grabar. Pendiente confirmar la descripción física del sujeto (viene del avatar CEINCA) y la política de etiqueta de IA en IG/TikTok (no verificada).
+- **Decisiones del 27-10 (tarde):** D1 sí (kit lleva su nombre, tema neutro) · Reel A lo graba él · **Reel B con su avatar de Flow** (rasgos y voz ya configurados; sin chivera en este reel; prompts actualizados en `PLAN_MAESTRO` §4.5, oficina como escenario, modo Ingredientes) · D3 `Video_Fx_Eduardo_IA` · D4 sí (DM con requisitos) · ÑAPA libre. Etiqueta «Avatar de IA» en el Reel B.
 - **Próximos pasos:** Eduardo sube el repo local, indica qué promete GOLEM (reel 1) y el archivo del DM a reemplazar (lo reemplaza Claude en Drive con su confirmación); sube Claude Motion; luego F1 (sincronizar repo con zip y probar render de todos los efectos).
 - **Intentos fallidos (se agrega):** `download_file_content` de Drive sobre `Claude Motion.mp4` (6,4 MB) cerró la conexión MCP; el de 2,5 MB sí funcionó vía archivo de resultados.
 
