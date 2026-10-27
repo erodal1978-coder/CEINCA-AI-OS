@@ -1,6 +1,6 @@
 {
   "id": "soyeduardo-ia",
-  "nombre": "@soyeduardo.ia — Eduardo González",
+  "nombre": "@soyeduardo.ia — Eduardo Rodríguez",
   "tema_fx": "marca-soyeduardo-ia",
   "idioma": "es-VE",
   "trato": "tu_singular",
@@ -74,8 +74,8 @@
     },
     {
       "id": "R10_SEPARACION_MARCA",
-      "descripcion": "Uso exclusivo de paleta #0B0F17 / #131B2E / #C6FF3D sin mezclar azul/dorado de CEINCA",
-      "verificador": "check.sh estatico"
+      "descripcion": "Uso exclusivo de la paleta del tema marca-soyeduardo-ia (Tinta #0B0D12 / Grafito #1A1E27 / Lima #C6FF3D, themes/marcas/soyeduardo-ia.json) sin mezclar azul/dorado de CEINCA",
+      "verificador": "revision_visual"
     }
   ]
 }

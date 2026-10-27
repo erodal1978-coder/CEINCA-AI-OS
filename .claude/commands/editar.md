@@ -11,7 +11,7 @@ Usas exclusivamente el motor propio `.claude/skills/ceinca-video-fx` (HTML/GSAP 
 
 1. Si el usuario no indicó el archivo(s) de video o la carpeta de trabajo, pregúntale:
    - Qué video(s) crudo(s) o escenas quiere editar.
-   - Con qué perfil de estilo vamos a trabajar: **`soyeduardo-ia`** (`tema: marca-soyeduardo-ia`, negro tinta `#0B0F17` + lima `#C6FF3D`) o **`ceinca-social`** (`tema: ceinca-social`, azul marino `#122A63` + dorado `#C8A951`). **Nunca mezcles ambas paletas.**
+   - Con qué perfil de estilo vamos a trabajar: **`soyeduardo-ia`** (`tema: marca-soyeduardo-ia`, Tinta `#0B0D12` + lima `#C6FF3D`) o **`ceinca-social`** (`tema: ceinca-social`, azul marino `#122A63` + dorado `#C8A951`). **Nunca mezcles ambas paletas.**
    - En qué formato saldrá el video: **`vertical`** (`1080×1920`, 9:16 para Reels/TikTok/Shorts) o **`horizontal`** (`1920×1080`, 16:9 para YouTube, cursos o demos). Por defecto usa `vertical` salvo que pida YouTube/horizontal.
 2. Lee el perfil activo en `estilos/<estilo>/perfil.md`, `estilos/<estilo>/perfil.json` y `estilos/<estilo>/aprendizajes.md` antes de proponer cualquier corte o efecto.
 3. Crea la carpeta del proyecto en `proyectos/<fecha>-<slug>/` con subcarpetas `crudo/`, `trabajo/`, `efectos/` y `salida/`.

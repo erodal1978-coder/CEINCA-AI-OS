@@ -59,7 +59,7 @@ if (overlayPath.endsWith('.json')) {
 if (layoutOpt === 'split-pip') {
   const durSec = parseFloat(spawnSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', basePath], { encoding: 'utf8' }).stdout.trim()) || 5;
 
-  let bgHex = '0x0B0F17';
+  let bgHex = '0x0B0D12'; // respaldo: Tinta del manual; normalmente se lee --fx-bg del tema
   const themeFile = path.join(SKILL, 'themes', `${temaOpt}.css`);
   if (fs.existsSync(themeFile)) {
     const cssContent = fs.readFileSync(themeFile, 'utf8');

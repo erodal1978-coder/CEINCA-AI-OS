@@ -328,7 +328,7 @@ Todos los scripts (`render.mjs`, `clip.mjs`, `overlay.mjs`, `reel.mjs`, `grabar-
 ```bash
 node scripts/render.mjs examples/diagrama-nodos.json --tema marca-soyeduardo-ia --formato horizontal -o out/nodos-yt.mp4
 node scripts/clip.mjs examples/clip-zoom-corte.json --formato horizontal -o out/clip-yt.mp4
-node scripts/overlay.mjs --base out/clip-yt.mp4 --overlay examples/subtitulos-karaoke.json --formato horizontal --key 0x0B0F17 -o out/final-yt.mp4
+node scripts/overlay.mjs --base out/clip-yt.mp4 --overlay examples/subtitulos-karaoke.json --formato horizontal --key 0x0B0D12 -o out/final-yt.mp4
 ```
 
 **Limitación verificada (integración 27-10-2026):** 6 efectos HTML **solo funcionan en vertical** y lo declaran con `<meta name="fx-formatos" content="reel">`, así que `--formato horizontal` los rechaza con un mensaje claro: `corta-pega`, `diagrama-nodos` (los nodos se salen del lienzo), `grafica-crece`, `muro-titulares`, `rompe-marco` y `telefono-chat` (en horizontal el texto cae fuera de la zona segura de 80/90 px o los mensajes no caben). Los otros 19 efectos de reel pasan la auditoría en horizontal; los 2 slides (`slide-*`) son solo carrusel/reel. Para llevar uno de los 6 a horizontal hay que rediseñar su layout en `shared/base.css` o en su plantilla y quitar la declaración.

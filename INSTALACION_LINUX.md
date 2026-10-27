@@ -17,7 +17,7 @@ ceinca-editor-linux-pack/
 │  └─ skills/
 │     └─ ceinca-video-fx/ # Skill v1.2.0 actualizada con soporte dual 9:16 y 16:9 + temas @soyeduardo.ia y CEINCA
 ├─ estilos/
-│  ├─ soyeduardo-ia/      # Perfil entrenable de @soyeduardo.ia (#0B0F17 + #C6FF3D, -16 LUFS, 10 reglas)
+│  ├─ soyeduardo-ia/      # Perfil entrenable de @soyeduardo.ia (#0B0D12 + #C6FF3D, -16 LUFS, 10 reglas)
 │  │  ├─ perfil.md
 │  │  ├─ perfil.json
 │  │  └─ aprendizajes.md

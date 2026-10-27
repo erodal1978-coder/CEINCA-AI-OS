@@ -111,13 +111,13 @@ function findChrome() {
 function readThemeVars(tema) {
   const cssPath = path.join(SKILL_DIR, 'themes', `${tema}.css`);
   const defaults = {
-    bg: '#0B0F17',
-    bg2: '#131B2E',
-    surface: '#131B2E',
-    text: '#F8FAFC',
-    muted: '#94A3B8',
+    bg: '#0B0D12',
+    bg2: '#1A1E27',
+    surface: '#1A1E27',
+    text: '#F3F0E8',
+    muted: '#8B93A7',
     accent: '#C6FF3D',
-    line: '#1E293B',
+    line: '#2A2F3B',
   };
   if (!fs.existsSync(cssPath)) return defaults;
   const raw = fs.readFileSync(cssPath, 'utf8');
@@ -208,7 +208,7 @@ const PRIVACY_AND_CURSOR_INIT = `
       width: 26px; height: 26px;
       border-radius: 50%;
       background: rgba(198, 255, 61, 0.88);
-      border: 3px solid #0B0F17;
+      border: 3px solid #0B0D12;
       box-shadow: 0 4px 16px rgba(0,0,0,0.45);
       transform: translate(-999px, -999px);
       z-index: 2147483647;
