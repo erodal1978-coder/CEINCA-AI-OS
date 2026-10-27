@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>catalogo-lateral</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>
+  .titulo { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:72px; line-height:1.05; letter-spacing:-.02em; text-transform:uppercase; margin:0 0 28px 0; padding-top:24px; }
+  .catalog-body { display:flex; gap:28px; width:100%; height:calc(100% - 120px); align-items:stretch; }
+  .side-list { width:340px; display:flex; flex-direction:column; gap:16px; flex:none; }
+  #root[data-formato="horizontal"] .side-list { width:460px; }
+  .side-item { background:var(--fx-surface); border:2px solid var(--fx-line); border-radius:var(--fx-radius); padding:16px 20px; display:flex; align-items:center; gap:16px; transition:all 0.25s; }
+  .side-item.active { background:var(--fx-accent); color:var(--fx-on-accent); border-color:var(--fx-accent); box-shadow:var(--fx-shadow-accent); transform:scale(1.03); }
+  .item-num { font-family:var(--fx-font-mono); font-weight:var(--fx-fw-strong); font-size:26px; opacity:.85; }
+  .item-name { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:28px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .showcase-frame { flex:1; background:var(--fx-surface); border:2px solid var(--fx-line); border-radius:var(--fx-radius-lg); padding:40px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:var(--fx-shadow-card); position:relative; overflow:hidden; }
+  .showcase-frame.highlight { border-color:var(--fx-accent); }
+  .frame-header { display:flex; align-items:center; justify-content:space-between; }
+  .frame-badge { font-family:var(--fx-font-mono); font-size:22px; padding:6px 18px; border-radius:999px; background:var(--fx-surface-2); color:var(--fx-accent); border:1px solid var(--fx-line); }
+  .frame-center { display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; gap:24px; text-align:center; }
+  .frame-ico { width:120px; height:120px; border-radius:50%; background:var(--fx-surface-2); color:var(--fx-accent); display:flex; align-items:center; justify-content:center; border:2px solid var(--fx-line); }
+  .frame-ico svg { width:64px; height:64px; }
+  .frame-title { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:56px; color:var(--fx-text); line-height:1.05; }
+  .frame-desc { font-family:var(--fx-font-body); font-size:30px; color:var(--fx-text-muted); max-width:480px; }
+  .frame-bottom { font-family:var(--fx-font-mono); font-size:22px; color:var(--fx-text-muted); display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--fx-line); padding-top:16px; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="5" data-width="1080" data-height="1920">
+  <div id="area" class="fx-area" style="display:flex;flex-direction:column">
+    <h1 class="titulo" id="titulo"></h1>
+    <div class="catalog-body">
+      <!-- Columna izquierda: Lista numerada -->
+      <div class="side-list" id="side-list"></div>
+
+      <!-- Marco derecho: Showcase interactivo -->
+      <div class="showcase-frame" id="showcase-frame">
+        <div class="frame-header">
+          <div class="frame-badge" id="frame-step-badge">PASO 01</div>
+          <div class="frame-badge">CEINCA · FX</div>
+        </div>
+        <div class="frame-center">
+          <div class="frame-ico" id="frame-ico"></div>
+          <div class="frame-title" id="frame-title">Título</div>
+          <div class="frame-desc" id="frame-desc">Descripción del efecto</div>
+        </div>
+        <div class="frame-bottom">
+          <span>CATÁLOGO DINÁMICO</span>
+          <span id="frame-counter">1 / 4</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({
+  duracion: 5,
+  titulo: '20 Efectos de **Video FX**',
+  pasos: [
+    { n: '01', titulo: 'Bento Grid', detalle: 'Métricas y gráficas en cuadrícula', icono: 'chart' },
+    { n: '02', titulo: 'Barra Prompt', detalle: 'Typewriter y tarjeta animada', icono: 'chat' },
+    { n: '03', titulo: 'Carrusel Blur', detalle: 'Frenado con desenfoque dinámico', icono: 'star' },
+    { n: '04', titulo: 'Split PIP', detalle: 'Dual vocero y pantalla técnica', icono: 'doc' }
+  ]
+});
+FX.orbe(ctx);
+const { P, tl, D } = ctx;
+FX.setRich(document.getElementById('titulo'), P.titulo);
+
+const pasos = P.pasos || [
+  { n: '01', titulo: 'Paso 1', detalle: 'Detalle 1', icono: 'doc' },
+  { n: '02', titulo: 'Paso 2', detalle: 'Detalle 2', icono: 'check' }
+];
+
+const listEl = document.getElementById('side-list');
+const itemEls = pasos.map((p, idx) => {
+  const el = document.createElement('div');
+  el.className = 'side-item' + (idx === 0 ? ' active' : '');
+  const num = document.createElement('div');
+  num.className = 'item-num';
+  num.textContent = p.n || String(idx + 1).padStart(2, '0');
+  const name = document.createElement('div');
+  name.className = 'item-name';
+  name.textContent = p.titulo;
+  el.appendChild(num);
+  el.appendChild(name);
+  listEl.appendChild(el);
+  return el;
+});
+
+const frameBadge = document.getElementById('frame-step-badge');
+const frameIco = document.getElementById('frame-ico');
+const frameTitle = document.getElementById('frame-title');
+const frameDesc = document.getElementById('frame-desc');
+const frameCounter = document.getElementById('frame-counter');
+
+function updateShowcase(idx) {
+  const cur = pasos[idx];
+  frameBadge.textContent = 'PASO ' + (cur.n || String(idx + 1).padStart(2, '0'));
+  frameIco.innerHTML = '';
+  frameIco.appendChild(FX.icon(cur.icono || 'star'));
+  frameTitle.textContent = cur.titulo;
+  frameDesc.textContent = cur.detalle || '';
+  frameCounter.textContent = (idx + 1) + ' / ' + pasos.length;
+}
+updateShowcase(0);
+
+// Animación GSAP
+tl.from('#titulo', { y: 30, opacity: 0, duration: 0.45, ease: 'power3.out' }, 0);
+tl.from(itemEls, { x: -30, opacity: 0, duration: 0.4, stagger: 0.08, ease: 'power2.out' }, 0.2);
+tl.from('#showcase-frame', { scale: 0.94, opacity: 0, duration: 0.5, ease: 'back.out(1.5)' }, 0.3);
+
+// Avance sincronizado de la píldora activa
+const stepTime = (D - 0.8) / pasos.length;
+pasos.forEach((_, idx) => {
+  if (idx === 0) return;
+  const at = 0.6 + idx * stepTime;
+  tl.add(() => {
+    itemEls.forEach((el, i) => {
+      if (i === idx) el.classList.add('active');
+      else el.classList.remove('active');
+    });
+    updateShowcase(idx);
+  }, at);
+  tl.fromTo('#showcase-frame', { scale: 0.98 }, { scale: 1, duration: 0.25, ease: 'back.out(2)' }, at);
+});
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

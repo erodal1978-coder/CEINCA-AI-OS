@@ -1,6 +1,6 @@
 {
   "aviso": "GENERADO por sync-brand. Si cambia el manual de marca: npm run sync-brand, commitear y regenerar el zip.",
-  "fecha": "2026-10-23T20:14:48.816Z",
+  "fecha": "2026-10-27T18:55:19.670Z",
   "tokens": {
     "archivo": "../ceinca-design/references/tokens.md",
     "sha256": "1366138a905d051fd5593411fcede7b6c9fbf1adacec7ecc3fe9390f532707bf"
@@ -19,6 +19,9 @@
     "JetBrains Mono": [
       400,
       700
+    ],
+    "Sora": [
+      800
     ],
     "Anton": [
       400
@@ -42,6 +45,7 @@
   "temas": [
     "ceinca-social",
     "ceinca-guias",
+    "marca-soyeduardo-ia",
     "estilo-dark-tech",
     "estilo-red-glow",
     "estilo-ukiyo-e"

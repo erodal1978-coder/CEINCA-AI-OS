@@ -1,11 +1,12 @@
 /* fx.js — runtime común de las plantillas. Determinista: todo azar sale de una semilla y nada depende del reloj. */
 (function () {
   const RAW = window.__FX_PARAMS__ || {};
-  const W = 1080, H = 1920;
+  const isHoriz = RAW.formato === 'horizontal' || RAW.formato === '16:9';
+  const W = isHoriz ? 1920 : 1080, H = isHoriz ? 1080 : (Number(RAW.alto) || 1920); // alto: 1920 reel · 1350 carrusel (lo fija render.mjs)
 
   function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
-  const isMedia = (s) => typeof s === 'string' && /\.(png|jpe?g|svg|webp|gif|mp4|webm)$/i.test(s);
-  const isImg = (s) => typeof s === 'string' && /\.(png|jpe?g|svg|webp|gif)$/i.test(s);
+  const isMedia = (s) => typeof s === 'string' && (/\.(png|jpe?g|svg|webp|gif|mp4|webm)$/i.test(s) || s.indexOf('data:') === 0);
+  const isImg = (s) => typeof s === 'string' && (/\.(png|jpe?g|svg|webp|gif)$/i.test(s) || s.indexOf('data:image/') === 0);
   const fmt = (n, dec = 0) => { const neg = n < 0; const s = Math.abs(n).toFixed(dec); const [i, d] = s.split('.'); const g = i.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); return (neg ? '-' : '') + g + (d ? ',' + d : ''); };
 
   /* texto con **acento** → nodos seguros (sin innerHTML) */
@@ -65,13 +66,20 @@
   function init(defaults) {
     const P = Object.assign({}, defaults || {}, RAW);
     const root = document.getElementById('root');
+    root.style.height = H + 'px';
     const D = Number(P.duracion) || 4;
     const zs = P.zonaSegura || {};
-    const top = zs.arriba ?? 250, bottom = zs.abajo ?? 350;
+    const defTop = isHoriz ? 80 : 250, defBottom = isHoriz ? 90 : 350;
+    const top = zs.arriba ?? defTop, bottom = zs.abajo ?? defBottom;
     const hasTitle = !!P.tituloFijo, hasCounter = !!P.contador;
+    if (isHoriz) {
+      root.setAttribute('data-formato', 'horizontal');
+      root.setAttribute('data-width', '1920');
+      root.setAttribute('data-height', '1080');
+    }
     root.style.setProperty('--safe-top', top + 'px');
     root.style.setProperty('--safe-bottom', bottom + 'px');
-    root.style.setProperty('--content-top', (top + (hasTitle || hasCounter ? 110 : 0)) + 'px');
+    root.style.setProperty('--content-top', (top + (hasTitle || hasCounter ? (isHoriz ? 90 : 110) : 0)) + 'px');
     if (hasTitle || hasCounter) {
       const ov = el('div', 'fx-overlay', root); ov.id = 'fx-overlay';
       el('div', 'fx-fixed-title', ov, hasTitle ? P.tituloFijo : '');
@@ -81,13 +89,13 @@
       }
     }
     const tl = gsap.timeline({ paused: true });
-    return { P, D, tl, root, area: document.getElementById('area'), rng: mulberry32(Number(P.semilla ?? 1)) };
+    return { P, D, tl, root, area: document.getElementById('area'), rng: mulberry32(Number(P.semilla ?? 1)), formato: isHoriz ? 'horizontal' : 'vertical', W, H };
   }
   /* Orbe difuso que deriva por el fondo (opt-in con "orbe": true). Sólo transform → determinista. */
   function orbe(ctx) {
     if (!ctx.P.orbe) return null;
     const o = document.createElement('div'); o.className = 'fx-orbe'; ctx.root.insertBefore(o, ctx.root.firstChild);
-    ctx.tl.fromTo(o, { x: 0, y: 0, scale: 1 }, { x: 420, y: 700, scale: 1.25, duration: ctx.D, ease: 'sine.inOut' }, 0);
+    ctx.tl.fromTo(o, { x: 0, y: 0, scale: 1 }, { x: 420, y: isHoriz ? 320 : 700, scale: 1.25, duration: ctx.D, ease: 'sine.inOut' }, 0);
     return o;
   }
   /* Polígono de papel rasgado (clip-path). Sólo el ANCHO es fijo: las alturas van en % / calc(100% - Npx), así la forma no
@@ -131,5 +139,5 @@
     return ctx.tl; // la plantilla lo registra inline en window.__timelines (lo exige el lint de HyperFrames)
   }
   const dim = (src) => (RAW.__dims && RAW.__dims[src]) || null; // [ancho, alto, duración] de un asset ya reescrito
-  window.FX = { drive, dim, W, H, init, finish, fail, afterFonts, mejorTexto, orbe, rasgado, setRich, el, icon, ICONS, drawable, isMedia, isImg, fmt, mulberry32 };
+  window.FX = { drive, dim, W, H, isHoriz, init, finish, fail, afterFonts, mejorTexto, orbe, rasgado, setRich, el, icon, ICONS, drawable, isMedia, isImg, fmt, mulberry32 };
 })();

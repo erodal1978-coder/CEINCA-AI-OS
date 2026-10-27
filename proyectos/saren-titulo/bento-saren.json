@@ -1,0 +1,12 @@
+{
+  "efecto": "bento-grid",
+  "tema": "ceinca-social",
+  "formato": "vertical",
+  "duracion": 8,
+  "titulo": "Legalización **SAREN en Línea**",
+  "contador": { "valores": ["PORTAL", "DATOS", "PUB", "LISTO"], "etiqueta": "Flujo Digital" },
+  "porcentaje": { "valor": 100, "etiqueta": "Sin Gestores" },
+  "barras": { "datos": [25, 50, 75, 90, 100], "etiqueta": "Progreso Trámite" },
+  "metrica": { "valor": 3, "prefijo": "", "sufijo": "a 5 DÍAS", "etiqueta": "Tiempo de Entrega" },
+  "tarjetaExtra": { "etiqueta": "Arancel SAREN", "valor": "Planilla PUB Bancaria" }
+}

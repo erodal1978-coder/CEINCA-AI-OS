@@ -1,0 +1,81 @@
+{
+  "id": "soyeduardo-ia",
+  "nombre": "@soyeduardo.ia — Eduardo Rodríguez",
+  "tema_fx": "marca-soyeduardo-ia",
+  "idioma": "es-VE",
+  "trato": "tu_singular",
+  "formatos": {
+    "vertical": {
+      "ancho": 1080,
+      "alto": 1920,
+      "fps": 30,
+      "zona_segura": { "arriba": 250, "abajo": 350, "izquierda": 60, "derecha": 60 }
+    },
+    "horizontal": {
+      "ancho": 1920,
+      "alto": 1080,
+      "fps": 30,
+      "zona_segura": { "arriba": 80, "abajo": 90, "izquierda": 96, "derecha": 96 }
+    }
+  },
+  "audio": {
+    "lufs_objetivo": -16.0,
+    "lufs_tolerancia": 1.5,
+    "true_peak_max": -1.5,
+    "musica_db_hablando": -22.0,
+    "sfx_db": -12.0,
+    "silencio_corte_s": 0.35
+  },
+  "reglas_medibles": [
+    {
+      "id": "R01_RESOLUCION_FPS",
+      "descripcion": "Resolución exacta (1080x1920 vertical o 1920x1080 horizontal) a 30 fps H.264 yuv420p",
+      "verificador": "check.sh reel"
+    },
+    {
+      "id": "R02_SONORIDAD_16LUFS",
+      "descripcion": "Sonoridad integrada en -16.0 LUFS (±1.5 LU)",
+      "verificador": "check.sh reel"
+    },
+    {
+      "id": "R03_ZONA_SEGURA",
+      "descripcion": "Todo texto y subtítulo dentro de la zona segura del formato activo",
+      "verificador": "render.mjs --solo-auditoria"
+    },
+    {
+      "id": "R04_SUBTITULOS_DESDE_CERO",
+      "descripcion": "Subtítulos activos desde 0.0 s con resaltado en lima #C6FF3D",
+      "verificador": "edicion-json"
+    },
+    {
+      "id": "R05_ETIQUETA_NOMBRE_INICIO",
+      "descripcion": "Etiqueta @soyeduardo.ia en los primeros 3 segundos (0-3 s)",
+      "verificador": "edicion-json"
+    },
+    {
+      "id": "R06_UN_SOLO_LIMA",
+      "descripcion": "Máximo 1 elemento en lima eléctrico (#C6FF3D) simultáneo por pantalla",
+      "verificador": "revision_visual"
+    },
+    {
+      "id": "R07_RITMO_CAMBIO_3_5S",
+      "descripcion": "Cambio visual (zoom, corte, tarjeta o efecto GSAP) cada 3 a 5 segundos",
+      "verificador": "edicion-json"
+    },
+    {
+      "id": "R08_SIN_LOGOS_TERCEROS",
+      "descripcion": "Nombrar IAs o marcas externas con etiquetas de texto y capturas reales, sin dibujar logos ajenos",
+      "verificador": "revision_visual"
+    },
+    {
+      "id": "R09_CTA_MIN_3S",
+      "descripcion": "Tarjeta de cierre con palabra clave (CTB) visible al menos 3 segundos",
+      "verificador": "edicion-json"
+    },
+    {
+      "id": "R10_SEPARACION_MARCA",
+      "descripcion": "Uso exclusivo de la paleta del tema marca-soyeduardo-ia (Tinta #0B0D12 / Grafito #1A1E27 / Lima #C6FF3D, themes/marcas/soyeduardo-ia.json) sin mezclar azul/dorado de CEINCA",
+      "verificador": "revision_visual"
+    }
+  ]
+}

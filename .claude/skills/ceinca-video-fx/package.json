@@ -1,13 +1,15 @@
 {
   "name": "ceinca-video-fx",
   "private": true,
-  "version": "1.0.0",
-  "description": "Efectos de motion graphics CEINCA como plantillas HTML parametrizables → MP4 vertical",
+  "version": "1.3.0",
+  "description": "Motor de motion graphics y edición de video CEINCA / soyeduardo.ia (HTML/GSAP + FFmpeg) en formato vertical 9:16 (Reels/TikTok) y horizontal 16:9 (YouTube)",
   "type": "module",
   "scripts": {
     "sync-brand": "node scripts/sync-brand.mjs",
     "vendor:gsap": "mkdir -p vendor/gsap && cp node_modules/gsap/dist/gsap.min.js vendor/gsap/",
     "check": "bash scripts/check.sh estatico",
+    "doctor": "node scripts/doctor.mjs",
+    "demo": "node scripts/grabar-demo.mjs",
     "zip": "bash scripts/build-zip.sh",
     "assets": "node scripts/make-assets.mjs"
   },

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1350">
+<meta name="fx-formatos" content="carrusel,reel">
+<title>slide-interfaz</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>
+  /* Slide de carrusel "interfaz": todo es UI (ventana, encuesta, chat, botón) y un cursor la recorre. */
+  .grid { position:absolute; inset:0; background-image: radial-gradient(rgba(var(--fx-line-rgb), .55) 2px, transparent 2.5px); background-size: 44px 44px; opacity:.5; }
+  .stage { position:absolute; left:60px; right:60px; top:var(--content-top); bottom:var(--safe-bottom); display:flex; flex-direction:column; justify-content:center; gap:36px; padding-bottom:100px; }
+  .titulo { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:var(--t-size, 104px); line-height:1.02; letter-spacing:-.035em; margin:0; }
+  .ventana, .chat { flex:none; }
+  .ventana { position:relative; border-radius:var(--fx-radius-lg); overflow:hidden; }
+  .barra { display:flex; align-items:center; gap:14px; padding:20px 28px; background:rgba(var(--fx-bg-rgb), .55); border-bottom:2px solid rgba(var(--fx-line-rgb), .9); }
+  .barra i { width:18px; height:18px; border-radius:50%; background:var(--fx-line); }
+  .barra i:first-child { background:var(--fx-accent); }
+  .barra b { margin-left:12px; font-size:30px; font-weight:var(--fx-fw-strong); color:var(--fx-text-muted); letter-spacing:.02em; }
+  .cuerpo { padding:30px 32px 34px; display:flex; flex-direction:column; gap:20px; }
+  .pregunta { font-size:46px; font-weight:var(--fx-fw-strong); }
+  .op { display:flex; align-items:center; gap:24px; padding:26px 30px; border-radius:var(--fx-radius-lg); background:rgba(var(--fx-bg-rgb), .45); border:2px solid rgba(var(--fx-line-rgb), .9); font-size:48px; font-weight:var(--fx-fw-strong); position:relative; overflow:hidden; }
+  .op .fill { position:absolute; inset:0; background:var(--fx-grad-accent); transform-origin:left center; transform:scaleX(0); opacity:.95; }
+  .op .radio { position:relative; flex:none; width:46px; height:46px; border-radius:50%; border:4px solid var(--fx-line); display:grid; place-items:center; }
+  .op .radio svg { width:30px; height:30px; color:var(--fx-on-accent); opacity:0; }
+  .op span { position:relative; }
+  .chips { display:flex; flex-wrap:wrap; gap:16px; }
+  .chip { padding:14px 26px; border-radius:999px; font-size:36px; font-weight:var(--fx-fw-strong); border:2px solid var(--fx-accent); color:var(--fx-accent); }
+  .chat { display:flex; align-items:flex-start; gap:20px; }
+  .avatar { flex:none; width:84px; height:84px; border-radius:50%; background:var(--fx-grad-accent); color:var(--fx-on-accent); display:grid; place-items:center; font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:42px; }
+  .burbuja { position:relative; padding:24px 30px; border-radius:6px var(--fx-radius-lg) var(--fx-radius-lg) var(--fx-radius-lg); font-size:46px; line-height:1.2; font-weight:var(--fx-fw-strong); min-height:96px; min-width:180px; }
+  .burbuja .dots { display:flex; gap:10px; padding:14px 4px; }
+  .burbuja .dots i { width:16px; height:16px; border-radius:50%; background:var(--fx-text-muted); }
+  .boton { position:absolute; right:60px; bottom:var(--safe-bottom); display:flex; align-items:center; gap:18px; padding:22px 26px 22px 38px; border-radius:999px; background:var(--fx-grad-accent); color:var(--fx-on-accent); font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:38px; }
+  .boton .flecha { width:56px; height:56px; border-radius:50%; background:var(--fx-on-accent); color:var(--fx-accent); display:grid; place-items:center; }
+  .boton .flecha svg { width:34px; height:34px; }
+  .deco { position:absolute; color:var(--fx-accent); }
+  .deco svg { width:100%; height:100%; }
+  .cursor { position:absolute; left:0; top:0; width:58px; height:58px; z-index:60; opacity:0; filter: drop-shadow(0 6px 10px rgba(var(--fx-bg-rgb), .7)); }
+  .cursor path { fill:var(--fx-text); stroke:var(--fx-bg); stroke-width:1.6; stroke-linejoin:round; }
+  .onda { position:absolute; width:90px; height:90px; margin:-45px 0 0 -45px; border-radius:50%; border:5px solid var(--fx-accent); opacity:0; z-index:59; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="5" data-width="1080" data-height="1350">
+<div class="fx-bgfill grid"></div>
+<div class="stage" id="stage"><h1 class="titulo" id="titulo"></h1></div>
+<div class="onda" id="onda"></div>
+<svg class="cursor" id="cursor" viewBox="0 0 24 24"><path d="M3 2l7.5 19 2.6-7.6L21 10.8z"/></svg>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({
+  titulo: '¿Quieres animar con **Claude**?', etiqueta: 'encuesta',
+  pregunta: '¿Cuál te gustó más?', opciones: ['Cinética', 'Interfaz', 'Sketch'], elegida: 0, chips: [],
+  inicial: 'C', mensaje: 'Comenta **ANIMA** y te lo envío', boton: 'Desliza', tamTitulo: 104,
+});
+const { P, tl, D, root } = ctx;
+const $ = (id) => document.getElementById(id);
+const stage = $('stage');
+stage.style.setProperty('--t-size', P.tamTitulo + 'px');
+FX.setRich($('titulo'), P.titulo);
+
+/* ventana con encuesta y/o chips */
+const ops = [];
+let ventana = null, chips = [];
+if ((P.opciones && P.opciones.length) || (P.chips && P.chips.length)) {
+  ventana = FX.el('div', 'ventana fx-card', stage);
+  const barra = FX.el('div', 'barra', ventana); FX.el('i', '', barra); FX.el('i', '', barra); FX.el('i', '', barra); FX.el('b', '', barra, P.etiqueta);
+  const cuerpo = FX.el('div', 'cuerpo', ventana);
+  if (P.pregunta) FX.el('div', 'pregunta', cuerpo, P.pregunta);
+  (P.opciones || []).forEach((t, i) => {
+    const op = FX.el('div', 'op', cuerpo); const fill = FX.el('div', 'fill', op);
+    const radio = FX.el('div', 'radio', op); const chk = FX.icon('check'); radio.appendChild(chk);
+    FX.setRich(FX.el('span', '', op), t);
+    ops.push({ op, fill, chk, radio, i });
+  });
+  if (P.chips && P.chips.length) { const w = FX.el('div', 'chips', cuerpo); chips = P.chips.map((t) => FX.el('div', 'chip', w, t)); }
+}
+/* chat: avatar + burbuja que "escribe" */
+let burbuja = null, texto = null, dots = null;
+if (P.mensaje) {
+  const chat = FX.el('div', 'chat', stage);
+  FX.el('div', 'avatar', chat, P.inicial);
+  burbuja = FX.el('div', 'burbuja fx-card', chat);
+  dots = FX.el('div', 'dots', burbuja); [0, 1, 2].forEach(() => FX.el('i', '', dots));
+  texto = FX.el('div', '', burbuja); texto.style.display = 'none';
+}
+const boton = P.boton ? FX.el('div', 'boton', root) : null;
+if (boton) { FX.el('span', '', boton, P.boton); const f = FX.el('div', 'flecha', boton); const a = FX.icon('check'); a.querySelector('path').setAttribute('d', 'M5 12h14 M13 6l6 6-6 6'); f.appendChild(a); }
+
+/* decoraciones flotantes (íconos de la marca, trazo dorado) */
+const decos = [['star', 0.93, 0.44, 60], ['chat', 0.04, 0.62, 56], ['star', 0.1, 0.92, 46], ['bell', 0.95, 0.8, 52]].map(([n, x, y, s], k) => {
+  const d = FX.el('div', 'deco', root); d.appendChild(FX.icon(n));
+  Object.assign(d.style, { left: (x * FX.W - s / 2) + 'px', top: (y * FX.H - s / 2) + 'px', width: s + 'px', height: s + 'px' });
+  return { d, k };
+});
+
+/* --- timeline --- frame 0 ya muestra título y ventana (es la portada del slide en el feed) */
+const T = (x) => Math.min(x, D - 0.6);
+tl.fromTo('#titulo', { y: 18 }, { y: 0, duration: 0.5, ease: 'power3.out' }, 0);
+tl.fromTo('#titulo .fx-hl', { scale: 1.06, display: 'inline-block' }, { scale: 1, duration: 0.6, ease: 'back.out(3)', immediateRender: false }, 0.15);
+if (ventana) tl.fromTo(ventana, { y: 40, opacity: 0.35 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, 0);
+ops.forEach((o, i) => tl.from(o.op, { x: -60, opacity: 0, duration: 0.35, ease: 'power3.out' }, 0.25 + i * 0.12));
+chips.forEach((c, i) => tl.from(c, { scale: 0.4, opacity: 0, duration: 0.35, ease: 'back.out(2.4)' }, 0.35 + i * 0.1));
+decos.forEach(({ d, k }) => { tl.from(d, { scale: 0, rotation: -90, duration: 0.5, ease: 'back.out(2)' }, 0.2 + k * 0.1); FX.drive(tl, 0, 1, { duration: D, ease: 'none' }, (v) => { d.style.translate = `0 ${Math.sin((v * D * 2.2) + k * 1.7) * 10}px`; }, 0); });
+
+/* cursor: entra, elige la opción, luego toca el botón */
+const cur = $('cursor'), onda = $('onda');
+const centro = (el) => { const r = el.getBoundingClientRect(), R = root.getBoundingClientRect(); return { x: r.left - R.left + r.width * 0.72, y: r.top - R.top + r.height * 0.55 }; };
+const click = (p, t) => { tl.set(onda, { left: p.x, top: p.y, scale: 0.3, opacity: 1 }, t); tl.to(onda, { scale: 1.6, opacity: 0, duration: 0.45, ease: 'power2.out' }, t); tl.to(cur, { scale: 0.85, duration: 0.08, yoyo: true, repeat: 1 }, t); };
+tl.set(cur, { x: FX.W + 40, y: FX.H * 0.72 }, 0); tl.set(cur, { opacity: 1 }, 0.5);
+let t = 1.0;
+const sel = ops[Math.max(0, Math.min(ops.length - 1, Number(P.elegida)))];
+if (sel) {
+  const p = centro(sel.op);
+  tl.to(cur, { x: p.x, y: p.y, duration: 0.7, ease: 'power2.inOut' }, t); t += 0.7; click(p, t);
+  tl.to(sel.fill, { scaleX: 1, duration: 0.45, ease: 'power3.inOut' }, t + 0.05);
+  tl.set(sel.radio, { borderColor: 'var(--fx-on-accent)' }, t + 0.2);
+  tl.to(sel.chk, { opacity: 1, duration: 0.2 }, t + 0.3);
+  tl.set(sel.op, { color: 'var(--fx-on-accent)' }, t + 0.25);
+  t += 0.6;
+}
+if (burbuja) {
+  tl.from(burbuja.parentElement, { y: 40, opacity: 0, duration: 0.4, ease: 'power3.out' }, T(t - 0.2));
+  dots.querySelectorAll('i').forEach((d, i) => tl.fromTo(d, { y: 0 }, { y: -10, duration: 0.18, yoyo: true, repeat: 3, ease: 'sine.inOut' }, T(t + i * 0.08)));
+  const full = String(P.mensaje); const plano = full.replaceAll('**', ''); t += 0.7;
+  tl.set(dots, { display: 'none' }, T(t)); tl.set(texto, { display: 'block' }, T(t));
+  const dur = Math.min(1.1, plano.length * 0.03);
+  FX.drive(tl, 0, plano.length, { duration: dur, ease: 'none' }, (v) => { // escribe respetando el **acento**
+    let n = Math.round(v), out = '', hl = false; for (const part of full.split('**')) { if (n <= 0) break; out += (hl ? '**' : '') + part.slice(0, n) + (hl ? '**' : ''); n -= part.length; hl = !hl; }
+    if (texto.dataset.v !== out) { texto.dataset.v = out; FX.setRich(texto, out); }
+  }, T(t));
+  t += dur + 0.2;
+}
+if (boton) {
+  tl.from(boton, { y: 30, opacity: 0, duration: 0.4, ease: 'back.out(2)' }, T(t - 0.3));
+  const p = centro(boton);
+  tl.to(cur, { x: p.x, y: p.y, duration: 0.6, ease: 'power2.inOut' }, T(t)); click(p, T(t + 0.6));
+  tl.to(boton.querySelector('.flecha'), { x: 10, duration: 0.25, yoyo: true, repeat: 3, ease: 'sine.inOut' }, T(t + 0.7));
+}
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

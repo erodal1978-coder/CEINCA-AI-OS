@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1920">
+<title>barra-prompt</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>
+  .wrap { display:flex; flex-direction:column; width:100%; height:100%; justify-content:center; }
+  .prompt-bar { background:var(--fx-surface); border:2px solid var(--fx-line); border-radius:999px; padding:18px 24px; display:flex; align-items:center; gap:20px; box-shadow:var(--fx-shadow-card); z-index:10; }
+  .prompt-ico { width:52px; height:52px; border-radius:50%; background:var(--fx-surface-2); display:flex; align-items:center; justify-content:center; color:var(--fx-accent); flex:none; }
+  .prompt-ico svg { width:28px; height:28px; }
+  .prompt-input { flex:1; font-family:var(--fx-font-mono); font-size:34px; color:var(--fx-text); white-space:nowrap; overflow:hidden; }
+  #root[data-formato="horizontal"] .prompt-input { font-size:28px; }
+  .cursor { display:inline-block; width:12px; height:34px; background:var(--fx-accent); vertical-align:middle; margin-left:6px; }
+  .btn-send { background:var(--fx-accent); color:var(--fx-on-accent); border:none; border-radius:999px; padding:14px 32px; font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:28px; display:flex; align-items:center; gap:10px; cursor:pointer; flex:none; }
+  .result-card { background:var(--fx-surface); border:2px solid var(--fx-line); border-radius:var(--fx-radius-lg); padding:40px; margin-top:28px; box-shadow:var(--fx-shadow-card); transform-origin:top center; }
+  .result-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; }
+  .result-title { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:46px; text-transform:uppercase; color:var(--fx-text); }
+  .status-badge { font-family:var(--fx-font-mono); font-size:24px; padding:8px 20px; border-radius:999px; background:var(--fx-surface-2); color:var(--fx-text-muted); border:1px solid var(--fx-line); display:flex; align-items:center; gap:8px; }
+  .status-badge.ok { background:var(--fx-accent); color:var(--fx-on-accent); border-color:var(--fx-accent); }
+  .svg-line-wrap { width:100%; height:20px; margin-bottom:28px; }
+  .svg-line { width:100%; height:100%; }
+  .draw-path { fill:none; stroke:var(--fx-accent); stroke-width:4; stroke-linecap:round; }
+  .steps-list { display:flex; flex-direction:column; gap:18px; }
+  .step-row { display:flex; align-items:center; gap:16px; font-family:var(--fx-font-body); font-size:32px; color:var(--fx-text); }
+  .step-check { width:40px; height:40px; border-radius:50%; background:var(--fx-surface-2); color:var(--fx-accent); display:flex; align-items:center; justify-content:center; flex:none; border:1px solid var(--fx-line); }
+  .step-check.done { background:var(--fx-accent); color:var(--fx-on-accent); }
+  .step-check svg { width:22px; height:22px; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="5" data-width="1080" data-height="1920">
+  <div id="area" class="fx-area" style="display:flex;align-items:center;justify-content:center">
+    <div class="wrap">
+      <!-- 1. Píldora de Prompt -->
+      <div class="prompt-bar" id="prompt-bar">
+        <div class="prompt-ico" id="p-ico"></div>
+        <div class="prompt-input"><span id="p-text"></span><span class="cursor" id="p-cursor"></span></div>
+        <button class="btn-send" id="btn-send">
+          <span id="btn-label">Ejecutar</span>
+        </button>
+      </div>
+
+      <!-- 2. Tarjeta de Resultado -->
+      <div class="result-card" id="result-card">
+        <div class="result-top">
+          <div class="result-title" id="res-title">Pipeline</div>
+          <div class="status-badge" id="status-badge">
+            <span id="badge-txt">Procesando...</span>
+          </div>
+        </div>
+        <div class="svg-line-wrap">
+          <svg class="svg-line" viewBox="0 0 920 20" preserveAspectRatio="none">
+            <path class="draw-path" id="draw-path" d="M 10 10 L 910 10" stroke-dasharray="900" stroke-dashoffset="900"></path>
+          </svg>
+        </div>
+        <div class="steps-list" id="steps-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({
+  duracion: 5,
+  prompt: 'Genera el plan de **edición automática**',
+  boton: 'Ejecutar',
+  resultado: {
+    titulo: 'Pipeline Automatizado',
+    pasos: [
+      'Normalización audio a -16 LUFS',
+      'Sincronización de cortes dinámicos',
+      'Renderizado GSAP final'
+    ],
+    estadoFinal: 'Completado'
+  }
+});
+FX.orbe(ctx);
+const { P, tl, D } = ctx;
+
+// Icono prompt
+document.getElementById('p-ico').appendChild(FX.icon('star'));
+if (P.boton) document.getElementById('btn-label').textContent = P.boton;
+if (P.resultado?.titulo) document.getElementById('res-title').textContent = P.resultado.titulo;
+
+// Pasos en resultado
+const stepsList = document.getElementById('steps-list');
+const pasos = P.resultado?.pasos || ['Paso 1', 'Paso 2', 'Paso 3'];
+const stepEls = pasos.map((pTxt) => {
+  const row = document.createElement('div');
+  row.className = 'step-row';
+  const chk = document.createElement('div');
+  chk.className = 'step-check';
+  chk.appendChild(FX.icon('check'));
+  const txt = document.createElement('div');
+  txt.textContent = pTxt;
+  row.appendChild(chk);
+  row.appendChild(txt);
+  stepsList.appendChild(row);
+  return { row, chk };
+});
+
+// Typewriter
+const rawPrompt = P.prompt ? P.prompt.replace(/\*\*/g, '') : 'Ejecutar comando';
+const textEl = document.getElementById('p-text');
+const cursorEl = document.getElementById('p-cursor');
+
+// Animación GSAP
+// 1. Entrada de barra
+tl.from('#prompt-bar', { scale: 0.9, y: 30, opacity: 0, duration: 0.5, ease: 'back.out(1.4)' }, 0);
+
+// Cursor blink
+tl.to(cursorEl, { opacity: 0, duration: 0.28, repeat: -1, yoyo: true }, 0);
+
+// 2. Typewriter
+const typeLen = rawPrompt.length;
+FX.drive(tl, 0, typeLen, { duration: 1.4, ease: 'none' }, (v) => {
+  const count = Math.floor(v);
+  textEl.textContent = rawPrompt.slice(0, count);
+}, 0.5);
+
+// 3. Pulsar botón
+tl.to('#btn-send', { scale: 0.88, duration: 0.12, ease: 'power2.in' }, 2.0);
+tl.to('#btn-send', { scale: 1.0, duration: 0.16, ease: 'back.out(2)' }, 2.12);
+
+// 4. Emerge tarjeta de resultado
+tl.fromTo('#result-card',
+  { opacity: 0, y: -40, scale: 0.95 },
+  { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'power3.out' },
+  2.2
+);
+
+// 5. Línea que se dibuja sola
+const pathEl = document.getElementById('draw-path');
+tl.to(pathEl, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.inOut' }, 2.5);
+
+// 6. Pasos escalonados
+stepEls.forEach((st, idx) => {
+  const at = 2.7 + idx * 0.35;
+  tl.from(st.row, { opacity: 0, x: -20, duration: 0.3, ease: 'power2.out' }, at);
+  tl.to(st.chk, { className: 'step-check done', duration: 0.1 }, at + 0.2);
+});
+
+// 7. Botón de estado cambia a éxito
+const bBadge = document.getElementById('status-badge');
+const bTxt = document.getElementById('badge-txt');
+const finalState = P.resultado?.estadoFinal || 'Listo';
+tl.to(bBadge, { scale: 0.85, duration: 0.15, ease: 'power2.in' }, 3.8);
+tl.to(bBadge, {
+  scale: 1.05,
+  className: 'status-badge ok',
+  duration: 0.25,
+  ease: 'back.out(2)',
+  onStart: () => {
+    bTxt.textContent = finalState + ' ✓';
+  }
+}, 3.95);
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

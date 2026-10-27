@@ -1,0 +1,15 @@
+{
+  "clip": "/home/eduardo/Descargas/Video copias certificadas titulo univ SAREN/Video copias certificadas titulo univ SAREN.mp4",
+  "efecto": "lupa-zoom",
+  "recorte": {
+    "desde": 25,
+    "hasta": 33
+  },
+  "origen": { "x": 0.35, "y": 0.38 },
+  "destino": { "x": 0.52, "y": 0.42 },
+  "escala": 1.8,
+  "radio": 220,
+  "colorAnillo": "0xC8A951",
+  "grosorAnillo": 8,
+  "audio": false
+}

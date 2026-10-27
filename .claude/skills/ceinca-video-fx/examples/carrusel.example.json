@@ -1,0 +1,10 @@
+{
+  "tema": "ceinca-social",
+  "duracion": 5,
+  "slides": [
+    { "efecto": "slide-cinetica", "lineas": ["Este carrusel", "**se mueve**", "y no lo animé yo."], "chica": [2] },
+    { "efecto": "slide-interfaz", "titulo": "Lo hizo **Claude** con código", "etiqueta": "efectos", "pregunta": "Sin After Effects ni plantillas:", "opciones": [], "chips": ["Muro de titulares", "Rompe el marco", "Pantalla verde", "Gráficas", "Karaoke"], "mensaje": "" },
+    { "efecto": "slide-cinetica", "lineas": ["Donde el texto", "es el **protagonista**", "y el resto solo enfatiza."], "chica": [2] },
+    { "efecto": "slide-interfaz", "titulo": "¿Quieres animar con **Claude**?", "etiqueta": "encuesta", "pregunta": "¿Cuál te gustó más?", "opciones": ["Cinética", "Interfaz", "Pantalla verde"], "elegida": 0, "mensaje": "Comenta **FIEBRU'O** y te lo envío", "boton": "" }
+  ]
+}

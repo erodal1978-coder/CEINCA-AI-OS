@@ -1,0 +1,12 @@
+{
+  "efecto": "bento-grid",
+  "tema": "marca-soyeduardo-ia",
+  "formato": "vertical",
+  "duracion": 5,
+  "titulo": "Arquitectura **Bento Grid**",
+  "contador": { "valores": ["3", "2", "1", "LIVE"], "etiqueta": "Estado" },
+  "porcentaje": { "valor": 98, "etiqueta": "Precisión" },
+  "barras": { "datos": [35, 60, 45, 80, 95], "etiqueta": "Rendimiento" },
+  "metrica": { "valor": 148, "prefijo": "+", "sufijo": "%", "etiqueta": "Velocidad" },
+  "tarjetaExtra": { "etiqueta": "Infraestructura", "valor": "100% Determinista" }
+}

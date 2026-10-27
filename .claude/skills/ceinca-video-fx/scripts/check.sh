@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
-# check.sh — validaciones de la skill.
-#   check.sh [estatico]                         → marca desacoplada, sin URLs externas, estructura de efectos
-#   check.sh matriz [overlay]                             → audita TODOS los efectos × TODOS los temas (zonas seguras + errores de página), sin renderizar video
-#   check.sh video <mp4> [duracion=4] [png-mitad] → ffprobe (1080×1920, 30 fps, H.264, yuv420p, frames ±1) + PNG del frame central
+# check.sh — validaciones de la skill (compatible 100% con Linux sin depender de bc).
+#   check.sh [estatico]                                → marca desacoplada, sin URLs externas, estructura de efectos
+#   check.sh matriz [overlay]                          → audita TODOS los efectos × TODOS los temas (zonas seguras + errores)
+#   check.sh video <mp4> [duracion=4] [png-mitad]      → ffprobe (1080×1920 o 1920×1080, 30 fps, H.264, yuv420p, frames ±1) + PNG del frame central
+#   check.sh clip <json> [mp4]                         → valida parámetros de clip.mjs y sincronía A/V ≤ 0.05s
+#   check.sh reel <mp4> [reel-voz.json] [--lufs N]     → reel final: formato (1080×1920 o 1920×1080)/30 fps/H.264, A/V ≤ 0,1 s, loudness N±1,5 LUFS (default 16 → −16), sin silencios > 0,6 s;
+#                                                         con el JSON: badges 1..N consecutivos y keyword exacta. Pico real > −1,0 dBTP solo avisa.
 set -uo pipefail
 SKILL="$(cd "$(dirname "$0")/.." && pwd)"
 fail=0
@@ -11,7 +14,6 @@ ok()  { echo "✓ $*"; }
 
 estatico() {
   local dirs=("$SKILL/effects" "$SKILL/shared")
-  # 1) colores literales (hex, rgb/hsl numéricos, nombres CSS) — solo se permiten variables --fx-*
   local hits
   hits=$(grep -rnE --include='*.html' --include='*.css' --include='*.js' --include='*.mjs' \
       -e '(^|[^&A-Za-z0-9_\-])#[0-9a-fA-F]{3,8}\b' -e 'rgba?\(\s*[0-9]' -e 'hsla?\(\s*[0-9]' \
@@ -22,7 +24,7 @@ estatico() {
   # 2) familias tipográficas: toda declaración font-family debe ser var(--fx-font-display|body|mono)
   hits=$(grep -rnoE --include='*.html' --include='*.css' 'font-family\s*:[^;}]*' "${dirs[@]}" | grep -vE 'font-family\s*:\s*var\(--fx-font-(display|body|mono)\)\s*$') || true
   [ -n "$hits" ] && { bad "font-family literal (usa var(--fx-font-*)):"; echo "$hits" >&2; } || ok "sin familias tipográficas literales"
-  # 3) nombres de familias vendorizadas (leídos del lock) no pueden aparecer escritos a mano
+
   if [ -f "$SKILL/themes/brand.lock.json" ]; then
     local fams; fams=$(node -e "const l=JSON.parse(require('fs').readFileSync('$SKILL/themes/brand.lock.json','utf8'));console.log(Object.keys(l.familias).join('\n'))")
     while IFS= read -r f; do
@@ -32,13 +34,13 @@ estatico() {
     done <<< "$fams"
     ok "familias del lock no aparecen literales"
   else bad "falta themes/brand.lock.json"; fi
-  # 4) nada de URLs externas en HTML/CSS/JS propios
+
   hits=$(grep -rnE --include='*.html' --include='*.css' --include='*.js' -e 'https?://' -e 'src="//' -e "url\\(['\"]?//" "${dirs[@]}" "$SKILL/themes"/*.css | grep -vE 'www\.w3\.org') || true
   [ -n "$hits" ] && { bad "URLs externas:"; echo "$hits" >&2; } || ok "sin URLs externas (efectos, shared, themes)"
-  # 5) determinismo: nada de Math.random ni reloj real
+
   hits=$(grep -rnE --include='*.html' --include='*.js' 'Math\.random|Date\.now|new Date\(|performance\.now|setTimeout|setInterval' "${dirs[@]}") || true
   [ -n "$hits" ] && { bad "no determinista:"; echo "$hits" >&2; } || ok "sin Math.random / reloj real"
-  # 6) estructura de cada efecto
+
   for d in "$SKILL"/effects/*/; do
     n=$(basename "$d")
     [ -f "$d/index.html" ] || bad "$n: falta index.html"
@@ -47,9 +49,17 @@ estatico() {
     grep -q 'data-composition-id="root"' "$d/index.html" || bad "$n: falta data-composition-id"
   done
   ok "estructura de $(ls -d "$SKILL"/effects/*/ | wc -l) efectos"
-  # 7) zip/skill no depende de red: los vendor existen
+
   [ -f "$SKILL/vendor/gsap/gsap.min.js" ] && [ -f "$SKILL/vendor/gsap/LICENSE.md" ] && ok "GSAP vendorizado con licencia" || bad "falta vendor/gsap"
   ls "$SKILL"/vendor/fonts/*.woff2 >/dev/null 2>&1 && ok "fuentes vendorizadas" || bad "faltan fuentes en vendor/fonts"
+  local dlen; dlen=$(node -e "
+    const s=require('fs').readFileSync('$SKILL/SKILL.md','utf8');
+    const fm=s.split('---')[1]||'';
+    const m=fm.match(/description:\s*>?\s*([\s\S]*)$/);
+    const txt=(m?m[1]:'').split('\n').map(l=>l.trim()).filter(Boolean).join(' ');
+    process.stdout.write(String(txt.length));
+  ")
+  [ "$dlen" -le 1024 ] && ok "SKILL.md description <= 1024 caracteres (${dlen} chars)" || bad "SKILL.md description excede 1024 caracteres (${dlen} chars)"
 }
 
 video() {
@@ -57,18 +67,21 @@ video() {
   [ -f "$f" ] || { bad "no existe $f"; return; }
   local info; info=$(ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=codec_name,width,height,r_frame_rate,pix_fmt,nb_read_frames,duration -of default=nw=1 "$f")
   local get; get() { echo "$info" | sed -n "s/^$1=//p"; }
-  local want=$(( $(printf '%.0f' "$(echo "$dur*30" | bc -l)") )) frames; frames=$(get nb_read_frames)
+  local want; want=$(node -e "process.stdout.write(String(Math.round(${dur}*30)))")
+  local frames; frames=$(get nb_read_frames)
+  local res="$(get width)x$(get height)"
   local errs=0
-  [ "$(get width)x$(get height)" = "1080x1920" ] || { bad "$f: resolución $(get width)x$(get height) ≠ 1080x1920"; errs=1; }
+  [[ "$res" = "1080x1920" || "$res" = "1920x1080" ]] || { bad "$f: resolución $res ≠ 1080x1920 ni 1920x1080"; errs=1; }
   [ "$(get r_frame_rate)" = "30/1" ] || { bad "$f: fps $(get r_frame_rate) ≠ 30"; errs=1; }
   [ "$(get codec_name)" = "h264" ] || { bad "$f: códec $(get codec_name) ≠ h264"; errs=1; }
   [ "$(get pix_fmt)" = "yuv420p" ] || { bad "$f: pix_fmt $(get pix_fmt) ≠ yuv420p"; errs=1; }
   local diff=$(( frames > want ? frames - want : want - frames ))
   [ "$diff" -le 1 ] || { bad "$f: $frames frames, esperados $want ±1"; errs=1; }
-  [ "$errs" = 0 ] && ok "$(basename "$f"): 1080x1920 30fps h264 yuv420p, $frames frames (esperados $want)"
+  [ "$errs" = 0 ] && ok "$(basename "$f"): $res 30fps h264 yuv420p, $frames frames (esperados $want)"
   if [ -n "$png" ]; then
     mkdir -p "$(dirname "$png")"
-    ffmpeg -y -loglevel error -ss "$(echo "$dur/2" | bc -l)" -i "$f" -frames:v 1 "$png" && ok "frame central → $png"
+    local mid; mid=$(node -e "process.stdout.write(String((${dur}/2).toFixed(2)))")
+    ffmpeg -y -loglevel error -ss "$mid" -i "$f" -frames:v 1 "$png" && ok "frame central → $png"
   fi
 }
 
@@ -88,14 +101,12 @@ matriz() {
 clip_check() {
   local json="${1:-}" mp4="${2:-}"
   [ -f "$json" ] || { bad "no existe $json"; return; }
-  # Campos obligatorios y tipo mínimo
   local efecto clip
   efecto=$(node -e "const j=JSON.parse(require('fs').readFileSync('$json','utf8'));process.stdout.write(j.efecto||'')")
   clip=$(node   -e "const j=JSON.parse(require('fs').readFileSync('$json','utf8'));process.stdout.write(j.clip||'')")
-  local validos="zoom-digital zoom-corte zoom-atras pantalla-verde"
+  local validos="zoom-digital zoom-corte zoom-atras pantalla-verde lupa-zoom foco-spotlight fragmentos-shatter"
   [[ " $validos " == *" $efecto "* ]] || bad "$json: efecto='$efecto' no es uno de: $validos"
   [ -n "$clip" ] || bad "$json: falta el campo 'clip'"
-  # Validaciones adicionales por tipo
   if [ "$efecto" = "zoom-corte" ]; then
     node -e "
       const j=JSON.parse(require('fs').readFileSync('$json','utf8'));
@@ -109,7 +120,6 @@ clip_check() {
     " 2>&1 | while IFS= read -r l; do bad "$json: $l"; done
   fi
   ok "$(basename "$json"): estructura válida (efecto=$efecto)"
-  # Verificación de audio si se provee MP4
   if [ -n "$mp4" ] && [ -f "$mp4" ]; then
     local dur_v dur_a
     dur_v=$(ffprobe -v error -select_streams v:0 -show_entries stream=duration -of csv=p=0 "$mp4" | head -1)
@@ -126,11 +136,46 @@ clip_check() {
   fi
 }
 
+reel_check() {
+  local mp4="" json="" obj=16
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --lufs) obj="${2:?--lufs necesita un valor, p. ej. --lufs 14}"; shift 2 ;;
+      *) if [ -z "$mp4" ]; then mp4="$1"; else json="$1"; fi; shift ;;
+    esac
+  done
+  [ -f "$mp4" ] || { bad "no existe $mp4"; return; }
+  local v a w h fps pix cod
+  IFS=, read -r cod w h pix fps < <(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name,width,height,pix_fmt,r_frame_rate -of csv=p=0 "$mp4")
+  { { [ "$w" = 1080 ] && [ "$h" = 1920 ]; } || { [ "$w" = 1920 ] && [ "$h" = 1080 ]; }; } && [ "$fps" = 30/1 ] && [ "$cod" = h264 ] && [ "$pix" = yuv420p ] \
+    && ok "formato $cod ${w}×${h} $fps $pix" || bad "formato: $cod ${w}x${h} $fps $pix (esperado h264 1080x1920 o 1920x1080, 30/1, yuv420p)"
+  v=$(ffprobe -v error -select_streams v:0 -show_entries stream=duration -of csv=p=0 "$mp4"); a=$(ffprobe -v error -select_streams a:0 -show_entries stream=duration -of csv=p=0 "$mp4")
+  awk -v v="$v" -v a="$a" 'BEGIN{d=v-a; if(d<0)d=-d; exit !(d<=0.1)}' && ok "A/V alineados (video ${v}s, audio ${a}s)" || bad "A/V desfasados: video ${v}s, audio ${a}s"
+  local ebu lufs peak
+  ebu=$(ffmpeg -hide_banner -nostats -i "$mp4" -af ebur128=peak=true -f null - 2>&1 | tail -n 14)
+  lufs=$(echo "$ebu" | awk '/^ *I:/{print $2}' | tail -1); peak=$(echo "$ebu" | awk '/Peak:/{print $2}' | tail -1)
+  awk -v l="${lufs:--99}" -v o="$obj" 'BEGIN{t=-o; exit !(l>=t-1.5 && l<=t+1.5)}' && ok "volumen ${lufs} LUFS (objetivo -${obj} ±1,5)" || bad "volumen fuera de −${obj}±1,5 LUFS: ${lufs:-?}"
+  [ -n "$peak" ] && { awk -v p="$peak" 'BEGIN{exit !(p<=-1.0)}' && ok "pico real ${peak} dBFS (≤ −1,0)" || echo "⚠ pico real ${peak} dBFS > −1,0 (riesgo de recorte al recomprimir)"; }
+  local sil; sil=$(ffmpeg -hide_banner -i "$mp4" -af silencedetect=n=-35dB:d=0.6 -f null - 2>&1 | grep -c silence_start)
+  [ "$sil" = 0 ] && ok "sin silencios > 0,6 s" || bad "$sil silencio(s) > 0,6 s (recorta con escenas del mismo clip)"
+  if [ -n "$json" ]; then
+    node -e "
+      const j=JSON.parse(require('fs').readFileSync('$json','utf8'));
+      const b=j.escenas.map(e=>e.badge).filter(Boolean);
+      const uniq=[...new Set(b)]; const okSeq=uniq.every((n,i)=>n===i+1);
+      const ctb=j.escenas.filter(e=>(e.ctb||e.texto)&&/FIEBRU/.test((e.ctb||e.texto).palabra||'')).every(e=>/FIEBRU'O/.test((e.ctb||e.texto).palabra));
+      console.log(okSeq?'✓ badges consecutivos 1..'+uniq.length+(j.total&&j.total!==uniq.length?' (OJO: total='+j.total+')':''):'✗ badges no consecutivos: '+uniq.join(','));
+      console.log(ctb?'✓ keyword exacta con apóstrofe':'✗ keyword mal escrita (FIEBRU\'O)');
+      process.exit(okSeq&&ctb&&(!j.total||j.total===uniq.length)?0:1)" || fail=1
+  fi
+}
+
 case "${1:-estatico}" in
   estatico) estatico ;;
   video)    shift; video "$@" ;;
+  reel)     shift; reel_check "$@" ;;
   clip)     shift; clip_check "$@" ;;
   matriz)   shift; matriz "$@" ;;
-  *) echo "uso: check.sh [estatico] | matriz [overlay] | video <mp4> [dur] [png] | clip <json> [mp4]"; exit 2 ;;
+  *) echo "uso: check.sh [estatico] | matriz [overlay] | video <mp4> [dur] [png] | reel <mp4> | clip <json> [mp4]"; exit 2 ;;
 esac
 exit $fail

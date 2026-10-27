@@ -1,0 +1,11 @@
+# Bitácora de Aprendizajes — `@soyeduardo.ia`
+
+Aquí guarda `/ajustar` cada regla nueva que pidas recordar para siempre. Antes de editar cualquier video nuevo con `/editar`, Claude lee este archivo.
+
+## Aprendizajes Consolidados (Reels TORNILLO y CEREBRO — Octubre 2026)
+- **[2026-10-25 · Voz y ritmo en Flow]:** En clips de 8 s usar entre 14 y 16 palabras; en clips de 10 s usar entre 17 y 20 palabras. Todo el detalle técnico adicional (auditar, música, imágenes secundarias) va en tarjetas de pantalla y en el copy para que la voz respire con naturalidad.
+- **[2026-10-25 · Pronunciación de Claude]:** Si el avatar pronuncia «Cloud» en lugar de «Claude», nunca se rehace el clip gastando créditos: se fija visualmente escribiendo `CLAUDE` en la tarjeta y en los subtítulos sincronizados.
+- **[2026-10-25 · Marcas y mascotas de terceros]:** Jamás generar ni dibujar logos oficiales ni la mascota de Claude en Flow ni en postproducción. Usar etiquetas tipográficas limpias (`1/3 · CHATGPT`, `2/3 · GEMINI`, `3/3 · CLAUDE`) acompañadas de capturas reales de pantalla o videos de B-roll.
+- **[2026-10-25 · Música y efectos de sonido]:** Usar la pista original generada con Gemini (en `Recursos generales` de Drive) con *ducking* bajo la voz y sincronizar los efectos de sonido (`whoosh`, `pop`, `ding`, `riser`) al cuadro exacto de entrada de cada elemento visual, cerrando el máster siempre en **`-16.0 LUFS`**.
+- **[2026-10-26 · Variación Horizontal YouTube 16:9]:** Cuando un video o demo (`/grabar-demo`) sea para YouTube o aula virtual, usar `--formato horizontal` (`1920×1080`, zonas seguras `80px/90px`) manteniendo exactamente la misma paleta `#0B0D12` + `#C6FF3D` y el estándar `-16 LUFS`.
+- **[2026-10-26 · Estilo Claude Motion v1.3.0 y Split-PIP]:** En reels técnicos y tutoriales de herramientas de IA, usar el layout `split-pip` (`overlay.mjs --layout split-pip`): vocero en tarjeta inferior redondeada (960×700), gráfico/efecto HTML en tarjeta superior (960×760) sobre fondo `#0B0D12` y franja central reservada para subtítulos. Aplicar los 4 efectos motion (`bento-grid`, `barra-prompt`, `carrusel-blur`, `catalogo-lateral`) y los 3 zooms de clip (`lupa-zoom`, `foco-spotlight`, `fragmentos-shatter`) como estándar de retención dinámica cada 3–5 segundos.
