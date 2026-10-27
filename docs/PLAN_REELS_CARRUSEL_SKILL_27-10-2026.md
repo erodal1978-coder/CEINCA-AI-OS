@@ -6,7 +6,7 @@
 |---|---|
 | `20 video effects for Claude.mp4` | **Verificado por mí**: frames (hoja de contacto) + medición de audio con ffmpeg |
 | Carrusel (8 láminas WEBP) | **Verificado por mí**: visto lámina por lámina |
-| `Claude Motion.mp4` (64 s) | **NO verificado por mí**: la descarga por MCP falló (6,4 MB, conexión cerrada). Uso el análisis del 26-10 en Drive (`ANALISIS_NUEVOS_VIDEOS_Y_PROMPT_TERMINAL.md`), hecho en otra sesión. Para auditarlo yo: súbelo al chat o ponlo en `~/Descargas` |
+| `Claude Motion.mp4` (64 s) | ~~NO verificado~~ → **verificado el 27-10 (tarde)**, ver §10.7. Texto original: **NO verificado por mí**: la descarga por MCP falló (6,4 MB, conexión cerrada). Uso el análisis del 26-10 en Drive (`ANALISIS_NUEVOS_VIDEOS_Y_PROMPT_TERMINAL.md`), hecho en otra sesión. Para auditarlo yo: súbelo al chat o ponlo en `~/Descargas` |
 | Música de ambos reels | **No determinable** con análisis automático (voz continua). No afirmo si hay pista |
 | Los 30 "skills" del carrusel | Terceros; **no verificados**. No se replican |
 
@@ -184,3 +184,17 @@ No importo el zip a la copia de GitHub: chocaría con tus ramas locales (la del 
 - **A (recomendada):** lo hago yo con la herramienta de Drive de esta sesión, conservando el mismo enlace. Necesito (1) el nombre o enlace del archivo que entrega el DM y (2) el zip final tras F2. Solo lo ejecuto con tu confirmación, porque cambia lo que reciben quienes comenten.
 - **B (manual, no verificado desde un cel):** `drive.google.com` en el navegador del cel con "Versión para computadora" → ⋮ del archivo → *Administrar versiones* → *Subir nueva versión*. La app de Drive normalmente no ofrece esa opción.
 - ⚠️ **Riesgo de coherencia:** GOLEM ya está en el reel 1. La regla del CTB exige que el DM cumpla lo que prometen **todas** las piezas de esa palabra. Si el reel 1 promete otro recurso, reemplazar el archivo rompe esa promesa; entonces conviene un bloque separado en Beacons o archivo/palabra distinta. Pregunta abierta: ¿qué promete el reel 1?
+
+### 10.7 Claude Motion verificado + palabra clave nueva
+**Claude Motion.mp4 (subido por Eduardo, verificado por mí con ffmpeg y hoja de contacto):**
+- 64,1 s · 720×1280 · 30 fps · H.264 + AAC · **−14,1 LUFS** · pico real −0,7 dBFS · LRA 2,5 LU.
+- Layout confirmado: escenario UI arriba, vocero en tarjeta redondeada abajo, subtítulos palabra por palabra en la franja central, palabras gigantes ("premium", "taste.") detrás de la tarjeta.
+- Secuencia confirmada en pantalla: mosaico de widgets → barra de prompt con tipeo → tarjeta "plana" → widget con contador → **menú de 4 pasos que reaparece 4 veces** (≈12, 20, 33 y 49 s) con los pasos futuros desenfocados → tarjeta `house-style.md` → A/B "Make it look nice" vs "Lines that draw themselves" → botón que pasa a "✓ Published" → carrusel con desenfoque de movimiento → panel *Tweaks/Style* → exportación a MP4 → CTA "Comment APPLE".
+- El panel Tweaks y el modal de exportación **se ven en pantalla**: contradice que la interfaz sea ficticia (no puedo confirmar que sea oficial). El análisis del 26-10 y el forense coinciden con lo que veo en estructura y tiempos.
+- Ajuste para Reel B: el menú de pasos reaparece 4 veces en 64 s; en ≤45 s bastan 3 apariciones.
+
+**Palabra clave (GOLEM descartada: entrega un prompt, no la skill):**
+- **Recomendada: ÑAPA** (banco CTB §E, nº 66; no aparece en la tabla de uso). En venezolano es "el extra que te regalan": encaja con "te lo regalo". Riesgo: mucha gente escribe "napa" sin la ñ → configurar el disparador con ambas formas si Meta lo permite (no verificado) o elegir la alternativa.
+- **Alternativa sin ñ: PALANCA** (nº 72; libre en la tabla): "la palanca para que Claude edite con tu marca".
+- **Antes de elegir:** la auditoría del 20-10 citó FIEBRU'O como ejemplo de "te lo regalo → skill". Si FIEBRU'O ya existe en @soyeduardo.ia y entrega la skill, reciclarla es mejor (sin automatización nueva). La tabla del repo no incluye las palabras de @soyeduardo.ia (GOLEM tampoco está), así que Eduardo debe confirmar cuáles están activas.
+- Al publicar: registrar la palabra en la tabla 1 del archivo maestro (regla 6) y subirlo a repo, Drive y proyecto de Claude. El DM entregará el enlace del zip final (F2).
