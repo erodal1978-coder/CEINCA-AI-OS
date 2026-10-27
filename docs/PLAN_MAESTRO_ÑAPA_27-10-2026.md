@@ -144,7 +144,7 @@ Pide fondo transparente o recórtalo. **El texto nunca lo genera la IA de imagen
 **Checklist de cada pieza** (del `SISTEMA_VIRAL` §11, adaptado):
 - [ ] Caption con primera línea en MAYÚSCULAS + emoji, ≤5 hashtags, tuteo.
 - [ ] Comentario fijado escrito **antes** y fijado en los primeros 30 s.
-- [ ] Automatización ÑAPA activa y probada.
+- [ ] Automatización ÑAPA activa y probada. *(la prueba la hace Eduardo al subir el reel)*
 - [ ] Golden Hour: responder a mano los primeros 5–10 comentarios.
 - [ ] Historia con sticker de pregunta/encuesta.
 - [ ] Registrar ÑAPA en la tabla 1 de `CTB_PALABRAS_DISRUPTIVAS.md` (repo, Drive y proyecto de Claude).
