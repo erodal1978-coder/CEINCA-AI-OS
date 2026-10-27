@@ -5,14 +5,17 @@
 <style>
   .wrap { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; }
   .pos-centro { justify-content:center; }
-  .pos-abajo { justify-content:flex-end; padding-bottom:120px; }
+  .pos-abajo { justify-content:flex-end; padding-bottom:calc(var(--safe-bottom) + 10px); }
   /* Contenedor del bloque de subtítulo */
   .caption-box { position:relative; max-width:920px; width:90%; padding:32px 40px; background:rgba(var(--fx-bg-rgb),.82); backdrop-filter:blur(16px); border:2px solid rgba(var(--fx-accent-rgb),.4); border-radius:28px; box-shadow:0 25px 60px rgba(var(--fx-bg-rgb),.8); display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:16px 22px; text-align:center; }
   /* Cada palabra del karaoke */
-  .word { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:60px; line-height:1.15; letter-spacing:-.01em; text-transform:uppercase; color:var(--fx-text); opacity:.38; transform-origin:50% 50%; display:inline-block; transition:color .1s, transform .1s; }
+  .word { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:46px; line-height:1.1; letter-spacing:-.01em; text-transform:uppercase; color:var(--fx-text); opacity:.38; transform-origin:50% 50%; display:inline-block; transition:color .1s, transform .1s; }
   .word.is-active { color:var(--fx-accent); opacity:1; transform:scale(1.12); text-shadow:0 0 35px rgba(var(--fx-accent-rgb),.85); }
   .word.is-done { color:var(--fx-text); opacity:.95; }
   .fx-area { background:none; }
+  /* modo clave (overlay sobre video): caja sólida, sin blur ni sombras que se mezclen con el color clave */
+  .clave .caption-box { background:rgb(var(--fx-bg-rgb)); backdrop-filter:none; box-shadow:none; border-color:rgb(var(--fx-accent-rgb)); }
+  .clave .word.is-active { text-shadow:none; }
 </style></head>
 <body>
 <div id="root" data-composition-id="root" data-start="0" data-duration="4" data-width="1080" data-height="1920">
@@ -47,6 +50,23 @@ if (P.posicion === 'abajo') {
 
 const box = document.getElementById('captionBox');
 const list = Array.isArray(P.palabras) ? P.palabras : [];
+// paginas: [{ desde, hasta, palabras:[{texto,t}] }] → solo se ve la frase vigente (subtítulos continuos de todo el reel)
+if (Array.isArray(P.paginas)) {
+  box.remove();
+  P.paginas.forEach((pg) => {
+    const b = FX.el('div', 'caption-box', area);
+    b.style.cssText = 'position:absolute;left:50%;transform:translateX(-50%);bottom:calc(var(--safe-bottom) + 10px)';
+    const els = pg.palabras.map((it) => ({ el: FX.el('span', 'word', b, it.texto), t: it.t }));
+    tl.set(b, { autoAlpha: 0 }, 0);
+    tl.set(b, { autoAlpha: 1 }, pg.desde);
+    els.forEach((w, i) => {
+      const next = i + 1 < els.length ? els[i + 1].t : pg.hasta;
+      tl.set(w.el, { className: 'word is-active' }, w.t);
+      tl.set(w.el, { className: 'word is-done' }, next);
+    });
+    tl.set(b, { autoAlpha: 0 }, pg.hasta);
+  });
+} else {
 
 // Renderizamos las palabras en el DOM
 const wordEls = list.map((item, idx) => {
@@ -65,6 +85,7 @@ wordEls.forEach((wObj, idx) => {
   // Al llegar a la siguiente palabra: pasa a is-done
   tl.set(wObj.el, { className: 'word is-done' }, nextT);
 });
+}
 
 window.__timelines = window.__timelines || {};
 window.__timelines['root'] = FX.finish(ctx);

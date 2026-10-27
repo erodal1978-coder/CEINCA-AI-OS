@@ -16,11 +16,13 @@ const REPO_GUIAS = path.resolve(SKILL, '../ceinca-design/references/editorial-gu
 const args = process.argv.slice(2);
 const opt = (n, d) => { const i = args.indexOf(`--${n}`); return i >= 0 ? args[i + 1] : d; };
 if (args.includes('--help')) {
-  console.log(`sync-brand [--tokens <md>] [--guias <md|ninguno>] [--out <dir>] [--clientes <dir>] [--estilos <dir>]
+  console.log(`sync-brand [--tokens <md>] [--guias <md|ninguno>] [--out <dir>] [--clientes <dir>] [--marcas <dir>] [--estilos <dir>]
   --tokens    tokens modo Social (default: ${path.relative(process.cwd(), REPO_TOKENS)})
   --guias     editorial-guides modo Guías, o "ninguno" (default: ${path.relative(process.cwd(), REPO_GUIAS)})
   --out       raíz de salida con themes/ y vendor/fonts/ (default: la skill). Con --out distinto
-              no se escribe brand.lock.json (es una corrida de prueba).`);
+              no se escribe brand.lock.json (es una corrida de prueba).
+  --clientes  carpeta de json de CLIENTES reales (default: themes/clientes) → tema cliente-<slug>
+  --marcas    carpeta de json de MARCAS PROPIAS de Eduardo (default: themes/marcas) → tema marca-<slug>`);
   process.exit(0);
 }
 const TOKENS = path.resolve(opt('tokens', REPO_TOKENS));
@@ -32,6 +34,7 @@ const ESTILOS = path.resolve(opt('estilos', path.join(SKILL, 'themes/estilos')))
 // Rol técnico (bloques de código/consola). No es marca CEINCA: tokens.md no lo define, por eso vive aquí
 // como valor por defecto y cualquier tema JSON puede sobrescribirlo con fuentes.mono.
 const DEFAULT_MONO = { familia: 'JetBrains Mono', pesos: [400, 700] };
+const MARCAS = path.resolve(opt('marcas', path.join(SKILL, 'themes/marcas')));
 const IS_DEFAULT_OUT = OUT === SKILL;
 
 const fail = (m) => { console.error(`✗ sync-brand: ${m}`); process.exit(1); };
@@ -108,7 +111,8 @@ function guiasTheme(md) {
   };
 }
 
-// ---------- clientes y estilos: json con el mismo esquema semántico ----------
+// ---------- clientes, marcas propias y estilos: json con el mismo esquema semántico ----------
+// prefijo 'cliente' (themes/clientes/), 'marca' (themes/marcas/: marcas propias de Eduardo, no clientes) o 'estilo' (themes/estilos/).
 // Opcionales: fuentes.mono, gradBg, gradAccent, shadowCard, shadowAccent, extraCss (CSS libre del estilo, p. ej. textura de papel).
 function temaJson(file, prefijo) {
   const j = JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -203,8 +207,8 @@ const tokensBuf = Buffer.from(read(TOKENS));
 const temas = [socialTheme(tokensBuf.toString('utf8'))];
 let guiasBuf = null;
 if (GUIAS) { guiasBuf = Buffer.from(read(GUIAS)); temas.push(guiasTheme(guiasBuf.toString('utf8'))); }
-if (fs.existsSync(CLIENTES)) for (const f of fs.readdirSync(CLIENTES).filter((x) => x.endsWith('.json')).sort()) temas.push(temaJson(path.join(CLIENTES, f), 'cliente'));
-if (fs.existsSync(ESTILOS)) for (const f of fs.readdirSync(ESTILOS).filter((x) => x.endsWith('.json')).sort()) temas.push(temaJson(path.join(ESTILOS, f), 'estilo'));
+for (const [dir, prefijo] of [[CLIENTES, 'cliente'], [MARCAS, 'marca'], [ESTILOS, 'estilo']])
+  if (fs.existsSync(dir)) for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json')).sort()) temas.push(temaJson(path.join(dir, f), prefijo));
 temas.forEach(emit);
 
 if (IS_DEFAULT_OUT) {

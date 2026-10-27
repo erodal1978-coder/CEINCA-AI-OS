@@ -2,9 +2,10 @@
 # check.sh — validaciones de la skill (compatible 100% con Linux sin depender de bc).
 #   check.sh [estatico]                                → marca desacoplada, sin URLs externas, estructura de efectos
 #   check.sh matriz [overlay]                          → audita TODOS los efectos × TODOS los temas (zonas seguras + errores)
-#   check.sh video <mp4> [duracion=4] [png-mitad]      → ffprobe (1080×1920 o 1920×1080, 30 fps, H.264, yuv420p, frames ±1)
+#   check.sh video <mp4> [duracion=4] [png-mitad]      → ffprobe (1080×1920 o 1920×1080, 30 fps, H.264, yuv420p, frames ±1) + PNG del frame central
 #   check.sh clip <json> [mp4]                         → valida parámetros de clip.mjs y sincronía A/V ≤ 0.05s
-#   check.sh reel <mp4> [json-edicion]                 → valida formato final, sincronía A/V y loudness a -16 LUFS (±1.5 LU)
+#   check.sh reel <mp4> [reel-voz.json] [--lufs N]     → reel final: formato (1080×1920 o 1920×1080)/30 fps/H.264, A/V ≤ 0,1 s, loudness N±1,5 LUFS (default 16 → −16), sin silencios > 0,6 s;
+#                                                         con el JSON: badges 1..N consecutivos y keyword exacta. Pico real > −1,0 dBTP solo avisa.
 set -uo pipefail
 SKILL="$(cd "$(dirname "$0")/.." && pwd)"
 fail=0
@@ -84,23 +85,6 @@ video() {
   fi
 }
 
-reel_check() {
-  local f="$1"
-  [ -f "$f" ] || { bad "no existe $f"; return; }
-  local dur; dur=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$f" | head -1)
-  video "$f" "$dur"
-  local ebu; ebu=$(ffmpeg -nostats -i "$f" -filter_complex ebur128=peak=true -f null - 2>&1 | tail -n 18)
-  local lufs; lufs=$(echo "$ebu" | awk '/I:/{print $2}' | tail -1)
-  local peak; peak=$(echo "$ebu" | awk '/Peak:/{print $2}' | tail -1)
-  if [ -n "$lufs" ]; then
-    local ok_lufs; ok_lufs=$(node -e "const v=parseFloat('$lufs');process.stdout.write((v>=-17.6 && v<=-14.4)?'1':'0')")
-    [ "$ok_lufs" = "1" ] && ok "$(basename "$f"): loudness integrada ${lufs} LUFS (objetivo -16 LUFS ±1.5) · pico ${peak} dBFS" \
-                         || bad "$(basename "$f"): loudness ${lufs} LUFS fuera de rango (-16 ±1.5 LUFS)"
-  else
-    bad "$(basename "$f"): no se pudo medir loudness ebur128"
-  fi
-}
-
 matriz() {
   local themes n=0 nbad=0 e f t out extra=""
   [ "${1:-}" = "overlay" ] && extra="--con-overlay"
@@ -149,6 +133,40 @@ clip_check() {
       [ "$ok_tol" = "1" ] && ok "$(basename "$mp4"): audio=${dur_a}s video=${dur_v}s (diff=${diff}s ≤ 0.05s)" \
                            || bad "$(basename "$mp4"): audio=${dur_a}s vs video=${dur_v}s (diff=${diff}s > 0.05s)"
     fi
+  fi
+}
+
+reel_check() {
+  local mp4="" json="" obj=16
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --lufs) obj="${2:?--lufs necesita un valor, p. ej. --lufs 14}"; shift 2 ;;
+      *) if [ -z "$mp4" ]; then mp4="$1"; else json="$1"; fi; shift ;;
+    esac
+  done
+  [ -f "$mp4" ] || { bad "no existe $mp4"; return; }
+  local v a w h fps pix cod
+  IFS=, read -r cod w h pix fps < <(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name,width,height,pix_fmt,r_frame_rate -of csv=p=0 "$mp4")
+  { { [ "$w" = 1080 ] && [ "$h" = 1920 ]; } || { [ "$w" = 1920 ] && [ "$h" = 1080 ]; }; } && [ "$fps" = 30/1 ] && [ "$cod" = h264 ] && [ "$pix" = yuv420p ] \
+    && ok "formato $cod ${w}×${h} $fps $pix" || bad "formato: $cod ${w}x${h} $fps $pix (esperado h264 1080x1920 o 1920x1080, 30/1, yuv420p)"
+  v=$(ffprobe -v error -select_streams v:0 -show_entries stream=duration -of csv=p=0 "$mp4"); a=$(ffprobe -v error -select_streams a:0 -show_entries stream=duration -of csv=p=0 "$mp4")
+  awk -v v="$v" -v a="$a" 'BEGIN{d=v-a; if(d<0)d=-d; exit !(d<=0.1)}' && ok "A/V alineados (video ${v}s, audio ${a}s)" || bad "A/V desfasados: video ${v}s, audio ${a}s"
+  local ebu lufs peak
+  ebu=$(ffmpeg -hide_banner -nostats -i "$mp4" -af ebur128=peak=true -f null - 2>&1 | tail -n 14)
+  lufs=$(echo "$ebu" | awk '/^ *I:/{print $2}' | tail -1); peak=$(echo "$ebu" | awk '/Peak:/{print $2}' | tail -1)
+  awk -v l="${lufs:--99}" -v o="$obj" 'BEGIN{t=-o; exit !(l>=t-1.5 && l<=t+1.5)}' && ok "volumen ${lufs} LUFS (objetivo -${obj} ±1,5)" || bad "volumen fuera de −${obj}±1,5 LUFS: ${lufs:-?}"
+  [ -n "$peak" ] && { awk -v p="$peak" 'BEGIN{exit !(p<=-1.0)}' && ok "pico real ${peak} dBFS (≤ −1,0)" || echo "⚠ pico real ${peak} dBFS > −1,0 (riesgo de recorte al recomprimir)"; }
+  local sil; sil=$(ffmpeg -hide_banner -i "$mp4" -af silencedetect=n=-35dB:d=0.6 -f null - 2>&1 | grep -c silence_start)
+  [ "$sil" = 0 ] && ok "sin silencios > 0,6 s" || bad "$sil silencio(s) > 0,6 s (recorta con escenas del mismo clip)"
+  if [ -n "$json" ]; then
+    node -e "
+      const j=JSON.parse(require('fs').readFileSync('$json','utf8'));
+      const b=j.escenas.map(e=>e.badge).filter(Boolean);
+      const uniq=[...new Set(b)]; const okSeq=uniq.every((n,i)=>n===i+1);
+      const ctb=j.escenas.filter(e=>(e.ctb||e.texto)&&/FIEBRU/.test((e.ctb||e.texto).palabra||'')).every(e=>/FIEBRU'O/.test((e.ctb||e.texto).palabra));
+      console.log(okSeq?'✓ badges consecutivos 1..'+uniq.length+(j.total&&j.total!==uniq.length?' (OJO: total='+j.total+')':''):'✗ badges no consecutivos: '+uniq.join(','));
+      console.log(ctb?'✓ keyword exacta con apóstrofe':'✗ keyword mal escrita (FIEBRU\'O)');
+      process.exit(okSeq&&ctb&&(!j.total||j.total===uniq.length)?0:1)" || fail=1
   fi
 }
 

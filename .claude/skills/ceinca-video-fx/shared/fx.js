@@ -2,7 +2,7 @@
 (function () {
   const RAW = window.__FX_PARAMS__ || {};
   const isHoriz = RAW.formato === 'horizontal' || RAW.formato === '16:9';
-  const W = isHoriz ? 1920 : 1080, H = isHoriz ? 1080 : 1920;
+  const W = isHoriz ? 1920 : 1080, H = isHoriz ? 1080 : (Number(RAW.alto) || 1920); // alto: 1920 reel · 1350 carrusel (lo fija render.mjs)
 
   function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
   const isMedia = (s) => typeof s === 'string' && (/\.(png|jpe?g|svg|webp|gif|mp4|webm)$/i.test(s) || s.indexOf('data:') === 0);
@@ -66,6 +66,7 @@
   function init(defaults) {
     const P = Object.assign({}, defaults || {}, RAW);
     const root = document.getElementById('root');
+    root.style.height = H + 'px';
     const D = Number(P.duracion) || 4;
     const zs = P.zonaSegura || {};
     const defTop = isHoriz ? 80 : 250, defBottom = isHoriz ? 90 : 350;

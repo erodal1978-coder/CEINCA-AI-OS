@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080, height=1350">
+<meta name="fx-formatos" content="carrusel,reel">
+<title>slide-cinetica</title>
+<link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="shared/base.css">
+<style>
+  /* Slide de carrusel "cinética": el texto es el protagonista. Cada línea entra palabra a palabra y la **palabra acento**
+     cae letra a letra, se estira y queda subrayada con un trazo dorado; garabatos y destellos se dibujan alrededor. */
+  .stage { position:absolute; left:70px; right:70px; top:var(--content-top); bottom:var(--safe-bottom); display:flex; flex-direction:column; justify-content:center; gap:10px; }
+  .linea { font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:var(--t-size, 136px); line-height:1.04; letter-spacing:-.04em; position:relative; }
+  .linea.chica { font-size:calc(var(--t-size, 136px) * .52); font-weight:var(--fx-fw-strong); letter-spacing:-.01em; color:var(--fx-text-muted); margin-top:18px; }
+  .pal { display:inline-block; white-space:pre; }
+  .acento { display:inline-block; position:relative; color:var(--fx-accent); }
+  .acento .le { display:inline-block; white-space:pre; transform-origin:50% 90%; }
+  .acento svg.sub { position:absolute; left:-2%; width:104%; bottom:-.16em; height:.34em; overflow:visible; }
+  .acento svg.sub path { fill:none; stroke:var(--fx-accent); stroke-width:9; stroke-linecap:round; }
+  .deco { position:absolute; overflow:visible; }
+  .deco path { fill:none; stroke:var(--fx-accent); stroke-width:7; stroke-linecap:round; stroke-linejoin:round; }
+  .deco.tenue path { stroke:var(--fx-line); }
+  .boton { position:absolute; right:70px; bottom:var(--safe-bottom); display:flex; align-items:center; gap:16px; padding:20px 34px; border-radius:999px; border:4px solid var(--fx-accent); color:var(--fx-accent); font-family:var(--fx-font-display); font-weight:var(--fx-fw-display); font-size:36px; }
+  .boton svg { width:40px; height:40px; }
+</style></head>
+<body>
+<div id="root" data-composition-id="root" data-start="0" data-duration="5" data-width="1080" data-height="1350">
+<div class="fx-bgfill" style="background:var(--fx-grad-bg)"></div>
+<div class="stage" id="stage"></div>
+</div>
+<script src="vendor/gsap/gsap.min.js"></script><script src="params.js"></script><script src="shared/fx.js"></script>
+<script>
+const ctx = FX.init({
+  lineas: ['Animación', '**cinética**', 'donde el texto es el **protagonista**'], chica: [2],
+  boton: 'Desliza', tamTitulo: 136, decoraciones: true,
+});
+const { P, tl, D, root } = ctx;
+const NS = 'http://www.w3.org/2000/svg';
+const stage = document.getElementById('stage');
+stage.style.setProperty('--t-size', P.tamTitulo + 'px');
+
+/* construye líneas: palabras normales + acentos con letras sueltas y subrayado */
+const lineas = P.lineas.map((txt, li) => {
+  const L = FX.el('div', 'linea' + ((P.chica || []).includes(li) ? ' chica' : ''), stage);
+  const pals = [], acentos = [];
+  String(txt).split('**').forEach((part, k) => {
+    if (!part) return;
+    if (k % 2) {
+      const a = FX.el('span', 'acento', L);
+      const les = [...part].map((ch) => FX.el('span', 'le', a, ch));
+      const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'sub'); svg.setAttribute('viewBox', '0 0 100 20'); svg.setAttribute('preserveAspectRatio', 'none');
+      const p = document.createElementNS(NS, 'path'); p.setAttribute('d', 'M2 14 C 25 4, 50 18, 75 8 S 96 6, 98 9'); svg.appendChild(p); a.appendChild(svg);
+      acentos.push({ a, les, p });
+      pals.push(a);
+    } else part.split(/(?<= )/).forEach((w) => pals.push(FX.el('span', 'pal', L, w)));
+  });
+  return { L, pals, acentos };
+});
+
+/* decoraciones dibujadas (trazos de la marca, sin imágenes) en filas del propio layout: nunca pisan el texto */
+const decos = [];
+if (P.decoraciones) {
+  const fila = (antes, just) => { const f = FX.el('div', 'decos', null); f.style.cssText = `display:flex;justify-content:${just};gap:26px;height:120px;flex:none`; antes ? stage.insertBefore(f, stage.firstChild) : stage.appendChild(f); return f; };
+  const add = (f, d, s, rot, tenue) => {
+    const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'deco' + (tenue ? ' tenue' : '')); svg.setAttribute('viewBox', '0 0 100 100');
+    Object.assign(svg.style, { position: 'relative', width: s + 'px', height: s + 'px', transform: `rotate(${rot}deg)` });
+    const p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); svg.appendChild(p); f.appendChild(svg);
+    decos.push({ svg, p, len: FX.drawable(p) });
+  };
+  const destello = 'M50 8 C 53 38, 62 47, 92 50 C 62 53, 53 62, 50 92 C 47 62, 38 53, 8 50 C 38 47, 47 38, 50 8 Z';
+  const garabato = 'M6 70 C 20 20, 40 20, 38 50 S 60 90, 70 45 S 90 10, 96 30';
+  const espiral = 'M50 50 m -6 0 a 6 6 0 1 1 12 0 a 12 12 0 1 1 -24 0 a 20 20 0 1 1 40 0 a 30 30 0 1 1 -60 0';
+  const arriba = fila(true, 'flex-end'), abajo = fila(false, 'space-between');
+  add(arriba, destello, 64, 15); add(arriba, destello, 110, 0);
+  add(abajo, garabato, 150, -10, true); add(abajo, espiral, 96, 0, true);
+}
+const boton = P.boton ? FX.el('div', 'boton', root) : null;
+if (boton) { FX.el('span', '', boton, P.boton); const a = FX.icon('check'); a.querySelector('path').setAttribute('d', 'M5 12h14 M13 6l6 6-6 6'); boton.appendChild(a); }
+
+/* --- timeline --- frame 0: primera línea ya legible (portada del slide en el feed); el resto entra en ritmo */
+const T = (x) => Math.min(x, D - 0.5);
+let t = 0.05;
+lineas.forEach((ln, li) => {
+  ln.pals.forEach((w, wi) => {
+    const ac = ln.acentos.find((a) => a.a === w);
+    if (ac) {
+      const n = ac.les.length;
+      ac.les.forEach((le, k) => tl.fromTo(le, { y: -140, opacity: 0, rotation: (k % 2 ? 14 : -14) }, { y: 0, opacity: 1, rotation: 0, duration: 0.42, ease: 'back.out(2.2)', immediateRender: li > 0 }, T(t + k * Math.min(0.05, 0.5 / n))));
+      const fin = t + n * Math.min(0.05, 0.5 / n) + 0.3;
+      tl.fromTo(ac.les, { scaleY: 1, scaleX: 1 }, { scaleY: 1.22, scaleX: 0.9, duration: 0.14, yoyo: true, repeat: 1, ease: 'power1.inOut', stagger: 0.02, immediateRender: false }, T(fin));
+      FX.drawable(ac.p); tl.to(ac.p, { strokeDashoffset: 0, duration: 0.45, ease: 'power2.inOut' }, T(fin + 0.1));
+      t = fin + 0.15;
+    } else {
+      if (li === 0) tl.fromTo(w, { y: 30 }, { y: 0, duration: 0.4, ease: 'power3.out' }, 0); // ya visible en el frame 0
+      else tl.fromTo(w, { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 0.38, ease: 'power3.out' }, T(t));
+      t += li === 0 ? 0.04 : 0.11;
+    }
+  });
+  t += 0.18;
+});
+decos.forEach((d, i) => {
+  tl.to(d.p, { strokeDashoffset: 0, duration: 0.7, ease: 'power2.inOut' }, 0.15 + i * 0.22);
+  FX.drive(tl, 0, 1, { duration: D, ease: 'none' }, (v) => { d.svg.style.translate = `0 ${Math.sin(v * D * 2 + i * 1.3) * 9}px`; d.svg.style.scale = String(1 + Math.sin(v * D * 3 + i) * 0.05); }, 0);
+});
+if (boton) {
+  tl.fromTo(boton, { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: 'back.out(2)' }, T(t));
+  tl.to(boton.querySelector('svg'), { x: 10, duration: 0.3, yoyo: true, repeat: 5, ease: 'sine.inOut' }, T(t + 0.5));
+}
+
+window.__timelines = window.__timelines || {}; window.__timelines['root'] = FX.finish(ctx);
+</script></body></html>

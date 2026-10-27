@@ -1,10 +1,12 @@
 ---
 name: ceinca-video-fx
-description: >
-  Motor de efectos y edición de video CEINCA™ y @soyeduardo.ia en formato dual vertical 9:16 (1080×1920) y horizontal 16:9 (1920×1080) v1.3.0 en 6 bloques: B1 (11 efectos HTML/GSAP: muro-titulares, checklist, grafica-crece, texto-cristal, portada, telefono, mundo-app, orbita, garabato-vivo, muro-videos, vertigo-simulado); B2 (6 efectos de clip FFmpeg: zoom-digital, zoom-corte, zoom-atras, lupa-zoom, foco-spotlight, fragmentos-shatter); B3 (pantalla-verde chroma, rompe-marco 2.5D, corta-pega stop-motion, subtitulos-karaoke y overlay.mjs con layout split-pip); B4 (temas ceinca-social, ceinca-guias, marca-soyeduardo-ia, Dark Tech, Red Glow, Ukiyo-e y 7 efectos: pasos-progreso, consola-macos, diagrama-nodos, zoom-atraves, telefono-chat, collage-papel, camara-continua); B5 (modo 16:9 YouTube, grabar-demo.mjs, doctor.mjs, check.sh reel a -16 LUFS y comandos /editar, /ajustar, /doctor); B6 (4 efectos Claude Motion: bento-grid, barra-prompt, carrusel-blur, catalogo-lateral). Marca desacoplada.
+description: >-
+  Efectos de video CEINCA™ y @soyeduardo.ia para Reels, TikTok, YouTube y carruseles de Instagram, generados con código (HTML/GSAP + FFmpeg, sin Remotion). 27 plantillas HTML (muro de titulares, checklist, gráfica, teléfono y chat, consola, diagrama de nodos, bento, barra de prompt, catálogo lateral, collage, órbita, rompe marco, corta y pega, karaoke y 2 slides de carrusel) y 7 efectos sobre clip (zoom digital, de corte y atrás, lupa, foco, fragmentos, pantalla verde). Formatos 9:16, 16:9 y carrusel 4:5. 3 estilos (Dark Tech, Red Glow, Ukiyo-e), temas de marca vía sync-brand, split-pip en overlay.mjs, reel-voz.mjs para reels con voz grabada, audio con SFX, doctor y check.sh. Activa con efecto de video, motion graphics, reel, pantalla verde, karaoke, zoom, carrusel animado, slides de video, split-pip o cualquier id de efecto.
 ---
 
-# ceinca-video-fx — Bloques 1 a 5 (9:16 Vertical Reels + 16:9 Horizontal YouTube)
+# ceinca-video-fx — efectos de video por código (Bloques 1-6) · 9:16 · 16:9 · carrusel 4:5
+
+Bloque 1 = 11 efectos HTML/GSAP (esta sección). Bloques 2-3 = zooms sobre clip, chroma, rompe-marco, corta-pega, karaoke y `overlay.mjs`; Bloque 4 = estilos y 7 efectos; Bloque 5 = formato horizontal, grabador de demos y comandos; Bloque 6 = bento, barra de prompt, carrusel blur, catálogo lateral, lupa, foco, fragmentos y split-pip; `reel-voz.mjs` y el módulo Carrusel al final. **Para un reel de demostración elige ~7 de los más vistosos, no todos.**
 
 Cada efecto es una plantilla HTML + GSAP (`effects/<id>/index.html`) que recibe un `params.json` y se renderiza a MP4.
 Sin CDN, sin APIs ni servicios pagos: GSAP, fuentes y plantillas viajan dentro de la skill.
@@ -27,8 +29,8 @@ Las rutas de imágenes/videos se resuelven relativas al `params.json` (también 
 ### Parámetros globales (todos los efectos)
 | Parámetro | Default | Qué hace |
 |---|---|---|
-| `tema` | `ceinca-social` | `ceinca-social`, `ceinca-guias`, `marca-soyeduardo-ia`, `cliente-<nombre>` o `estilo-<nombre>` |
-| `formato` | `vertical` | `vertical` (`1080×1920`, 9:16 Reels/TikTok) o `horizontal` (`1920×1080`, 16:9 YouTube) |
+| `tema` | `ceinca-social` | `ceinca-social`, `ceinca-guias`, `marca-<slug>` (p. ej. `marca-soyeduardo-ia`), `cliente-<slug>` o `estilo-<nombre>` (ver Marca) |
+| `formato` | `vertical` | `vertical` (alias `reel`, `1080×1920`, 9:16 Reels/TikTok) · `horizontal` (`1920×1080`, 16:9 YouTube) · `carrusel` (`1080×1350`, 4:5; solo slides) |
 | `duracion` | `4` | segundos por efecto |
 | `zonaSegura` | `{ "arriba": 250, "abajo": 350 }` | px libres de texto clave arriba/abajo |
 | `contador` | — | overlay `NN/TT`: `{ "n": 3, "total": 11 }` o texto `"03/11"` |
@@ -69,7 +71,8 @@ Un `params.example.json` por efecto vive en `effects/<id>/`; versiones listas pa
 - `scripts/sync-brand.mjs` los lee y genera `themes/ceinca-social.css` y `themes/ceinca-guias.css` con variables semánticas `--fx-*` (`--fx-bg`, `--fx-surface`, `--fx-text`, `--fx-accent`, `--fx-font-display`, `--fx-font-body`…) y vendoriza las fuentes desde `@fontsource/<familia>` a `vendor/fonts/`. Si la familia no existe en fontsource (o no trae el peso pedido) **falla con error claro**: nunca sustituye en silencio.
 - `themes/brand.lock.json` guarda el hash del/los archivo(s) de tokens, la fecha y las familias. `render.mjs` compara el hash con el manual actual cuando el repo está presente y, si cambió, se detiene y pide correr `sync-brand`.
 - Las plantillas en `effects/` y `shared/` **solo** usan `var(--fx-*)`. `bash scripts/check.sh` falla si encuentra hex/rgb/hsl/nombres de color literales, `font-family` que no sea `var(--fx-font-*)`, el nombre de una familia del lock o cualquier URL externa.
-- **Clientes:** `themes/clientes/<cliente>.json` con el mismo esquema semántico (`colores.{bg,bg2,surface,surface2,text,textMuted,accent,accent2,accentDark,onAccent,line,danger,ok}`, `fuentes.{display,body}.{familia,pesos}`, `forma.{radius,radiusLg}`); `sync-brand` los procesa a `themes/cliente-<cliente>.css`. Uso: `"tema": "cliente-<cliente>"`.
+- **Clientes (clientes reales):** `themes/clientes/<cliente>.json` con el mismo esquema semántico (`colores.{bg,bg2,surface,surface2,text,textMuted,accent,accent2,accentDark,onAccent,line,danger,ok}`, `fuentes.{display,body}.{familia,pesos}`, `forma.{radius,radiusLg}`); `sync-brand` los procesa a `themes/cliente-<cliente>.css`. `sync-brand` los procesa a `themes/cliente-<cliente>.css`. Uso: `"tema": "cliente-<cliente>"`.
+- **Marcas propias (de Eduardo, no son clientes):** `themes/marcas/<slug>.json` con el mismo esquema; `sync-brand` (flag `--marcas <dir>`, default `themes/marcas`) los procesa a `themes/marca-<slug>.css`. Uso: `"tema": "marca-<slug>"` o `--tema marca-<slug>`. Hoy: `marca-soyeduardo-ia` (@soyeduardo.ia: tinta/lima, Sora 800 + Manrope). `themes/clientes/` queda solo para clientes reales.
 - **Estilos (Bloque 4):** `themes/estilos/<estilo>.json`, mismo esquema que los clientes más opcionales `gradBg`, `gradAccent`, `shadowCard`, `shadowAccent`, `extraCss` (CSS libre del estilo, p. ej. textura de papel) y `fuentes.mono`. `sync-brand` los emite como `themes/estilo-<estilo>.css`. Uso: `"tema": "estilo-dark-tech"`. Un estilo **no es la marca CEINCA**: es una paleta/tipografía alterna aplicable a cualquier efecto.
 - **Rol `--fx-font-mono`:** rol técnico para consola/código. `tokens.md` no lo define, así que `sync-brand` usa por defecto JetBrains Mono (declarado en `DEFAULT_MONO` dentro del script, no en las plantillas) y cualquier tema JSON lo puede sobrescribir.
 - Pruebas de marca alterna: `node scripts/sync-brand.mjs --tokens <md> --guias ninguno --out <dir>` genera un tema fuera de la skill (sin tocar el lock) y `render.mjs --marca-dir <dir>` lo usa.
@@ -110,7 +113,7 @@ ceinca-video-fx/
 ├─ SKILL.md · package.json
 ├─ effects/<id>/index.html + params.example.json (+ prepare.mjs en muro-videos)
 ├─ shared/        base.css (solo --fx-*) · fx.js (runtime: overlays, drive, rich text, íconos)
-├─ themes/        ceinca-social.css · ceinca-guias.css · estilo-*.css · brand.lock.json · clientes/ · estilos/
+├─ themes/        ceinca-social.css · ceinca-guias.css · estilo-*.css · marca-*.css · cliente-*.css · brand.lock.json · clientes/ (json de clientes reales) · marcas/ (json de marcas propias) · estilos/
 ├─ vendor/        gsap/ (+LICENSE.md) · fonts/ (+ licencia por familia)
 ├─ scripts/       sync-brand · render · reel · clip · check.sh · build-zip.sh · make-assets
 └─ examples/      <id>.json · clip-zoom-*.json · reel-bloque1.json · assets/
@@ -191,7 +194,7 @@ Los `clip-<efecto>.json` de `examples/` apuntan a estos clips. Para probar con u
 
 ## Bloque 3 — Chroma Key, Siluetas 2.5D, Cutout y Subtítulos Karaoke
 
-Completa los 17 efectos de video con técnicas avanzadas de composición, soporte de chroma key y capas sobrepuestas.
+Completa los 18 efectos de video con técnicas avanzadas de composición, soporte de chroma key y capas sobrepuestas.
 
 ### 1. `pantalla-verde` (Chroma Key nativo con FFmpeg)
 Elimina el fondo verde (`0x00FF00` o personalizado) y lo reemplaza por un color de marca (`--fx-bg`), una imagen o un video de fondo.
@@ -349,3 +352,96 @@ Verifica que el MP4 terminado cumpla resolución exacta (`1080×1920` o `1920×1
 ### 5. Comandos de Estudio en el Repo (`.claude/commands/` + `estilos/`)
 - `/editar`: flujo guiado en **3 paradas** (Parada 1: Texto y recorte de silencios/repeticiones; Parada 2: Dirección y escaleta en `vertical` 9:16 o `horizontal` 16:9; Parada 3: Render a `-16 LUFS` y reporte **`Cumple X de Y reglas`**).
 - `/ajustar`: aplica cambios puntuales generando `final-v2.mp4`, `final-v3.mp4` sin pisar la versión anterior y guarda reglas permanentes en `estilos/<id>/aprendizajes.md` y `perfil.json`.
+
+
+
+## Reel con voz grabada (`scripts/reel-voz.mjs`)
+
+Monta un reel donde la **voz viene de clips grabados** (p. ej. Flow con el avatar del usuario) y cada escena lleva un efecto encima. Ejemplo completo: `examples/reel-voz.example.json` (los clips no se versionan; apunta a `assets/`).
+
+```bash
+node scripts/reel-voz.mjs examples/reel-voz.example.json -o out/reel.mp4
+```
+
+Cada escena toma la **voz del tramo `[desde, hasta]` de su `fuente`** (ganancia pareja entre clips, fundidos de 40 ms solo en los empalmes, `loudnorm` a −16 LUFS al final) y puede ser:
+
+| Campo | Qué hace |
+|---|---|
+| (ninguno) | clip liso, encuadre cover 1080×1920 a 30 fps |
+| `fx` | efecto de `clip.mjs` (zoom, `pantalla-verde`); los tiempos son relativos al inicio de la escena |
+| `html` | efecto HTML a pantalla completa (`muro-titulares`, `grafica-crece`, `rompe-marco`, `corta-pega`…); el contador sale del propio efecto |
+| `overlay` | efecto HTML con `fondoClave` pegado sobre el clip (karaoke) |
+| `ctb` | caja de llamado a la acción (`{palabra, linea, handle}`) dentro de la zona segura |
+| `badge: N` | contador `N/total` + título fijo (PNG de `badge.mjs`) |
+| `sinAuditoria` | omite la auditoría de zonas seguras (solo si el efecto se corta a mitad de animación) |
+| `contenido` (sin `ventana`) | **B-roll a pantalla completa** con la voz del clip en off (recomendado para mostrar efectos): `contenido` = `{ html }` o `{ fx }` y `velocidad`; `badge` + `nombre` dibujan `NN/07 · NOMBRE` en y=`badgeY` (1450 por defecto); `"sinTituloFijo": true` quita el título fijo de arriba si choca con el del efecto (p. ej. el contador grande de grafica-crece). Los subtítulos globales se apagan solos en estas escenas: el badge hace de subtítulo |
+| `ventana` + `contenido` | **locutor persistente** (desplazado 400 px) con el efecto en una ventana 1080×850 arriba; `contenido` = `{ html }` o `{ fx }` (con `clip` propio, p. ej. el clip verde) y `velocidad`; `badge` + `nombre` dibujan `NN/07 · NOMBRE`; `ventana.banda` elige qué franja del efecto se ve |
+| `texto` (alias `ctb`) | caja dorada grande: `{ palabra, prefijo ("COMENTA " por defecto), linea, handle, y, entra }`; úsala para hook, dato y CTB |
+
+**Flujo recomendado:** (1) graba/genera las escenas con la voz; (2) Whisper `small` con `word_timestamps` por clip → tiempos reales de cada palabra; (3) reparte los efectos según la palabra que se dice; (4) render; (5) contact sheet 1 fps + Whisper del master para comprobar.
+
+**Piezas auxiliares nuevas**
+- `scripts/recorte-verde.mjs <video> --t 2 -o recorte.png`: fotograma con **alfa** a partir de un fondo verde (solo FFmpeg). Úsalo como `sujeto` de `rompe-marco` y `corta-pega`.
+- `pantalla-verde` acepta `"metodo": "verde-dominante"` (alfa por exceso de verde sobre rojo/azul, `umbral` 18, `rango` 40). Con prendas azul claro el `chromakey` por distancia sale moteado; este método no.
+- `scripts/badge.mjs`: PNG transparente del contador o del CTB con la marca del tema.
+- Parámetro `fondoClave` (p. ej. `0x00FF00`) en cualquier efecto: pinta el fondo liso para quitarlo con `chromakey` (overlay sobre clip). Añade la clase `clave` al `<body>`; `subtitulos-karaoke` la usa para pasar a caja sólida.
+
+**Reglas aprendidas (reel FIEBRU'O, 19-10-2026)**
+1. Un efecto HTML necesita **≥ 1,4 s** para leerse (`muro-titulares` ≥ 1,9 s). Si la palabra dura menos, empieza el efecto antes de decirla.
+2. `subtitulos-karaoke` con `posicion: "abajo"` ya respeta la zona segura; **máx. ~6 palabras por escena** (2 líneas): parte la frase en varias escenas.
+3. El badge `NN/total` debe ser **consecutivo y mostrar el efecto que dice**: no pongas un badge sobre una toma que no sea ese efecto.
+4. El texto del CTB va **exacto** (`FIEBRU'O`, con apóstrofe) y dentro de la zona segura (no bajo 350 px del borde inferior).
+5. Una escena de cada efecto con **la cara del usuario** (recorte real), nunca la silueta de demo (`frente-figura.png` es solo para pruebas del skill).
+6. Para Flow (avatar, continuidad con último fotograma, descargas 720p/1080p) ver la skill `flow-chrome` (borrador en `CEINCA-WORKSPACE/03 FORMACION/CURSO FLOW/SKILL_flow-chrome_BORRADOR_v0.1.md`, sección 12).
+
+
+### Receta "reel NEAPS-AIDA con ventana" (reel v4, 20-10-2026)
+Estructura de los reels virales de CEINCA (TOTUMA, GUARAPO; `MARKETING/SISTEMA_VIRAL.md` §1.2, Mecanismo A) aplicada a un reel de efectos: **hook de urgencia** (texto grande dorado) → **contraste antes/después** → **"Guarda este video" temprano** → **checklist de efectos** (cada uno en ventana, etiqueta `NN/07 nombre`) → **dato** ("7 de 18") → **CTB en texto dorado + voz** → pedido de follow con razón de valor. Subtítulos continuos y logo fijos.
+1. Genera los clips con voz (Flow + avatar), frases ≤ 13 palabras, **encuadre bajo** (sujeto en el tercio inferior); no deletrees siglas ni nombres difíciles en el prompt (FFmpeg, CEINCA): reescribe la frase.
+2. **Mide la voz por energía, no por Whisper:** `node scripts/voz-ventanas.mjs clip.mp4` → `1.15-2,2.9-4.8,…`. Whisper adelanta la voz hasta ~1 s con la sala en silencio y reordena a veces las palabras del prompt: coloca los efectos según lo que de verdad se oye.
+3. Corta cada clip en tramos que contengan voz (varias escenas con la misma `fuente` = jump-cut): sin pausas > 0,5 s y sin silencio inicial (`check.sh reel` lo exige).
+4. `reel-voz.mjs … --guardar-base base.mp4` → Whisper sobre `base.mp4` → `subtitulos-whisper.mjs palabras.json -o karaoke.json --max 4 --ventanas "$(node scripts/voz-ventanas.mjs base.mp4)" --reemplazos '{"cloud":"Claude"}'` → añade `"subtitulos": "karaoke.json"` y `"logo": true` al JSON → `reel-voz.mjs … --desde-base base.mp4` (solo aplica las capas, sin re-renderizar escenas).
+5. `bash scripts/check.sh reel reel.mp4 reel-voz.json`: formato, A/V, −16 LUFS, sin silencios, badges 1..N, keyword exacta.
+Ejemplo: `examples/reel-voz.example.json`. Logo: `vendor/brand/insignia-principal.svg` (copia del manual de marca).
+
+### Receta "reel v5: B-roll a pantalla completa + rostro libre" (20-10-2026, reemplaza la ventana)
+Visto en el celular, el modo `ventana` deja la cara del locutor (y≈1114-1662) justo donde caen los subtítulos (≤1560): no hay hueco. Por eso:
+1. **Efectos = B-roll a pantalla completa** (`contenido` sin `ventana`), voz en off, badge `NN/07 · nombre` como único texto. Si el efecto trae su propio título o franja y choca con el badge, vacíalo (`"titulo": ""`, `"subtitulo": ""`) o sube el badge con `badgeY` (máx. 1490).
+2. **Escenas de cara: una sola capa de texto** (los subtítulos). Nada de texto dorado que repita la voz; el dorado solo para el CTB.
+3. **Rostro medido, no adivinado:** `python3 scripts/rostro.py clip.mp4 desde hasta` (YuNet, `vendor/modelos/`, necesita `opencv-python` ≥4.8) da la barbilla en coordenadas 1080×1920. `reel-voz.mjs` lo usa solo: el CTB baja a barbilla + 40 px y los subtítulos se apagan en la escena si la cara invade su caja (y≥1440). Sin OpenCV sigue con las posiciones fijas.
+4. **Música:** `node scripts/musica.mjs reel.mp4 pista.mp3 -o final.mp4 --caida-musica <s de la caída en la pista> --caida-reel <s del primer efecto> --sfx <cortes>`. Nivela la cama sola a `--bajo` LU bajo la voz (por defecto 9, aprobado; la v5 inicial quedó a 24 LU y no se oía), la agacha con la voz (sidechain), fundido final, whoosh sintetizado en cada corte, −16 LUFS. La caída se busca con el RMS cada 0,05 s (en Midday_Meridian: silencio 14,90-15,00 s y golpe en 15,05 s).
+
+**Parámetros aprobados (v5, Eduardo 20-10-2026: "está perfecto") — punto de partida de los siguientes reels:**
+| Pieza | Valor |
+|---|---|
+| Estructura (29,4 s) | gancho + contraste a cámara (6 tramos, 0-9,6 s) → 7 efectos B-roll de 1,2-1,7 s (9,6-20,6 s) → prueba a cámara → 2 CTB (palabra clave + seguir) |
+| Texto en cara | solo subtítulos karaoke (`--max 4`); dorado únicamente en los CTB; CTB a barbilla + 40 px (rostro.py) |
+| B-roll | `contenido` sin `ventana`, badge `NN/07 · nombre` en y=1450; gráfica con `velocidad: 2`, `titulo: ""` y `sinTituloFijo: true`; corta y pega con `subtitulo: ""` y `badgeY: 1500` |
+| Música | Midday_Meridian.mp3; `--caida-musica 15.05 --caida-reel 9.62` (el golpe cae en el primer efecto); `--bajo 9` (voz −16,1 / cama ≈ −25 LUFS); fundido 1,2 s; master −16 LUFS |
+| SFX | un whoosh en el arranque de cada efecto y en la vuelta a cámara: `--sfx 9.62,11.02,12.62,13.77,15.27,16.62,17.92,19.57` |
+| Logo y título | `logo: true`, `tituloFijo` en el badge (vacío donde el efecto ya tiene título) |
+Comandos exactos: `~/CEINCA-WORKSPACE/PRUEBA_VIDEO_FX/reel-v5/rehacer.sh`.
+
+### En claude.ai (chat / proyecto, skill subida como zip)
+Verificado por Eduardo el 20-10-2026 en el sandbox de claude.ai: Node 22.22.0, FFmpeg 6.1.1 (libx264, libass, librsvg) y Chromium 141 preinstalado en `/opt/pw-browsers/` (`chromium-1194/chrome-linux/chrome` y `chromium_headless_shell-1194/chrome-linux/headless_shell`). `findChrome()` ya busca en `/opt/pw-browsers`; si eligiera otro binario, fija `FX_CHROME=/opt/pw-browsers/chromium-1194/chrome-linux/chrome`.
+1. `cd` a la skill y `npm install` (npm está permitido): trae `playwright-core` y `hyperframes`. Si HyperFrames falla, `render.mjs` cae solo a la ruta de respaldo (Playwright + FFmpeg).
+2. `rostro.py` necesita `pip install opencv-python-headless` (PyPI está permitido); sin él, el reel sale con posiciones fijas.
+3. Aún no se ha renderizado un reel completo allí (CPU y tiempo por comando desconocidos). Prueba primero un efecto suelto (`node scripts/render.mjs examples/checklist.json --motor respaldo`) y, si se corta, renderiza el reel por escenas.
+
+## Módulo Carrusel — slides interactivos tipo video para carruseles de Instagram (20-10-2026)
+Es para **carruseles** (no reels): cada slide es un **video corto en 1080×1350 (4:5)** que se mueve al deslizar, inspirado en el formato "este carrusel se mueve" (referencia analizada: Drive `CEINCA RESPALDO/Carrousel animación cinética`, 4 estilos). Aquí están los dos que encajan con la marca y el nicho; **sketch** (dibujo a mano) queda fuera por el nicho legal y **collage** (recortes de foto) queda para una fase 2.
+
+| Efecto | Estilo | Parámetros |
+|---|---|---|
+| `slide-interfaz` | Interfaz de app: ventana con barra, encuesta que un cursor marca, chips, chat que "escribe" con avatar y botón "Desliza" que el cursor pulsa. | `titulo` (con `**acento**`), `etiqueta`, `pregunta`, `opciones[]` + `elegida`, `chips[]`, `inicial`, `mensaje` (con `**acento**`, se escribe letra a letra), `boton`, `tamTitulo` (104) |
+| `slide-cinetica` | Tipografía cinética: el texto es el protagonista. Líneas que entran palabra a palabra; la `**palabra acento**` cae letra a letra, se estira y queda subrayada con un trazo dorado; destellos y garabatos se dibujan en filas propias (nunca pisan el texto). | `lineas[]` (con `**acento**`), `chica[]` (índices de líneas en tamaño secundario), `boton`, `tamTitulo` (136), `decoraciones` (true) |
+
+```bash
+node scripts/carrusel.mjs examples/carrusel.example.json -o out/carrusel        # slide_NN.mp4 + portada_NN.jpg + vista_previa.jpg
+node scripts/render.mjs effects/slide-cinetica/params.example.json -o out/s.mp4  # un slide suelto ("formato": "carrusel" en el JSON)
+```
+- **Formato:** `render.mjs` acepta `"formato": "carrusel"` (o `--formato carrusel`): 1080×1350, zonas seguras 90/90 (en carrusel la UI de Instagram no tapa el slide). Solo renderizan en carrusel los efectos que lo declaran con `<meta name="fx-formatos" content="carrusel,…">`; los demás se rechazan con un mensaje claro. Los dos slides también sirven en reel (9:16).
+- **`carrusel.mjs`:** contador `NN/TT` automático (`"contador": false` lo quita), el último slide va sin "Desliza", máximo 20 slides y 60 s por slide (límites de Instagram), duración por defecto 5 s. Los slides salen **sin audio**: la música se elige al publicar en Instagram.
+- **Frame 0 = portada:** Instagram muestra el primer frame antes de reproducir, así que ambas plantillas arrancan con el título ya legible (cinética: primera línea; interfaz: título + ventana) y animan el resto. `portada_NN.jpg` es ese frame (sirve también como slide fijo).
+- **Copy:** un carrusel animado sigue el Mecanismo A/B de `MARKETING/SISTEMA_VIRAL.md` (slide 1 = gancho, último = CTB con keyword). La keyword va en el `mensaje` del último `slide-interfaz`.
+

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// render.mjs — params.json → MP4 (1080×1920 vertical 9:16 o 1920×1080 horizontal 16:9, 30 fps, H.264, yuv420p).
+// render.mjs — params.json → MP4 (30 fps, H.264, yuv420p): 1080×1920 (vertical/reel 9:16), 1920×1080 (horizontal 16:9) o 1080×1350 ("formato": "carrusel", slide 4:5 de Instagram).
 // Ruta 1: HyperFrames CLI (composición HTML con timeline GSAP pausado en window.__timelines).
 // Ruta 2 (respaldo): mismo timeline, seek frame a frame + captura Playwright + unión con FFmpeg.
 import fs from 'node:fs';
@@ -11,17 +11,25 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 export const SKILL = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FPS = 30;
+// Formatos: vertical (alias reel) 9:16 con zonas seguras de la UI de Reels · horizontal 16:9 YouTube · carrusel 4:5 (slide de video; sin UI encima, solo margen).
+// fxKey = nombre con el que cada efecto declara su soporte en <meta name="fx-formatos"> (por defecto: reel,horizontal).
+export const FORMATOS = {
+  vertical:   { formato: 'vertical',   fxKey: 'reel',       isHoriz: false, W: 1080, H: 1920, arriba: 250, abajo: 350 },
+  horizontal: { formato: 'horizontal', fxKey: 'horizontal', isHoriz: true,  W: 1920, H: 1080, arriba: 80,  abajo: 90 },
+  carrusel:   { formato: 'carrusel',   fxKey: 'carrusel',   isHoriz: false, W: 1080, H: 1350, arriba: 90,  abajo: 90 },
+};
+let W = 1080, H = 1920; // los fija main() según el formato
 const argv = process.argv.slice(2);
 
 function usage() {
   console.log(`Uso: node scripts/render.mjs <params.json> [opciones]
   -o, --salida <mp4>        archivo de salida (default: out/<efecto>-<tema>.mp4)
-  --formato <vertical|horizontal>  9:16 (1080×1920, default) o 16:9 YouTube (1920×1080)
   --motor <auto|hyperframes|respaldo>   (default: auto → HyperFrames y, si falla, respaldo)
   --duracion <seg>          sobreescribe la duración (default 4)
   --tema <nombre>           sobreescribe el tema (default: params.tema o ceinca-social)
   --marca-dir <dir>         raíz alterna con themes/ y vendor/fonts/ (pruebas de cambio de marca)
-  --zona-arriba <px> --zona-abajo <px>   zonas seguras (default 250/350 en vertical, 80/90 en horizontal)
+  --formato <vertical|horizontal|carrusel>  1080×1920 (default; alias reel) · 1920×1080 YouTube · 1080×1350 slide 4:5 (solo efectos con <meta name="fx-formatos"> que lo declaren)
+  --zona-arriba <px> --zona-abajo <px>   zonas seguras (default 250/350 vertical, 80/90 horizontal, 90/90 carrusel)
   --sin-auditoria           no auditar texto fuera de zonas seguras
   --con-overlay             añade título fijo + contador de prueba (como en reel.mjs): valida el layout con la zona superior reducida
   --frame <seg>             guarda un PNG de ese instante (-o <png>) sin renderizar el video: vista previa rápida de efecto × tema
@@ -36,9 +44,11 @@ const flag = (n) => argv.includes(n);
 export const log = (...a) => console.error(...a);
 const die = (code, m) => { console.error(`✗ ${m}`); process.exit(code); };
 
-export function dimsForFormato(fmt) {
-  const isH = fmt === 'horizontal' || fmt === '16:9';
-  return { formato: isH ? 'horizontal' : 'vertical', isHoriz: isH, W: isH ? 1920 : 1080, H: isH ? 1080 : 1920 };
+const ALIAS_FORMATO = { reel: 'vertical', '9:16': 'vertical', vertical: 'vertical', horizontal: 'horizontal', '16:9': 'horizontal', carrusel: 'carrusel', '4:5': 'carrusel' };
+export function dimsForFormato(fmt = 'vertical') {
+  const k = ALIAS_FORMATO[String(fmt)];
+  if (!k) die(2, `formato desconocido: "${fmt}" (vertical|reel · horizontal · carrusel)`);
+  return { ...FORMATOS[k] };
 }
 
 /* ---------- lock de marca ---------- */
@@ -112,9 +122,18 @@ function stage(params, opts) {
 
   const { W, H, isHoriz } = opts.dims;
   let html = fs.readFileSync(path.join(srcDir, 'index.html'), 'utf8');
-  html = html.replace(/(data-composition-id="root"[^>]*?data-duration=")[^"]*(")/, `$1${opts.duracion}$2`);
-  html = html.replace(/width=1080,\s*height=1920/, `width=${W}, height=${H}`);
-  html = html.replace(/data-width="1080"\s+data-height="1920"/, `data-width="${W}" data-height="${H}"${isHoriz ? ' data-formato="horizontal"' : ''}`);
+  const formatos = (/<meta name="fx-formatos" content="([^"]+)"/.exec(html)?.[1] || 'reel,horizontal').split(',').map((x) => x.trim());
+  if (!formatos.includes(opts.dims.fxKey)) die(2, `el efecto "${efecto}" no soporta formato ${opts.dims.formato} (soporta: ${formatos.join(', ')}). Para carrusel: slide-interfaz, slide-cinetica`);
+  html = html.replace(/(data-composition-id="root"[^>]*?data-duration=")[^"]*(")/, `$1${opts.duracion}$2`)
+    .replace(/(data-composition-id="root"[^>]*?data-width=")[^"]*(")/, `$1${W}$2`)
+    .replace(/(data-composition-id="root"[^>]*?data-height=")[^"]*(")/, `$1${H}$2`)
+    .replace(/content="width=\d+,\s*height=\d+"/, `content="width=${W}, height=${H}"`)
+    .replace(/(<[^>]*data-composition-id="root")/, `$1${isHoriz ? ' data-formato="horizontal"' : ''}`);
+  // fondoClave: pinta el fondo de un color liso (p. ej. 0x00FF00) para quitarlo luego con chromakey y usar el efecto como overlay.
+  if (params.fondoClave) {
+    const key = '#' + String(params.fondoClave).replace(/^(0x|#)/i, '');
+    html = html.replace('</head>', `<style>#root{background:${key}!important}.fx-bgfill{display:none!important}</style></head>`).replace('<body>', '<body class="clave">');
+  }
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   fs.writeFileSync(path.join(dir, 'params.js'), `window.__FX_PARAMS__ = ${JSON.stringify(resolved)};\n`);
 
@@ -255,17 +274,13 @@ export async function render(paramsFile, o = {}) {
   if (!params.efecto) die(2, 'params.json necesita el campo "efecto"');
   if (o.conOverlay) Object.assign(params, { tituloFijo: 'Prueba de overlay', contador: { n: 1, total: 9 } });
   const tema = o.tema ?? params.tema ?? 'ceinca-social';
-  const duracion = Number(o.duracion ?? params.duracion ?? 4);
   const dims = dimsForFormato(o.formato ?? params.formato ?? 'vertical');
-  const defTop = dims.isHoriz ? 80 : 250;
-  const defBottom = dims.isHoriz ? 90 : 350;
-  const zona = {
-    arriba: Number(o.zonaArriba ?? params.zonaSegura?.arriba ?? defTop),
-    abajo: Number(o.zonaAbajo ?? params.zonaSegura?.abajo ?? defBottom)
-  };
-  params.tema = tema; params.duracion = duracion; params.zonaSegura = zona; params.formato = dims.formato;
+  W = dims.W; H = dims.H;
+  const duracion = Number(o.duracion ?? params.duracion ?? 4);
+  const zona = { arriba: Number(o.zonaArriba ?? params.zonaSegura?.arriba ?? dims.arriba), abajo: Number(o.zonaAbajo ?? params.zonaSegura?.abajo ?? dims.abajo) };
+  params.tema = tema; params.duracion = duracion; params.zonaSegura = zona; params.formato = dims.formato; params.alto = H;
   checkLock(o.marcaDir);
-  const out = path.resolve(o.salida ?? path.join(SKILL, 'out', `${params.efecto}-${tema}${dims.isHoriz ? '-16x9' : ''}.mp4`));
+  const out = path.resolve(o.salida ?? path.join(SKILL, 'out', `${params.efecto}-${tema}${dims.isHoriz ? '-16x9' : dims.formato === 'carrusel' ? '-4x5' : ''}.mp4`));
   fs.mkdirSync(path.dirname(out), { recursive: true });
   const st = stage(params, { tema, duracion, dims, marcaDir: o.marcaDir, paramsDir: path.dirname(path.resolve(paramsFile)) });
   const pw = await loadPlaywright();
