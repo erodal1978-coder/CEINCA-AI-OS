@@ -12,7 +12,8 @@ PARENT="$(dirname "$SKILL")"
 if command -v zip >/dev/null 2>&1; then
   ( cd "$PARENT" && zip -qr "$OUT" ceinca-video-fx \
       -x 'ceinca-video-fx/node_modules/*' 'ceinca-video-fx/.cache/*' 'ceinca-video-fx/.build/*' 'ceinca-video-fx/out/*' 'ceinca-video-fx/dist/*' \
-         'ceinca-video-fx/examples/*.mp4' 'ceinca-video-fx/examples/assets/clips/*' 'ceinca-video-fx/examples/frames/*' 'ceinca-video-fx/package-lock.json' )
+         'ceinca-video-fx/examples/*.mp4' 'ceinca-video-fx/examples/assets/clips/*' 'ceinca-video-fx/examples/frames/*' 'ceinca-video-fx/package-lock.json' \
+         'ceinca-video-fx/scripts/public-kit/*' 'ceinca-video-fx/scripts/build-public-kit.py' )
 else
   python3 - "$PARENT" "$OUT" << 'PYEOF'
 import os, sys, zipfile
@@ -27,6 +28,7 @@ skip_prefixes = (
     "ceinca-video-fx/dist/",
     "ceinca-video-fx/examples/assets/clips/",
     "ceinca-video-fx/examples/frames/",
+    "ceinca-video-fx/scripts/public-kit/",
 )
 with zipfile.ZipFile(out_path, "w", zipfile.ZIP_DEFLATED) as zf:
     for dirpath, _, filenames in os.walk(root_dir):
@@ -35,7 +37,7 @@ with zipfile.ZipFile(out_path, "w", zipfile.ZIP_DEFLATED) as zf:
             rel = os.path.relpath(full, parent).replace("\\", "/")
             if rel.startswith(skip_prefixes):
                 continue
-            if rel == "ceinca-video-fx/package-lock.json":
+            if rel in ("ceinca-video-fx/package-lock.json", "ceinca-video-fx/scripts/build-public-kit.py"):
                 continue
             if rel.startswith("ceinca-video-fx/examples/") and rel.endswith(".mp4"):
                 continue

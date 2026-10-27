@@ -40,7 +40,7 @@
 | 6/10 | 7/10 | 7/10 | 8/10 |
 
 ## 4. Brechas con lo que ya tenemos (verificado en el zip y el repo)
-1. **El repo está atrasado respecto al zip:** repo = 21 plantillas HTML; zip = 25 (incluye Bloque 6: `bento-grid`, `barra-prompt`, `carrusel-blur`, `catalogo-lateral`). Las 3 de clip (`lupa-zoom`, `foco-spotlight`, `fragmentos-shatter`) y `--layout split-pip` sí están en el código del zip.
+1. ~~**El repo está atrasado respecto al zip**~~ **RESUELTO (27-10):** el repo de GitHub tenía 21 plantillas y el zip 25; la rama `integracion/video-fx-soyeduardo-27-10` (**PR #37**) une todas las líneas: 27 plantillas HTML (25 de reel + 2 slides de carrusel) y 7 efectos de clip, `split-pip` incluido.
 2. **"Sin marca" es falso en el zip subido:** quedan `themes/marca-soyeduardo-ia.css`, `themes/cliente-eduardo-ia.css`, `themes/clientes/eduardo-ia.json`, `themes/marcas/soyeduardo-ia.json`, `brand.lock.json`, y menciones en `SKILL.md`, `scripts/overlay.mjs` y 4 `params.example.json`. `DISTRIBUCION_STARTER.md` ya avisa que hay que limpiar antes de redistribuir.
 3. **"25 efectos" no está probado:** la propia nota del zip dice que contar carpetas no garantiza render. No se publica ninguna cifra hasta pasar el render (Fase 1).
 4. **Faltan 8 de los 20 de la referencia:** Title Orbit 3D, Portal (overlay), Clone Room, Infinite Zoom, Cube Spin, Tile Tunnel, Phone Fan, Ribbon Wrap. No se anuncian "20 efectos".
@@ -198,3 +198,6 @@ No importo el zip a la copia de GitHub: chocaría con tus ramas locales (la del 
 - **Alternativa sin ñ: PALANCA** (nº 72; libre en la tabla): "la palanca para que Claude edite con tu marca".
 - **Antes de elegir:** la auditoría del 20-10 citó FIEBRU'O como ejemplo de "te lo regalo → skill". Si FIEBRU'O ya existe en @soyeduardo.ia y entrega la skill, reciclarla es mejor (sin automatización nueva). La tabla del repo no incluye las palabras de @soyeduardo.ia (GOLEM tampoco está), así que Eduardo debe confirmar cuáles están activas.
 - Al publicar: registrar la palabra en la tabla 1 del archivo maestro (regla 6) y subirlo a repo, Drive y proyecto de Claude. El DM entregará el enlace del zip final (F2).
+
+
+> **Actualización 27-10 (noche):** la decisión de que el kit regalo lleve tu nombre (D1) se **revirtió**: el kit va sin marca ni nombre. Ver `PLAN_MAESTRO_ÑAPA` §0.1 y F2.

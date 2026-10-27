@@ -1,0 +1,14 @@
+{
+  "nombre": "Plantilla de marca — EDITA ESTOS VALORES",
+  "colores": {
+    "bg": "#111418", "bg2": "#1B2027", "surface": "#1B2027", "surface2": "#252C35",
+    "text": "#F4F6F8", "textMuted": "#9AA5B1",
+    "accent": "#3DDC97", "accent2": "#7CEBBB", "accentDark": "#25B075",
+    "onAccent": "#111418", "line": "#2F3742", "danger": "#FF6B5B", "ok": "#3DDC97"
+  },
+  "fuentes": {
+    "display": { "familia": "Manrope", "pesos": [800] },
+    "body": { "familia": "Manrope", "pesos": [400, 600, 700] }
+  },
+  "forma": { "radius": "14px", "radiusLg": "22px" }
+}

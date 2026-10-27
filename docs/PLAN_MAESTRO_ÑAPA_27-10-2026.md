@@ -19,10 +19,10 @@ Convenciones: **[E]** = Eduardo · **[CC]** = Claude Code en tu máquina (repo l
 ## 0.1 Decisiones resueltas (27-10, tarde)
 | # | Decisión de Eduardo |
 |---|---|
-| D1 | **Sí**: la skill lleva su nombre (créditos + nombre del kit) y tema neutro por defecto |
+| D1 | **Revisada el 27-10 (Eduardo): el kit regalo NO lleva marca ni nombre** (nada de CEINCA ni de Eduardo: ni temas, ni perfiles, ni ejemplos, ni créditos). Es una plantilla para que cada quien ponga la suya |
 | D2 | **Reel A:** lo graba él, toma continua |
 | D2b | **Reel B: con su avatar de Flow** (voz y rasgos ya configurados). Objetivo: mostrar el poder de la IA y vender autoridad con videos idénticos a él |
-| D3 | Nombre del kit: **`Video_Fx_Eduardo_IA`** (zip). Carpeta y `name` de la skill en minúsculas con guiones: `video-fx-eduardo-ia` (no verifiqué el formato de nombre de skill en tu entorno; si tu Claude acepta mayúsculas y guion bajo, se deja tal cual) |
+| D3 | Archivo de regalo: **`Video_Fx_Eduardo_IA.zip`** (solo como etiqueta del archivo; por dentro la skill se llama **`video-fx`** y no menciona a nadie) |
 | D4 | **Sí**: el DM dice los requisitos (Claude Code, Node, FFmpeg) |
 | ÑAPA | Confirmado: no se usa en otra cosa |
 | Flow | Sin chivera en este reel; en el futuro la chivera **varía** (solo de vez en cuando). Avatar propio: no se describen rasgos, solo vestimenta y fondo. Imagen base de su oficina como escenario |
@@ -30,7 +30,7 @@ Convenciones: **[E]** = Eduardo · **[CC]** = Claude Code en tu máquina (repo l
 ---
 
 ## 1. Bloqueantes (nada se publica antes de esto)
-1. **[E] Subir el repo local a GitHub** cuando haya luz (ramas `feat/video-fx-reel-voz-musica`, `feature/ceinca-video-fx-marcas` y la de docs). Hasta entonces yo no toco código: chocaría con 25 commits locales.
+1. ~~**[E] Subir el repo local a GitHub**~~ **HECHO (27-10):** todo el trabajo local está en GitHub y las 3 líneas de la skill (Bloque 4, trabajo de AGY y módulo Carrusel/reel-voz) están unidas en la rama `integracion/video-fx-soyeduardo-27-10` (**PR #37**, sin conflictos con `main`). Hasta que el PR se mezcle, F1 en adelante se trabaja sobre esa rama.
 2. **[CC] N verificado** con evidencia de render (F1).
 3. **[E] Probar ÑAPA** con cuenta secundaria; comprobar que el comentario fijado **no** dispara el DM.
 4. **[CC] Kit público limpio** (cero menciones de marca ajena) y probado en entorno limpio (F2).
@@ -50,11 +50,11 @@ Convenciones: **[E]** = Eduardo · **[CC]** = Claude Code en tu máquina (repo l
 Pega este prompt en Claude Code, en la raíz del repo local:
 ```
 Trabaja en .claude/skills/ceinca-video-fx. No hagas commit hasta mostrarme el informe.
-1) Compara el zip "Video_FX_Starter_Kit_sin_marca.zip" (ruta: ~/Descargas) con la skill actual: lista archivos nuevos/distintos. Trae el Bloque 6 (bento-grid, barra-prompt, carrusel-blur, catalogo-lateral) sin sobrescribir cambios locales: usa un diff y fusiona a mano.
+1) Trabaja sobre la rama integracion/video-fx-soyeduardo-27-10 (PR #37): ya trae 27 plantillas HTML (incluye bento-grid, barra-prompt, carrusel-blur, catalogo-lateral y los 2 slides de carrusel), los 7 efectos de clip (zoom-digital, zoom-corte, zoom-atras, lupa-zoom, foco-spotlight, fragmentos-shatter, pantalla-verde), overlay --layout split-pip, reel-voz y musica. Comprueba con `ls .claude/skills/ceinca-video-fx/effects | wc -l` (debe dar 27) y NO importes el zip del Starter Kit.
 2) node scripts/doctor.mjs y bash scripts/check.sh estatico. Informa qué falta (Node>=22, FFmpeg, Chromium).
-3) Renderiza CADA efecto HTML (25) en vertical y horizontal con --tema marca-soyeduardo-ia, y CADA efecto de clip (zoom-digital, zoom-corte, zoom-atras, lupa-zoom, foco-spotlight, fragmentos-shatter, pantalla-verde) con clips de prueba. Usa node scripts/render.mjs --solo-auditoria primero y render completo después.
+3) Renderiza CADA efecto HTML (27) con --tema marca-soyeduardo-ia en vertical (los 25 de reel) y en horizontal solo los que lo soportan (19; corta-pega, diagrama-nodos, grafica-crece, muro-titulares, rompe-marco y telefono-chat declaran solo-vertical; los 2 slide-* son de carrusel), y CADA efecto de clip (zoom-digital, zoom-corte, zoom-atras, lupa-zoom, foco-spotlight, fragmentos-shatter, pantalla-verde) con clips de prueba. Usa node scripts/render.mjs --solo-auditoria primero y render completo después.
 4) Entrega una tabla: efecto | render OK | zonas seguras OK | legible a 1,1 s (sí/no) | salida del comando. N = efectos con todo OK. No declares OK sin haberlo ejecutado.
-5) Inconsistencia de audio: scripts/audio.mjs normaliza a -14 LUFS pero scripts/check.sh reel exige -16 ±1,5 (rango -17,6..-14,4), por lo que -14,0 FALLA. Cambia check.sh a un perfil -14 ±1 LUFS y pico real <= -1,0 dBTP, conserva el perfil -16 como opción (--lufs 16) y documenta el cambio.
+5) Audio: check.sh reel YA acepta `--lufs N` (default 16, ±1,5; también 1920×1080) y avisa si el pico real supera −1,0 dBFS. Para los reels de ÑAPA usa `--lufs 14` y valida con un MP4 real. Si audio.mjs no deja el máster cerca de −14 (en una prueba salió −15,4), ajusta el normalizador final y documéntalo.
 6) Comprueba si catalogo-lateral acepta un clip de video en el marco derecho. Si no, deja el comando ffmpeg de composición (lista izquierda + clip derecho) y pruébalo.
 7) Comprueba si pasos-progreso desenfoca los pasos futuros (opacidad .35 + blur 4px). Si no, propón parámetro opcional.
 ```
@@ -62,11 +62,10 @@ Trabaja en .claude/skills/ceinca-video-fx. No hagas commit hasta mostrarme el in
 **Regla:** si N < 21 → título "N efectos" (nada de "+20"). Si 14 ≤ N < 21 → plan B: construir de los 5 efectos sin recorte de persona que faltan (Portal, Infinite Zoom, Cube Spin, Tile Tunnel, Phone Fan) solo si Eduardo quiere insistir en "+20".
 
 ### F2 · Kit regalo + embudo ÑAPA [CC] + [E]
-**[CC] construir el kit público** (script nuevo `scripts/build-public-kit.sh`, no tocar el flujo interno):
-```
-Crea scripts/build-public-kit.sh que copie la skill a dist/video-fx-eduardo-ia/ y: (a) renombre la carpeta y el `name` del frontmatter a "video-fx-eduardo-ia" y el zip a "Video_Fx_Eduardo_IA.zip"; (b) elimine themes/marca-soyeduardo-ia.*, themes/cliente-eduardo-ia.*, themes/clientes/eduardo-ia.json, themes/marcas/soyeduardo-ia.json y reescriba brand.lock.json; (c) cambie los ejemplos que usen "marca-soyeduardo-ia" a "estilo-dark-tech"; (d) reescriba la descripción de SKILL.md sin "CEINCA" ni "@soyeduardo.ia" (<=1024 caracteres); (e) deje PROMPT_ADAPTAR_MARCA.md y LEEME en español; (f) agregue CREDITOS.md: "Creado por Eduardo Rodríguez (@soyeduardo.ia)" y licencias de GSAP y fuentes; (g) termine con: grep -ril "ceinca\|soyeduardo" dist/video-fx-eduardo-ia debe dar 0 coincidencias salvo CREDITOS.md (la palabra "eduardo" solo se permite en el nombre del kit, LEEME y CREDITOS); (h) genere dist/Video_Fx_Eduardo_IA.zip sin mp4 ni node_modules.
-Antes: lee vendor/gsap/LICENSE.md y dime si permite redistribuir GSAP dentro del zip. Si no está claro, NO lo redistribuyas: el kit debe instalar GSAP con npm.
-```
+**[HECHO 27-10] Kit público sin marca:** `python3 .claude/skills/ceinca-video-fx/scripts/build-public-kit.py <carpeta-de-salida>` genera, a partir de la skill, el kit regalo y **falla si queda cualquier referencia** a CEINCA, Eduardo, SAREN, FIEBRU'O, sus colores o su apellido. Qué hace: quita los temas y el logo de marca (`ceinca-social`, `ceinca-guias`, `marca-soyeduardo-ia`), los perfiles `estilos/`, la bitácora personal del `SKILL.md` y los ejemplos con contenido legal/mercantil (los reescribe con ejemplos neutros de video); deja el tema `estilo-dark-tech` como predeterminado y una plantilla `themes/marcas/mi-marca.json`; **no incluye `gsap.min.js`** (su licencia no deja claro si se puede redistribuir: se instala con `npm install`); regenera `brand.lock.json`; y empaqueta.
+Salida: `Video_Fx_Eduardo_IA.zip` (LEEME + `PROMPT_ADAPTAR_MARCA.md` + `claude-code/video-fx/` + `claude-ai/video-fx.zip`) y `claude-ai/video-fx.zip` suelto para subir a claude.ai.
+**Verificado (kit final, 27-10):** `check.sh estatico` ✓ · `check.sh matriz` **108/108** (27 efectos × 4 temas) · `doctor.mjs` 14/14 · 89 pruebas (render real de efectos nuevos vertical y horizontal, efectos de clip, `split-pip`, carrusel, reel, audio, pantalla verde con recorte, `build-zip`); los 6 efectos solo-vertical se rechazan en 16:9 con mensaje claro · flujo «poner mi marca» (copiar `mi-marca.json` → `npm run sync-brand` → `--tema marca-mi-estudio`) ✓ · escaneo de marca en ambos zips (incluido el zip anidado): **0 referencias**.
+**Pendiente:** probar `claude-ai/video-fx.zip` en el sandbox real de claude.ai (no se ha hecho) y que Eduardo lo apruebe antes de enlazarlo.
 **Pruebas obligatorias**
 - [ ] `unzip` en carpeta vacía → `node scripts/doctor.mjs` → render de `examples/portada.json` con `estilo-dark-tech`.
 - [ ] Con `PROMPT_ADAPTAR_MARCA.md` y un **tercero de prueba** (marca inventada), el tema nuevo renderiza.
@@ -98,11 +97,11 @@ Reglas: **transparencia = autoridad** (aprobado por Eduardo): al editar, **[CC] 
 **Aceptación:** las mismas del Reel A + el A/B reproducible (guarda los dos prompts y salidas) + rostro, ropa, fondo y voz consistentes en los 5 clips, y sin chivera. + etiqueta «avatar de IA» visible en todo el video.
 
 ### F5.0 · Obtener los renders (carrusel + Reel A) · [CC] en tu máquina
-**Antes (tú, 5 min):** crea `~/CEINCA-WORKSPACE/RENDERS_ÑAPA/base/` y guarda ahí: (1) `personaje.png` (tu caricatura), (2) `cursor.png` (el compañero), (3) `toma-prueba.mp4`: **6 s tuyos hablando**, vertical 1080×1920, misma ropa y luz; sirve como base de los efectos sobre clip hasta que grabes el Reel A, (4) `yo-recorte-1.png` y `yo-recorte-2.png`: fotos tuyas de frente, **PNG con fondo transparente**, y (5) la imagen de tu oficina. Las salidas van **fuera del repo** (política de assets).
+**Antes (tú, 5 min):** crea `~/CEINCA-WORKSPACE/SOY_EDUARDO_IA/CAMPANA_NAPA_SKILL_FX/RENDERS/base/` y guarda ahí: (1) `personaje.png` (tu caricatura), (2) `cursor.png` (el compañero), (3) `toma-prueba.mp4`: **6 s tuyos hablando**, vertical 1080×1920, misma ropa y luz; sirve como base de los efectos sobre clip hasta que grabes el Reel A, (4) `yo-recorte-1.png` y `yo-recorte-2.png`: fotos tuyas de frente, **PNG con fondo transparente**, y (5) la imagen de tu oficina. Las salidas van **fuera del repo** (política de assets).
 **Prompt para Claude Code** (raíz del repo local, con el tema `marca-soyeduardo-ia` disponible; si tu rama no lo tiene, usa el del zip):
 ```
 Trabaja en .claude/skills/ceinca-video-fx. No hagas commit ni copies renders dentro del repo.
-Objetivo: obtener renders de los efectos con el tema marca-soyeduardo-ia para (1) capturas PNG del carrusel y (2) MP4 de ≈1,2 s para el Reel A. Entradas en ~/CEINCA-WORKSPACE/RENDERS_ÑAPA/base/. Salidas en ~/CEINCA-WORKSPACE/RENDERS_ÑAPA/{frames,clips,informe}/.
+Objetivo: obtener renders de los efectos con el tema marca-soyeduardo-ia para (1) capturas PNG del carrusel y (2) MP4 de ≈1,2 s para el Reel A. Entradas en ~/CEINCA-WORKSPACE/SOY_EDUARDO_IA/CAMPANA_NAPA_SKILL_FX/RENDERS/base/. Salidas en ~/CEINCA-WORKSPACE/SOY_EDUARDO_IA/CAMPANA_NAPA_SKILL_FX/RENDERS/{frames,clips,informe}/.
 0) Ejecuta node scripts/doctor.mjs (y npm install si falta). Si falta Node, FFmpeg o Chromium, dímelo y detente.
 1) Efectos HTML (los 25 de effects/): para cada uno parte de examples/<id>.json (haz una COPIA temporal; no edites los ejemplos) y ejecuta, en este orden:
    a) node scripts/render.mjs <copia.json> --tema marca-soyeduardo-ia --solo-auditoria   (debe pasar)
@@ -219,7 +218,7 @@ Trae [N] efectos, ejemplos listos para correr y una guía para ponerle TU marca.
 
 Cómo empezar:
 1️⃣ Descomprime el zip.
-2️⃣ Abre Claude Code en esa carpeta y pídele: «Lee skills/video-fx-eduardo-ia/SKILL.md y corre el diagnóstico».
+2️⃣ Abre Claude Code en esa carpeta y pídele: «Lee .claude/skills/video-fx/SKILL.md y corre el diagnóstico».
 3️⃣ Para tu marca, pégale el contenido de PROMPT_ADAPTAR_MARCA.md.
 
 Necesitas: Claude Code, Node 22 o superior, FFmpeg y Chromium. El diagnóstico te dice qué te falta.
