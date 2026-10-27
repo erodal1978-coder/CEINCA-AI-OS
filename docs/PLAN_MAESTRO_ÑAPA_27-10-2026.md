@@ -97,6 +97,25 @@ La voz va partida en 5 bloques que coinciden con los 5 clips de Flow (8–10 s, 
 Reglas: **transparencia = autoridad** (aprobado por Eduardo): al editar, **[CC] o [C] añaden** una etiqueta pequeña «avatar de IA» en la tarjeta del vocero durante los 44 s (esquina superior izquierda de la tarjeta, JetBrains Mono minúsculas, color niebla `#8B93A7` sobre grafito; **no lima**, para respetar un solo elemento lima por pantalla; dentro de la zona segura). Las etiquetas nativas de plataforma las manejas tú (TikTok detecta IA solo; en Instagram la activas); el A/B de los primeros segundos debe ser **real** (mismo prompt, con y sin archivo de marca) y sin retoques; el menú reaparece 3 veces (no 4); ninguna escena pasa de ≈4,5 s; si un paso no corre así en tu sistema, se cambia el guion, no la demo.
 **Aceptación:** las mismas del Reel A + el A/B reproducible (guarda los dos prompts y salidas) + rostro, ropa, fondo y voz consistentes en los 5 clips, y sin chivera. + etiqueta «avatar de IA» visible en todo el video.
 
+### F5.0 · Obtener los renders (carrusel + Reel A) · [CC] en tu máquina
+**Antes (tú, 5 min):** crea `~/CEINCA-WORKSPACE/RENDERS_ÑAPA/base/` y guarda ahí: (1) `personaje.png` (tu caricatura), (2) `cursor.png` (el compañero), (3) `toma-prueba.mp4`: **6 s tuyos hablando**, vertical 1080×1920, misma ropa y luz; sirve como base de los efectos sobre clip hasta que grabes el Reel A, (4) `yo-recorte-1.png` y `yo-recorte-2.png`: fotos tuyas de frente, **PNG con fondo transparente**, y (5) la imagen de tu oficina. Las salidas van **fuera del repo** (política de assets).
+**Prompt para Claude Code** (raíz del repo local, con el tema `marca-soyeduardo-ia` disponible; si tu rama no lo tiene, usa el del zip):
+```
+Trabaja en .claude/skills/ceinca-video-fx. No hagas commit ni copies renders dentro del repo.
+Objetivo: obtener renders de los efectos con el tema marca-soyeduardo-ia para (1) capturas PNG del carrusel y (2) MP4 de ≈1,2 s para el Reel A. Entradas en ~/CEINCA-WORKSPACE/RENDERS_ÑAPA/base/. Salidas en ~/CEINCA-WORKSPACE/RENDERS_ÑAPA/{frames,clips,informe}/.
+0) Ejecuta node scripts/doctor.mjs (y npm install si falta). Si falta Node, FFmpeg o Chromium, dímelo y detente.
+1) Efectos HTML (los 25 de effects/): para cada uno parte de examples/<id>.json (haz una COPIA temporal; no edites los ejemplos) y ejecuta, en este orden:
+   a) node scripts/render.mjs <copia.json> --tema marca-soyeduardo-ia --solo-auditoria   (debe pasar)
+   b) node scripts/render.mjs <copia.json> --tema marca-soyeduardo-ia --formato vertical --duracion 1.2 -o clips/<id>.mp4
+   c) node scripts/render.mjs <copia.json> --tema marca-soyeduardo-ia --frame <segundo> -o frames/<id>.png   (elige tú el segundo en que el efecto se entiende mejor y anótalo)
+2) Efectos sobre clip, con base/toma-prueba.mp4 (si no existe, genera uno con npm run assets y avísame): zoom-digital, zoom-corte, zoom-atras, lupa-zoom, foco-spotlight, fragmentos-shatter. Los tres primeros tienen examples/clip-*.json; para lupa-zoom, foco-spotlight y fragmentos-shatter crea el JSON con los parámetros documentados en SKILL.md. Ejecuta node scripts/clip.mjs <json> -o clips/<id>.mp4 y extrae un PNG con ffmpeg del instante más claro.
+3) rompe-marco y corta-pega: usa base/yo-recorte-1.png y base/yo-recorte-2.png como "sujeto". vertigo-simulado: fondo = imagen de la oficina, frente = recorte. muro-videos: clips = toma-prueba.mp4 con distintos "inicio". Si falta algún insumo, usa el de ejemplo y marca "insumo de ejemplo" en el informe.
+4) Legibilidad: de cada MP4 de 1,2 s extrae 3 fotogramas (inicio, medio, final) y di si el efecto se entiende en 1,1 s (sí/no).
+5) Informe en informe/renders.md: efecto | MP4 OK | PNG OK | zonas seguras OK | legible a 1,1 s | comando exacto | segundo del PNG | error literal si falló. No marques OK sin haberlo ejecutado.
+6) Al final: lista de archivos con tamaño total y cuántos efectos pasaron todo (ese es N).
+```
+**Qué obtienes:** `frames/<id>.png` (1080×1920; el carrusel los recorta/escala a 1080×1350 dentro de su marco), `clips/<id>.mp4` (Reel A) e `informe/renders.md` con N. Cuando grabes el Reel A, se repiten los efectos sobre clip con **esa** toma (y así las capturas del carrusel salen con tu cara real).
+
 ### F5 · Carrusel "Construí +20 efectos de video para Claude. Te los regalo." · 8 láminas 1080×1350
 **Assets de personaje [E]** (con tu foto de referencia; elige por parecido):
 ```
