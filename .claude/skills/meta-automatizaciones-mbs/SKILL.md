@@ -3,7 +3,7 @@ name: meta-automatizaciones-mbs
 description: Crear y editar automatizaciones nativas de Meta Business Suite (Bandeja de entrada → Automatizaciones) manejando Chrome. v0.2 cubre solo "Respuesta a comentario" (comentario con palabra clave → DM + respuesta pública). Usar cuando Eduardo pida crear la automatización de una keyword/CTB para Instagram y Facebook, o actualizar su texto.
 ---
 
-# Meta Business Suite — Automatizaciones nativas (v0.2)
+# Meta Business Suite — Automatizaciones nativas (v0.3)
 
 **Estado: BORRADOR v0.2 (22-10-2026). Construida con una sola automatización (GOLEM, @soyeduardo.ia / activo Digital Mentor, creada y editada el 21-10-2026). Eduardo indica que funciona; la prueba con un comentario real desde otra cuenta no está registrada. Lo que dependa de cómo llega el DM real (saltos de línea, carpeta de destino) sigue NO VERIFICADO.**
 
@@ -53,6 +53,24 @@ Alcance v0.1: solo plantilla **Respuesta a comentario**. Se ampliará con: palab
 - Al reabrir un mensaje guardado, el editor muestra una **"{" pegada al chip**: es solo cómo Meta dibuja el campo, no sale en la vista previa. Si aparece una "{" suelta **en la vista previa**, sí es basura: reconstruir el campo.
 - **La Respuesta pública NO tiene botón de personalizar**: va con saludo genérico ("¡Hola!").
 - Las variantes B/C de respuesta pública no caben en la automatización (un solo texto): se usan a mano en la Golden Hour.
+
+## Cambiar de cuenta (activo) — añadido el 27-10-2026
+- **Menú:** pasar el ratón (o un clic) sobre el **avatar de arriba a la izquierda** abre el menú lateral; en él, clic en el selector («Digital Mentor - Apre…», con flecha) abre la lista. Si se hacen dos clics seguidos, el menú se cierra: un clic, captura, y luego el siguiente.
+- **Portafolio:** «CENTRO INTEGRAL DE ESTUDIOS» (`business_id=929779867921268`) con 6 activos. Los dos que importan:
+  | Activo | Tipo | `asset_id` |
+  |---|---|---|
+  | **Digital Mentor - Aprende IA + Claude** (= @soyeduardo.ia) | Facebook + Instagram | `495170807021061` |
+  | **ceinca.mercantil** | solo Instagram | `17841448289605133` |
+- Se elige el activo con el **botón de opción** de la derecha; la URL cambia el `asset_id`. También vale navegar directo con `…/latest/inbox/automated_responses?business_id=…&asset_id=…`.
+- **Límite verificado (27-10-2026): `ceinca.mercantil` es un activo solo de Instagram.** Su Inicio abre bien, pero el menú **no trae «Mensajes»** y la URL de Automatizaciones muestra «Este contenido no está disponible». Es decir, **desde MBS no se puede crear la automatización de comentario → DM de CEINCA** mientras la cuenta no esté vinculada a una Página de Facebook (o se use la automatización de la app de Instagram). Pendiente de decidir con Eduardo.
+
+## Lo aprendido con ÑAPA (27-10-2026, Digital Mentor)
+- Meta acepta como palabra clave **«ñapa»** (4 letras, con ñ) y **«napa»** como etiquetas separadas: se escribió la palabra y se hizo clic en la sugerencia, una por una. El banco de la cuenta pide ≥5 letras y sin ñ: se usó como excepción de Eduardo, con las dos formas para no perder comentarios sin ñ.
+- Con el nombre en el setter nativo + `ÑAPA - …` el título se refleja de inmediato; la lista antepone «Respuesta a comentario - ».
+- Chip del nombre: pegar `👋 ¡Hola! Gracias por comentar ÑAPA, `, insertar el chip con ✨ → «Nombre del destinatario» → Agregar, y pegar el resto empezando por `🎉\n…` **sin espacio inicial** (Meta ya añade uno tras el chip). Salió bien.
+- **Respuesta pública:** Eduardo eligió la **variante B** («✅ Recibida tu ÑAPA. 📩 …») y concuerda el género con la palabra («Recibido tu CHINCHORRO»). Para vaciar el campo: clic → `ctrl+a` → `BackSpace`, y luego el paste sintético con índice 1.
+- Un enlace de Drive en el DM debe estar en «Cualquier persona con el enlace»; se comprobó con `get_file_permissions` antes de pegarlo.
+- Resultado: guardada, **Estado activado** y **Canal con Messenger + Instagram** en la lista (comprobado recargando).
 
 ## Checklist
 1. Palabra aprobada en el banco CTB y textos aprobados (DM + respuesta A).
