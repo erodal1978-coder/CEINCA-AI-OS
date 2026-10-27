@@ -32,7 +32,7 @@ Convenciones: **[E]** = Eduardo · **[CC]** = Claude Code en tu máquina (repo l
 ## 1. Bloqueantes (nada se publica antes de esto)
 1. ~~**[E] Subir el repo local a GitHub**~~ **HECHO (27-10):** todo el trabajo local está en GitHub y las 3 líneas de la skill (Bloque 4, trabajo de AGY y módulo Carrusel/reel-voz) están unidas en la rama `integracion/video-fx-soyeduardo-27-10` (**PR #37**, sin conflictos con `main`). Hasta que el PR se mezcle, F1 en adelante se trabaja sobre esa rama.
 2. **[CC] N verificado** con evidencia de render (F1).
-3. **[E] Probar ÑAPA** con cuenta secundaria; comprobar que el comentario fijado **no** dispara el DM.
+3. **[E] Probar ÑAPA** con cuenta secundaria; comprobar que el comentario fijado **no** dispara el DM. **(Eduardo, 27-10: la prueba de ÑAPA la hace él siempre al subir el reel; no es una tarea pendiente de Claude ni se le da seguimiento.)**
 4. **[CC] Kit público limpio** (cero menciones de marca ajena) y probado en entorno limpio (F2).
 
 ---
@@ -76,7 +76,7 @@ Salida: `Video_Fx_Eduardo_IA.zip` (LEEME + `PROMPT_ADAPTAR_MARCA.md` + `claude-c
 **[E] Meta (antes de publicar)**
 - [ ] Automatización ÑAPA: disparador **"contiene"**; añade también la variante **"napa"** si Meta permite varias palabras (no verificado: confírmalo en tu Business Suite; si no, usa solo "ñapa" y deja el aviso «escribe ÑAPA» en el comentario fijado).
 - [ ] Respuesta pública (A/B/C del §5.1) + DM (§5.1).
-- [ ] Prueba con cuenta secundaria: llega el DM, el enlace abre, y el comentario fijado no dispara nada.
+- [ ] Prueba con cuenta secundaria: llega el DM, el enlace abre, y el comentario fijado no dispara nada. **(Eduardo, 27-10: la prueba de ÑAPA la hace él siempre al subir el reel; no es una tarea pendiente de Claude ni se le da seguimiento.)**
 **Aceptación:** grep de fugas = 0; prueba en entorno limpio OK; DM recibido en cuenta secundaria con el enlace funcionando.
 
 ### F3 · Reel A "+20 efectos hechos por Claude" · ≈30 s
@@ -209,21 +209,22 @@ B: ¡Ñapa en camino! Te escribí por mensaje privado. Si no la ves, revisa soli
 C: Enviada ✅ Cuéntame por mensaje qué video quieres hacer primero.
 ```
 DM automático (≤1.000 caracteres; reemplaza `[ENLACE]` y `[N]` en F2):
+DM automático (≤1.000 caracteres; ajustado al paquete real: `[ENLACE]` = enlace de Drive al zip; los 27 + 7 efectos son los que pasaron render y matriz):
 ```
 ¡Hola! Aquí tienes la ñapa que te prometí 🎁
 
-🔗 Skill de efectos de video para Claude: [ENLACE]
+🔗 Video FX, la skill de efectos de video para Claude: [ENLACE]
 
-Trae [N] efectos, ejemplos listos para correr y una guía para ponerle TU marca.
+Trae 27 efectos de reel + 7 que se aplican a tu propio clip, ejemplos listos y un prompt para ponerle TU marca.
 
 Cómo empezar:
-1️⃣ Descomprime el zip.
-2️⃣ Abre Claude Code en esa carpeta y pídele: «Lee .claude/skills/video-fx/SKILL.md y corre el diagnóstico».
-3️⃣ Para tu marca, pégale el contenido de PROMPT_ADAPTAR_MARCA.md.
+1️⃣ Descomprime el zip y lee LEEME_PRIMERO.md.
+2️⃣ Claude Code: copia claude-code/video-fx a .claude/skills/ y pídele «Lee SKILL.md y corre el diagnóstico».
+3️⃣ claude.ai: sube claude-ai/video-fx.zip como skill.
 
-Necesitas: Claude Code, Node 22 o superior, FFmpeg y Chromium. El diagnóstico te dice qué te falta.
+Necesitas Claude, Node 22+, FFmpeg y Chromium (el diagnóstico te dice qué falta).
 
-Si algo no te corre, respóndeme este mensaje y lo vemos.
+Si algo no te corre, respóndeme este mensaje.
 
 Lo hizo la IA. Lo dirigí yo. — Eduardo
 Sígueme en @soyeduardo.ia para recibir cada herramienta nueva gratis.
