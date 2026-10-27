@@ -331,6 +331,8 @@ node scripts/clip.mjs examples/clip-zoom-corte.json --formato horizontal -o out/
 node scripts/overlay.mjs --base out/clip-yt.mp4 --overlay examples/subtitulos-karaoke.json --formato horizontal --key 0x0B0F17 -o out/final-yt.mp4
 ```
 
+**Limitación verificada (integración 27-10-2026):** 6 efectos HTML **solo funcionan en vertical** y lo declaran con `<meta name="fx-formatos" content="reel">`, así que `--formato horizontal` los rechaza con un mensaje claro: `corta-pega`, `diagrama-nodos` (los nodos se salen del lienzo), `grafica-crece`, `muro-titulares`, `rompe-marco` y `telefono-chat` (en horizontal el texto cae fuera de la zona segura de 80/90 px o los mensajes no caben). Los otros 19 efectos de reel pasan la auditoría en horizontal; los 2 slides (`slide-*`) son solo carrusel/reel. Para llevar uno de los 6 a horizontal hay que rediseñar su layout en `shared/base.css` o en su plantilla y quitar la declaración.
+
 ### 2. Grabador Determinista de Demos Web/App (`scripts/grabar-demo.mjs` · comando `/grabar-demo`)
 Graba cualquier URL o aplicación local a 30 fps reales en Linux, tanto en **vertical (`1080×1920`)** como en **horizontal (`1920×1080`)**:
 ```bash

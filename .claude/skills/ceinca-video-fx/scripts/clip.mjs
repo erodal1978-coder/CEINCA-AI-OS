@@ -320,7 +320,7 @@ function renderPantallaVerde(clipPath, params, meta, outPath, chromaData, outW, 
 
   const args = [
     '-y', '-loglevel', 'error',
-    ...ssArgs, '-i', clipPath, ...tArgs,
+    ...ssArgs, ...tArgs, '-i', clipPath,
     ...bgInputArgs,
     '-filter_complex', fc,
     '-map', '[v]',

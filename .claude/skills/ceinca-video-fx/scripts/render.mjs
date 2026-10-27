@@ -123,7 +123,7 @@ function stage(params, opts) {
   const { W, H, isHoriz } = opts.dims;
   let html = fs.readFileSync(path.join(srcDir, 'index.html'), 'utf8');
   const formatos = (/<meta name="fx-formatos" content="([^"]+)"/.exec(html)?.[1] || 'reel,horizontal').split(',').map((x) => x.trim());
-  if (!formatos.includes(opts.dims.fxKey)) die(2, `el efecto "${efecto}" no soporta formato ${opts.dims.formato} (soporta: ${formatos.join(', ')}). Para carrusel: slide-interfaz, slide-cinetica`);
+  if (!formatos.includes(opts.dims.fxKey)) die(2, `el efecto "${efecto}" no soporta formato ${opts.dims.formato} (soporta: ${formatos.join(', ')})${opts.dims.formato === 'carrusel' ? '. Para carrusel: slide-interfaz, slide-cinetica' : ''}`);
   html = html.replace(/(data-composition-id="root"[^>]*?data-duration=")[^"]*(")/, `$1${opts.duracion}$2`)
     .replace(/(data-composition-id="root"[^>]*?data-width=")[^"]*(")/, `$1${W}$2`)
     .replace(/(data-composition-id="root"[^>]*?data-height=")[^"]*(")/, `$1${H}$2`)
