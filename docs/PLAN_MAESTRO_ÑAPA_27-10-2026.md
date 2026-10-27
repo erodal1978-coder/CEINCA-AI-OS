@@ -21,6 +21,7 @@ Convenciones: **[E]** = Eduardo · **[CC]** = Claude Code en tu máquina (repo l
 |---|---|---|
 | D1 | ¿La skill regalo lleva tu nombre? | Sí, créditos en `LEEME` + tema **neutro** por defecto (sin tu paleta). El kit actual dice "no es producto de Eduardo": hay que cambiar esa frase |
 | D2 | Fuente de voz y cara del Reel A | **Una toma continua grabada por ti** (28 s, con teleprompter). Mejor prueba de esfuerzo cero que 3–4 clips de Flow (8–10 s, cortes visibles) |
+| D2b | Vocero del Reel B | Grabarlo tú (misma sesión que el A). Alternativa: 5 clips de Flow (§4.5) |
 | D3 | Nombre público de la skill | `video-fx` (hoy `ceinca-video-fx`, con "ceinca" en carpeta y frontmatter) |
 | D4 | ¿Qué hace la persona que no tiene Claude Code? | Aclarar en el DM que necesita Claude Code + Node + FFmpeg (ver el DM del §4.1); no prometer "un clic" |
 
@@ -99,17 +100,18 @@ Regla: si un efecto no se entiende en 1,1 s, se sustituye por una reserva. «Pan
 **Aceptación (medir con ffmpeg/ffprobe y mostrar la salida):** 1080×1920 · 30 fps · 24–30 s · subtítulos desde 0 s · CTB ≥ 3,5 s · LUFS −14 ±1 · pico real ≤ −1,0 dBTP · nada de texto clave en zona insegura (250/350 px) · cero asterisco de Claude.
 **Gancho de respaldo** (si la retención a 3 s sale baja): «Esto no lo editó nadie. Lo hizo Claude.»
 
-### F4 · Reel B "Por qué los videos de Claude salen planos" · ≤45 s
+### F4 · Reel B "Por qué los videos de Claude salen planos" · 44 s
+**Fuente del vocero (decide D2b):** (a) **grabarlo tú** en la misma sesión del Reel A, con la misma ropa y luz (≈10 min extra, sin Flow, sin etiqueta de IA) · (b) **5 clips de Flow encadenados**, prompts en §4.5. **Recomendación: (a)**; usa (b) solo si prefieres no grabar. Ojo: en el plan anterior olvidé los prompts de Flow para este reel; ya están en §4.5.
+La voz va partida en 5 bloques que coinciden con los 5 clips de Flow (8–10 s, palabras según `FLOW_SISTEMA` §4.1), así el guion sirve igual si lo grabas tú.
 | t (s) | Pantalla (split-pip: escenario arriba, tú abajo, subtítulos al centro) | Voz |
 |---|---|---|
-| 0–3 | Mismo prompt, dos resultados: izquierda plano · derecha con tu marca | «Mismo prompt. Una versión es plana. Te enseño por qué.» |
-| 3–10 | Menú de 4 pasos (`pasos-progreso`), paso 1 activo, los demás borrosos · `tablero_marca.png` | «Paso uno: elige una referencia visual. Es el punto de partida.» |
-| 10–18 | Menú paso 2 · `consola-macos` escribiendo tu `soyeduardo-ia.json` real (colores y fuentes) | «Paso dos: conviértela en un solo archivo. Colores, tipografías y cómo se mueve todo.» |
-| 18–30 | Menú paso 3 · `barra-prompt`: «hazlo bonito» → plano; «un botón que pasa a un check lima» → resultado · luego `render.mjs --solo-auditoria` en consola | «Paso tres: adjunta ese archivo y pídele un momento concreto, no “hazlo bonito”. Antes de entregarte el video, una auditoría automática revisa zonas seguras y audio.» |
-| 30–37 | Menú paso 4 · edición de `params.json` y render | «Paso cuatro: cambia las palabras en el archivo y exporta el MP4.» |
-| 37–44 | Cierre: tú al centro, píldora lima | «Lo hizo la IA. Lo dirigí yo. Comenta ÑAPA y te regalo la skill con la guía para hacer tu archivo.» |
-Reglas: el A/B del segundo 0 debe ser **real** (mismo prompt, con y sin archivo de marca) y sin retoques; el menú reaparece 3 veces (no 4); ninguna escena pasa de ≈4,5 s; si algún paso no corre así en tu sistema, se cambia el guion, no la demo.
-**Aceptación:** las mismas del Reel A + el A/B reproducible (guarda los dos prompts y salidas).
+| 0–8 | Mismo prompt, dos resultados: izquierda plano · derecha con tu marca → menú de 4 pasos, paso 1 activo, los demás borrosos · `tablero_marca.png` | «Mismo prompt. Una versión es plana. Te enseño por qué. Paso uno: elige una referencia visual.» (16 palabras) |
+| 8–18 | Menú paso 2 · `consola-macos` escribiendo tu `soyeduardo-ia.json` real (colores y fuentes) | «Es el punto de partida. Paso dos: conviértela en un solo archivo. Colores, tipografías y cómo se mueve todo.» (19) |
+| 18–26 | Menú paso 3 · `barra-prompt`: «hazlo bonito» → plano; «un botón que pasa a un check lima» → resultado | «Paso tres: adjunta el archivo y pídele un momento concreto: un botón que pasa a check.» (16) |
+| 26–36 | `render.mjs --solo-auditoria` en consola → menú paso 4 → edición de `params.json` y render | «Antes de entregártelo, una auditoría automática revisa zonas seguras y audio. Paso cuatro: cambia las palabras y exporta.» (18) |
+| 36–44 | Cierre: tú al centro, píldora lima | «Lo hizo la IA. Lo dirigí yo. Comenta ÑAPA y te regalo la skill.» (14) |
+Reglas: el A/B de los primeros segundos debe ser **real** (mismo prompt, con y sin archivo de marca) y sin retoques; el menú reaparece 3 veces (no 4); ninguna escena pasa de ≈4,5 s; si un paso no corre así en tu sistema, se cambia el guion, no la demo.
+**Aceptación:** las mismas del Reel A + el A/B reproducible (guarda los dos prompts y salidas) + si usas Flow: rostro, ropa y voz consistentes en los 5 clips.
 
 ### F5 · Carrusel "Construí +20 efectos de video para Claude. Te los regalo." · 8 láminas 1080×1350
 **Assets de personaje [E]** (con tu foto de referencia; elige por parecido):
@@ -304,6 +306,38 @@ Comentario fijado: el mismo del Reel A.
 - **Botón:** «Descargar la skill» → enlace público de Drive.
 - **Nota:** «Necesitas Claude Code, Node 22+ y FFmpeg.»
 - Mantén un bloque por palabra clave (ÑAPA = este).
+
+### 4.5 Reel B — prompts para Flow (solo si eliges la opción b)
+**Reglas aplicadas** (`PRODUCTION/FLOW_SISTEMA.md`): un párrafo único y autocontenido por clip (§3 r.1, r.9) · sin nombre propio (r.5) · "realista", nunca "hiperrealista" (r.6) · voz especificada en el prompt (r.7) · texto y overlays **en post**, no en Flow (§6) · modo **Fotogramas** en los 5 clips, nunca mezclado con Ingredientes (§13.4) · palabras por duración (§4.1: 8 s = 14–16; 10 s = 17–20) · un microevento cada 2–3 s (§4.2) · cada clip termina en una pose estable que sirve de *start frame* del siguiente (§7.1, §7.3).
+**Flujo:** formato 9:16 · 720p · x1 (x2 solo en el clip 1) · captura el **último fotograma** de cada clip y úsalo como *Inicio* del siguiente · escala a 1080×1920 en post. Costo por clip: míralo en el panel (el documento solo registra 10 puntos por clip de 6 s, 720p, x1).
+**Descripción física del sujeto:** la de `FLOW_SISTEMA` §3 r.8 (lentes aviador rosé/marrón con detalle dorado, cabello corto sal y pimienta, chivera corta canosa). **Confírmala:** viene del avatar de CEINCA; si tu look de @soyeduardo.ia cambió, ajústala en los 5 prompts.
+
+**Fotograma inicial del clip 1** (genéralo con ChatGPT, adjuntando tu foto real; lo apruebas por parecido):
+```
+Usa la foto adjunta como referencia exacta del rostro (no cambies rasgos, edad ni lentes). Plano medio corto de busto de frente, sentado, la cabeza en el tercio superior del encuadre con aire por encima, manos fuera de cuadro, mirada a cámara, expresión segura y cercana con media sonrisa. Fondo liso color tinta #0B0D12. Luz principal suave desde la izquierda y un reflejo de luz color lima #C6FF3D en el borde derecho del rostro y el hombro. Camisa lisa gris grafito. Formato vertical 9:16, estilo fotografía de estudio profesional, sin texto, sin logos.
+```
+**Clip 1 · 8 s · gancho + paso 1 (16 palabras)**
+```
+Formato vertical 9:16, plano medio corto de busto en un estudio oscuro liso color tinta casi negro. El sujeto del fotograma inicial, un hombre venezolano adulto con lentes grandes translúcidos rosé/marrón tipo aviador con detalle dorado, cabello corto sal y pimienta y chivera corta canosa, con camisa lisa gris grafito, mira a cámara con expresión segura y cercana y dice en voz masculina en español latino neutro con acento venezolano, tono cercano y didáctico: «Mismo prompt. Una versión es plana. Te enseño por qué. Paso uno: elige una referencia visual.» Microeventos: a los 2 segundos levanta la mano derecha con la palma abierta como mostrando dos opciones; a los 4 segundos un leve asentimiento mientras la cámara avanza muy despacio; a los 6 segundos levanta un dedo al decir «paso uno». Luz lateral suave desde la izquierda con un reflejo lima en el borde derecho del rostro y el hombro, calidad cinematográfica profesional, realista, profundidad de campo baja. Sin música ni efectos de sonido, solo la voz y un silencio de estudio. Sin texto en pantalla ni logos. Evitar deformaciones faciales, manos con dedos extra, cambios de identidad o de ropa, parpadeos de luz, morphing y movimientos imposibles. Frame final: el sujeto centrado, manos abajo y fuera de cuadro, mirada a cámara, boca cerrada, encuadre idéntico al inicial.
+```
+**Clip 2 · 10 s · paso 2 (19 palabras)** — *Inicio* = último fotograma del clip 1
+```
+Formato vertical 9:16, plano medio corto de busto en un estudio oscuro liso color tinta casi negro. El sujeto del fotograma inicial, un hombre venezolano adulto con lentes grandes translúcidos rosé/marrón tipo aviador con detalle dorado, cabello corto sal y pimienta y chivera corta canosa, con camisa lisa gris grafito, mira a cámara y dice en voz masculina en español latino neutro con acento venezolano, tono cercano y didáctico: «Es el punto de partida. Paso dos: conviértela en un solo archivo. Colores, tipografías y cómo se mueve todo.» Microeventos: a los 2 segundos señala hacia el frente con la palma abierta; a los 4 segundos levanta dos dedos al decir «paso dos»; a los 6 segundos junta las manos formando un rectángulo frente al pecho como un solo archivo; a los 8 segundos abre la mano despacio y la mueve en una onda suave al decir «cómo se mueve todo». Luz lateral suave desde la izquierda con un reflejo lima en el borde derecho del rostro y el hombro, calidad cinematográfica profesional, realista, profundidad de campo baja. Sin música ni efectos de sonido, solo la voz y un silencio de estudio. Sin texto en pantalla ni logos. Evitar deformaciones faciales, manos con dedos extra, cambios de identidad o de ropa, parpadeos de luz, morphing y movimientos imposibles. Frame final: el sujeto centrado, manos abajo y fuera de cuadro, mirada a cámara, boca cerrada, encuadre idéntico al inicial.
+```
+**Clip 3 · 8 s · paso 3 (16 palabras)**
+```
+Formato vertical 9:16, plano medio corto de busto en un estudio oscuro liso color tinta casi negro. El sujeto del fotograma inicial, un hombre venezolano adulto con lentes grandes translúcidos rosé/marrón tipo aviador con detalle dorado, cabello corto sal y pimienta y chivera corta canosa, con camisa lisa gris grafito, mira a cámara y dice en voz masculina en español latino neutro con acento venezolano, tono cercano y didáctico: «Paso tres: adjunta el archivo y pídele un momento concreto: un botón que pasa a check.» Microeventos: a los 1,5 segundos levanta tres dedos; a los 3,5 segundos hace un gesto de adjuntar, como dejando algo en el aire con la mano derecha; a los 6 segundos dibuja un check en el aire con el dedo índice y asiente. Luz lateral suave desde la izquierda con un reflejo lima en el borde derecho del rostro y el hombro, calidad cinematográfica profesional, realista, profundidad de campo baja. Sin música ni efectos de sonido, solo la voz y un silencio de estudio. Sin texto en pantalla ni logos. Evitar deformaciones faciales, manos con dedos extra, cambios de identidad o de ropa, parpadeos de luz, morphing y movimientos imposibles. Frame final: el sujeto centrado, manos abajo y fuera de cuadro, mirada a cámara, boca cerrada, encuadre idéntico al inicial.
+```
+**Clip 4 · 10 s · auditoría + paso 4 (18 palabras)**
+```
+Formato vertical 9:16, plano medio corto de busto en un estudio oscuro liso color tinta casi negro. El sujeto del fotograma inicial, un hombre venezolano adulto con lentes grandes translúcidos rosé/marrón tipo aviador con detalle dorado, cabello corto sal y pimienta y chivera corta canosa, con camisa lisa gris grafito, mira a cámara y dice en voz masculina en español latino neutro con acento venezolano, tono cercano y didáctico: «Antes de entregártelo, una auditoría automática revisa zonas seguras y audio. Paso cuatro: cambia las palabras y exporta.» Microeventos: a los 2 segundos acerca el pulgar y el índice como midiendo algo pequeño; a los 4 segundos asiente con seguridad; a los 6 segundos levanta cuatro dedos al decir «paso cuatro»; a los 8 segundos teclea en el aire con ambas manos y termina con un asentimiento. Luz lateral suave desde la izquierda con un reflejo lima en el borde derecho del rostro y el hombro, calidad cinematográfica profesional, realista, profundidad de campo baja. Sin música ni efectos de sonido, solo la voz y un silencio de estudio. Sin texto en pantalla ni logos. Evitar deformaciones faciales, manos con dedos extra, cambios de identidad o de ropa, parpadeos de luz, morphing y movimientos imposibles. Frame final: el sujeto centrado, manos abajo y fuera de cuadro, mirada a cámara, boca cerrada, encuadre idéntico al inicial.
+```
+**Clip 5 · 8 s · cierre y CTB (14 palabras)**
+```
+Formato vertical 9:16, plano medio corto de busto en un estudio oscuro liso color tinta casi negro. El sujeto del fotograma inicial, un hombre venezolano adulto con lentes grandes translúcidos rosé/marrón tipo aviador con detalle dorado, cabello corto sal y pimienta y chivera corta canosa, con camisa lisa gris grafito, mira a cámara con media sonrisa y dice en voz masculina en español latino neutro con acento venezolano, tono cercano y seguro: «Lo hizo la IA. Lo dirigí yo. Comenta ÑAPA y te regalo la skill.» Microeventos: a los 2 segundos asiente con media sonrisa; a los 3,5 segundos se señala el pecho con el pulgar al decir «lo dirigí yo»; a los 5 segundos señala hacia abajo con el dedo índice, indicando los comentarios; a los 7 segundos sonríe de frente a cámara. Luz lateral suave desde la izquierda con un reflejo lima en el borde derecho del rostro y el hombro, calidad cinematográfica profesional, realista, profundidad de campo baja. Sin música ni efectos de sonido, solo la voz y un silencio de estudio. Sin texto en pantalla ni logos. Evitar deformaciones faciales, manos con dedos extra, cambios de identidad o de ropa, parpadeos de luz, morphing y movimientos imposibles. Frame final: el sujeto centrado, sonriendo a cámara, manos abajo y fuera de cuadro.
+```
+**Validar en el primer resultado:** acento y pronunciación («ÑAPA»), manos sin deformar, rostro igual al fotograma inicial. Si la voz no suena a ti, la alternativa es dejar el video de Flow mudo y poner tu voz grabada encima (el gesto no coincidirá con los labios: no sirve en planos cerrados).
+**Antes de publicar con Flow:** revisa en Instagram y TikTok si exigen etiquetar contenido generado con IA (no lo he verificado aquí); tu cierre «Lo hizo la IA» ya va en esa línea, pero la etiqueta de la plataforma es aparte.
 
 ---
 
