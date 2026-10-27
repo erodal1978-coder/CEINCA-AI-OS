@@ -80,27 +80,9 @@ Antes: lee vendor/gsap/LICENSE.md y dime si permite redistribuir GSAP dentro del
 - [ ] Prueba con cuenta secundaria: llega el DM, el enlace abre, y el comentario fijado no dispara nada.
 **Aceptación:** grep de fugas = 0; prueba en entorno limpio OK; DM recibido en cuenta secundaria con el enlace funcionando.
 
-### F3 · Reel A "+20 efectos hechos por Claude" · 25–29 s
-**Estructura y tiempos** (efecto cada ≈1,1 s; la lista numerada va a la izquierda, ≥34 px):
-| t (s) | Pantalla | Voz |
-|---|---|---|
-| 0,0–1,8 | Título fijo `+20 efectos de video hechos por Claude` + sello lima. Efecto 1 ya corriendo | «Todo esto lo hizo Claude.» |
-| 1,8–24,9 | 21 efectos × 1,1 s; la fila activa de la lista pasa a píldora hueso con texto tinta | Solo el nombre del efecto |
-| 24,9–29,1 | Lista desaparece; tú al centro; píldora lima | «Lo hizo la IA. Lo dirigí yo. Comenta ÑAPA y te regalo la skill.» |
-
-**Orden sugerido (se ajusta a lo que pase F1; alterna "sobre tu cara" y "escena UI" para mantener el ritmo):**
-1 Muro de videos · 2 Zoom digital · 3 Bento · 4 Lupa · 5 Barra de prompt · 6 Foco · 7 Pasos con progreso · 8 Fragmentos · 9 Teléfono con chat · 10 Zoom de corte · 11 Consola · 12 Rompe marco · 13 Diagrama de nodos · 14 Corta y pega · 15 Carrusel blur · 16 Zoom atrás · 17 Gráfica que crece · 18 Vértigo · 19 Subtítulos karaoke · 20 Pantalla verde · 21 Zoom a través. Reservas: Checklist, Órbita, Mundo app, Collage de papel, Cámara continua, Muro de titulares.
-Regla: si un efecto no se entiende en 1,1 s, se sustituye por una reserva. «Pantalla verde» solo si grabas la toma con fondo verde; si no, entra una reserva.
-
-**Producción**
-1. **[E]** Grabar una toma continua diciendo la lista (teleprompter). Mismo atuendo y luz que tu foto de perfil. 1080×1920, 30 fps.
-2. **[CC]** Efectos sobre tu cara: `node scripts/clip.mjs <json> -o out/<id>.mp4` usando `recorte {desde, hasta}` sobre **la misma toma** para cada segmento de 1,1 s.
-3. **[CC]** Escenas UI: `node scripts/render.mjs <json> --tema marca-soyeduardo-ia --formato vertical -o out/<id>.mp4` con `duracion: 1.2`.
-4. **[CC]** Unir en orden, componer la lista lateral (F1.6) y el cierre. Subtítulos desde 0 s con `subtitulos-karaoke` vía `overlay.mjs`.
-5. **[CC]** Audio: tu voz + música de Gemini en cama baja + un SFX corto por cambio (`scripts/audio.mjs`, `scripts/sfx_synth.py`). Voz siempre por encima. Normalizar a −14 LUFS.
-6. **[CC]** Portada del reel (frame legible a 110 px): título + tu cara + sello.
-**Aceptación (medir con ffmpeg/ffprobe y mostrar la salida):** 1080×1920 · 30 fps · 24–30 s · subtítulos desde 0 s · CTB ≥ 3,5 s · LUFS −14 ±1 · pico real ≤ −1,0 dBTP · nada de texto clave en zona insegura (250/350 px) · cero asterisco de Claude.
-**Gancho de respaldo** (si la retención a 3 s sale baja): «Esto no lo editó nadie. Lo hizo Claude.»
+### F3 · Reel A "+20 efectos hechos por Claude" · ≈30 s
+**El guion final, la tabla de tiempos, la pantalla, la grabación, el montaje y las reservas están en `docs/GUION_REEL_A_FINAL_27-10-2026.md`.** Resumen: gancho 0–1,9 s · 21 efectos de 1,1 s (11 sobre ti, 10 de interfaz, alternados) · cierre 25–30 s con «Comenta ÑAPA». Toma continua real de Eduardo (3 tomas, metrónomo a 54 BPM) + 2 fotos recortadas (PNG) para `rompe-marco` y `corta-pega`.
+**Aceptación:** la del §7 del guion (medida con ffmpeg y mostrando la salida).
 
 ### F4 · Reel B "Por qué los videos de Claude salen planos" · 44 s
 **Fuente del vocero (D2b resuelta):** tu **avatar de Flow** (voz y rasgos ya configurados), 5 clips de 8–10 s; prompts en §4.5. Es el contraste con el Reel A: A = tú real, B = tu avatar idéntico a ti.
@@ -112,7 +94,7 @@ La voz va partida en 5 bloques que coinciden con los 5 clips de Flow (8–10 s, 
 | 18–26 | Menú paso 3 · `barra-prompt`: «hazlo bonito» → plano; «un botón que pasa a un check lima» → resultado | «Paso tres: adjunta el archivo y pídele un momento concreto: un botón que pasa a check.» (16) |
 | 26–36 | `render.mjs --solo-auditoria` en consola → menú paso 4 → edición de `params.json` y render | «Antes de entregártelo, una auditoría automática revisa zonas seguras y audio. Paso cuatro: cambia las palabras y exporta.» (18) |
 | 36–44 | Cierre: tú al centro, píldora lima | «Lo hizo la IA. Lo dirigí yo. Comenta ÑAPA y te regalo la skill.» (14) |
-Reglas: **transparencia = autoridad**: pon una etiqueta pequeña «Avatar de IA» en la tarjeta del vocero durante todo el video (es la prueba del poder de la IA y evita que parezca un engaño); el A/B de los primeros segundos debe ser **real** (mismo prompt, con y sin archivo de marca) y sin retoques; el menú reaparece 3 veces (no 4); ninguna escena pasa de ≈4,5 s; si un paso no corre así en tu sistema, se cambia el guion, no la demo.
+Reglas: **transparencia = autoridad** (opcional): una etiqueta pequeña «Avatar de IA» en la tarjeta del vocero refuerza la prueba del poder de la IA; las etiquetas de plataforma las manejas tú (TikTok detecta IA solo; en Instagram la activas); el A/B de los primeros segundos debe ser **real** (mismo prompt, con y sin archivo de marca) y sin retoques; el menú reaparece 3 veces (no 4); ninguna escena pasa de ≈4,5 s; si un paso no corre así en tu sistema, se cambia el guion, no la demo.
 **Aceptación:** las mismas del Reel A + el A/B reproducible (guarda los dos prompts y salidas) + rostro, ropa, fondo y voz consistentes en los 5 clips, y sin chivera.
 
 ### F5 · Carrusel "Construí +20 efectos de video para Claude. Te los regalo." · 8 láminas 1080×1350
@@ -338,7 +320,6 @@ Formato vertical 9:16, plano medio corto de busto, la cabeza en el tercio superi
 ```
 
 **Validar en el primer resultado:** pronunciación de «ÑAPA», manos sin deformar, rostro y voz iguales a tu avatar, **sin chivera**, oficina intacta. Los cambios y créditos de Flow los vigilas tú: no los planifico.
-**Etiqueta de IA:** ponla tú en el video («Avatar de IA») y revisa en Instagram y TikTok si piden además su etiqueta nativa (no lo he verificado aquí).
 **Idea opcional (después):** un reel «¿Cuál soy yo?» con A real y B avatar lado a lado, para reforzar la autoridad.
 
 ---
