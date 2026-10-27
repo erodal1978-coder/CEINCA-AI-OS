@@ -71,7 +71,7 @@
     const zs = P.zonaSegura || {};
     const defTop = isHoriz ? 80 : 250, defBottom = isHoriz ? 90 : 350;
     const top = zs.arriba ?? defTop, bottom = zs.abajo ?? defBottom;
-    const hasTitle = !!P.tituloFijo, hasCounter = !!P.contador;
+    const hasTitle = !!P.tituloFijo, hasCounter = !!P.contador && (typeof P.contador === 'string' || P.contador.n !== undefined); // bento-grid usa `contador` con otra forma ({valores,etiqueta}): no es el contador NN/TT
     if (isHoriz) {
       root.setAttribute('data-formato', 'horizontal');
       root.setAttribute('data-width', '1920');
