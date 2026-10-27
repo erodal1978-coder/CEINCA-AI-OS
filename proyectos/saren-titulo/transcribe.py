@@ -23,7 +23,7 @@ for i, path in enumerate(clips, 1):
     }
     print(f"E{i} text: {res['text'].strip()}")
 
-out_file = '/home/eduardo/CEINCA-AI-OS/proyectos/saren-titulo/salida/transcripcion.json'
+out_file = '/tmp/transcripcion_saren.json'
 with open(out_file, 'w', encoding='utf-8') as f:
     json.dump(results, f, ensure_ascii=False, indent=2)
 
