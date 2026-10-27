@@ -115,7 +115,7 @@ Objetivo: obtener renders de los efectos con el tema marca-soyeduardo-ia para (1
 ```
 **Qué obtienes:** `frames/<id>.png` (1080×1920; el carrusel los recorta/escala a 1080×1350 dentro de su marco), `clips/<id>.mp4` (Reel A) e `informe/renders.md` con N. Cuando grabes el Reel A, se repiten los efectos sobre clip con **esa** toma (y así las capturas del carrusel salen con tu cara real).
 
-### F5 · Carrusel "Construí +20 efectos de video para Claude. Te los regalo." · 8 láminas 1080×1350
+### F5 · Carrusel "Construí +20 efectos de video para Claude. Te los regalo." · 8 láminas 3:4 (1080×1440)
 **Assets de personaje [E]** (con tu foto de referencia; elige por parecido):
 ```
 Usa la foto adjunta como referencia exacta del rostro (no cambies rasgos, edad ni lentes). Haz una caricatura de ilustración a línea, estilo boceto de pizarra, del hombre de la foto, busto y cuerpo completo. Trazo fino color hueso #F3F0E8 sobre fondo tinta #0B0D12, sin relleno de color salvo una pequeña mancha lima #C6FF3D en un solo objeto. Hoja de personaje con tres poses: señalando hacia arriba a la derecha, sosteniendo una tarjeta de video con un icono de play, brazos cruzados con media sonrisa. Proporciones ligeramente exageradas, expresión cercana y segura. Sin texto, sin logos, sin robots.
@@ -125,7 +125,7 @@ Un cursor de texto vertical "▍" color lima #C6FF3D con dos ojos pequeños y br
 ```
 Pide fondo transparente o recórtalo. **El texto nunca lo genera la IA de imagen.**
 
-**Maquetación [CC]:** HTML a 1080×1350 con los tokens de `soyeduardo-ia.json` + captura con Playwright. (Hoy `~/repos/carrusel-export` solo tiene la paleta CEINCA; léelo y decide si se le añade un tema o se maqueta en HTML aparte.) Cada lámina de contenido lleva **una captura real** (`render.mjs --frame <s>`).
+**Maquetación [CC]:** HTML a 1080×1440 (3:4, regla de Eduardo para posts de IG) con los tokens de `soyeduardo-ia.json` + captura con Playwright. (Hoy `~/repos/carrusel-export` solo tiene la paleta CEINCA; léelo y decide si se le añade un tema o se maqueta en HTML aparte.) Cada lámina de contenido lleva **una captura real** (`render.mjs --frame <s>`).
 
 **Copy por lámina** (la lista se ajusta a lo que pase F1; si un efecto no pasa, no aparece):
 1. **Portada:** kicker `LO HIZO LA IA` · «Construí **+20 efectos de video** para Claude. Te los regalo.» · «Desliza → te muestro cada uno funcionando» · caricatura.
@@ -137,7 +137,7 @@ Pide fondo transparente o recórtalo. **El texto nunca lo genera la IA de imagen
 7. **Más herramientas:** Fragmentos — cristal roto que encaja · Pantalla verde — cambia el fondo · Corta y pega — efecto sticker · Subtítulos karaoke — palabra por palabra · **Tu marca en un solo archivo** — colores y tipografías.
 8. **CTA:** «Comenta **ÑAPA** y te mando la skill» · Guarda · Comparte · Comenta · «Lo hizo la IA. Lo dirigí yo.» · @soyeduardo.ia.
 **Reglas de diseño:** fondo Tinta · trazo hueso · lima solo como resaltador (banda lima + texto tinta, contraste 16,4:1) · un elemento lima por lámina · títulos Sora 800 · ≤5 ítems por lámina · texto legible a 360 px de ancho · sin texto de IA de imagen.
-**Aceptación:** 8 PNG 1080×1350; prueba de lectura a 360 px; todas las capturas son renders reales; cero asterisco de Claude.
+**Aceptación:** 8 PNG 1080×1440; prueba de lectura a 360 px; todas las capturas son renders reales; cero asterisco de Claude.
 
 ### F6 · Publicación y medición
 **Orden y cadencia:** Día 0 Reel A → Día 2 Carrusel → Día 4 Reel B. Hora: la de mayor actividad en tus Insights (no tengo dato propio). TikTok: mismo video, caption corto, entrega manual.

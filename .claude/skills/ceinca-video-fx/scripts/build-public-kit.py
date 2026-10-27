@@ -28,7 +28,7 @@ PK = SKILL / 'scripts' / 'public-kit'
 
 # ---------------------------------------------------------------- 1) copia filtrada
 EXCL_DIRS = {'node_modules', 'dist', 'out', '.cache', '.build', 'public-kit', 'frames', 'clips', 'brand', 'clientes'}
-EXCL_FILES = {'package-lock.json', 'build-public-kit.py', 'sync-brand-prod.mjs', 'brand.lock.json',
+EXCL_FILES = {'package-lock.json', 'build-public-kit.py', 'brand.lock.json',
               'ceinca-social.css', 'ceinca-guias.css', 'marca-soyeduardo-ia.css', 'soyeduardo-ia.json',
               'reel-marca-ceinca-social.json', 'gsap.min.js'}  # GSAP se instala con npm (licencia GreenSock): no se redistribuye
 
