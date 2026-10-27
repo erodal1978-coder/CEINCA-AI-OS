@@ -23,5 +23,5 @@
 | Voz y imagen | Voz **e** imagen |
 | Texto y IA | Texto **e** IA (se lee «i-a») |
 
-* **Excepciones (se mantiene «y»):** palabras que empiezan con diptongo «hie-»/«hia-»/«hue-» → «agua y hielo», «hierro y acero»; y cuando la «y» va **al inicio de una pregunta o exclamación** (¿Y interfaz?... se evita reformulando). Antes de «o» → «u» ante sonido /o/ (siete **u** ocho) es la misma lógica y también aplica.
+* **Excepciones (se mantiene «y»):** palabras que empiezan con diptongo «hie-»/«hia-»/«hue-» → «agua y hielo», «hierro y acero»;. Es la misma lógica que «o» → «u» ante sonido /o/ (siete **u** ocho).
 * **Verificación rápida antes de publicar:** buscar en el texto « y i», « y I», « y hi», « o o», « o ho» y corregir cada coincidencia.
