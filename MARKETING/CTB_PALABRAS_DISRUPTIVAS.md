@@ -173,5 +173,6 @@ Las palabras ya usadas o retiradas aparecen tachadas para que no se repitan por 
 2. Comprueba en la tabla 1 que no esté asignada a otro tema.
 3. Al publicar, táchala en la sección 3 y añade su fila en la tabla 1 con el tema.
 4. Sube la versión actualizada a TODAS las ubicaciones: repo, Drive y proyecto de Claude.
+5. **Variantes de mayúsculas (regla de Eduardo, 27-10-2026):** cada palabra se carga con **3 variantes** en el disparador: `PALABRA`, `Palabra` y `palabra`. Ejemplo: `CHINCHORRO`, `Chinchorro`, `chinchorro`. Si la palabra lleva ñ o tilde, se añaden también las mismas 3 sin ella (`ÑAPA`/`Ñapa`/`ñapa` y `NAPA`/`Napa`/`napa`). Meta acepta hasta 10 palabras clave por automatización.
 
 **Nota:** la numeración se corrigió en la v2.0. La v1 saltaba los números 66 y 86 y decía "107 palabras", pero el banco real tiene 105 entradas: hoy quedan 101 disponibles; las usadas están tachadas. Las palabras son las mismas; solo cambió la numeración.

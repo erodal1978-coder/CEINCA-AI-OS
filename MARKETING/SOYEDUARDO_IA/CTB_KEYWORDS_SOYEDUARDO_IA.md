@@ -77,9 +77,12 @@ IA, BOT, CLAUDE, GEMINI, GPT, PROMPT, CHATGPT, TOKEN, PLANO, TORNO, BANCO, CHISP
 - **TikTok:** no hay automatización ni comentario fijado (verificado por Eduardo): la entrega es **manual** por Eduardo y debe estar pendiente de los primeros comentarios al publicar. Cómo llega el recurso (respuesta o DM): **NO VERIFICADO**.
 1. Elige UNA palabra de la sección A (sin tachar) cuyo tipo de recurso encaje con la pieza.
 2. Comprueba en la tabla 1 que no esté asignada a otro tema.
-3. Instagram: crea la automatización en Meta Business Suite **antes** de publicar (ver `SISTEMA_VIRAL.md` §8): trigger "comentario contiene", palabra en minúsculas, todas las publicaciones, y pruébala justo después de publicar. TikTok: entrega manual.
+3. Instagram: crea la automatización en Meta Business Suite **antes** de publicar (ver `SISTEMA_VIRAL.md` §8): trigger "comentario contiene", palabra en **3 variantes de mayúsculas** (`PALABRA`, `Palabra`, `palabra`), todas las publicaciones, y pruébala justo después de publicar. TikTok: entrega manual.
 4. Al publicar, táchala en la sección 5 y registra la fila en la tabla 1.
 5. Sube la versión actualizada a repo + Drive (`CEINCA RESPALDO/Digital mentor`).
+
+**Variantes de mayúsculas (regla de Eduardo, 27-10-2026):** cada palabra se carga con **3 variantes** en el disparador: `PALABRA`, `Palabra` y `palabra`. Ejemplo: `CHINCHORRO`, `Chinchorro`, `chinchorro`. Si la palabra lleva ñ o tilde, se añaden también las mismas 3 sin ella (`ÑAPA`/`Ñapa`/`ñapa` y `NAPA`/`Napa`/`napa`). Meta acepta hasta 10 palabras clave por automatización.
+**Excepción registrada (27-10-2026):** ÑAPA (campaña del carrusel + Reel A + Reel B) incumple las reglas 1 (≥5 letras) y 4 (sin ñ). Se cargó con `ñapa`, `ÑAPA`, `Ñapa`, `napa`, `NAPA` y `Napa`.
 
 ## 7. Texto de los tres activos (adaptado, pendiente de redactar en el manual de copy)
 - **Respuesta pública:** 3 variantes rotadas (cálida / operativa / con gancho), ≤500 caracteres, sin enlace.

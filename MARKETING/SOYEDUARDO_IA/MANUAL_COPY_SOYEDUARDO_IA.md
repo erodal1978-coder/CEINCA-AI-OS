@@ -90,7 +90,7 @@ TEXTOS (largos verificados con el script)
 
 FICHA DE AUTOMATIZACIÓN — INSTAGRAM (Meta Business Suite)
 - Cuenta/página: @soyeduardo.ia
-- Disparador: comentario contiene "[keyword en minúsculas]"
+- Disparador: comentario contiene la keyword en **3 variantes de mayúsculas**: `PALABRA`, `Palabra`, `palabra` (hasta 10 palabras clave por automatización; si lleva ñ o tilde, añade también las variantes sin ella)
 - Aplica a: todas las publicaciones
 - Respuesta pública: rotar A / B / C
 - DM: texto aprobado por Eduardo (fecha de aprobación): 
