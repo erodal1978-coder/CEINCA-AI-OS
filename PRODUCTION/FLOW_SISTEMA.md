@@ -713,3 +713,11 @@ el audio original del sujeto principal continuo y sin cortes:
 - Si la portada usa una foto real como fondo, aplicar un velo (scrim)
   degradado lateral (nunca una franja horizontal de borde recto) para que el
   texto no genere un "cuadro" visible sobre la cara del sujeto.
+
+**Receta validada y aprobada por Eduardo (27-10-2026, portadas de CHINCHORRO y del Reel B de ÑAPA).** Detalle, plantilla y script en `MARKETING/PORTADAS_REEL/`:
+- Lienzo **1080×1920**; texto y cara dentro del cuadro **1080×1080** (y 420–1500).
+- **Fotograma del propio reel** mirando a cámara, **sin gesto de hablar** (revisar varios; el de mitad de frase sale con gestos raros).
+- **Rostro al 85 %, arriba** (coronilla ≈ y 450, barbilla antes de y ≈ 1100) y el **texto debajo de la barbilla**, nunca sobre la cara ni el cuello.
+- **Titular de 2 líneas con interlineado 1,3** (solo el titular), una palabra resaltada en banda de acento (dorado en CEINCA, lima en @soyeduardo.ia).
+- Línea de apoyo corta y un identificador pequeño arriba (logo/etiqueta): excepción aprobada a la regla de «sin tags», siempre pequeños y lejos del titular.
+- Velo vertical degradado desde y ≈ 980; verificar con el recorte 1080×1080.

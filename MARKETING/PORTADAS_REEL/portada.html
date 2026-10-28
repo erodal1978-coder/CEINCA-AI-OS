@@ -1,0 +1,48 @@
+<!doctype html><meta charset=utf-8>
+<!-- Plantilla de portada de reel 1080×1920 (todo el texto dentro del cuadro 1080×1080 del feed: y 420–1500).
+     Parámetros por URL: marca=ceinca|soyeduardo · foto=ruta · l1, l2 = líneas del titular ([[palabra]] = resalte) · sub · tag
+     Uso: node generar.mjs --marca ceinca --foto fotograma.png --l1 "[[Apostilla]]" --l2 "tu título" --sub "..." --tag "..." -o portada.png -->
+<style>
+@font-face{font-family:M;font-weight:800;src:url(../../.claude/skills/ceinca-video-fx/vendor/fonts/manrope-latin-800-normal.woff2)}
+@font-face{font-family:M;font-weight:700;src:url(../../.claude/skills/ceinca-video-fx/vendor/fonts/manrope-latin-700-normal.woff2)}
+@font-face{font-family:S;font-weight:800;src:url(../../.claude/skills/ceinca-video-fx/vendor/fonts/sora-latin-800-normal.woff2)}
+@font-face{font-family:J;font-weight:700;src:url(../../.claude/skills/ceinca-video-fx/vendor/fonts/jetbrains-mono-latin-700-normal.woff2)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1080px;height:1920px;position:relative;overflow:hidden;background:#000}
+#bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(38px) brightness(.55);transform:scale(1.25)}
+/* foto al 85 %, cabeza arriba: coronilla ≈ y 450 y barbilla antes de y 1100 */
+#foto{position:absolute;left:0;top:204px;width:1080px;height:1920px;background-size:1080px 1920px;transform-origin:50% 0;transform:scale(.85);
+ -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 120px),linear-gradient(90deg,transparent 0,#000 90px,#000 990px,transparent 1080px);-webkit-mask-composite:source-in;
+ mask-image:linear-gradient(180deg,transparent 0,#000 120px),linear-gradient(90deg,transparent 0,#000 90px,#000 990px,transparent 1080px);mask-composite:intersect}
+#velo{position:absolute;left:0;top:980px;width:1080px;height:940px}
+#txt{position:absolute;left:64px;right:64px;top:1165px;color:#fff}
+#txt h1{text-transform:uppercase;line-height:1.3}   /* interlineado 1,3 solo en el titular */
+#txt p{margin-top:10px}
+#tag{position:absolute;top:466px}
+#logo{position:absolute;left:56px;top:452px;height:112px}
+mark{padding:0 18px}
+body.ceinca #velo{background:linear-gradient(180deg,rgba(0,0,0,0) 0,rgba(0,0,0,.72) 38%,rgba(0,0,0,.9) 100%)}
+body.ceinca h1{font:800 96px/1.3 M;letter-spacing:-2px}
+body.ceinca mark{background:#C8A951;color:#122A63;border-radius:6px}
+body.ceinca #txt p{font:700 42px/1.2 M}
+body.ceinca #tag{right:56px;top:470px;background:#122A63;color:#C8A951;font:800 30px/1 M;letter-spacing:.08em;padding:14px 22px;border-radius:999px}
+body.soyeduardo{background:#0B0D12}
+body.soyeduardo #velo{background:linear-gradient(180deg,rgba(11,13,18,0) 0,rgba(11,13,18,.8) 38%,rgba(11,13,18,.94) 100%)}
+body.soyeduardo h1{font:800 92px/1.3 S;letter-spacing:-3px;color:#F3F0E8}
+body.soyeduardo mark{background:#C6FF3D;color:#0B0D12;border-radius:10px}
+body.soyeduardo #txt p{font:700 44px/1.2 M;color:#F3F0E8}
+body.soyeduardo #tag{left:56px;font:700 34px/1 J;color:#F3F0E8;letter-spacing:.04em;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+</style>
+<div id=bg></div><div id=foto></div><div id=velo></div>
+<img id=logo src="../../.claude/skills/ceinca-video-fx/vendor/brand/insignia-principal.svg" hidden>
+<div id=tag></div>
+<div id=txt><h1 id=h></h1><p id=sub></p></div>
+<script>
+const q=new URLSearchParams(location.search), marca=q.get('marca')||'ceinca';
+document.body.className=marca;
+const f=q.get('foto'); for(const id of ['bg','foto']) document.getElementById(id).style.backgroundImage=`url(${f})`;
+const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\[\[(.+?)\]\]/g,'<mark>$1</mark>');
+document.getElementById('h').innerHTML=esc(q.get('l1'))+'<br>'+esc(q.get('l2'));
+document.getElementById('sub').textContent=q.get('sub')||'';
+document.getElementById('tag').textContent=q.get('tag')||'';
+</script>
