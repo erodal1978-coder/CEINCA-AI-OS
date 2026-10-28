@@ -3,7 +3,7 @@ name: meta-automatizaciones-mbs
 description: Crear y editar automatizaciones nativas de Meta Business Suite (Bandeja de entrada → Automatizaciones) manejando Chrome. v0.2 cubre solo "Respuesta a comentario" (comentario con palabra clave → DM + respuesta pública). Usar cuando Eduardo pida crear la automatización de una keyword/CTB para Instagram y Facebook, o actualizar su texto.
 ---
 
-# Meta Business Suite — Automatizaciones nativas (v0.2)
+# Meta Business Suite — Automatizaciones nativas (v0.3)
 
 **Estado: BORRADOR v0.2 (22-10-2026). Construida con una sola automatización (GOLEM, @soyeduardo.ia / activo Digital Mentor, creada y editada el 21-10-2026). Eduardo indica que funciona; la prueba con un comentario real desde otra cuenta no está registrada. Lo que dependa de cómo llega el DM real (saltos de línea, carpeta de destino) sigue NO VERIFICADO.**
 
@@ -13,7 +13,8 @@ Alcance v0.1: solo plantilla **Respuesta a comentario**. Se ampliará con: palab
 - Se usa el **automatizador nativo de Meta** (sin ManyChat ni terceros, sin pagos).
 - Toda publicación de IG sale también en **Facebook en paralelo** → la automatización se crea con **Messenger + Instagram marcados**. No desmarcar Messenger "porque solo publicamos en IG".
 - **Candado:** la automatización se crea ANTES de publicar y se prueba justo después con un comentario con la palabra.
-- Una palabra = un recurso (ver `MARKETING/SOYEDUARDO_IA/CTB_KEYWORDS_SOYEDUARDO_IA.md`; palabra en minúsculas, ≥5 letras).
+- Una palabra = un recurso (ver `MARKETING/SOYEDUARDO_IA/CTB_KEYWORDS_SOYEDUARDO_IA.md`; ≥5 letras).
+- **Siempre 3 variantes de mayúsculas por palabra (regla de Eduardo, 27-10-2026):** `PALABRA`, `Palabra`, `palabra` como tres etiquetas separadas (hasta 10 palabras clave). Si la palabra lleva ñ o tilde, añadir también las 3 sin ella. Se escribe cada una y se hace clic en su sugerencia; el orden de las etiquetas da igual.
 - Textos aprobados por Eduardo: no reescribir en el momento. Largos con `verificar_largos.py` (DM ≤1000, respuesta ≤500, contados en UTF-16).
 - Con contraseña/login: pedir a Eduardo. Nunca manejar credenciales. No leer DMs de terceros.
 - Crear la automatización requiere orden explícita de Eduardo para esa palabra (es configuración persistente). Guardar y activar = parte de esa orden; probar con comentario real solo tras publicar.
@@ -54,6 +55,28 @@ Alcance v0.1: solo plantilla **Respuesta a comentario**. Se ampliará con: palab
 - **La Respuesta pública NO tiene botón de personalizar**: va con saludo genérico ("¡Hola!").
 - Las variantes B/C de respuesta pública no caben en la automatización (un solo texto): se usan a mano en la Golden Hour.
 
+## Cambiar de cuenta (activo) — añadido el 27-10-2026
+- **Menú:** pasar el ratón (o un clic) sobre el **avatar de arriba a la izquierda** abre el menú lateral; en él, clic en el selector («Digital Mentor - Apre…», con flecha) abre la lista. Si se hacen dos clics seguidos, el menú se cierra: un clic, captura, y luego el siguiente.
+- **Portafolio:** «CENTRO INTEGRAL DE ESTUDIOS» (`business_id=929779867921268`) con 6 activos. Los dos que importan:
+  | Activo | Tipo | `asset_id` |
+  |---|---|---|
+  | **Digital Mentor - Aprende IA + Claude** (= @soyeduardo.ia) | Facebook + Instagram | `495170807021061` |
+  | **ceinca.mercantil** | solo Instagram | `17841448289605133` |
+- Se elige el activo con el **botón de opción** de la derecha; la URL cambia el `asset_id`. También vale navegar directo con `…/latest/inbox/automated_responses?business_id=…&asset_id=…`.
+- **Trampa (27-10-2026): hay dos activos de Instagram solos, sin Mensajes** (`ceinca.mercantil`, `soyeduardo.ia`): su Inicio abre, pero el menú no trae «Mensajes» y Automatizaciones muestra «Este contenido no está disponible». **No sirven para crear automatizaciones.** Usar siempre el activo combinado Facebook + Instagram.
+- **Activo de CEINCA:** «**Centro Integral de Estudios e Innovación, C.A**» (Facebook + Instagram, `asset_id=104090811923544`, mismo `business_id`). Es el que lleva las ~30 automatizaciones de CEINCA (CHIPICHIPI, GUAYOYO, PISCA, TURPIAL…). En la lista de activos hay que desplazarse hacia abajo para verlo (6 activos).
+- Con ese activo el formulario abre con Messenger + Instagram marcados y el nombre de la cuenta en «Cuando sucede esto».
+
+## Lo aprendido con ÑAPA (27-10-2026, Digital Mentor)
+- Meta acepta como palabra clave **«ñapa»** (4 letras, con ñ) y sus variantes. Palabras cargadas: `ñapa`, `ÑAPA`, `Ñapa`, `napa`, `NAPA`, `Napa` (6 etiquetas). El banco de la cuenta pide ≥5 letras y sin ñ: se usó como excepción de Eduardo, con las formas sin ñ para no perder comentarios.
+- Con el nombre en el setter nativo + `ÑAPA - …` el título se refleja de inmediato; la lista antepone «Respuesta a comentario - ».
+- **Orden del chip (corrección):** antes de pegar el resto del mensaje, hacer clic al final del texto y pulsar `ctrl+End`. Si el campo pierde el foco (p. ej. el primer clic en ✨ solo muestra el tooltip y hay que pulsar dos veces), el paste cae al principio y el mensaje sale desordenado (saludo al final, chip al inicio): borrar todo (clic → `ctrl+a` → `BackSpace`) y reconstruir.
+- Chip del nombre: pegar `👋 ¡Hola! Gracias por comentar ÑAPA, `, insertar el chip con ✨ → «Nombre del destinatario» → Agregar, y pegar el resto empezando por `🎉\n…` **sin espacio inicial** (Meta ya añade uno tras el chip). Salió bien.
+- **Respuesta pública:** Eduardo eligió la **variante B** («✅ Recibida tu ÑAPA. 📩 …») y concuerda el género con la palabra («Recibido tu CHINCHORRO»). Para vaciar el campo: clic → `ctrl+a` → `BackSpace`, y luego el paste sintético con índice 1.
+- Un enlace de Drive en el DM debe estar en «Cualquier persona con el enlace»; se comprobó con `get_file_permissions` antes de pegarlo.
+- Resultado: guardada, **Estado activado** y **Canal con Messenger + Instagram** en la lista (comprobado recargando). Igual con CHINCHORRO en el activo de CEINCA (`CHINCHORRO`, `Chinchorro`, `chinchorro`), que aparece primero en la lista.
+- **Respuesta pública de CEINCA:** variante B del manual CEINCA §4.3 («✅ Recibido tu CHINCHORRO. …») y DM del §4.4 con aclaratoria, pregunta abierta, WhatsApp `+58-4121020180`, `beacons.ai/ceinca` y firma «⚖️ CEINCA | Centro Integral de Estudios e Innovación C.A.». La lista en CEINCA es larga: para localizarla, recargar y mirar arriba, o usar el buscador.
+
 ## Checklist
 1. Palabra aprobada en el banco CTB y textos aprobados (DM + respuesta A).
 2. Crear con la ruta de arriba; Messenger + Instagram; keyword en minúsculas.
@@ -61,7 +84,7 @@ Alcance v0.1: solo plantilla **Respuesta a comentario**. Se ampliará con: palab
 4. Verificar con captura: contadores (DM <1000, respuesta <500), canales y **la vista previa del panel derecho**, que es la prueba antes de publicar (decisión de Eduardo: "avanzar es el lema"; no hace falta comentario de prueba para dar por buena la configuración). La vista previa junta los saltos de línea en un bloque: el texto guardado sí los conserva.
 5. Guardar; recargar la lista; confirmar Estado **activado** y columna Canal con ambos íconos.
 6. Registrar en `CTB_KEYWORDS_SOYEDUARDO_IA.md` (tabla de uso) y en `handoff.md`.
-7. Tras publicar: comentar la palabra desde otra cuenta; verificar DM (nombre, espacio antes de "!") y respuesta pública. Solo entonces subir la skill de v0.1 a v0.2 "verificada".
+7. **Prueba cruzada (Eduardo, 27-10-2026):** la automatización de CEINCA se prueba comentando desde @soyeduardo.ia, y la de @soyeduardo.ia comentando desde @ceinca.mercantil (cada una es «otra cuenta» para la otra). Tras publicar: comentar la palabra desde otra cuenta; verificar DM (nombre, espacio antes de "!") y respuesta pública. Solo entonces subir la skill de v0.1 a v0.2 "verificada".
 
 ## Textos que ya funcionan (reutilizables)
 - Cierre del DM con razón para seguir, honesto: `🔔 Sígueme en @soyeduardo.ia: si no, mis próximos recursos pueden caer en mensajes no deseados.` ("pueden": no está verificado a qué carpeta llega el DM de quien no sigue; "mensajes no deseados" porque la gente no entiende "solicitudes"). No afirmar "no te llegarán".

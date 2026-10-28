@@ -40,6 +40,7 @@ Criterio de selección (juicio editorial, no medición): que sea una **imagen f�
 |---|---|---|
 | GOLEM | Reel 1 (Instagram y TikTok): el prompt exacto del DM (recurso por confirmar) | **Palabra aprobada por Eduardo (21-10-2026).** Sin publicar. Automatización (Messenger + Instagram, nativa MBS, activa, DM con nombre del destinatario): **creada 21-10-2026, SIN PROBAR** (probar justo después de publicar). Ver skill `meta-automatizaciones-mbs`. TikTok: sin automatización, entrega **manual** por Eduardo. |
 | SOLDADURA | Reel 2 «me transformo con IA» (Flow gratis): guía PDF que une Claude (preproducción) + Flow (producción) | **Palabra elegida por Eduardo (22-10-2026).** Video v2 aprobado y guía PDF hecha (22-10, `REEL_2_SOLDADURA/GUIA/`); copies en `FINAL/COPIES_REEL2_SOLDADURA.md`. Guía pública en Drive (`1qiLCM0fiSxzb6wIqPHoZqCpX4xKfdfoO`). Automatización (Messenger + IG, nativa MBS, activa, DM con nombre): **creada 22-10-2026, SIN PROBAR** (probar justo después de publicar). Falta: publicar. Plan: `CEINCA-WORKSPACE/SOY_EDUARDO_IA/REEL_2_SOLDADURA/PLAN_REEL_2.md`. |
+| ÑAPA | Campaña skill «Video FX» (efectos de video para Claude): carrusel + Reel A + Reel B, un solo recurso (zip `Video_Fx_Eduardo_IA.zip`) | **Palabra elegida por Eduardo (campaña ÑAPA, 27-10-2026). EXCEPCIÓN a las reglas 1 (≥5 letras) y 4 (sin ñ).** Automatización creada y activada el 27-10-2026 (Digital Mentor, Messenger + Instagram; 6 palabras: `ñapa`, `ÑAPA`, `Ñapa`, `napa`, `NAPA`, `Napa`). **Prueba pendiente (hoy):** comentar desde @ceinca.mercantil en la publicación de @soyeduardo.ia y comprobar DM (nombre del destinatario, enlace de Drive) y respuesta pública. Registrada antes de publicar. TikTok: sin automatización, entrega manual. |
 
 ## 5. Banco: 29 candidatas (13 utilizables, 16 en reserva) + 12 excluidas
 Puntuaciones **1–10 = criterio editorial** sobre memorabilidad + facilidad de teclear + encaje de marca. No son datos medidos. El filtro de subcadena (reglas 2a/2b) se aplicó contra el diccionario español (86.016 entradas; ver §8); las marcadas "riesgo derivado" cumplen 2b, no 2a. Las tachadas se usarán cuando se asignen.
@@ -77,9 +78,12 @@ IA, BOT, CLAUDE, GEMINI, GPT, PROMPT, CHATGPT, TOKEN, PLANO, TORNO, BANCO, CHISP
 - **TikTok:** no hay automatización ni comentario fijado (verificado por Eduardo): la entrega es **manual** por Eduardo y debe estar pendiente de los primeros comentarios al publicar. Cómo llega el recurso (respuesta o DM): **NO VERIFICADO**.
 1. Elige UNA palabra de la sección A (sin tachar) cuyo tipo de recurso encaje con la pieza.
 2. Comprueba en la tabla 1 que no esté asignada a otro tema.
-3. Instagram: crea la automatización en Meta Business Suite **antes** de publicar (ver `SISTEMA_VIRAL.md` §8): trigger "comentario contiene", palabra en minúsculas, todas las publicaciones, y pruébala justo después de publicar. TikTok: entrega manual.
+3. Instagram: crea la automatización en Meta Business Suite **antes** de publicar (ver `SISTEMA_VIRAL.md` §8): trigger "comentario contiene", palabra en **3 variantes de mayúsculas** (`PALABRA`, `Palabra`, `palabra`), todas las publicaciones, y pruébala justo después de publicar. TikTok: entrega manual.
 4. Al publicar, táchala en la sección 5 y registra la fila en la tabla 1.
 5. Sube la versión actualizada a repo + Drive (`CEINCA RESPALDO/Digital mentor`).
+
+**Variantes de mayúsculas (regla de Eduardo, 27-10-2026):** cada palabra se carga con **3 variantes** en el disparador: `PALABRA`, `Palabra` y `palabra`. Ejemplo: `CHINCHORRO`, `Chinchorro`, `chinchorro`. Si la palabra lleva ñ o tilde, se añaden también las mismas 3 sin ella (`ÑAPA`/`Ñapa`/`ñapa` y `NAPA`/`Napa`/`napa`). Meta acepta hasta 10 palabras clave por automatización.
+**Excepción registrada (27-10-2026):** ÑAPA (campaña del carrusel + Reel A + Reel B) incumple las reglas 1 (≥5 letras) y 4 (sin ñ). Se cargó con `ñapa`, `ÑAPA`, `Ñapa`, `napa`, `NAPA` y `Napa`.
 
 ## 7. Texto de los tres activos (adaptado, pendiente de redactar en el manual de copy)
 - **Respuesta pública:** 3 variantes rotadas (cálida / operativa / con gancho), ≤500 caracteres, sin enlace.
