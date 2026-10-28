@@ -1,5 +1,5 @@
 # CEINCA — Banco de Palabras Disruptivas (CTB)
-**Versión 2.4 · actualizado 08-oct-2026 (con Auditoría Top 10 IG) · ARCHIVO MAESTRO ÚNICO**
+**Versión 2.5 · actualizado 27-10-2026 (CHINCHORRO registrada; variantes de mayúsculas; antes: v2.4, 08-oct, con Auditoría Top 10 IG) · ARCHIVO MAESTRO ÚNICO**
 Este archivo es la única fuente válida. Debe ser idéntico en el repo CEINCA-AI-OS, en Drive, en el proyecto de Claude y en cualquier otra IA. Si alguna copia difiere, manda esta.
 
 ## Reglas
@@ -29,6 +29,7 @@ Este archivo es la única fuente válida. Debe ser idéntico en el repo CEINCA-A
 | PISCA | Evento IA ULA Táchira: foto 16 sep + reel 17 sep (otro ángulo) | 🟢 Activa: mismo tema y mismo recurso |
 | TURPIAL | Taquilla Única La Guaira (carrusel 20 sep) | 🟢 Activa: solo para ese mismo tema |
 | PLATANAZO | Auditor IA de Marca Profesional™ (GEM gratuito): carrusel 18 ago + relanzamiento oct 2026 (otro ángulo) | 🟢 Activa: mismo tema y mismo recurso |
+| CHINCHORRO | Copia certificada legalizada de título universitario, vía a la apostilla (SAREN): reel con avatar + guía PDF v2 (27-10-2026) | 🟢 Activa: solo para ese mismo tema. Automatización creada el 27-10-2026 (activo «Centro Integral de Estudios e Innovación, C.A», Messenger + Instagram; `CHINCHORRO`, `Chinchorro`, `chinchorro`). **Prueba pendiente (hoy):** comentar desde @soyeduardo.ia en la publicación de CEINCA y comprobar que llega el DM con la guía. Sustituye a BURDA para este tema en el reel nuevo (BURDA sigue activa para su recurso anterior). |
 | YENYEN | Uso previo, tema no registrado | 🔴 Retirada: no es venezolanismo verificado |
 | CHICHICUILOTE | Uso previo, tema no registrado | 🔴 Retirada: es mexicanismo |
 
@@ -40,7 +41,7 @@ Motivo: posicionan a CEINCA de un lado del conflicto político frente a una audi
 
 ---
 
-## 3. Banco: 105 entradas (101 disponibles)
+## 3. Banco: 105 entradas (100 disponibles)
 PISCA y TURPIAL se usaron pero no estaban en el banco: quedan en el registro (tabla 1).
 Prioridad de uso: **A–E** son de reconocimiento amplio. **F** se verifica antes de usar. **G–H** son andinismos hiperlocales, así que se confirma el matiz antes de la primera campaña.
 Las palabras ya usadas o retiradas aparecen tachadas para que no se repitan por error.
@@ -68,7 +69,7 @@ Las palabras ya usadas o retiradas aparecen tachadas para que no se repitan por 
 20. JOJOTO
 
 ### B. Objetos y costumbres (nostalgia, curiosidad)
-21. CHINCHORRO
+21. ~~CHINCHORRO~~ (usada: copia certificada legalizada de título, vía a la apostilla)
 22. GUACAL
 23. MACUNDALES
 24. PAPAGAYO
@@ -119,7 +120,7 @@ Las palabras ya usadas o retiradas aparecen tachadas para que no se repitan por 
 65. MANO
 
 ### E. Modismos cortos (pattern-interrupt puro)
-66. ÑAPA
+66. ÑAPA (en uso en la cuenta @soyeduardo.ia, ver su banco; en CEINCA sigue sin asignar)
 67. ~~BURDA~~ (usada: título universitario SAREN)
 68. VAINA
 69. MOLLEJA

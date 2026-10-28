@@ -84,7 +84,7 @@ Alcance v0.1: solo plantilla **Respuesta a comentario**. Se ampliará con: palab
 4. Verificar con captura: contadores (DM <1000, respuesta <500), canales y **la vista previa del panel derecho**, que es la prueba antes de publicar (decisión de Eduardo: "avanzar es el lema"; no hace falta comentario de prueba para dar por buena la configuración). La vista previa junta los saltos de línea en un bloque: el texto guardado sí los conserva.
 5. Guardar; recargar la lista; confirmar Estado **activado** y columna Canal con ambos íconos.
 6. Registrar en `CTB_KEYWORDS_SOYEDUARDO_IA.md` (tabla de uso) y en `handoff.md`.
-7. Tras publicar: comentar la palabra desde otra cuenta; verificar DM (nombre, espacio antes de "!") y respuesta pública. Solo entonces subir la skill de v0.1 a v0.2 "verificada".
+7. **Prueba cruzada (Eduardo, 27-10-2026):** la automatización de CEINCA se prueba comentando desde @soyeduardo.ia, y la de @soyeduardo.ia comentando desde @ceinca.mercantil (cada una es «otra cuenta» para la otra). Tras publicar: comentar la palabra desde otra cuenta; verificar DM (nombre, espacio antes de "!") y respuesta pública. Solo entonces subir la skill de v0.1 a v0.2 "verificada".
 
 ## Textos que ya funcionan (reutilizables)
 - Cierre del DM con razón para seguir, honesto: `🔔 Sígueme en @soyeduardo.ia: si no, mis próximos recursos pueden caer en mensajes no deseados.` ("pueden": no está verificado a qué carpeta llega el DM de quien no sigue; "mensajes no deseados" porque la gente no entiende "solicitudes"). No afirmar "no te llegarán".
